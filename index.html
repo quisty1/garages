@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title id="page-title">
+      Гаражи под ключ — Моковая строительная компания
+    </title>
+    <meta
+      name="description"
+      content="Строим гаражи под ключ: каркасные и из сэндвич-панелей. Проектируем, доставляем материалы, выполняем монтаж."
+    />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f4f7fb" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contact">Перейти к контактам</a>
+
+    <header class="site-header" data-header>
+      <div class="container header-inner">
+        <div class="brand">
+          <a class="brand__link" href="#top" aria-label="На главную">
+            <img
+              class="brand__logo"
+              id="company-logo"
+              src="./assets/logo-placeholder.svg"
+              alt="Логотип компании"
+              width="44"
+              height="44"
+            />
+            <span class="brand__name" id="company-name">СтройГараж</span>
+          </a>
+        </div>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-nav-toggle
+        >
+          <span class="nav-toggle__icon" aria-hidden="true">
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+            <span class="nav-toggle__bar"></span>
+          </span>
+        </button>
+
+        <nav class="nav" id="site-nav" aria-label="Основная навигация" data-nav>
+          <ul class="nav__list">
+            <li><a class="nav__link" href="#services">Услуги</a></li>
+            <li><a class="nav__link" href="#portfolio">Портфолио</a></li>
+            <li><a class="nav__link" href="#process">Этапы</a></li>
+            <li><a class="nav__link" href="#guarantees">Гарантии</a></li>
+            <li><a class="nav__link" href="#faq">FAQ</a></li>
+            <li>
+              <a class="nav__link nav__link--contact" href="#contact">
+                Контакты
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="nav-backdrop" data-nav-backdrop aria-hidden="true" hidden></div>
+
+    <main id="top">
+      <section class="hero" aria-label="Первый экран">
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <div class="pill">Строим гаражи под ключ</div>
+            <h1 class="hero__title" id="hero-title">
+              Гаражи, которые служат десятилетиями
+            </h1>
+            <p class="hero__text" id="hero-text">
+              Проектируем, производим и монтируем гаражи из качественных
+              материалов. Сроки, смета и контроль на каждом этапе — всё
+              прозрачно.
+            </p>
+            <div class="hero__actions">
+              <a class="btn btn--primary" href="#contact" data-cta>
+                Рассчитать стоимость
+              </a>
+              <a class="btn btn--ghost" href="tel:+70000000000" data-phone>
+                Позвонить
+              </a>
+            </div>
+
+            <div class="hero__meta">
+              <div class="meta-card">
+                <div class="meta-card__label">Сроки</div>
+                <div class="meta-card__value">от 14 дней</div>
+              </div>
+              <div class="meta-card">
+                <div class="meta-card__label">География</div>
+                <div class="meta-card__value" id="hero-geo">
+                  Владимирская область
+                </div>
+              </div>
+              <div class="meta-card">
+                <div class="meta-card__label">Гарантия</div>
+                <div class="meta-card__value" id="hero-warranty">3 года</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero-card">
+              <div class="hero-card__img">
+                <img
+                  src="https://placehold.co/760x520/png?text=Гараж+пример"
+                  alt=""
+                  width="760"
+                  height="520"
+                  loading="lazy"
+                />
+              </div>
+              <div class="hero-card__footer">
+                <div class="hero-card__title">Рассчитаем проект за 1 день</div>
+                <div class="hero-card__sub">
+                  Подскажем размер, материалы и комплектацию
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">Услуги</h2>
+            <p class="section__text">
+              Подберём оптимальную конструкцию под ваши задачи: от каркасных
+              решений до гаражей из сэндвич-панелей.
+            </p>
+          </div>
+
+          <div class="cards-grid" data-services></div>
+        </div>
+      </section>
+
+      <section class="section section--muted" id="portfolio">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">Примеры работ</h2>
+          </div>
+
+          <div
+            class="carousel"
+            data-carousel="portfolio"
+            aria-label="Карусель портфолио"
+          >
+            <button
+              class="carousel__btn"
+              type="button"
+              data-carousel-prev
+              aria-label="Предыдущий слайд"
+            >
+              ←
+            </button>
+
+            <div class="carousel__viewport" data-carousel-viewport tabindex="0">
+              <div class="carousel__track" data-carousel-track></div>
+            </div>
+
+            <button
+              class="carousel__btn"
+              type="button"
+              data-carousel-next
+              aria-label="Следующий слайд"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="process">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">Этапы строительства</h2>
+          </div>
+
+          <div class="steps-grid" data-steps></div>
+        </div>
+      </section>
+
+      <section class="section section--muted" id="guarantees">
+        <div class="container">
+          <div class="two-cols">
+            <div>
+              <h2 class="section__title">Гарантии и качество</h2>
+              <p class="section__text">
+                Мы работаем с проверенными материалами и придерживаемся
+                регламентов монтажа. Всё фиксируется в договоре и смете.
+              </p>
+              <ul class="checklist" id="guarantees-list"></ul>
+            </div>
+
+            <div class="side-card">
+              <div class="side-card__top">Смета и договор</div>
+              <div class="side-card__body">
+                <p class="side-card__text">
+                  Подготовим перечень работ и комплектующих до старта
+                  производства.
+                </p>
+                <ul class="side-list">
+                  <li>Проектирование под участок</li>
+                  <li>Согласование комплектации</li>
+                  <li>Контроль качества на монтаже</li>
+                </ul>
+              </div>
+              <div class="side-card__actions">
+                <a class="btn btn--primary" href="#contact">Получить расчёт</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">FAQ</h2>
+            <p class="section__text">
+              Частые вопросы клиентов — с краткими ответами.
+            </p>
+          </div>
+
+          <div class="faq" data-faq></div>
+        </div>
+      </section>
+
+      <section
+        class="section section--contact"
+        id="contact"
+        aria-label="Контакты"
+      >
+        <div class="container">
+          <div class="section__head section__head--contact">
+            <h2 class="section__title">Контакты</h2>
+            <p class="section__text">
+              Позвоните или напишите в мессенджер — ответим и поможем с расчётом
+              (размер, ворота, материалы, адрес).
+            </p>
+          </div>
+
+          <div class="contacts-panel">
+            <div class="contacts-panel__grid">
+              <a
+                class="contact-tile contact-tile--accent"
+                href="tel:+70000000000"
+                id="contact-phone-tile"
+              >
+                <span class="contact-tile__label">Телефон</span>
+                <span class="contact-tile__value" id="contact-phone"
+                  >+7 (000) 000-00-00</span
+                >
+              </a>
+              <a
+                class="contact-tile"
+                href="mailto:info@example.com"
+                id="contact-email-tile"
+              >
+                <span class="contact-tile__label">Email</span>
+                <span class="contact-tile__value" id="contact-email"
+                  >info@example.com</span
+                >
+              </a>
+              <div class="contact-tile contact-tile--static">
+                <span class="contact-tile__label">Время работы</span>
+                <span class="contact-tile__value" id="contact-hours"
+                  >Пн–Сб 9:00–18:00</span
+                >
+              </div>
+            </div>
+
+            <div class="contacts-panel__block">
+              <h3 class="contacts-panel__subtitle">Мессенджеры</h3>
+              <div class="messenger-links" data-messengers></div>
+            </div>
+
+            <div class="contacts-panel__block">
+              <h3 class="contacts-panel__subtitle">Адреса</h3>
+              <ul class="contacts-addresses" data-contact-addresses></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <img
+            class="footer-brand__logo"
+            src="./assets/logo-placeholder.svg"
+            alt="Логотип компании"
+            width="40"
+            height="40"
+          />
+          <div>
+            <div class="footer-brand__name" id="footer-company-name">
+              СтройГараж
+            </div>
+            <div class="footer-brand__sub">Строим гаражи под ключ</div>
+          </div>
+        </div>
+
+        <div class="footer-cols">
+          <div class="footer-col">
+            <div class="footer-col__title">Адреса</div>
+            <ul class="footer-list" id="addresses-list"></ul>
+          </div>
+          <div class="footer-col">
+            <div class="footer-col__title">Контакты</div>
+            <ul class="footer-list">
+              <li>
+                Телефон:
+                <a href="tel:+70000000000" id="footer-phone"
+                  >+7 (000) 000-00-00</a
+                >
+              </li>
+              <li>
+                Email:
+                <a href="mailto:info@example.com" id="footer-email"
+                  >info@example.com</a
+                >
+              </li>
+              <li>
+                Время работы: <span id="footer-hours">Пн–Сб 9:00–18:00</span>
+              </li>
+            </ul>
+            <ul
+              class="footer-list footer-list--messengers"
+              data-footer-messengers
+            ></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container footer-bottom">
+        <div>
+          © <span id="year"></span>
+          <span id="footer-company-name2">СтройГараж</span>. Все права защищены.
+        </div>
+        <div class="footer-bottom__links">
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Контакты</a>
+          <a href="#top">Наверх</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>
