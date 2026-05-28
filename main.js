@@ -2,6 +2,42 @@ const company = {
   name: 'Металл Монтаж 33',
   shortName: 'ММ33',
   tagline: 'Гаражи и навесы из металла под ключ',
+  seo: {
+    siteUrl: 'https://quisty1.github.io/garages',
+    title: 'Металл Монтаж 33 — гаражи и навесы под ключ | Владимирская область',
+    description:
+      'Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление.',
+    keywords:
+      'гаражи под ключ, металлические гаражи, навесы для авто, гаражи из сэндвич-панелей, монтаж гаражей, Владимирская область, гаражи Владимир, гаражи Ковров, гаражи Муром, навесы Александров, металлоконструкции',
+    region: 'RU-VLA',
+    serviceArea: {
+      region: 'Владимирская область',
+      cities: [
+        'Владимир',
+        'Ковров',
+        'Муром',
+        'Александров',
+        'Гусь-Хрустальный',
+        'Киржач',
+        'Кольчугино',
+        'Вязники',
+        'Радужный',
+        'Собинка',
+        'Меленки',
+        'Петушки',
+        'Камешково',
+        'Юрьев-Польский',
+        'Суздаль',
+        'Гороховец',
+        'Лакинск',
+        'Струнино',
+        'Покров',
+        'Костерёво',
+        'Судогда',
+      ],
+    },
+    ogImage: './assets/logo-mm33.png',
+  },
   phones: [
     { label: 'Алексей', value: '8 (904) 254-36-74', href: 'tel:+79042543674' },
     { label: 'Евгений', value: '8 (920) 343-47-27', href: 'tel:+79203434727' },
@@ -123,7 +159,9 @@ const ICON_LIGHT =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
 
 function getSystemTheme() {
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  return window.matchMedia('(prefers-color-scheme: light)').matches
+    ? 'light'
+    : 'dark';
 }
 
 function getActiveTheme() {
@@ -140,7 +178,10 @@ function applyTheme(theme) {
   const btn = document.querySelector('[data-theme-toggle]');
   if (btn) {
     btn.innerHTML = theme === 'dark' ? ICON_DARK : ICON_LIGHT;
-    btn.setAttribute('aria-label', theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему');
+    btn.setAttribute(
+      'aria-label',
+      theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему',
+    );
   }
 }
 
@@ -151,17 +192,20 @@ function initTheme() {
   if (!btn) return;
 
   btn.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme') || getSystemTheme();
+    const current =
+      document.documentElement.getAttribute('data-theme') || getSystemTheme();
     const next = current === 'dark' ? 'light' : 'dark';
     localStorage.setItem(THEME_KEY, next);
     applyTheme(next);
   });
 
-  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
-    if (!localStorage.getItem(THEME_KEY)) {
-      applyTheme(getSystemTheme());
-    }
-  });
+  window
+    .matchMedia('(prefers-color-scheme: light)')
+    .addEventListener('change', () => {
+      if (!localStorage.getItem(THEME_KEY)) {
+        applyTheme(getSystemTheme());
+      }
+    });
 }
 
 /* ── Helpers ─────────────────────────────────────────── */
@@ -180,7 +224,10 @@ function escapeHtml(str) {
 }
 
 function renderText() {
-  $('page-title').textContent = `${company.name} — гаражи и навесы под ключ`;
+  const seoTitle =
+    company.seo?.title || `${company.name} — гаражи и навесы под ключ`;
+  $('page-title').textContent = seoTitle;
+  document.title = seoTitle;
   $('company-name').textContent = company.name;
   $('footer-company-name').textContent = company.name;
   $('footer-company-name2').textContent = company.name;
@@ -206,6 +253,170 @@ function renderText() {
   if (hoursEl) hoursEl.textContent = company.hours;
   $('footer-hours').textContent = company.hours;
   $('year').textContent = new Date().getFullYear();
+}
+
+function getSiteUrl() {
+  const configured = company.seo?.siteUrl?.replace(/\/$/, '');
+  if (configured) return configured;
+  if (window.location.protocol.startsWith('http')) {
+    const path = window.location.pathname
+      .replace(/\/index\.html?$/i, '')
+      .replace(/\/$/, '');
+    return window.location.origin + path;
+  }
+  return '';
+}
+
+function absUrl(path) {
+  const base = getSiteUrl();
+  if (!base) return path;
+  const clean = path.replace(/^\.\//, '');
+  return `${base}/${clean}`;
+}
+
+function setMeta(name, content, attr = 'name') {
+  if (!content) return;
+  let el = document.querySelector(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
+function buildAreaServedJsonLd() {
+  const area = company.seo?.serviceArea;
+  if (!area) return [];
+
+  const regionPlace = {
+    '@type': 'AdministrativeArea',
+    name: area.region,
+  };
+
+  return [
+    regionPlace,
+    ...area.cities.map((city) => ({
+      '@type': 'City',
+      name: city,
+      containedInPlace: regionPlace,
+    })),
+  ];
+}
+
+function renderSEO() {
+  const seo = company.seo;
+  if (!seo) return;
+
+  const siteUrl = getSiteUrl();
+  const pageUrl = siteUrl ? `${siteUrl}/` : '';
+  const description = seo.description;
+  const ogImage = absUrl(seo.ogImage || './assets/logo-mm33.png');
+  const placename = seo.serviceArea
+    ? `${seo.serviceArea.region} (${seo.serviceArea.cities.slice(0, 5).join(', ')} и др.)`
+    : 'Владимирская область';
+
+  setMeta('description', description);
+  setMeta('keywords', seo.keywords);
+  setMeta('robots', 'index, follow, max-image-preview:large');
+  setMeta('author', company.name);
+  setMeta('geo.region', seo.region);
+  setMeta('geo.placename', placename);
+
+  setMeta('og:type', 'website', 'property');
+  setMeta('og:site_name', company.name, 'property');
+  setMeta('og:title', seo.title, 'property');
+  setMeta('og:description', description, 'property');
+  setMeta('og:locale', 'ru_RU', 'property');
+  setMeta('og:image', ogImage, 'property');
+  setMeta('og:image:alt', `${company.name} — логотип`, 'property');
+  if (pageUrl) {
+    setMeta('og:url', pageUrl, 'property');
+    const canonical = document.getElementById('canonical-link');
+    if (canonical) canonical.href = pageUrl;
+  }
+
+  setMeta('twitter:card', 'summary_large_image');
+  setMeta('twitter:title', seo.title);
+  setMeta('twitter:description', description);
+  setMeta('twitter:image', ogImage);
+
+  renderJsonLd(siteUrl, pageUrl, ogImage);
+}
+
+function renderJsonLd(siteUrl, pageUrl, ogImage) {
+  const host = document.getElementById('json-ld');
+  if (!host) return;
+
+  const phones = company.phones.map((p) => p.href.replace('tel:', ''));
+
+  const localBusiness = {
+    '@context': 'https://schema.org',
+    '@type': 'HomeAndConstructionBusiness',
+    name: company.name,
+    description: company.seo.description,
+    slogan: company.tagline,
+    image: ogImage,
+    email: company.email,
+    telephone: phones,
+    areaServed: buildAreaServedJsonLd(),
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+          'Sunday',
+        ],
+        opens: '08:00',
+        closes: '18:00',
+      },
+    ],
+    knowsAbout: [
+      'Металлические гаражи',
+      'Навесы для автомобилей',
+      'Сэндвич-панели',
+      'Монтаж металлоконструкций',
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Гаражи и навесы',
+      itemListElement: company.garages.map((g, i) => ({
+        '@type': 'Offer',
+        position: i + 1,
+        itemOffered: {
+          '@type': 'Product',
+          name: g.title,
+          description: g.meta,
+          image: g.img,
+        },
+      })),
+    },
+  };
+
+  if (pageUrl) {
+    localBusiness.url = pageUrl;
+    localBusiness['@id'] = `${pageUrl}#organization`;
+  }
+
+  const webSite = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: company.name,
+    description: company.seo.description,
+    inLanguage: 'ru-RU',
+  };
+
+  if (pageUrl) {
+    webSite.url = pageUrl;
+    webSite.publisher = { '@id': `${pageUrl}#organization` };
+  }
+
+  host.textContent = JSON.stringify([localBusiness, webSite]);
 }
 
 function renderPhones() {
@@ -368,8 +579,8 @@ function renderMessengers() {
           <a href="${escapeHtml(
             m.href,
           )}" target="_blank" rel="noopener noreferrer">${escapeHtml(
-          m.label,
-        )}</a>
+            m.label,
+          )}</a>
         </li>
       `,
       )
@@ -433,6 +644,7 @@ function initCarousel(name) {
 function init() {
   initTheme();
   renderText();
+  renderSEO();
   renderPhones();
   renderServices();
   renderExtras();
