@@ -1,19 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light" />
-    <title id="page-title">
-      Гаражи под ключ — Моковая строительная компания
-    </title>
+    <meta name="color-scheme" content="dark light" />
+    <title id="page-title">Металл Монтаж 33 — гаражи и навесы под ключ</title>
     <meta
       name="description"
-      content="Строим гаражи под ключ: каркасные и из сэндвич-панелей. Проектируем, доставляем материалы, выполняем монтаж."
+      content="Металл Монтаж 33: гаражи и навесы из металла и сэндвич-панелей. Сварочное соединение, любые размеры по чертежам, секционные ворота, утепление."
     />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#f4f7fb" />
+    <meta name="theme-color" content="#0f0f0f" />
     <link rel="stylesheet" href="./styles.css" />
+    <script>
+      (function () {
+        var saved = localStorage.getItem('mm33-theme');
+        var theme =
+          saved ||
+          (window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#contact">Перейти к контактам</a>
@@ -25,14 +34,21 @@
             <img
               class="brand__logo"
               id="company-logo"
-              src="./assets/logo-placeholder.svg"
-              alt="Логотип компании"
-              width="44"
-              height="44"
+              src="./assets/logo-mm33.png"
+              alt="Логотип Металл Монтаж 33"
+              width="48"
+              height="48"
             />
-            <span class="brand__name" id="company-name">СтройГараж</span>
+            <span class="brand__name" id="company-name">Металл Монтаж 33</span>
           </a>
         </div>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Переключить тему"
+          data-theme-toggle
+        ></button>
 
         <button
           class="nav-toggle"
@@ -51,11 +67,11 @@
 
         <nav class="nav" id="site-nav" aria-label="Основная навигация" data-nav>
           <ul class="nav__list">
+            <li><a class="nav__link" href="#garages">Гаражи</a></li>
+            <li><a class="nav__link" href="#canopies">Навесы</a></li>
+            <li><a class="nav__link" href="#roofs">Кровля</a></li>
             <li><a class="nav__link" href="#services">Услуги</a></li>
-            <li><a class="nav__link" href="#portfolio">Портфолио</a></li>
-            <li><a class="nav__link" href="#process">Этапы</a></li>
-            <li><a class="nav__link" href="#guarantees">Гарантии</a></li>
-            <li><a class="nav__link" href="#faq">FAQ</a></li>
+            <li><a class="nav__link" href="#extras">Доп. услуги</a></li>
             <li>
               <a class="nav__link nav__link--contact" href="#contact">
                 Контакты
@@ -71,28 +87,27 @@
       <section class="hero" aria-label="Первый экран">
         <div class="container hero__inner">
           <div class="hero__content">
-            <div class="pill">Строим гаражи под ключ</div>
+            <div class="pill">Металл Монтаж 33 · сварочное соединение</div>
             <h1 class="hero__title" id="hero-title">
-              Гаражи, которые служат десятилетиями
+              Металлические гаражи и навесы под ключ
             </h1>
             <p class="hero__text" id="hero-text">
-              Проектируем, производим и монтируем гаражи из качественных
-              материалов. Сроки, смета и контроль на каждом этапе — всё
-              прозрачно.
+              Производим и монтируем гаражи и навесы из сэндвич-панелей и
+              металлокаркаса.
             </p>
             <div class="hero__actions">
               <a class="btn btn--primary" href="#contact" data-cta>
                 Рассчитать стоимость
               </a>
-              <a class="btn btn--ghost" href="tel:+70000000000" data-phone>
+              <a class="btn btn--ghost" href="tel:+79042543674" data-phone>
                 Позвонить
               </a>
             </div>
 
             <div class="hero__meta">
               <div class="meta-card">
-                <div class="meta-card__label">Сроки</div>
-                <div class="meta-card__value">от 14 дней</div>
+                <div class="meta-card__label">Размеры</div>
+                <div class="meta-card__value">по чертежам</div>
               </div>
               <div class="meta-card">
                 <div class="meta-card__label">География</div>
@@ -102,7 +117,9 @@
               </div>
               <div class="meta-card">
                 <div class="meta-card__label">Гарантия</div>
-                <div class="meta-card__value" id="hero-warranty">3 года</div>
+                <div class="meta-card__value" id="hero-warranty">
+                  Гарантия качества
+                </div>
               </div>
             </div>
           </div>
@@ -111,7 +128,7 @@
             <div class="hero-card">
               <div class="hero-card__img">
                 <img
-                  src="https://placehold.co/760x520/png?text=Гараж+пример"
+                  src="./assets/logo-mm33.png"
                   alt=""
                   width="760"
                   height="520"
@@ -119,9 +136,11 @@
                 />
               </div>
               <div class="hero-card__footer">
-                <div class="hero-card__title">Рассчитаем проект за 1 день</div>
+                <div class="hero-card__title">
+                  Рассчитаем проект под ваш участок
+                </div>
                 <div class="hero-card__sub">
-                  Подскажем размер, материалы и комплектацию
+                  Размер, кровля, ворота, утепление — на выбор
                 </div>
               </div>
             </div>
@@ -129,30 +148,20 @@
         </div>
       </section>
 
-      <section class="section" id="services">
+      <section class="section" id="garages">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Услуги</h2>
+            <h2 class="section__title">Гаражи</h2>
             <p class="section__text">
-              Подберём оптимальную конструкцию под ваши задачи: от каркасных
-              решений до гаражей из сэндвич-панелей.
+              Четыре популярных размера. Любой проект адаптируем под ваш
+              участок.
             </p>
-          </div>
-
-          <div class="cards-grid" data-services></div>
-        </div>
-      </section>
-
-      <section class="section section--muted" id="portfolio">
-        <div class="container">
-          <div class="section__head">
-            <h2 class="section__title">Примеры работ</h2>
           </div>
 
           <div
             class="carousel"
-            data-carousel="portfolio"
-            aria-label="Карусель портфолио"
+            data-carousel="garages"
+            aria-label="Карусель гаражей"
           >
             <button
               class="carousel__btn"
@@ -179,39 +188,81 @@
         </div>
       </section>
 
-      <section class="section" id="process">
+      <section class="section section--muted" id="canopies">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Этапы строительства</h2>
+            <h2 class="section__title">Навесы</h2>
+            <p class="section__text">
+              Металлические навесы для авто, дома и хозяйственных нужд.
+            </p>
           </div>
 
-          <div class="steps-grid" data-steps></div>
+          <div
+            class="carousel"
+            data-carousel="canopies"
+            aria-label="Карусель навесов"
+          >
+            <button
+              class="carousel__btn"
+              type="button"
+              data-carousel-prev
+              aria-label="Предыдущий слайд"
+            >
+              ←
+            </button>
+
+            <div class="carousel__viewport" data-carousel-viewport tabindex="0">
+              <div class="carousel__track" data-carousel-track></div>
+            </div>
+
+            <button
+              class="carousel__btn"
+              type="button"
+              data-carousel-next
+              aria-label="Следующий слайд"
+            >
+              →
+            </button>
+          </div>
         </div>
       </section>
 
-      <section class="section section--muted" id="guarantees">
+      <section class="section" id="roofs">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">Тип кровли</h2>
+            <p class="section__text">
+              Подберём оптимальный тип кровли под планировку участка и задачи.
+            </p>
+          </div>
+
+          <div class="roofs-grid" data-roofs></div>
+        </div>
+      </section>
+
+      <section class="section section--muted" id="services">
         <div class="container">
           <div class="two-cols">
             <div>
-              <h2 class="section__title">Гарантии и качество</h2>
+              <h2 class="section__title">Услуги</h2>
               <p class="section__text">
-                Мы работаем с проверенными материалами и придерживаемся
-                регламентов монтажа. Всё фиксируется в договоре и смете.
+                Полный цикл: от чертежа до монтажа на вашем участке.
               </p>
-              <ul class="checklist" id="guarantees-list"></ul>
+              <ul class="checklist" data-services></ul>
             </div>
 
             <div class="side-card">
-              <div class="side-card__top">Смета и договор</div>
+              <div class="side-card__top">Индивидуальный проект</div>
               <div class="side-card__body">
                 <p class="side-card__text">
-                  Подготовим перечень работ и комплектующих до старта
-                  производства.
+                  Мы можем изменить любую деталь проекта согласно Вашим
+                  пожеланиям: размер, форма, цвет, дополнительные опции.
                 </p>
                 <ul class="side-list">
-                  <li>Проектирование под участок</li>
-                  <li>Согласование комплектации</li>
-                  <li>Контроль качества на монтаже</li>
+                  <li>Размеры по вашим чертежам</li>
+                  <li>Любое количество машино-мест</li>
+                  <li>Толщина панелей 50–250 мм</li>
+                  <li>Утеплитель: мин. вата или пенопласт</li>
                 </ul>
               </div>
               <div class="side-card__actions">
@@ -222,16 +273,16 @@
         </div>
       </section>
 
-      <section class="section" id="faq">
+      <section class="section" id="extras">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">FAQ</h2>
+            <h2 class="section__title">Дополнительные услуги</h2>
             <p class="section__text">
-              Частые вопросы клиентов — с краткими ответами.
+              Доукомплектуем гараж и навес функциональными опциями.
             </p>
           </div>
 
-          <div class="faq" data-faq></div>
+          <div class="cards-grid cards-grid--3" data-extras></div>
         </div>
       </section>
 
@@ -244,37 +295,29 @@
           <div class="section__head section__head--contact">
             <h2 class="section__title">Контакты</h2>
             <p class="section__text">
-              Позвоните или напишите в мессенджер — ответим и поможем с расчётом
-              (размер, ворота, материалы, адрес).
+              Позвоните или напишите — ответим и поможем с расчётом (размер,
+              ворота, материалы, адрес).
             </p>
           </div>
 
           <div class="contacts-panel">
-            <div class="contacts-panel__grid">
-              <a
-                class="contact-tile contact-tile--accent"
-                href="tel:+70000000000"
-                id="contact-phone-tile"
-              >
-                <span class="contact-tile__label">Телефон</span>
-                <span class="contact-tile__value" id="contact-phone"
-                  >+7 (000) 000-00-00</span
-                >
-              </a>
+            <div class="contacts-panel__grid" data-phones></div>
+
+            <div class="contacts-panel__grid contacts-panel__grid--2">
               <a
                 class="contact-tile"
-                href="mailto:info@example.com"
+                href="mailto:MetallMontage33@yandex.ru"
                 id="contact-email-tile"
               >
                 <span class="contact-tile__label">Email</span>
                 <span class="contact-tile__value" id="contact-email"
-                  >info@example.com</span
+                  >MetallMontage33@yandex.ru</span
                 >
               </a>
               <div class="contact-tile contact-tile--static">
                 <span class="contact-tile__label">Время работы</span>
                 <span class="contact-tile__value" id="contact-hours"
-                  >Пн–Сб 9:00–18:00</span
+                  >Ежедневно 8:00–18:00</span
                 >
               </div>
             </div>
@@ -282,11 +325,6 @@
             <div class="contacts-panel__block">
               <h3 class="contacts-panel__subtitle">Мессенджеры</h3>
               <div class="messenger-links" data-messengers></div>
-            </div>
-
-            <div class="contacts-panel__block">
-              <h3 class="contacts-panel__subtitle">Адреса</h3>
-              <ul class="contacts-addresses" data-contact-addresses></ul>
             </div>
           </div>
         </div>
@@ -298,41 +336,36 @@
         <div class="footer-brand">
           <img
             class="footer-brand__logo"
-            src="./assets/logo-placeholder.svg"
-            alt="Логотип компании"
-            width="40"
-            height="40"
+            src="./assets/logo-mm33.png"
+            alt="Логотип Металл Монтаж 33"
+            width="44"
+            height="44"
           />
           <div>
             <div class="footer-brand__name" id="footer-company-name">
-              СтройГараж
+              Металл Монтаж 33
             </div>
-            <div class="footer-brand__sub">Строим гаражи под ключ</div>
+            <div class="footer-brand__sub">Гаражи и навесы под ключ</div>
           </div>
         </div>
 
         <div class="footer-cols">
           <div class="footer-col">
-            <div class="footer-col__title">Адреса</div>
-            <ul class="footer-list" id="addresses-list"></ul>
+            <div class="footer-col__title">Телефоны</div>
+            <ul class="footer-list" data-footer-phones></ul>
           </div>
           <div class="footer-col">
             <div class="footer-col__title">Контакты</div>
             <ul class="footer-list">
               <li>
-                Телефон:
-                <a href="tel:+70000000000" id="footer-phone"
-                  >+7 (000) 000-00-00</a
-                >
-              </li>
-              <li>
                 Email:
-                <a href="mailto:info@example.com" id="footer-email"
-                  >info@example.com</a
+                <a href="mailto:MetallMontage33@yandex.ru" id="footer-email"
+                  >MetallMontage33@yandex.ru</a
                 >
               </li>
               <li>
-                Время работы: <span id="footer-hours">Пн–Сб 9:00–18:00</span>
+                Время работы:
+                <span id="footer-hours">Ежедневно 8:00–18:00</span>
               </li>
             </ul>
             <ul
@@ -346,10 +379,15 @@
       <div class="container footer-bottom">
         <div>
           © <span id="year"></span>
-          <span id="footer-company-name2">СтройГараж</span>. Все права защищены.
+          <span id="footer-company-name2">Металл Монтаж 33</span>. Все права
+          защищены.
         </div>
         <div class="footer-bottom__links">
-          <a href="#faq">FAQ</a>
+          <a href="#garages">Гаражи</a>
+          <a href="#canopies">Навесы</a>
+          <a href="#roofs">Кровля</a>
+          <a href="#services">Услуги</a>
+          <a href="#extras">Доп. услуги</a>
           <a href="#contact">Контакты</a>
           <a href="#top">Наверх</a>
         </div>

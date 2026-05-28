@@ -1,138 +1,170 @@
 const company = {
-  name: 'СтройГараж',
-  phone: '+7 (000) 000-00-00',
-  phoneHref: 'tel:+70000000000',
-  email: 'info@example.com',
-  addressMain: 'г. Москва, ул. Примерная, 1',
-  hours: 'Пн–Сб 9:00–18:00',
+  name: 'Металл Монтаж 33',
+  shortName: 'ММ33',
+  tagline: 'Гаражи и навесы из металла под ключ',
+  phones: [
+    { label: 'Алексей', value: '8 (904) 254-36-74', href: 'tel:+79042543674' },
+    { label: 'Евгений', value: '8 (920) 343-47-27', href: 'tel:+79203434727' },
+  ],
+  email: 'MetallMontage33@yandex.ru',
+  hours: 'Ежедневно 8:00–18:00',
   messengers: [
-    {
-      id: 'telegram',
-      label: 'Telegram',
-      href: 'https://t.me/example',
-      hint: '@example',
-    },
-    {
-      id: 'whatsapp',
-      label: 'WhatsApp',
-      href: 'https://wa.me/70000000000',
-      hint: 'Написать в WhatsApp',
-    },
     {
       id: 'max',
       label: 'MAX',
-      href: 'https://max.ru/example',
+      href: 'https://max.ru/u/f9LHodD0cOIq2YDVCLrWTqtmxuz0snFv2pGd3TIadt7A0CoRYGP8OpgDZPc',
       hint: 'Написать в MAX',
     },
   ],
-  yearStart: 2020,
   hero: {
-    title: 'Гаражи, которые служат десятилетиями',
-    text: 'Проектируем, производим и монтируем гаражи из качественных материалов. Сроки, смета и контроль на каждом этапе — всё прозрачно.',
+    title: 'Металлические гаражи и навесы под ключ',
+    text: 'Производим и монтируем гаражи и навесы из сэндвич-панелей и металлокаркаса. Сварочное соединение, любые размеры по вашим чертежам.',
     geo: 'Владимирская область',
-    warranty: '3 года',
+    warranty: 'Гарантия качества',
   },
-  addresses: [
-    'г. Москва, ул. Примерная, 1 (производство)',
-    'г. Москва, ул. Доставка, 10 (склад и отгрузка)',
-    'МО, г. Химки, ул. Пробная, 5 (выездная бригада)',
-  ],
-  guarantees: [
-    'Гарантия на монтажные работы — 3 года',
-    'Подбор материалов под климат и нагрузки',
-    'Согласование сметы и комплектации до начала работ',
-    'Контроль качества на этапе монтажа',
-  ],
-  services: [
-    {
-      icon: '1',
-      title: 'Каркасные гаражи',
-      text: 'Рациональная конструкция: быстрый монтаж и хорошие теплоизоляционные решения.',
-    },
-    {
-      icon: '2',
-      title: 'Гаражи из сэндвич-панелей',
-      text: 'Герметичная стеновая система для комфортной температуры внутри.',
-    },
-    {
-      icon: '3',
-      title: 'Кровля и ворота',
-      text: 'Подбираем тип ворот, утепление и покрытие кровли под вашу задачу.',
-    },
-    {
-      icon: '4',
-      title: 'Монтаж под ключ',
-      text: 'Организуем доставку, сборку, крепление и финальную сдачу объекта.',
-    },
-  ],
-  steps: [
-    {
-      title: 'Заявка и консультация',
-      text: 'Уточняем размер, ворота и адрес. Помогаем подобрать оптимальную комплектацию.',
-    },
-    {
-      title: 'Расчёт и смета',
-      text: 'Делаем предварительный расчёт и фиксируем перечень работ в смете.',
-    },
-    {
-      title: 'Производство и доставка',
-      text: 'Изготавливаем элементы конструкции и планируем логистику до площадки.',
-    },
-    {
-      title: 'Монтаж и сдача',
-      text: 'Выполняем монтаж, проверяем геометрию и передаём готовый гараж с документами.',
-    },
-  ],
-  portfolio: [
-    {
-      title: 'Гараж 6×3 м',
-      meta: 'Сэндвич-панели, утепление, ворота 2.7×2.2',
-      img: 'https://placehold.co/900x620/png?text=Гараж+1',
-    },
-    {
-      title: 'Гараж 7×4 м',
-      meta: 'Каркас, кровля с покрытием, вентиляция',
-      img: 'https://placehold.co/900x620/png?text=Гараж+2',
-    },
+  garages: [
     {
       title: 'Гараж 6×4 м',
-      meta: 'Усиление каркаса, утепление, откатные ворота',
-      img: 'https://placehold.co/900x620/png?text=Гараж+3',
+      size: '6000 × 4000 × 3600 мм',
+      meta: 'Длина 6 м · Ширина 4 м · Высота 3,6 м',
+      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%974+%D0%BC',
     },
     {
-      title: 'Гараж 8×4 м',
-      meta: 'Сэндвич-панели, двускатная кровля, электропроводка',
-      img: 'https://placehold.co/900x620/png?text=Гараж+4',
+      title: 'Гараж 6×6 м',
+      size: '6000 × 6000 × 3600 мм',
+      meta: 'Длина 6 м · Ширина 6 м · Высота 3,6 м',
+      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%976+%D0%BC',
     },
     {
-      title: 'Гараж 5×3 м',
-      meta: 'Быстрый монтаж, стандартная комплектация',
-      img: 'https://placehold.co/900x620/png?text=Гараж+5',
+      title: 'Гараж 8×6 м',
+      size: '8000 × 6000 × 3600 мм',
+      meta: 'Длина 8 м · Ширина 6 м · Высота 3,6 м',
+      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+8%C3%976+%D0%BC',
+    },
+    {
+      title: 'Гараж 6×8 м',
+      size: '6000 × 8000 × 3600 мм',
+      meta: 'Длина 6 м · Ширина 8 м · Высота 3,6 м',
+      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%978+%D0%BC',
     },
   ],
-  faq: [
+  canopies: [
     {
-      q: 'Сколько времени занимает строительство?',
-      a: 'Зависит от комплектации и условий площадки. Обычно монтаж занимает от нескольких дней, а подготовка и производство — по графику после расчёта.',
+      title: 'Навес для авто',
+      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+1',
     },
     {
-      q: 'Можно ли адаптировать гараж под мой участок?',
-      a: 'Да. Поможем с привязкой по месту и учтём особенности подъезда, фундамента и расположения ворот.',
+      title: 'Навес двускатный',
+      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+2',
     },
     {
-      q: 'Какие материалы вы используете?',
-      a: 'Работаем с проверенными поставщиками. Точный перечень комплектующих фиксируем в смете по выбранной конфигурации.',
+      title: 'Навес односкатный',
+      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+3',
     },
     {
-      q: 'Есть ли гарантия на монтаж?',
-      a: 'Да. Гарантия указывается в договоре и распространяется на монтажные работы и установленные элементы.',
+      title: 'Навес на 2 авто',
+      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+4',
     },
     {
-      q: 'Вы делаете проект и смету?',
-      a: 'Да, подготовим проектное решение и смету под выбранный размер, ворота и материалы. Для старта достаточно заявки и адреса.',
+      title: 'Навес для дома',
+      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+5',
+    },
+  ],
+  roofs: [
+    {
+      title: 'Двускатная',
+      text: 'Классическая кровля с двумя скатами — равномерный сход осадков, увеличенная высота под потолком.',
+      icon: 'gable',
+    },
+    {
+      title: 'Скат набок',
+      text: 'Односкатная кровля с уклоном в сторону — практичное решение для пристроек и узких участков.',
+      icon: 'side',
+    },
+    {
+      title: 'Скат назад',
+      text: 'Уклон кровли назад — фасад остаётся высоким, осадки уходят с тыльной стороны.',
+      icon: 'back',
+    },
+  ],
+  services: [
+    'Гаражи выполнены на сварочном соединении',
+    'Делаем размеры по вашим чертежам',
+    'Количество мест для машин — неограниченно',
+    'Тип кровли: односкатная, двускатная',
+    'Секционные ворота с автоматическим приводом',
+    'Толщина стеновых панелей от 50 мм до 250 мм',
+    'Утеплитель: минеральная вата или пенопласт',
+  ],
+  extras: [
+    {
+      title: 'Водосток',
+      text: 'Организованный отвод воды с кровли — защита фасада и фундамента от подтопления.',
+    },
+    {
+      title: 'Снегозадержание',
+      text: 'Барьеры на кровле, предотвращающие лавинообразный сход снега.',
+    },
+    {
+      title: 'Вытяжка',
+      text: 'Естественная или принудительная вентиляция для комфортного микроклимата внутри.',
     },
   ],
 };
+
+/* ── Theme ───────────────────────────────────────────── */
+
+const THEME_KEY = 'mm33-theme';
+
+const ICON_DARK =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+
+const ICON_LIGHT =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+
+function getSystemTheme() {
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+}
+
+function getActiveTheme() {
+  return localStorage.getItem(THEME_KEY) || getSystemTheme();
+}
+
+function applyTheme(theme) {
+  const html = document.documentElement;
+  html.setAttribute('data-theme', theme);
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) {
+    metaTheme.content = theme === 'light' ? '#f2f2f2' : '#0f0f0f';
+  }
+  const btn = document.querySelector('[data-theme-toggle]');
+  if (btn) {
+    btn.innerHTML = theme === 'dark' ? ICON_DARK : ICON_LIGHT;
+    btn.setAttribute('aria-label', theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему');
+  }
+}
+
+function initTheme() {
+  applyTheme(getActiveTheme());
+
+  const btn = document.querySelector('[data-theme-toggle]');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme') || getSystemTheme();
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme(next);
+  });
+
+  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+    if (!localStorage.getItem(THEME_KEY)) {
+      applyTheme(getSystemTheme());
+    }
+  });
+}
+
+/* ── Helpers ─────────────────────────────────────────── */
 
 function $(id) {
   return document.getElementById(id);
@@ -148,8 +180,7 @@ function escapeHtml(str) {
 }
 
 function renderText() {
-  // Title / hero
-  $('page-title').textContent = `${company.name} — гаражи под ключ`;
+  $('page-title').textContent = `${company.name} — гаражи и навесы под ключ`;
   $('company-name').textContent = company.name;
   $('footer-company-name').textContent = company.name;
   $('footer-company-name2').textContent = company.name;
@@ -157,15 +188,17 @@ function renderText() {
   $('hero-text').textContent = company.hero.text;
   $('hero-geo').textContent = company.hero.geo;
   $('hero-warranty').textContent = company.hero.warranty;
-  const phoneTile = $('contact-phone-tile');
-  if (phoneTile) phoneTile.href = company.phoneHref;
-  $('contact-phone').textContent = company.phone;
-  $('footer-phone').href = company.phoneHref;
-  $('footer-phone').textContent = company.phone;
 
+  const primaryPhone = company.phones[0];
+  const phoneBtn = document.querySelector('[data-phone]');
+  if (phoneBtn) {
+    phoneBtn.href = primaryPhone.href;
+    phoneBtn.textContent = `Позвонить ${primaryPhone.value}`;
+  }
+
+  $('contact-email').textContent = company.email;
   const emailTile = $('contact-email-tile');
   if (emailTile) emailTile.href = `mailto:${company.email}`;
-  $('contact-email').textContent = company.email;
   $('footer-email').href = `mailto:${company.email}`;
   $('footer-email').textContent = company.email;
 
@@ -173,8 +206,37 @@ function renderText() {
   if (hoursEl) hoursEl.textContent = company.hours;
   $('footer-hours').textContent = company.hours;
   $('year').textContent = new Date().getFullYear();
-  // CTA phone link (secondary button)
-  document.querySelector('[data-phone]').href = company.phoneHref;
+}
+
+function renderPhones() {
+  const host = document.querySelector('[data-phones]');
+  if (!host) return;
+  host.innerHTML = company.phones
+    .map(
+      (p) => `
+      <a class="contact-tile contact-tile--accent" href="${escapeHtml(p.href)}">
+        <span class="contact-tile__label">Телефон · ${escapeHtml(
+          p.label,
+        )}</span>
+        <span class="contact-tile__value">${escapeHtml(p.value)}</span>
+      </a>
+    `,
+    )
+    .join('');
+
+  const footerHost = document.querySelector('[data-footer-phones]');
+  if (footerHost) {
+    footerHost.innerHTML = company.phones
+      .map(
+        (p) => `
+        <li>
+          ${escapeHtml(p.label)}:
+          <a href="${escapeHtml(p.href)}">${escapeHtml(p.value)}</a>
+        </li>
+      `,
+      )
+      .join('');
+  }
 }
 
 function renderServices() {
@@ -183,25 +245,68 @@ function renderServices() {
   host.innerHTML = company.services
     .map(
       (s) => `
+      <li class="service-item">
+        <span class="service-item__bullet" aria-hidden="true"></span>
+        <span>${escapeHtml(s)}</span>
+      </li>
+    `,
+    )
+    .join('');
+}
+
+function renderExtras() {
+  const host = document.querySelector('[data-extras]');
+  if (!host) return;
+  host.innerHTML = company.extras
+    .map(
+      (e) => `
       <article class="card">
-        <div class="card__icon" aria-hidden="true">${escapeHtml(s.icon)}</div>
-        <h3 class="card__title">${escapeHtml(s.title)}</h3>
-        <p class="card__text">${escapeHtml(s.text)}</p>
+        <h3 class="card__title">${escapeHtml(e.title)}</h3>
+        <p class="card__text">${escapeHtml(e.text)}</p>
       </article>
     `,
     )
     .join('');
 }
 
-function renderPortfolio() {
-  const track = document.querySelector('[data-carousel-track]');
+function renderRoofs() {
+  const host = document.querySelector('[data-roofs]');
+  if (!host) return;
+
+  const icons = {
+    gable:
+      '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 34 L32 8 L60 34" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="34" x2="60" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
+    side: '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 12 L58 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="34" x2="58" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
+    back: '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M58 12 L6 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="34" x2="58" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
+  };
+
+  host.innerHTML = company.roofs
+    .map(
+      (r) => `
+      <article class="roof-card">
+        <div class="roof-card__icon" aria-hidden="true">${
+          icons[r.icon] || ''
+        }</div>
+        <h3 class="roof-card__title">${escapeHtml(r.title)}</h3>
+        <p class="roof-card__text">${escapeHtml(r.text)}</p>
+      </article>
+    `,
+    )
+    .join('');
+}
+
+function renderGaragesCarousel() {
+  const track = document.querySelector(
+    '[data-carousel="garages"] [data-carousel-track]',
+  );
   if (!track) return;
-  track.innerHTML = company.portfolio
+  track.innerHTML = company.garages
     .map(
       (p) => `
       <article class="slide">
         <div class="slide__img">
           <img src="${p.img}" alt="${escapeHtml(p.title)}" loading="lazy" />
+          <span class="slide__badge">${escapeHtml(p.size)}</span>
         </div>
         <div class="slide__body">
           <h3 class="slide__title">${escapeHtml(p.title)}</h3>
@@ -213,43 +318,25 @@ function renderPortfolio() {
     .join('');
 }
 
-function renderSteps() {
-  const host = document.querySelector('[data-steps]');
-  if (!host) return;
-  host.innerHTML = company.steps
+function renderCanopiesCarousel() {
+  const track = document.querySelector(
+    '[data-carousel="canopies"] [data-carousel-track]',
+  );
+  if (!track) return;
+  track.innerHTML = company.canopies
     .map(
-      (s, idx) => `
-      <article class="step">
-        <div class="step__num">${idx + 1}</div>
-        <h3 class="step__title">${escapeHtml(s.title)}</h3>
-        <p class="step__text">${escapeHtml(s.text)}</p>
+      (p) => `
+      <article class="slide slide--photo">
+        <div class="slide__img slide__img--tall">
+          <img src="${p.img}" alt="${escapeHtml(p.title)}" loading="lazy" />
+        </div>
+        <div class="slide__body">
+          <h3 class="slide__title">${escapeHtml(p.title)}</h3>
+        </div>
       </article>
     `,
     )
     .join('');
-}
-
-function renderGuarantees() {
-  const host = document.getElementById('guarantees-list');
-  if (!host) return;
-  host.innerHTML = company.guarantees
-    .map((g) => `<li>${escapeHtml(g)}</li>`)
-    .join('');
-}
-
-function renderAddresses() {
-  const host = document.getElementById('addresses-list');
-  if (!host) return;
-  host.innerHTML = company.addresses
-    .map((a) => `<li>${escapeHtml(a)}</li>`)
-    .join('');
-
-  const contactAddresses = document.querySelector('[data-contact-addresses]');
-  if (contactAddresses) {
-    contactAddresses.innerHTML = company.addresses
-      .map((a) => `<li>${escapeHtml(a)}</li>`)
-      .join('');
-  }
 }
 
 function renderMessengers() {
@@ -278,32 +365,16 @@ function renderMessengers() {
       .map(
         (m) => `
         <li>
-          <a href="${escapeHtml(m.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(m.label)}</a>
+          <a href="${escapeHtml(
+            m.href,
+          )}" target="_blank" rel="noopener noreferrer">${escapeHtml(
+          m.label,
+        )}</a>
         </li>
       `,
       )
       .join('');
   }
-}
-
-function renderFAQ() {
-  const host = document.querySelector('[data-faq]');
-  if (!host) return;
-  host.innerHTML = company.faq
-    .map(
-      (item, idx) => `
-      <div class="faq-item" data-open="false" data-faq-item="${idx}">
-        <button class="faq-q" type="button" aria-expanded="false" aria-controls="faq-a-${idx}" data-faq-q>
-          <span>${escapeHtml(item.q)}</span>
-          <div class="faq-icon" aria-hidden="true">+</div>
-        </button>
-        <div class="faq-a" id="faq-a-${idx}">
-          <div class="faq-a__inner">${escapeHtml(item.a)}</div>
-        </div>
-      </div>
-    `,
-    )
-    .join('');
 }
 
 function initMobileMenu() {
@@ -317,7 +388,6 @@ function initMobileMenu() {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
     document.body.classList.toggle('menu-open', open);
-
     if (backdrop) {
       backdrop.classList.toggle('is-visible', open);
       backdrop.hidden = !open;
@@ -328,13 +398,10 @@ function initMobileMenu() {
   toggle.addEventListener('click', () => {
     setOpen(!nav.classList.contains('is-open'));
   });
-
   backdrop?.addEventListener('click', () => setOpen(false));
-
   nav.querySelectorAll('a').forEach((a) => {
     a.addEventListener('click', () => setOpen(false));
   });
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && nav.classList.contains('is-open')) {
       setOpen(false);
@@ -342,17 +409,15 @@ function initMobileMenu() {
   });
 }
 
-function initPortfolioCarousel() {
-  const carousel = document.querySelector('[data-carousel="portfolio"]');
+function initCarousel(name) {
+  const carousel = document.querySelector(`[data-carousel="${name}"]`);
   if (!carousel) return;
-  const viewport = carousel.querySelector('[data-carousel-viewport]');
   const prevBtn = carousel.querySelector('[data-carousel-prev]');
   const nextBtn = carousel.querySelector('[data-carousel-next]');
   const slides = Array.from(carousel.querySelectorAll('.slide'));
-  if (!viewport || slides.length === 0) return;
+  if (slides.length === 0) return;
 
   let activeIndex = 0;
-
   function goTo(index) {
     activeIndex = Math.max(0, Math.min(slides.length - 1, index));
     slides[activeIndex].scrollIntoView({
@@ -361,40 +426,23 @@ function initPortfolioCarousel() {
       block: 'nearest',
     });
   }
-
-  prevBtn.addEventListener('click', () => goTo(activeIndex - 1));
-  nextBtn.addEventListener('click', () => goTo(activeIndex + 1));
-}
-
-function initFAQ() {
-  const items = document.querySelectorAll('[data-faq-item]');
-  if (!items.length) return;
-  items.forEach((item) => {
-    const btn = item.querySelector('[data-faq-q]');
-    const icon = item.querySelector('.faq-icon');
-    const content = item.querySelector('.faq-a');
-    if (!btn || !icon || !content) return;
-    btn.addEventListener('click', () => {
-      const isOpen = item.getAttribute('data-open') === 'true';
-      item.setAttribute('data-open', String(!isOpen));
-      btn.setAttribute('aria-expanded', String(!isOpen));
-      icon.textContent = isOpen ? '+' : '-';
-    });
-  });
+  prevBtn?.addEventListener('click', () => goTo(activeIndex - 1));
+  nextBtn?.addEventListener('click', () => goTo(activeIndex + 1));
 }
 
 function init() {
+  initTheme();
   renderText();
+  renderPhones();
   renderServices();
-  renderPortfolio();
-  renderSteps();
-  renderGuarantees();
-  renderAddresses();
+  renderExtras();
+  renderRoofs();
+  renderGaragesCarousel();
+  renderCanopiesCarousel();
   renderMessengers();
-  renderFAQ();
   initMobileMenu();
-  initPortfolioCarousel();
-  initFAQ();
+  initCarousel('garages');
+  initCarousel('canopies');
 }
 
 document.addEventListener('DOMContentLoaded', init);
