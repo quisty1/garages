@@ -1,26 +1,26 @@
-/* ── Dark theme (default) ───────────────────────────── */
+/* ── Dark theme (default) — мягкий тёмно-серый, без чистого чёрного ── */
 :root {
-  --bg: #0f0f0f;
-  --bg-2: #161616;
-  --surface: #1a1a1a;
-  --surface-2: #202020;
-  --card: #161616;
-  --text: #ffffff;
-  --muted: rgba(255, 255, 255, 0.72);
-  --muted2: rgba(255, 255, 255, 0.5);
+  --bg: #1e1e22;
+  --bg-2: #25252a;
+  --surface: #2a2a30;
+  --surface-2: #32323a;
+  --card: #26262c;
+  --text: #f2f2f4;
+  --muted: rgba(242, 242, 244, 0.72);
+  --muted2: rgba(242, 242, 244, 0.5);
   --line: rgba(255, 255, 255, 0.1);
   --line-strong: rgba(255, 255, 255, 0.18);
   --primary: #ff8a1f;
   --primary-2: #f25c05;
   --primary-soft: rgba(255, 138, 31, 0.12);
   --primary-soft-strong: rgba(255, 138, 31, 0.22);
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
-  --header-bg: rgba(15, 15, 15, 0.92);
-  --body-bg-start: #000000;
-  --nav-mobile-bg: #1a1a1a;
-  --on-primary: #0a0a0a;
-  --media-bg: #000000;
-  --footer-bg: #0a0a0a;
+  --shadow: 0 18px 50px rgba(20, 20, 28, 0.45);
+  --header-bg: rgba(30, 30, 36, 0.92);
+  --body-bg-start: #1a1a1f;
+  --nav-mobile-bg: #2a2a30;
+  --on-primary: #1c1c20;
+  --media-bg: #222228;
+  --footer-bg: #1a1a1f;
   --footer-text: rgba(255, 255, 255, 0.92);
   --footer-muted: rgba(255, 255, 255, 0.68);
   --footer-muted2: rgba(255, 255, 255, 0.48);
@@ -44,20 +44,20 @@ html[data-theme='light'] {
   --surface: #ffffff;
   --surface-2: #f7f7f7;
   --card: #ffffff;
-  --text: #0f0f0f;
-  --muted: rgba(15, 15, 15, 0.65);
-  --muted2: rgba(15, 15, 15, 0.45);
-  --line: rgba(15, 15, 15, 0.1);
-  --line-strong: rgba(15, 15, 15, 0.2);
+  --text: #1c1c20;
+  --muted: rgba(28, 28, 32, 0.65);
+  --muted2: rgba(28, 28, 32, 0.45);
+  --line: rgba(28, 28, 32, 0.1);
+  --line-strong: rgba(28, 28, 32, 0.2);
   --primary-soft: rgba(255, 138, 31, 0.1);
   --primary-soft-strong: rgba(255, 138, 31, 0.2);
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.1);
   --header-bg: rgba(255, 255, 255, 0.92);
   --body-bg-start: #ffffff;
   --nav-mobile-bg: #ffffff;
-  --on-primary: #0a0a0a;
-  --media-bg: #1a1a1a;
-  --nav-hover-bg: rgba(15, 15, 15, 0.06);
+  --on-primary: #1c1c20;
+  --media-bg: #e8e8ec;
+  --nav-hover-bg: rgba(28, 28, 32, 0.06);
 }
 
 /* Auto light if OS is light and user hasn't overridden */
@@ -68,20 +68,20 @@ html[data-theme='light'] {
     --surface: #ffffff;
     --surface-2: #f7f7f7;
     --card: #ffffff;
-    --text: #0f0f0f;
-    --muted: rgba(15, 15, 15, 0.65);
-    --muted2: rgba(15, 15, 15, 0.45);
-    --line: rgba(15, 15, 15, 0.1);
-    --line-strong: rgba(15, 15, 15, 0.2);
+    --text: #1c1c20;
+    --muted: rgba(28, 28, 32, 0.65);
+    --muted2: rgba(28, 28, 32, 0.45);
+    --line: rgba(28, 28, 32, 0.1);
+    --line-strong: rgba(28, 28, 32, 0.2);
     --primary-soft: rgba(255, 138, 31, 0.1);
     --primary-soft-strong: rgba(255, 138, 31, 0.2);
     --shadow: 0 18px 50px rgba(0, 0, 0, 0.1);
     --header-bg: rgba(255, 255, 255, 0.92);
     --body-bg-start: #ffffff;
     --nav-mobile-bg: #ffffff;
-    --on-primary: #0a0a0a;
-    --media-bg: #1a1a1a;
-    --nav-hover-bg: rgba(15, 15, 15, 0.06);
+    --on-primary: #1c1c20;
+    --media-bg: #e8e8ec;
+    --nav-hover-bg: rgba(28, 28, 32, 0.06);
   }
 }
 
@@ -99,9 +99,19 @@ body {
   overflow-x: hidden;
   overflow-x: clip;
   max-width: 100%;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    'Noto Sans', 'Helvetica Neue', 'Apple Color Emoji', 'Segoe UI Emoji';
-  background: radial-gradient(
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    'Noto Sans',
+    'Helvetica Neue',
+    'Apple Color Emoji',
+    'Segoe UI Emoji';
+  background:
+    radial-gradient(
       1100px 600px at 80% -10%,
       rgba(255, 138, 31, 0.14),
       transparent 60%
@@ -212,7 +222,9 @@ main {
   font-size: 14px;
   padding: 10px 12px;
   border-radius: 12px;
-  transition: color 0.15s ease, background 0.15s ease;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
 }
 .nav__link:hover {
   color: var(--text);
@@ -241,7 +253,9 @@ main {
   background: var(--surface);
   cursor: pointer;
   flex-shrink: 0;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
   color: var(--text);
 }
 .theme-toggle:hover {
@@ -285,7 +299,9 @@ main {
   height: 2px;
   background: var(--text);
   border-radius: 2px;
-  transition: transform 0.22s ease, opacity 0.15s ease;
+  transition:
+    transform 0.22s ease,
+    opacity 0.15s ease;
 }
 .nav-toggle[aria-expanded='true'] .nav-toggle__bar:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
@@ -301,10 +317,12 @@ main {
   position: fixed;
   inset: 0;
   z-index: 40;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(26, 26, 32, 0.65);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
 }
 .nav-backdrop.is-visible {
   opacity: 1;
@@ -370,7 +388,10 @@ body.menu-open {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  transition: transform 0.12s ease, filter 0.12s ease, background 0.12s ease,
+  transition:
+    transform 0.12s ease,
+    filter 0.12s ease,
+    background 0.12s ease,
     border-color 0.12s ease;
 }
 .btn:active {
@@ -522,7 +543,9 @@ body.menu-open {
   border-radius: var(--radius);
   padding: 20px 18px;
   min-height: 140px;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 .card:hover {
   border-color: var(--primary);
@@ -582,7 +605,9 @@ body.menu-open {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 .slide:hover {
   border-color: var(--primary);
@@ -641,7 +666,10 @@ body.menu-open {
   cursor: pointer;
   font-weight: 900;
   font-size: 18px;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 .carousel__btn:hover {
   background: var(--primary);
@@ -661,7 +689,9 @@ body.menu-open {
   border-radius: var(--radius);
   padding: 24px 20px;
   text-align: left;
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 .roof-card:hover {
   border-color: var(--primary);
@@ -803,13 +833,16 @@ body.menu-open {
   background: var(--surface-2);
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s ease, transform 0.15s ease,
-    box-shadow 0.15s ease, background 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 a.contact-tile:hover {
   border-color: var(--primary);
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 12px 32px rgba(20, 20, 28, 0.35);
 }
 .contact-tile--accent {
   border-color: var(--primary-soft-strong);
@@ -856,7 +889,9 @@ a.contact-tile:hover {
   background: var(--surface-2);
   text-decoration: none;
   color: var(--text);
-  transition: border-color 0.15s ease, transform 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 .messenger-link:hover {
   transform: translateY(-2px);
@@ -899,7 +934,6 @@ a.contact-tile:hover {
 .footer-brand {
   display: flex;
   gap: 14px;
-  align-items: center;
 }
 .footer-brand__logo {
   border-radius: 10px;
@@ -1054,11 +1088,13 @@ a.contact-tile:hover {
       calc(24px + env(safe-area-inset-bottom, 0px));
     background: var(--nav-mobile-bg);
     border-left: 1px solid var(--line);
-    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.4);
+    box-shadow: -12px 0 40px rgba(20, 20, 28, 0.35);
     transform: translate3d(100%, 0, 0);
     visibility: hidden;
     pointer-events: none;
-    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.28s;
+    transition:
+      transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      visibility 0.28s;
   }
   .nav.is-open {
     transform: translate3d(0, 0, 0);

@@ -60,8 +60,8 @@ npx serve .
 const company = {
   name: 'Металл Монтаж 33',
   phones: [
-    { label: 'Алексей', value: '8 (904) 254-36-74', href: 'tel:+79042543674' },
-    { label: 'Евгений', value: '8 (920) 343-47-27', href: 'tel:+79203434727' },
+    { label: 'Алексей', value: '+7 (904) 254-36-74', href: 'tel:+79042543674' },
+    { label: 'Евгений', value: '+7 (920) 343-47-27', href: 'tel:+79203434727' },
   ],
   email: 'MetallMontage33@yandex.ru',
   hours: 'Ежедневно 8:00–18:00',

@@ -39,8 +39,8 @@ const company = {
     ogImage: './assets/logo-mm33.png',
   },
   phones: [
-    { label: 'Алексей', value: '8 (904) 254-36-74', href: 'tel:+79042543674' },
-    { label: 'Евгений', value: '8 (920) 343-47-27', href: 'tel:+79203434727' },
+    { label: 'Алексей', value: '+7 (904) 254-36-74', href: 'tel:+79042543674' },
+    { label: 'Евгений', value: '+7 (920) 343-47-27', href: 'tel:+79203434727' },
   ],
   email: 'MetallMontage33@yandex.ru',
   hours: 'Ежедневно 8:00–18:00',
@@ -63,47 +63,47 @@ const company = {
       title: 'Гараж 6×4 м',
       size: '6000 × 4000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 4 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%974+%D0%BC',
+      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%974+%D0%BC',
     },
     {
       title: 'Гараж 6×6 м',
       size: '6000 × 6000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 6 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%976+%D0%BC',
+      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%976+%D0%BC',
     },
     {
       title: 'Гараж 8×6 м',
       size: '8000 × 6000 × 3600 мм',
       meta: 'Длина 8 м · Ширина 6 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+8%C3%976+%D0%BC',
+      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+8%C3%976+%D0%BC',
     },
     {
       title: 'Гараж 6×8 м',
       size: '6000 × 8000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 8 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/0f0f0f/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%978+%D0%BC',
+      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%978+%D0%BC',
     },
   ],
   canopies: [
     {
       title: 'Навес для авто',
-      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+1',
+      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+1',
     },
     {
       title: 'Навес двускатный',
-      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+2',
+      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+2',
     },
     {
       title: 'Навес односкатный',
-      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+3',
+      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+3',
     },
     {
       title: 'Навес на 2 авто',
-      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+4',
+      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+4',
     },
     {
       title: 'Навес для дома',
-      img: 'https://placehold.co/900x620/1a1a1a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+5',
+      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+5',
     },
   ],
   roofs: [
@@ -173,7 +173,7 @@ function applyTheme(theme) {
   html.setAttribute('data-theme', theme);
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   if (metaTheme) {
-    metaTheme.content = theme === 'light' ? '#f2f2f2' : '#0f0f0f';
+    metaTheme.content = theme === 'light' ? '#f2f2f2' : '#1e1e22';
   }
   const btn = document.querySelector('[data-theme-toggle]');
   if (btn) {
