@@ -620,6 +620,158 @@ function initMobileMenu() {
   });
 }
 
+function initLightbox() {
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Просмотр изображения');
+  overlay.innerHTML = `
+    <button class="lightbox__close" type="button" aria-label="Закрыть просмотр">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Предыдущее фото" hidden>
+      ←
+    </button>
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Следующее фото" hidden>
+      →
+    </button>
+    <img class="lightbox__img" src="" alt="" />
+    <div class="lightbox__caption"></div>
+  `;
+  document.body.appendChild(overlay);
+
+  const img = overlay.querySelector('.lightbox__img');
+  const caption = overlay.querySelector('.lightbox__caption');
+  const closeBtn = overlay.querySelector('.lightbox__close');
+  const prevBtn = overlay.querySelector('.lightbox__nav--prev');
+  const nextBtn = overlay.querySelector('.lightbox__nav--next');
+
+  let items = [];
+  let currentIndex = 0;
+
+  function updateNav() {
+    const hasMany = items.length > 1;
+    prevBtn.hidden = !hasMany;
+    nextBtn.hidden = !hasMany;
+    prevBtn.disabled = currentIndex <= 0;
+    nextBtn.disabled = currentIndex >= items.length - 1;
+  }
+
+  function show(index) {
+    currentIndex = Math.max(0, Math.min(items.length - 1, index));
+    const item = items[currentIndex];
+    img.src = item.src;
+    img.alt = item.alt;
+    caption.textContent =
+      items.length > 1
+        ? `${item.alt} · ${currentIndex + 1} / ${items.length}`
+        : item.alt;
+    updateNav();
+  }
+
+  function open(galleryItems, startIndex = 0) {
+    items = galleryItems;
+    show(startIndex);
+    overlay.removeAttribute('hidden');
+    requestAnimationFrame(() => overlay.classList.add('is-open'));
+    document.body.classList.add('lightbox-open');
+    closeBtn.focus();
+  }
+
+  function close() {
+    overlay.classList.remove('is-open');
+    document.body.classList.remove('lightbox-open');
+    items = [];
+    currentIndex = 0;
+    setTimeout(() => {
+      img.src = '';
+    }, 260);
+  }
+
+  function step(delta) {
+    if (items.length <= 1) return;
+    show(currentIndex + delta);
+  }
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    step(-1);
+  });
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    step(1);
+  });
+  img.addEventListener('click', (e) => e.stopPropagation());
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  document.addEventListener('click', (e) => {
+    const slideImg = e.target.closest('.slide__img');
+    if (!slideImg) return;
+    const image = slideImg.querySelector('img');
+    if (!image) return;
+    e.preventDefault();
+
+    const carousel = slideImg.closest('[data-carousel]');
+    const images = carousel
+      ? Array.from(carousel.querySelectorAll('.slide__img img'))
+      : [image];
+    const startIndex = Math.max(0, images.indexOf(image));
+
+    open(
+      images.map((el) => ({ src: el.src, alt: el.alt })),
+      startIndex,
+    );
+  });
+}
+
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const sections = document.querySelectorAll('.section');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.07, rootMargin: '0px 0px -32px 0px' },
+  );
+
+  sections.forEach((el) => {
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!alreadyVisible) {
+      el.classList.add('reveal');
+    }
+    observer.observe(el);
+  });
+}
+
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
+}
+
 function initCarousel(name) {
   const carousel = document.querySelector(`[data-carousel="${name}"]`);
   if (!carousel) return;
@@ -655,6 +807,9 @@ function init() {
   initMobileMenu();
   initCarousel('garages');
   initCarousel('canopies');
+  initLightbox();
+  initScrollReveal();
+  registerServiceWorker();
 }
 
 document.addEventListener('DOMContentLoaded', init);
