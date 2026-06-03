@@ -793,6 +793,32 @@ function initCarousel(name) {
   nextBtn?.addEventListener('click', () => goTo(activeIndex + 1));
 }
 
+function initScrollTop() {
+  const btn = document.querySelector('.scroll-top');
+  if (!btn) return;
+
+  const threshold = 320;
+  let visible = false;
+
+  const update = () => {
+    const show = window.scrollY > threshold;
+    if (show === visible) return;
+    visible = show;
+    btn.classList.toggle('is-visible', show);
+    btn.setAttribute('aria-hidden', show ? 'false' : 'true');
+    if (show) {
+      btn.removeAttribute('tabindex');
+    } else {
+      btn.setAttribute('tabindex', '-1');
+    }
+  };
+
+  btn.setAttribute('aria-hidden', 'true');
+  btn.setAttribute('tabindex', '-1');
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+}
+
 function init() {
   initTheme();
   renderText();
@@ -809,6 +835,7 @@ function init() {
   initCarousel('canopies');
   initLightbox();
   initScrollReveal();
+  initScrollTop();
   registerServiceWorker();
 }
 
