@@ -63,47 +63,47 @@ const company = {
       title: 'Гараж 6×4 м',
       size: '6000 × 4000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 4 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%974+%D0%BC',
+      img: './assets/garage-6x4.png',
     },
     {
       title: 'Гараж 6×6 м',
       size: '6000 × 6000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 6 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%976+%D0%BC',
+      img: './assets/garage-6x6.png',
     },
     {
       title: 'Гараж 8×6 м',
       size: '8000 × 6000 × 3600 мм',
       meta: 'Длина 8 м · Ширина 6 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+8%C3%976+%D0%BC',
+      img: './assets/garage-8x6.png',
     },
     {
       title: 'Гараж 6×8 м',
       size: '6000 × 8000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 8 м · Высота 3,6 м',
-      img: 'https://placehold.co/900x620/1e1e22/ff8a1f/png?text=%D0%93%D0%B0%D1%80%D0%B0%D0%B6+6%C3%978+%D0%BC',
+      img: './assets/garage-6x8.png',
     },
   ],
   canopies: [
     {
       title: 'Навес для авто',
-      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+1',
+      img: './assets/canopy-car.png',
     },
     {
       title: 'Навес двускатный',
-      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+2',
+      img: './assets/canopy-gable.png',
     },
     {
       title: 'Навес односкатный',
-      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+3',
+      img: './assets/canopy-single-slope.png',
     },
     {
       title: 'Навес на 2 авто',
-      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+4',
+      img: './assets/canopy-two-cars.png',
     },
     {
       title: 'Навес для дома',
-      img: 'https://placehold.co/900x620/25252a/ff8a1f/png?text=%D0%9D%D0%B0%D0%B2%D0%B5%D1%81+5',
+      img: './assets/canopy-house.png',
     },
   ],
   roofs: [

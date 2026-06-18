@@ -1,4 +1,4 @@
-const CACHE = 'mm33-v1';
+const CACHE = 'mm33-v2';
 
 const PRECACHE = [
   './',
