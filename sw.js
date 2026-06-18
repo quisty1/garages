@@ -1,4 +1,4 @@
-const CACHE = 'mm33-v2';
+const CACHE = 'mm33-v3';
 
 const PRECACHE = [
   './',
@@ -9,6 +9,13 @@ const PRECACHE = [
   './assets/logo-mm33.png',
   './assets/favicon.svg',
 ];
+
+const NETWORK_FIRST_DESTINATIONS = new Set(['document', 'script', 'style']);
+
+function shouldUseNetworkFirst(request) {
+  if (NETWORK_FIRST_DESTINATIONS.has(request.destination)) return true;
+  return /\.(?:html?|css|js)$/.test(new URL(request.url).pathname);
+}
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(PRECACHE)));
@@ -28,6 +35,32 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+async function networkFirst(request) {
+  try {
+    const response = await fetch(request);
+    if (response.ok) {
+      const cache = await caches.open(CACHE);
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    throw new Error('Offline and not in cache');
+  }
+}
+
+async function cacheFirst(request) {
+  const cached = await caches.match(request);
+  if (cached) return cached;
+  const response = await fetch(request);
+  if (response.ok) {
+    const cache = await caches.open(CACHE);
+    cache.put(request, response.clone());
+  }
+  return response;
+}
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
@@ -35,15 +68,8 @@ self.addEventListener('fetch', (event) => {
   if (url.origin !== self.location.origin) return;
 
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        if (response.ok) {
-          const clone = response.clone();
-          caches.open(CACHE).then((cache) => cache.put(event.request, clone));
-        }
-        return response;
-      });
-    }),
+    shouldUseNetworkFirst(event.request)
+      ? networkFirst(event.request)
+      : cacheFirst(event.request),
   );
 });

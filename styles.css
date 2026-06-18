@@ -459,11 +459,9 @@ body.menu-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
 }
 .hero-card__img img {
-  width: 80%;
-  max-width: 320px;
+  width: 100%;
   height: auto;
   display: block;
 }
