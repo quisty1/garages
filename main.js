@@ -56,8 +56,84 @@ const company = {
     title: 'Металлические гаражи и навесы под ключ',
     text: 'Производим и монтируем гаражи и навесы из сэндвич-панелей и металлокаркаса. Сварочное соединение, любые размеры по вашим чертежам.',
     geo: 'Владимирская область',
-    warranty: 'Гарантия качества',
+    warranty: '3 года',
   },
+  workflow: {
+    title: 'Как мы работаем',
+    text: 'От заявки до сдачи объекта — прозрачный процесс без лишних этапов.',
+    steps: [
+      {
+        title: 'Заявка',
+        text: 'Оставляете заявку или звоните — обсуждаем задачу и пожелания.',
+      },
+      {
+        title: 'Замер',
+        text: 'Выезжаем на участок, замеряем площадку и уточняем детали.',
+      },
+      {
+        title: 'Чертеж',
+        text: 'Готовим проект и согласовываем размеры, кровлю и комплектацию.',
+      },
+      {
+        title: 'Производство',
+        text: 'Изготавливаем конструкцию на производстве по согласованному проекту.',
+      },
+      {
+        title: 'Доставка',
+        text: 'Доставляем готовый комплект на ваш участок.',
+      },
+      {
+        title: 'Монтаж',
+        text: 'Собираем и устанавливаем гараж или навес на месте.',
+      },
+      {
+        title: 'Сдача объекта',
+        text: 'Принимаете готовый объект — всё готово к использованию.',
+      },
+    ],
+  },
+  faq: [
+    {
+      q: 'Сколько стоит гараж?',
+      a: 'Гараж — от 22 000 ₽. Точная цена определяется после замера на участке.',
+    },
+    {
+      q: 'Сколько стоит навес?',
+      a: 'Навес — от 6 000 ₽. Точная цена определяется после замера на участке.',
+    },
+    {
+      q: 'От чего зависит стоимость фундамента?',
+      a: 'Работа зависит от ваших предпочтений: бетонная плита или сваи.',
+    },
+    {
+      q: 'Как быстро вы выполняете работу?',
+      a: 'Мы выполняем работу в кратчайшие сроки — сроки согласуем после замера и утверждения проекта.',
+    },
+    {
+      q: 'Какая гарантия на работу?',
+      a: 'Гарантия 3 года.',
+    },
+    {
+      q: 'Можно ли заказать нестандартный размер?',
+      a: 'Да. Делаем гаражи и навесы по вашим чертежам — любые размеры, форма кровли и количество машино-мест.',
+    },
+    {
+      q: 'В каком регионе вы работаете?',
+      a: 'Работаем по всей Владимирской области: Владимир, Ковров, Муром, Александров и другие города региона.',
+    },
+    {
+      q: 'Из каких материалов делаются конструкции?',
+      a: 'Каркас из металла со сварочным соединением, стены из сэндвич-панелей толщиной от 50 до 250 мм. Утеплитель — минеральная вата или пенопласт.',
+    },
+    {
+      q: 'Нужно ли готовить участок до монтажа?',
+      a: 'Зависит от типа фундамента. На замере подскажем, что нужно подготовить: площадку под плиту или точки под сваи.',
+    },
+    {
+      q: 'Как оформить заявку?',
+      a: 'Позвоните по телефону, напишите на email или в мессенджер MAX — бесплатно проконсультируем и поможем с расчётом.',
+    },
+  ],
   garages: [
     {
       title: 'Гараж 6×4 м',
@@ -550,6 +626,141 @@ function renderCanopiesCarousel() {
     .join('');
 }
 
+function renderWorkflow() {
+  const host = document.querySelector('[data-workflow]');
+  if (!host || !company.workflow) return;
+
+  host.innerHTML = company.workflow.steps
+    .map(
+      (step, i) => `
+      <li class="workflow-step">
+        <div class="workflow-step__num" aria-hidden="true">${i + 1}</div>
+        <div class="workflow-step__body">
+          <h3 class="workflow-step__title">${escapeHtml(step.title)}</h3>
+          <p class="workflow-step__text">${escapeHtml(step.text)}</p>
+        </div>
+      </li>
+    `,
+    )
+    .join('');
+}
+
+function renderFaq() {
+  const host = document.querySelector('[data-faq]');
+  if (!host || !company.faq) return;
+
+  host.innerHTML = company.faq
+    .map(
+      (item) => `
+      <details class="faq-item">
+        <summary class="faq-item__question">
+          <span class="faq-item__label">${escapeHtml(item.q)}</span>
+          <span class="faq-item__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-item__panel">
+          <div class="faq-item__answer">
+            <p>${escapeHtml(item.a)}</p>
+          </div>
+        </div>
+      </details>
+    `,
+    )
+    .join('');
+
+  initFaqAccordion();
+}
+
+function initFaqAccordion() {
+  const items = document.querySelectorAll('.faq-item');
+  if (!items.length) return;
+
+  const reducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches;
+
+  items.forEach((item) => {
+    const summary = item.querySelector('.faq-item__question');
+    const panel = item.querySelector('.faq-item__panel');
+    if (!summary || !panel) return;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isOpen = item.classList.contains('is-open');
+
+      if (isOpen) {
+        if (reducedMotion) {
+          item.classList.remove('is-open');
+          item.removeAttribute('open');
+          return;
+        }
+        closeFaqItem(item, panel);
+        return;
+      }
+
+      items.forEach((other) => {
+        if (other !== item && other.classList.contains('is-open')) {
+          const otherPanel = other.querySelector('.faq-item__panel');
+          if (!otherPanel) return;
+          if (reducedMotion) {
+            other.classList.remove('is-open');
+            other.removeAttribute('open');
+          } else {
+            closeFaqItem(other, otherPanel);
+          }
+        }
+      });
+
+      if (reducedMotion) {
+        item.classList.add('is-open');
+        item.setAttribute('open', '');
+        return;
+      }
+
+      openFaqItem(item, panel);
+    });
+  });
+}
+
+function openFaqItem(item, panel) {
+  item.classList.add('is-open');
+  item.setAttribute('open', '');
+  panel.style.height = '0px';
+  panel.style.opacity = '0';
+
+  requestAnimationFrame(() => {
+    panel.style.height = `${panel.scrollHeight}px`;
+    panel.style.opacity = '1';
+  });
+
+  const onEnd = (e) => {
+    if (e.propertyName !== 'height') return;
+    panel.removeEventListener('transitionend', onEnd);
+    if (item.classList.contains('is-open')) {
+      panel.style.height = 'auto';
+    }
+  };
+  panel.addEventListener('transitionend', onEnd);
+}
+
+function closeFaqItem(item, panel) {
+  panel.style.height = `${panel.scrollHeight}px`;
+  panel.style.opacity = '1';
+  requestAnimationFrame(() => {
+    panel.style.height = '0px';
+    panel.style.opacity = '0';
+  });
+
+  const onEnd = (e) => {
+    if (e.propertyName !== 'height') return;
+    panel.removeEventListener('transitionend', onEnd);
+    item.classList.remove('is-open');
+    item.removeAttribute('open');
+    panel.style.height = '';
+    panel.style.opacity = '';
+  };
+  panel.addEventListener('transitionend', onEnd);
+}
+
 function renderMessengers() {
   const linksHtml = company.messengers
     .map(
@@ -844,6 +1055,8 @@ function init() {
   renderPhones();
   renderServices();
   renderExtras();
+  renderWorkflow();
+  renderFaq();
   renderRoofs();
   renderGaragesCarousel();
   renderCanopiesCarousel();
