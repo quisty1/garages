@@ -179,13 +179,14 @@ canopies: [
 
 При смене версии кэша (`CACHE` в `sw.js`) старые записи удаляются при активации. После обновления SW страница перезагружается автоматически.
 
-**GitHub Pages:** в `manifest.json` указаны `start_url` и `scope` как `/garages/`. При смене домена или пути деплоя обновите их вместе с `seo.siteUrl` в `main.js`.
+**Домен:** в `manifest.json` указаны `start_url` и `scope` как `/`. При смене домена или пути деплоя обновите их вместе с `seo.siteUrl` в `main.js`.
 
 ## Публикация
 
 Сайт состоит только из статических файлов. Загрузите содержимое репозитория на хостинг:
 
-- [GitHub Pages](https://pages.github.com/) — текущий деплой
+- [metallmontage33.ru](https://metallmontage33.ru/) — основной домен
+- [cp283311.tw1.ru](https://cp283311.tw1.ru/) — зеркало на хостинге Timeweb
 - Netlify / Vercel / Cloudflare Pages
 - Обычный веб-хостинг по FTP
 
@@ -208,7 +209,8 @@ canopies: [
 
 ```js
 seo: {
-  siteUrl: 'https://quisty1.github.io/garages',
+  siteUrl: 'https://metallmontage33.ru',
+  mirrorUrls: ['https://cp283311.tw1.ru'],
   serviceArea: {
     region: 'Владимирская область',
     cities: ['Владимир', 'Ковров', 'Муром', /* ... */],
@@ -217,7 +219,7 @@ seo: {
 }
 ```
 
-2. Синхронизируйте URL в `index.html` (canonical, OG), `robots.txt`, `sitemap.xml` и `manifest.json` — либо полагайтесь на `renderSEO()`, которая подставляет значения из `company.seo` при загрузке.
+2. Синхронизируйте URL в `index.html` (canonical, OG), `robots.txt`, `sitemap.xml` и `manifest.json` — либо полагайтесь на `renderSEO()`, которая подставляет значения из `company.seo` при загрузке. Зеркальные домены (`mirrorUrls`) не дублируют канонический URL — canonical всегда указывает на `siteUrl`.
 
 3. Зарегистрируйте сайт в [Яндекс.Вебмастер](https://webmaster.yandex.ru/) и [Google Search Console](https://search.google.com/search-console).
 
@@ -228,6 +230,7 @@ seo: {
 | Поле                     | Назначение                                |
 | ------------------------ | ----------------------------------------- |
 | `seo.siteUrl`            | Канонический домен (без завершающего `/`) |
+| `seo.mirrorUrls`         | Дополнительные URL, где доступен тот же сайт |
 | `seo.title`              | Заголовок страницы                        |
 | `seo.description`        | Описание для поисковиков и соцсетей       |
 | `seo.keywords`           | Ключевые слова                            |

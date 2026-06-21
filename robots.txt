@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://quisty1.github.io/garages/sitemap.xml
+Sitemap: https://metallmontage33.ru/sitemap.xml
