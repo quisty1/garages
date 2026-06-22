@@ -1,4 +1,4 @@
-const CACHE = 'mm33-v3';
+const CACHE = 'mm33-v4';
 
 const PRECACHE = [
   './',
@@ -6,8 +6,12 @@ const PRECACHE = [
   './styles.css',
   './main.js',
   './manifest.json',
-  './assets/logo-mm33.png',
   './assets/favicon.svg',
+  './assets/logo-48.webp',
+  './assets/logo-44.webp',
+  './assets/logo-hero-680.webp',
+  './assets/icon-192.webp',
+  './assets/icon-512.webp',
 ];
 
 const NETWORK_FIRST_DESTINATIONS = new Set(['document', 'script', 'style']);

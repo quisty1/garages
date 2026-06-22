@@ -37,7 +37,7 @@ const company = {
         'Судогда',
       ],
     },
-    ogImage: './assets/logo-mm33.png',
+    ogImage: './assets/logo-og.webp',
   },
   phones: [
     { label: 'Алексей', value: '+7 (904) 254-36-74', href: 'tel:+79042543674' },
@@ -140,47 +140,47 @@ const company = {
       title: 'Гараж 6×4 м',
       size: '6000 × 4000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 4 м · Высота 3,6 м',
-      img: './assets/garage-6x4.png',
+      img: './assets/garage-6x4.webp',
     },
     {
       title: 'Гараж 6×6 м',
       size: '6000 × 6000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 6 м · Высота 3,6 м',
-      img: './assets/garage-6x6.png',
+      img: './assets/garage-6x6.webp',
     },
     {
       title: 'Гараж 8×6 м',
       size: '8000 × 6000 × 3600 мм',
       meta: 'Длина 8 м · Ширина 6 м · Высота 3,6 м',
-      img: './assets/garage-8x6.png',
+      img: './assets/garage-8x6.webp',
     },
     {
       title: 'Гараж 6×8 м',
       size: '6000 × 8000 × 3600 мм',
       meta: 'Длина 6 м · Ширина 8 м · Высота 3,6 м',
-      img: './assets/garage-6x8.png',
+      img: './assets/garage-6x8.webp',
     },
   ],
   canopies: [
     {
       title: 'Навес для авто',
-      img: './assets/canopy-car.png',
+      img: './assets/canopy-car.webp',
     },
     {
       title: 'Навес двускатный',
-      img: './assets/canopy-gable.png',
+      img: './assets/canopy-gable.webp',
     },
     {
       title: 'Навес односкатный',
-      img: './assets/canopy-single-slope.png',
+      img: './assets/canopy-single-slope.webp',
     },
     {
       title: 'Навес на 2 авто',
-      img: './assets/canopy-two-cars.png',
+      img: './assets/canopy-two-cars.webp',
     },
     {
       title: 'Навес для дома',
-      img: './assets/canopy-house.png',
+      img: './assets/canopy-house.webp',
     },
   ],
   roofs: [
@@ -248,10 +248,17 @@ function getActiveTheme() {
 function applyTheme(theme) {
   const html = document.documentElement;
   html.setAttribute('data-theme', theme);
-  const metaTheme = document.querySelector('meta[name="theme-color"]');
-  if (metaTheme) {
-    metaTheme.content = theme === 'light' ? '#f2f2f2' : '#1e1e22';
-  }
+  const metaThemes = document.querySelectorAll('meta[name="theme-color"]');
+  metaThemes.forEach((meta) => {
+    const media = meta.getAttribute('media') || '';
+    if (media.includes('light')) {
+      meta.content = '#f2f2f2';
+    } else if (media.includes('dark')) {
+      meta.content = '#1e1e22';
+    } else if (!media) {
+      meta.content = theme === 'light' ? '#f2f2f2' : '#1e1e22';
+    }
+  });
   const btn = document.querySelector('[data-theme-toggle]');
   if (btn) {
     btn.innerHTML = theme === 'dark' ? ICON_DARK : ICON_LIGHT;
@@ -388,7 +395,7 @@ function renderSEO() {
   const siteUrl = getSiteUrl();
   const pageUrl = siteUrl ? `${siteUrl}/` : '';
   const description = seo.description;
-  const ogImage = absUrl(seo.ogImage || './assets/logo-mm33.png');
+  const ogImage = absUrl(seo.ogImage || './assets/logo-og.webp');
   const placename = seo.serviceArea
     ? `${seo.serviceArea.region} (${seo.serviceArea.cities.slice(0, 5).join(', ')} и др.)`
     : 'Владимирская область';
@@ -469,7 +476,7 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
           '@type': 'Product',
           name: g.title,
           description: g.meta,
-          image: g.img,
+          image: absUrl(g.img),
         },
       })),
     },
@@ -593,7 +600,7 @@ function renderGaragesCarousel() {
       (p) => `
       <article class="slide">
         <div class="slide__img">
-          <img src="${p.img}" alt="${escapeHtml(p.title)}" loading="lazy" />
+          <img src="${p.img}" alt="${escapeHtml(p.title)}" width="680" height="453" loading="lazy" decoding="async" />
           <span class="slide__badge">${escapeHtml(p.size)}</span>
         </div>
         <div class="slide__body">
@@ -616,7 +623,7 @@ function renderCanopiesCarousel() {
       (p) => `
       <article class="slide slide--photo">
         <div class="slide__img slide__img--tall">
-          <img src="${p.img}" alt="${escapeHtml(p.title)}" loading="lazy" />
+          <img src="${p.img}" alt="${escapeHtml(p.title)}" width="680" height="453" loading="lazy" decoding="async" />
         </div>
         <div class="slide__body">
           <h3 class="slide__title">${escapeHtml(p.title)}</h3>

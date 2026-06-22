@@ -34,10 +34,8 @@
 }
 
 * {
-  scroll-behavior: smooth !important;
+  box-sizing: border-box;
 }
-
-/* ── Light theme overrides ──────────────────────────── */
 html[data-theme='light'] {
   --bg: #f2f2f2;
   --bg-2: #e8e8e8;
@@ -187,11 +185,6 @@ main {
   min-width: 0;
   text-decoration: none;
   color: inherit;
-}
-.brand__logo {
-  display: block;
-  border-radius: 10px;
-  background: var(--media-bg);
 }
 .brand__name {
   font-weight: 900;
@@ -376,6 +369,9 @@ body.menu-open {
   margin-top: 22px;
   flex-wrap: wrap;
 }
+.hero__actions .btn--ghost {
+  white-space: nowrap;
+}
 
 .btn {
   display: inline-flex;
@@ -429,7 +425,7 @@ body.menu-open {
   padding: 12px 14px;
 }
 .meta-card__label {
-  color: var(--muted2);
+  color: var(--muted);
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
@@ -1167,10 +1163,6 @@ a.contact-tile:hover {
 .footer-brand {
   display: flex;
   gap: 14px;
-}
-.footer-brand__logo {
-  border-radius: 10px;
-  background: var(--media-bg);
 }
 .footer-brand__name {
   font-weight: 900;

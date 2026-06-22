@@ -29,8 +29,18 @@
       href="https://metallmontage33.ru/"
     />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="./assets/logo-mm33.png" />
+    <link rel="apple-touch-icon" href="./assets/icon-192.webp" />
     <link rel="manifest" href="./manifest.json" />
+    <link rel="preload" href="./styles.css" as="style" />
+    <link
+      rel="preload"
+      href="./assets/logo-hero-680.webp"
+      as="image"
+      type="image/webp"
+      fetchpriority="high"
+      imagesrcset="./assets/logo-hero-680.webp 680w, ./assets/logo-hero.webp 920w"
+      imagesizes="(max-width: 720px) 100vw, 460px"
+    />
     <meta
       name="theme-color"
       content="#1e1e22"
@@ -57,8 +67,10 @@
     <meta property="og:url" content="https://metallmontage33.ru/" />
     <meta
       property="og:image"
-      content="https://metallmontage33.ru/assets/logo-mm33.png"
+      content="https://metallmontage33.ru/assets/logo-og.webp"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="800" />
     <meta property="og:image:alt" content="Металл Монтаж 33 — логотип" />
 
     <!-- Twitter Card -->
@@ -73,7 +85,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://metallmontage33.ru/assets/logo-mm33.png"
+      content="https://metallmontage33.ru/assets/logo-og.webp"
     />
 
     <link rel="stylesheet" href="./styles.css" />
@@ -84,7 +96,7 @@
         "name": "Металл Монтаж 33",
         "description": "Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона.",
         "url": "https://metallmontage33.ru/",
-        "image": "https://metallmontage33.ru/assets/logo-mm33.png",
+        "image": "https://metallmontage33.ru/assets/logo-og.webp",
         "email": "MetallMontage33@yandex.ru",
         "telephone": ["+79042543674", "+79203434727"],
         "areaServed": [
@@ -166,14 +178,15 @@
     <header class="site-header" data-header>
       <div class="container header-inner">
         <div class="brand">
-          <a class="brand__link" href="#top" aria-label="На главную">
+          <a class="brand__link" href="#top">
             <img
-              class="brand__logo"
               id="company-logo"
-              src="./assets/logo-mm33.png"
+              src="./assets/logo-48.webp"
+              srcset="./assets/logo-48.webp 1x, ./assets/logo-96.webp 2x"
               alt="Логотип Металл Монтаж 33"
               width="48"
               height="48"
+              decoding="async"
             />
             <span class="brand__name" id="company-name">Металл Монтаж 33</span>
           </a>
@@ -238,7 +251,7 @@
                 Рассчитать стоимость
               </a>
               <a class="btn btn--ghost" href="tel:+79042543674" data-phone>
-                Позвонить
+                Позвонить +7 (904) 254-36-74
               </a>
             </div>
 
@@ -264,11 +277,17 @@
             <div class="hero-card">
               <div class="hero-card__img">
                 <img
-                  src="./assets/logo-mm33.png"
+                  src="./assets/logo-hero-680.webp"
+                  srcset="
+                    ./assets/logo-hero-680.webp 680w,
+                    ./assets/logo-hero.webp     920w
+                  "
+                  sizes="(max-width: 720px) 100vw, 460px"
                   alt="Металл Монтаж 33 — гаражи и навесы под ключ | Владимирская область"
-                  width="760"
-                  height="520"
-                  loading="lazy"
+                  width="680"
+                  height="453"
+                  fetchpriority="high"
+                  decoding="async"
                 />
               </div>
               <div class="hero-card__footer">
@@ -497,11 +516,13 @@
       <div class="container footer-inner">
         <div class="footer-brand">
           <img
-            class="footer-brand__logo"
-            src="./assets/logo-mm33.png"
+            src="./assets/logo-44.webp"
+            srcset="./assets/logo-44.webp 1x, ./assets/logo-88.webp 2x"
             alt="Логотип Металл Монтаж 33"
             width="44"
             height="44"
+            loading="lazy"
+            decoding="async"
           />
           <div>
             <div class="footer-brand__name" id="footer-company-name">
