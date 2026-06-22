@@ -469,16 +469,30 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Гаражи и навесы',
-      itemListElement: company.garages.map((g, i) => ({
-        '@type': 'Offer',
-        position: i + 1,
-        itemOffered: {
-          '@type': 'Product',
-          name: g.title,
-          description: g.meta,
-          image: absUrl(g.img),
-        },
-      })),
+      itemListElement: company.garages.map((g, i) => {
+        const offer = {
+          '@type': 'Offer',
+          priceCurrency: 'RUB',
+          price: '22000',
+          availability: 'https://schema.org/InStock',
+        };
+        if (pageUrl) {
+          offer.url = `${pageUrl}#contact`;
+          offer.seller = { '@id': `${pageUrl}#organization` };
+        }
+        return {
+          '@type': 'Offer',
+          position: i + 1,
+          ...offer,
+          itemOffered: {
+            '@type': 'Product',
+            name: g.title,
+            description: g.meta,
+            image: absUrl(g.img),
+            offers: offer,
+          },
+        };
+      }),
     },
   };
 
