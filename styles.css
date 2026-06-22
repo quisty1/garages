@@ -1218,6 +1218,22 @@ a.contact-tile:hover {
   border-top: 1px solid var(--footer-line);
   font-size: 14px;
 }
+.footer-bottom__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.footer-credit {
+  font-size: 13px;
+  color: var(--footer-muted2);
+}
+.footer-credit a {
+  color: var(--footer-muted);
+  text-decoration: none;
+}
+.footer-credit a:hover {
+  color: var(--primary);
+}
 .footer-bottom__links {
   display: flex;
   gap: 14px;
