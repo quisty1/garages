@@ -57,7 +57,6 @@ garages/
 ├── sw.js                   # Service Worker
 ├── robots.txt              # Правила для поисковых роботов
 ├── sitemap.xml             # Карта сайта
-├── .htaccess               # HTTPS, кэш, сжатие (Apache)
 ├── assets/
 │   ├── logo-og.webp        # OG-превью, JSON-LD
 │   ├── logo-hero.webp      # Hero-карточка (920w)
