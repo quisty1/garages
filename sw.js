@@ -1,4 +1,4 @@
-const CACHE = 'mm33-v4';
+const CACHE = 'mm33-v5';
 
 const PRECACHE = [
   './',
@@ -6,12 +6,18 @@ const PRECACHE = [
   './styles.css',
   './main.js',
   './manifest.json',
+  './favicon.ico',
   './assets/favicon.svg',
+  './assets/favicon-48.png',
+  './assets/favicon-96.png',
+  './assets/apple-touch-icon.png',
   './assets/logo-48.webp',
   './assets/logo-44.webp',
   './assets/logo-hero-680.webp',
   './assets/icon-192.webp',
   './assets/icon-512.webp',
+  './assets/icon-192.png',
+  './assets/icon-512.png',
 ];
 
 const NETWORK_FIRST_DESTINATIONS = new Set(['document', 'script', 'style']);
