@@ -1,16 +1,22 @@
+/* ── Данные ──────────────────────────────────────────── */
+
+/**
+ * Единый источник контента сайта.
+ * Тексты, телефоны, цены и URL редактируются здесь; HTML — заготовки с fallback.
+ */
 const company = {
   name: 'Металл Монтаж 33',
-  shortName: 'ММ33',
+  shortName: 'ММ33', // Для PWA short_name в manifest.json
   tagline: 'Гаражи и навесы из металла под ключ',
   seo: {
-    siteUrl: 'https://metallmontage33.ru',
-    mirrorUrls: ['https://cp283311.tw1.ru'],
+    siteUrl: 'https://metallmontage33.ru', // Канонический домен (без /)
+    mirrorUrls: ['https://cp283311.tw1.ru'], // Зеркала; canonical всегда siteUrl
     title: 'Металл Монтаж 33 — гаражи и навесы под ключ | Владимирская область',
     description:
       'Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление.',
     keywords:
       'гаражи под ключ, металлические гаражи, навесы для авто, гаражи из сэндвич-панелей, монтаж гаражей, Владимирская область, гаражи Владимир, гаражи Ковров, гаражи Муром, навесы Александров, металлоконструкции',
-    region: 'RU-VLA',
+    region: 'RU-VLA', // Код региона для geo.region
     serviceArea: {
       region: 'Владимирская область',
       cities: [
@@ -37,7 +43,7 @@ const company = {
         'Судогда',
       ],
     },
-    ogImage: './assets/logo-og.webp',
+    ogImage: './assets/logo-og.webp', // OG, Twitter, JSON-LD
   },
   phones: [
     { label: 'Алексей', value: '+7 (904) 254-36-74', href: 'tel:+79042543674' },
@@ -47,7 +53,7 @@ const company = {
   hours: 'Ежедневно 8:00–18:00',
   messengers: [
     {
-      id: 'max',
+      id: 'max', // CSS-модификатор messenger-link--{id}
       label: 'MAX',
       href: 'https://max.ru/u/f9LHodD0cOIq2YDVCLrWTqtmxuz0snFv2pGd3TIadt7A0CoRYGP8OpgDZPc',
       hint: 'Написать в MAX',
@@ -187,7 +193,7 @@ const company = {
     {
       title: 'Двускатная',
       text: 'Классическая кровля с двумя скатами — равномерный сход осадков, увеличенная высота под потолком.',
-      icon: 'gable',
+      icon: 'gable', // Ключ в ROOF_ICONS
     },
     {
       title: 'Скат набок',
@@ -225,26 +231,182 @@ const company = {
   ],
 };
 
-/* ── Theme ───────────────────────────────────────────── */
+/* ── Константы ───────────────────────────────────────── */
 
+/** Ключ localStorage для сохранения выбранной темы (синхронизирован с inline-скриптом в index.html). */
 const THEME_KEY = 'mm33-theme';
 
+/** Цвета meta theme-color для светлой и тёмной темы. */
+const THEME_COLORS = {
+  light: '#f2f2f2',
+  dark: '#1e1e22',
+};
+
+/** Порог прокрутки (px) для показа кнопки «Наверх». */
+const SCROLL_TOP_THRESHOLD = 320;
+
+/** Задержка очистки src в lightbox после закрытия (мс), совпадает с CSS transition. */
+const LIGHTBOX_CLOSE_MS = 260;
+
+/** Имена каруселей — значения data-carousel и аргументы initCarousel(). */
+const CAROUSEL_NAMES = ['garages', 'canopies'];
+
+/** Селекторы data-атрибутов, используемых в разметке и JS. */
+const SELECTORS = {
+  themeToggle: '[data-theme-toggle]',
+  phone: '[data-phone]',
+  phones: '[data-phones]',
+  footerPhones: '[data-footer-phones]',
+  services: '[data-services]',
+  extras: '[data-extras]',
+  roofs: '[data-roofs]',
+  workflow: '[data-workflow]',
+  faq: '[data-faq]',
+  messengers: '[data-messengers]',
+  footerMessengers: '[data-footer-messengers]',
+  navToggle: '[data-nav-toggle]',
+  nav: '[data-nav]',
+  navBackdrop: '[data-nav-backdrop]',
+  carousel: (name) => `[data-carousel="${name}"]`,
+  carouselTrack: '[data-carousel-track]',
+  carouselPrev: '[data-carousel-prev]',
+  carouselNext: '[data-carousel-next]',
+  scrollTop: '.scroll-top',
+};
+
+/** SVG-иконка луны (показывается в тёмной теме — переключить на светлую). */
 const ICON_DARK =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
 
+/** SVG-иконка солнца (показывается в светлой теме — переключить на тёмную). */
 const ICON_LIGHT =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
 
+/** SVG-иконки типов кровли для карточек [data-roofs]. */
+const ROOF_ICONS = {
+  gable:
+    '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 34 L32 8 L60 34" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="34" x2="60" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
+  side: '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 12 L58 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="34" x2="58" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
+  back: '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M58 12 L6 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="34" x2="58" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
+};
+
+/* ── Утилиты ─────────────────────────────────────────── */
+
+/** Сокращение для document.getElementById. */
+function $(id) {
+  return document.getElementById(id);
+}
+
+/** Безопасная установка textContent по id (если элемент отсутствует — пропуск). */
+function setTextById(id, text) {
+  const el = $(id);
+  if (el) el.textContent = text;
+}
+
+/** Экранирование строк для безопасной вставки в innerHTML. */
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+/**
+ * Атрибуты <img> для слайдов карусели: srcset с превью -560.webp.
+ * Превью генерируется заменой суффикса .webp → -560.webp (см. assets/).
+ * @param {string} img — путь к полноразмерному webp
+ */
+function carouselImgAttrs(img) {
+  const small = img.replace(/\.webp$/, '-560.webp');
+  return `src="${escapeHtml(img)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(img)} 680w" sizes="(max-width: 720px) 280px, 340px" width="680" height="453" loading="lazy" decoding="async"`;
+}
+
+/**
+ * Канонический URL сайта из company.seo.siteUrl
+ * или вычисленный из window.location (для локальной разработки).
+ */
+function getSiteUrl() {
+  const configured = company.seo?.siteUrl?.replace(/\/$/, '');
+  if (configured) return configured;
+  if (window.location.protocol.startsWith('http')) {
+    const path = window.location.pathname
+      .replace(/\/index\.html?$/i, '')
+      .replace(/\/$/, '');
+    return window.location.origin + path;
+  }
+  return '';
+}
+
+/** Абсолютный URL для относительного пути (OG, JSON-LD). */
+function absUrl(path) {
+  const base = getSiteUrl();
+  if (!base) return path;
+  const clean = path.replace(/^\.\//, '');
+  return `${base}/${clean}`;
+}
+
+/**
+ * Создаёт или обновляет meta-тег в <head>.
+ * @param {string} name — значение name или property
+ * @param {string} content
+ * @param {'name'|'property'} attr
+ */
+function setMeta(name, content, attr = 'name') {
+  if (!content) return;
+  let el = document.querySelector(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = document.createElement('meta');
+    el.setAttribute(attr, name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute('content', content);
+}
+
+/**
+ * Заполняет innerHTML контейнера по селектору.
+ * @returns {Element|null}
+ */
+function fillContainer(selector, html) {
+  const host = document.querySelector(selector);
+  if (host) host.innerHTML = html;
+  return host;
+}
+
+/**
+ * Заполняет два связанных контейнера (основной блок + footer).
+ * Используется для телефонов и мессенджеров.
+ */
+function fillDualContainers(
+  primarySelector,
+  footerSelector,
+  items,
+  primaryFn,
+  footerFn,
+) {
+  fillContainer(primarySelector, items.map(primaryFn).join(''));
+  fillContainer(footerSelector, items.map(footerFn).join(''));
+}
+
+/* ── Тема ────────────────────────────────────────────── */
+
+/** Тема ОС по prefers-color-scheme. */
 function getSystemTheme() {
   return window.matchMedia('(prefers-color-scheme: light)').matches
     ? 'light'
     : 'dark';
 }
 
+/** Сохранённая тема или системная. */
 function getActiveTheme() {
   return localStorage.getItem(THEME_KEY) || getSystemTheme();
 }
 
+/**
+ * Применяет тему: data-theme на <html>, theme-color в meta,
+ * иконка и aria-label на [data-theme-toggle].
+ */
 function applyTheme(theme) {
   const html = document.documentElement;
   html.setAttribute('data-theme', theme);
@@ -252,14 +414,14 @@ function applyTheme(theme) {
   metaThemes.forEach((meta) => {
     const media = meta.getAttribute('media') || '';
     if (media.includes('light')) {
-      meta.content = '#f2f2f2';
+      meta.content = THEME_COLORS.light;
     } else if (media.includes('dark')) {
-      meta.content = '#1e1e22';
+      meta.content = THEME_COLORS.dark;
     } else if (!media) {
-      meta.content = theme === 'light' ? '#f2f2f2' : '#1e1e22';
+      meta.content = theme === 'light' ? THEME_COLORS.light : THEME_COLORS.dark;
     }
   });
-  const btn = document.querySelector('[data-theme-toggle]');
+  const btn = document.querySelector(SELECTORS.themeToggle);
   if (btn) {
     btn.innerHTML = theme === 'dark' ? ICON_DARK : ICON_LIGHT;
     btn.setAttribute(
@@ -269,10 +431,11 @@ function applyTheme(theme) {
   }
 }
 
+/** Инициализация темы: применение, переключатель, отслеживание смены ОС. */
 function initTheme() {
   applyTheme(getActiveTheme());
 
-  const btn = document.querySelector('[data-theme-toggle]');
+  const btn = document.querySelector(SELECTORS.themeToggle);
   if (!btn) return;
 
   btn.addEventListener('click', () => {
@@ -292,83 +455,280 @@ function initTheme() {
     });
 }
 
-/* ── Helpers ─────────────────────────────────────────── */
+/* ── Рендеринг контента ──────────────────────────────── */
 
-function $(id) {
-  return document.getElementById(id);
-}
-
-function escapeHtml(str) {
-  return String(str)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;');
-}
-
+/**
+ * Подставляет текстовый контент в элементы с id и data-атрибутами.
+ * DOM: #page-title, #company-name, #hero-*, #contact-*, #footer-*, [data-phone]
+ */
 function renderText() {
   const seoTitle =
     company.seo?.title || `${company.name} — гаражи и навесы под ключ`;
-  $('page-title').textContent = seoTitle;
+  setTextById('page-title', seoTitle);
   document.title = seoTitle;
-  $('company-name').textContent = company.name;
-  $('footer-company-name').textContent = company.name;
-  $('footer-company-name2').textContent = company.name;
-  $('hero-title').textContent = company.hero.title;
-  $('hero-text').textContent = company.hero.text;
-  $('hero-geo').textContent = company.hero.geo;
-  $('hero-warranty').textContent = company.hero.warranty;
+  setTextById('company-name', company.name);
+  setTextById('footer-company-name', company.name);
+  setTextById('footer-company-name2', company.name);
+  setTextById('hero-title', company.hero.title);
+  setTextById('hero-text', company.hero.text);
+  setTextById('hero-geo', company.hero.geo);
+  setTextById('hero-warranty', company.hero.warranty);
 
   const primaryPhone = company.phones[0];
-  const phoneBtn = document.querySelector('[data-phone]');
-  if (phoneBtn) {
+  const phoneBtn = document.querySelector(SELECTORS.phone);
+  if (phoneBtn && primaryPhone) {
     phoneBtn.href = primaryPhone.href;
     phoneBtn.textContent = `Позвонить ${primaryPhone.value}`;
   }
 
-  $('contact-email').textContent = company.email;
+  setTextById('contact-email', company.email);
   const emailTile = $('contact-email-tile');
   if (emailTile) emailTile.href = `mailto:${company.email}`;
-  $('footer-email').href = `mailto:${company.email}`;
-  $('footer-email').textContent = company.email;
-
-  const hoursEl = $('contact-hours');
-  if (hoursEl) hoursEl.textContent = company.hours;
-  $('footer-hours').textContent = company.hours;
-  $('year').textContent = new Date().getFullYear();
-}
-
-function getSiteUrl() {
-  const configured = company.seo?.siteUrl?.replace(/\/$/, '');
-  if (configured) return configured;
-  if (window.location.protocol.startsWith('http')) {
-    const path = window.location.pathname
-      .replace(/\/index\.html?$/i, '')
-      .replace(/\/$/, '');
-    return window.location.origin + path;
+  const footerEmail = $('footer-email');
+  if (footerEmail) {
+    footerEmail.href = `mailto:${company.email}`;
+    footerEmail.textContent = company.email;
   }
-  return '';
+
+  setTextById('contact-hours', company.hours);
+  setTextById('footer-hours', company.hours);
+  setTextById('year', new Date().getFullYear());
 }
 
-function absUrl(path) {
-  const base = getSiteUrl();
-  if (!base) return path;
-  const clean = path.replace(/^\.\//, '');
-  return `${base}/${clean}`;
+/** HTML плитки телефона для блока контактов. */
+function phoneTileHtml(p) {
+  return `
+    <a class="contact-tile contact-tile--accent" href="${escapeHtml(p.href)}">
+      <span class="contact-tile__label">Телефон · ${escapeHtml(p.label)}</span>
+      <span class="contact-tile__value">${escapeHtml(p.value)}</span>
+    </a>
+  `;
 }
 
-function setMeta(name, content, attr = 'name') {
-  if (!content) return;
-  let el = document.querySelector(`meta[${attr}="${name}"]`);
-  if (!el) {
-    el = document.createElement('meta');
-    el.setAttribute(attr, name);
-    document.head.appendChild(el);
-  }
-  el.setAttribute('content', content);
+/** HTML пункта телефона для footer. */
+function phoneFooterHtml(p) {
+  return `
+    <li>
+      ${escapeHtml(p.label)}:
+      <a href="${escapeHtml(p.href)}">${escapeHtml(p.value)}</a>
+    </li>
+  `;
 }
 
+/** DOM: [data-phones], [data-footer-phones] */
+function renderPhones() {
+  fillDualContainers(
+    SELECTORS.phones,
+    SELECTORS.footerPhones,
+    company.phones,
+    phoneTileHtml,
+    phoneFooterHtml,
+  );
+}
+
+/** DOM: [data-services] */
+function renderServices() {
+  fillContainer(
+    SELECTORS.services,
+    company.services
+      .map(
+        (s) => `
+      <li class="service-item">
+        <span class="service-item__bullet" aria-hidden="true"></span>
+        <span>${escapeHtml(s)}</span>
+      </li>
+    `,
+      )
+      .join(''),
+  );
+}
+
+/** DOM: [data-extras] — карточки дополнительных услуг. */
+function renderExtras() {
+  fillContainer(
+    SELECTORS.extras,
+    company.extras
+      .map(
+        (e) => `
+      <article class="card">
+        <h3 class="card__title">${escapeHtml(e.title)}</h3>
+        <p class="card__text">${escapeHtml(e.text)}</p>
+      </article>
+    `,
+      )
+      .join(''),
+  );
+}
+
+/** DOM: [data-roofs] — карточки типов кровли с SVG-иконками. */
+function renderRoofs() {
+  fillContainer(
+    SELECTORS.roofs,
+    company.roofs
+      .map(
+        (r) => `
+      <article class="roof-card">
+        <div class="roof-card__icon" aria-hidden="true">${
+          ROOF_ICONS[r.icon] || ''
+        }</div>
+        <h3 class="roof-card__title">${escapeHtml(r.title)}</h3>
+        <p class="roof-card__text">${escapeHtml(r.text)}</p>
+      </article>
+    `,
+      )
+      .join(''),
+  );
+}
+
+/**
+ * Общий рендер трека карусели.
+ * DOM: [data-carousel="{name}"] [data-carousel-track]
+ */
+function renderCarouselTrack(name, items, buildSlide) {
+  const track = document.querySelector(
+    `${SELECTORS.carousel(name)} ${SELECTORS.carouselTrack}`,
+  );
+  if (!track) return;
+  track.innerHTML = items.map(buildSlide).join('');
+}
+
+/** HTML слайда гаража с размером и мета-данными. */
+function garageSlideHtml(p) {
+  return `
+    <article class="slide">
+      <div class="slide__img">
+        <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(p.title)}" />
+        <span class="slide__badge">${escapeHtml(p.size)}</span>
+      </div>
+      <div class="slide__body">
+        <h3 class="slide__title">${escapeHtml(p.title)}</h3>
+        <p class="slide__meta">${escapeHtml(p.meta)}</p>
+      </div>
+    </article>
+  `;
+}
+
+/** HTML слайда навеса (фото + заголовок). */
+function canopySlideHtml(p) {
+  return `
+    <article class="slide slide--photo">
+      <div class="slide__img slide__img--tall">
+        <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(p.title)}" />
+      </div>
+      <div class="slide__body">
+        <h3 class="slide__title">${escapeHtml(p.title)}</h3>
+      </div>
+    </article>
+  `;
+}
+
+/** Конфигурация каруселей: имя → данные и функция рендера слайда. */
+const CAROUSEL_CONFIG = {
+  garages: { items: () => company.garages, buildSlide: garageSlideHtml },
+  canopies: { items: () => company.canopies, buildSlide: canopySlideHtml },
+};
+
+/**
+ * Рендер всех каруселей по CAROUSEL_CONFIG.
+ * DOM: [data-carousel="garages"], [data-carousel="canopies"]
+ */
+function renderCarousels() {
+  CAROUSEL_NAMES.forEach((name) => {
+    const config = CAROUSEL_CONFIG[name];
+    if (config) {
+      renderCarouselTrack(name, config.items(), config.buildSlide);
+    }
+  });
+}
+
+/** DOM: [data-workflow] — нумерованные шаги. */
+function renderWorkflow() {
+  if (!company.workflow) return;
+  fillContainer(
+    SELECTORS.workflow,
+    company.workflow.steps
+      .map(
+        (step, i) => `
+      <li class="workflow-step">
+        <div class="workflow-step__num" aria-hidden="true">${i + 1}</div>
+        <div class="workflow-step__body">
+          <h3 class="workflow-step__title">${escapeHtml(step.title)}</h3>
+          <p class="workflow-step__text">${escapeHtml(step.text)}</p>
+        </div>
+      </li>
+    `,
+      )
+      .join(''),
+  );
+}
+
+/** HTML плитки мессенджера для блока контактов. */
+function messengerTileHtml(m) {
+  return `
+    <a
+      class="messenger-link messenger-link--${escapeHtml(m.id)}"
+      href="${escapeHtml(m.href)}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="messenger-link__label">${escapeHtml(m.label)}</span>
+      <span class="messenger-link__hint">${escapeHtml(m.hint)}</span>
+    </a>
+  `;
+}
+
+/** HTML пункта мессенджера для footer. */
+function messengerFooterHtml(m) {
+  return `
+    <li>
+      <a href="${escapeHtml(m.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(m.label)}</a>
+    </li>
+  `;
+}
+
+/** DOM: [data-messengers], [data-footer-messengers] */
+function renderMessengers() {
+  fillDualContainers(
+    SELECTORS.messengers,
+    SELECTORS.footerMessengers,
+    company.messengers,
+    messengerTileHtml,
+    messengerFooterHtml,
+  );
+}
+
+/**
+ * DOM: [data-faq] — аккордеон из <details>.
+ * После рендера вызывает initFaqAccordion для анимации.
+ */
+function renderFaq() {
+  if (!company.faq) return;
+  fillContainer(
+    SELECTORS.faq,
+    company.faq
+      .map(
+        (item) => `
+      <details class="faq-item">
+        <summary class="faq-item__question">
+          <span class="faq-item__label">${escapeHtml(item.q)}</span>
+          <span class="faq-item__icon" aria-hidden="true"></span>
+        </summary>
+        <div class="faq-item__panel">
+          <div class="faq-item__answer">
+            <p>${escapeHtml(item.a)}</p>
+          </div>
+        </div>
+      </details>
+    `,
+      )
+      .join(''),
+  );
+  initFaqAccordion();
+}
+
+/* ── SEO ─────────────────────────────────────────────── */
+
+/** Массив areaServed для JSON-LD: регион + города. */
 function buildAreaServedJsonLd() {
   const area = company.seo?.serviceArea;
   if (!area) return [];
@@ -388,6 +748,49 @@ function buildAreaServedJsonLd() {
   ];
 }
 
+/**
+ * Создаёт объект Offer для каталога гаражей в JSON-LD.
+ * Цена «от 22 000 ₽» — соответствует FAQ, не менять без согласования контента.
+ */
+function buildGarageOffer(pageUrl) {
+  const offer = {
+    '@type': 'Offer',
+    priceCurrency: 'RUB',
+    price: '22000',
+    availability: 'https://schema.org/InStock',
+  };
+  if (pageUrl) {
+    offer.url = `${pageUrl}#contact`;
+    offer.seller = { '@id': `${pageUrl}#organization` };
+  }
+  return offer;
+}
+
+/** FAQPage для расширенных сниппетов в поиске. */
+function buildFaqJsonLd(pageUrl) {
+  if (!company.faq?.length) return null;
+
+  const faq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: company.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  };
+
+  if (pageUrl) faq.url = `${pageUrl}#faq`;
+  return faq;
+}
+
+/**
+ * Обновляет meta-теги, canonical, OG, Twitter и JSON-LD из company.seo.
+ * DOM: meta в <head>, #canonical-link, #json-ld
+ */
 function renderSEO() {
   const seo = company.seo;
   if (!seo) return;
@@ -416,7 +819,7 @@ function renderSEO() {
   setMeta('og:image:alt', `${company.name} — логотип`, 'property');
   if (pageUrl) {
     setMeta('og:url', pageUrl, 'property');
-    const canonical = document.getElementById('canonical-link');
+    const canonical = $('canonical-link');
     if (canonical) canonical.href = pageUrl;
   }
 
@@ -425,11 +828,35 @@ function renderSEO() {
   setMeta('twitter:description', description);
   setMeta('twitter:image', ogImage);
 
+  if (isMirrorHost()) {
+    setMeta('robots', 'noindex, follow');
+  }
+
   renderJsonLd(siteUrl, pageUrl, ogImage);
 }
 
+/** true, если страница открыта на зеркальном домене из mirrorUrls. */
+function isMirrorHost() {
+  const mirrors = company.seo?.mirrorUrls;
+  if (!mirrors?.length || !window.location.protocol.startsWith('http')) {
+    return false;
+  }
+  const host = window.location.hostname.toLowerCase();
+  return mirrors.some((url) => {
+    try {
+      return new URL(url).hostname.toLowerCase() === host;
+    } catch {
+      return false;
+    }
+  });
+}
+
+/**
+ * Записывает JSON-LD (LocalBusiness + WebSite) в #json-ld.
+ * Каталог гаражей — OfferCatalog с ценой «от 22 000 ₽».
+ */
 function renderJsonLd(siteUrl, pageUrl, ogImage) {
-  const host = document.getElementById('json-ld');
+  const host = $('json-ld');
   if (!host) return;
 
   const phones = company.phones.map((p) => p.href.replace('tel:', ''));
@@ -469,30 +896,17 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Гаражи и навесы',
-      itemListElement: company.garages.map((g, i) => {
-        const offer = {
-          '@type': 'Offer',
-          priceCurrency: 'RUB',
-          price: '22000',
-          availability: 'https://schema.org/InStock',
-        };
-        if (pageUrl) {
-          offer.url = `${pageUrl}#contact`;
-          offer.seller = { '@id': `${pageUrl}#organization` };
-        }
-        return {
-          '@type': 'Offer',
-          position: i + 1,
-          ...offer,
-          itemOffered: {
-            '@type': 'Product',
-            name: g.title,
-            description: g.meta,
-            image: absUrl(g.img),
-            offers: offer,
-          },
-        };
-      }),
+      itemListElement: company.garages.map((g, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Product',
+          name: g.title,
+          description: g.meta,
+          image: absUrl(g.img),
+          offers: buildGarageOffer(pageUrl),
+        },
+      })),
     },
   };
 
@@ -514,184 +928,20 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
     webSite.publisher = { '@id': `${pageUrl}#organization` };
   }
 
-  host.textContent = JSON.stringify([localBusiness, webSite]);
+  const schemas = [localBusiness, webSite];
+  const faqPage = buildFaqJsonLd(pageUrl);
+  if (faqPage) schemas.push(faqPage);
+
+  host.textContent = JSON.stringify(schemas);
 }
 
-function renderPhones() {
-  const host = document.querySelector('[data-phones]');
-  if (!host) return;
-  host.innerHTML = company.phones
-    .map(
-      (p) => `
-      <a class="contact-tile contact-tile--accent" href="${escapeHtml(p.href)}">
-        <span class="contact-tile__label">Телефон · ${escapeHtml(
-          p.label,
-        )}</span>
-        <span class="contact-tile__value">${escapeHtml(p.value)}</span>
-      </a>
-    `,
-    )
-    .join('');
+/* ── Интерактив ──────────────────────────────────────── */
 
-  const footerHost = document.querySelector('[data-footer-phones]');
-  if (footerHost) {
-    footerHost.innerHTML = company.phones
-      .map(
-        (p) => `
-        <li>
-          ${escapeHtml(p.label)}:
-          <a href="${escapeHtml(p.href)}">${escapeHtml(p.value)}</a>
-        </li>
-      `,
-      )
-      .join('');
-  }
-}
-
-function renderServices() {
-  const host = document.querySelector('[data-services]');
-  if (!host) return;
-  host.innerHTML = company.services
-    .map(
-      (s) => `
-      <li class="service-item">
-        <span class="service-item__bullet" aria-hidden="true"></span>
-        <span>${escapeHtml(s)}</span>
-      </li>
-    `,
-    )
-    .join('');
-}
-
-function renderExtras() {
-  const host = document.querySelector('[data-extras]');
-  if (!host) return;
-  host.innerHTML = company.extras
-    .map(
-      (e) => `
-      <article class="card">
-        <h3 class="card__title">${escapeHtml(e.title)}</h3>
-        <p class="card__text">${escapeHtml(e.text)}</p>
-      </article>
-    `,
-    )
-    .join('');
-}
-
-function renderRoofs() {
-  const host = document.querySelector('[data-roofs]');
-  if (!host) return;
-
-  const icons = {
-    gable:
-      '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 34 L32 8 L60 34" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="34" x2="60" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
-    side: '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 12 L58 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="34" x2="58" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
-    back: '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M58 12 L6 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="34" x2="58" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
-  };
-
-  host.innerHTML = company.roofs
-    .map(
-      (r) => `
-      <article class="roof-card">
-        <div class="roof-card__icon" aria-hidden="true">${
-          icons[r.icon] || ''
-        }</div>
-        <h3 class="roof-card__title">${escapeHtml(r.title)}</h3>
-        <p class="roof-card__text">${escapeHtml(r.text)}</p>
-      </article>
-    `,
-    )
-    .join('');
-}
-
-function renderGaragesCarousel() {
-  const track = document.querySelector(
-    '[data-carousel="garages"] [data-carousel-track]',
-  );
-  if (!track) return;
-  track.innerHTML = company.garages
-    .map(
-      (p) => `
-      <article class="slide">
-        <div class="slide__img">
-          <img src="${p.img}" alt="${escapeHtml(p.title)}" width="680" height="453" loading="lazy" decoding="async" />
-          <span class="slide__badge">${escapeHtml(p.size)}</span>
-        </div>
-        <div class="slide__body">
-          <h3 class="slide__title">${escapeHtml(p.title)}</h3>
-          <p class="slide__meta">${escapeHtml(p.meta)}</p>
-        </div>
-      </article>
-    `,
-    )
-    .join('');
-}
-
-function renderCanopiesCarousel() {
-  const track = document.querySelector(
-    '[data-carousel="canopies"] [data-carousel-track]',
-  );
-  if (!track) return;
-  track.innerHTML = company.canopies
-    .map(
-      (p) => `
-      <article class="slide slide--photo">
-        <div class="slide__img slide__img--tall">
-          <img src="${p.img}" alt="${escapeHtml(p.title)}" width="680" height="453" loading="lazy" decoding="async" />
-        </div>
-        <div class="slide__body">
-          <h3 class="slide__title">${escapeHtml(p.title)}</h3>
-        </div>
-      </article>
-    `,
-    )
-    .join('');
-}
-
-function renderWorkflow() {
-  const host = document.querySelector('[data-workflow]');
-  if (!host || !company.workflow) return;
-
-  host.innerHTML = company.workflow.steps
-    .map(
-      (step, i) => `
-      <li class="workflow-step">
-        <div class="workflow-step__num" aria-hidden="true">${i + 1}</div>
-        <div class="workflow-step__body">
-          <h3 class="workflow-step__title">${escapeHtml(step.title)}</h3>
-          <p class="workflow-step__text">${escapeHtml(step.text)}</p>
-        </div>
-      </li>
-    `,
-    )
-    .join('');
-}
-
-function renderFaq() {
-  const host = document.querySelector('[data-faq]');
-  if (!host || !company.faq) return;
-
-  host.innerHTML = company.faq
-    .map(
-      (item) => `
-      <details class="faq-item">
-        <summary class="faq-item__question">
-          <span class="faq-item__label">${escapeHtml(item.q)}</span>
-          <span class="faq-item__icon" aria-hidden="true"></span>
-        </summary>
-        <div class="faq-item__panel">
-          <div class="faq-item__answer">
-            <p>${escapeHtml(item.a)}</p>
-          </div>
-        </div>
-      </details>
-    `,
-    )
-    .join('');
-
-  initFaqAccordion();
-}
-
+/**
+ * FAQ-аккордеон: один открытый пункт, анимация height/opacity.
+ * При prefers-reduced-motion — мгновенное открытие без transition.
+ * DOM: .faq-item, .faq-item__question, .faq-item__panel
+ */
 function initFaqAccordion() {
   const items = document.querySelectorAll('.faq-item');
   if (!items.length) return;
@@ -719,6 +969,7 @@ function initFaqAccordion() {
         return;
       }
 
+      // Закрыть другие открытые пункты (аккордеон — один за раз)
       items.forEach((other) => {
         if (other !== item && other.classList.contains('is-open')) {
           const otherPanel = other.querySelector('.faq-item__panel');
@@ -743,6 +994,7 @@ function initFaqAccordion() {
   });
 }
 
+/** Анимированное раскрытие панели FAQ (height → scrollHeight → auto). */
 function openFaqItem(item, panel) {
   item.classList.add('is-open');
   item.setAttribute('open', '');
@@ -764,6 +1016,7 @@ function openFaqItem(item, panel) {
   panel.addEventListener('transitionend', onEnd);
 }
 
+/** Анимированное закрытие панели FAQ. */
 function closeFaqItem(item, panel) {
   panel.style.height = `${panel.scrollHeight}px`;
   panel.style.opacity = '1';
@@ -783,48 +1036,14 @@ function closeFaqItem(item, panel) {
   panel.addEventListener('transitionend', onEnd);
 }
 
-function renderMessengers() {
-  const linksHtml = company.messengers
-    .map(
-      (m) => `
-      <a
-        class="messenger-link messenger-link--${escapeHtml(m.id)}"
-        href="${escapeHtml(m.href)}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span class="messenger-link__label">${escapeHtml(m.label)}</span>
-        <span class="messenger-link__hint">${escapeHtml(m.hint)}</span>
-      </a>
-    `,
-    )
-    .join('');
-
-  const sectionHost = document.querySelector('[data-messengers]');
-  if (sectionHost) sectionHost.innerHTML = linksHtml;
-
-  const footerHost = document.querySelector('[data-footer-messengers]');
-  if (footerHost) {
-    footerHost.innerHTML = company.messengers
-      .map(
-        (m) => `
-        <li>
-          <a href="${escapeHtml(
-            m.href,
-          )}" target="_blank" rel="noopener noreferrer">${escapeHtml(
-            m.label,
-          )}</a>
-        </li>
-      `,
-      )
-      .join('');
-  }
-}
-
+/**
+ * Мобильное меню: backdrop, закрытие по Escape и клику вне.
+ * DOM: [data-nav-toggle], [data-nav], [data-nav-backdrop]
+ */
 function initMobileMenu() {
-  const toggle = document.querySelector('[data-nav-toggle]');
-  const nav = document.querySelector('[data-nav]');
-  const backdrop = document.querySelector('[data-nav-backdrop]');
+  const toggle = document.querySelector(SELECTORS.navToggle);
+  const nav = document.querySelector(SELECTORS.nav);
+  const backdrop = document.querySelector(SELECTORS.navBackdrop);
   if (!toggle || !nav) return;
 
   const setOpen = (open) => {
@@ -853,6 +1072,10 @@ function initMobileMenu() {
   });
 }
 
+/**
+ * Lightbox для фото каруселей: клик по .slide__img, навигация ←/→, Escape.
+ * Создаёт overlay в document.body при инициализации.
+ */
 function initLightbox() {
   const overlay = document.createElement('div');
   overlay.className = 'lightbox';
@@ -921,9 +1144,10 @@ function initLightbox() {
     document.body.classList.remove('lightbox-open');
     items = [];
     currentIndex = 0;
+    // Очистка src после анимации закрытия
     setTimeout(() => {
       img.src = '';
-    }, 260);
+    }, LIGHTBOX_CLOSE_MS);
   }
 
   function step(delta) {
@@ -951,6 +1175,7 @@ function initLightbox() {
     if (e.key === 'ArrowRight') step(1);
   });
 
+  // Делегирование: клик по фото в любой карусели открывает lightbox
   document.addEventListener('click', (e) => {
     const slideImg = e.target.closest('.slide__img');
     if (!slideImg) return;
@@ -971,6 +1196,41 @@ function initLightbox() {
   });
 }
 
+/**
+ * Карусель: стрелки прокручивают слайды через scrollIntoView.
+ * DOM: [data-carousel="{name}"], [data-carousel-prev/next], .slide
+ */
+function initCarousel(name) {
+  const carousel = document.querySelector(SELECTORS.carousel(name));
+  if (!carousel) return;
+  const prevBtn = carousel.querySelector(SELECTORS.carouselPrev);
+  const nextBtn = carousel.querySelector(SELECTORS.carouselNext);
+  const slides = Array.from(carousel.querySelectorAll('.slide'));
+  if (slides.length === 0) return;
+
+  let activeIndex = 0;
+  function goTo(index) {
+    activeIndex = Math.max(0, Math.min(slides.length - 1, index));
+    slides[activeIndex].scrollIntoView({
+      behavior: 'smooth',
+      inline: 'start',
+      block: 'nearest',
+    });
+  }
+  prevBtn?.addEventListener('click', () => goTo(activeIndex - 1));
+  nextBtn?.addEventListener('click', () => goTo(activeIndex + 1));
+}
+
+/** Инициализация всех каруселей из CAROUSEL_NAMES. */
+function initCarousels() {
+  CAROUSEL_NAMES.forEach(initCarousel);
+}
+
+/**
+ * Плавное появление секций при прокрутке.
+ * DOM: .section — добавляет классы reveal / is-visible.
+ * Отключается при prefers-reduced-motion или без IntersectionObserver.
+ */
 function initScrollReveal() {
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -999,6 +1259,41 @@ function initScrollReveal() {
   });
 }
 
+/**
+ * Кнопка «Наверх»: видимость после прокрутки > SCROLL_TOP_THRESHOLD.
+ * DOM: .scroll-top — tabindex и aria-hidden управляются динамически.
+ */
+function initScrollTop() {
+  const btn = document.querySelector(SELECTORS.scrollTop);
+  if (!btn) return;
+
+  let visible = false;
+
+  const update = () => {
+    const show = window.scrollY > SCROLL_TOP_THRESHOLD;
+    if (show === visible) return;
+    visible = show;
+    btn.classList.toggle('is-visible', show);
+    btn.setAttribute('aria-hidden', show ? 'false' : 'true');
+    if (show) {
+      btn.removeAttribute('tabindex');
+    } else {
+      btn.setAttribute('tabindex', '-1');
+    }
+  };
+
+  btn.setAttribute('aria-hidden', 'true');
+  btn.setAttribute('tabindex', '-1');
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+}
+
+/* ── PWA ─────────────────────────────────────────────── */
+
+/**
+ * Регистрация Service Worker на localhost/HTTPS.
+ * При смене controller — автоперезагрузка страницы.
+ */
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
 
@@ -1023,53 +1318,17 @@ function registerServiceWorker() {
   });
 }
 
-function initCarousel(name) {
-  const carousel = document.querySelector(`[data-carousel="${name}"]`);
-  if (!carousel) return;
-  const prevBtn = carousel.querySelector('[data-carousel-prev]');
-  const nextBtn = carousel.querySelector('[data-carousel-next]');
-  const slides = Array.from(carousel.querySelectorAll('.slide'));
-  if (slides.length === 0) return;
+/* ── Инициализация ───────────────────────────────────── */
 
-  let activeIndex = 0;
-  function goTo(index) {
-    activeIndex = Math.max(0, Math.min(slides.length - 1, index));
-    slides[activeIndex].scrollIntoView({
-      behavior: 'smooth',
-      inline: 'start',
-      block: 'nearest',
-    });
-  }
-  prevBtn?.addEventListener('click', () => goTo(activeIndex - 1));
-  nextBtn?.addEventListener('click', () => goTo(activeIndex + 1));
-}
-
-function initScrollTop() {
-  const btn = document.querySelector('.scroll-top');
-  if (!btn) return;
-
-  const threshold = 320;
-  let visible = false;
-
-  const update = () => {
-    const show = window.scrollY > threshold;
-    if (show === visible) return;
-    visible = show;
-    btn.classList.toggle('is-visible', show);
-    btn.setAttribute('aria-hidden', show ? 'false' : 'true');
-    if (show) {
-      btn.removeAttribute('tabindex');
-    } else {
-      btn.setAttribute('tabindex', '-1');
-    }
-  };
-
-  btn.setAttribute('aria-hidden', 'true');
-  btn.setAttribute('tabindex', '-1');
-  update();
-  window.addEventListener('scroll', update, { passive: true });
-}
-
+/**
+ * Точка входа. Порядок вызовов важен:
+ * 1. Тема — до отрисовки интерактива (иконка переключателя).
+ * 2. Рендер контента и SEO — заполнение DOM до привязки обработчиков.
+ * 3. FAQ — renderFaq() вызывает initFaqAccordion() внутри.
+ * 4. Карусели и lightbox — после renderCarousels() (слайды в DOM).
+ * 5. Scroll reveal / scroll-top — независимы от контента.
+ * 6. Service Worker — в конце, не блокирует UI.
+ */
 function init() {
   initTheme();
   renderText();
@@ -1080,12 +1339,10 @@ function init() {
   renderWorkflow();
   renderFaq();
   renderRoofs();
-  renderGaragesCarousel();
-  renderCanopiesCarousel();
+  renderCarousels();
   renderMessengers();
   initMobileMenu();
-  initCarousel('garages');
-  initCarousel('canopies');
+  initCarousels();
   initLightbox();
   initScrollReveal();
   initScrollTop();

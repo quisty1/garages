@@ -57,21 +57,56 @@ garages/
 ├── sw.js                   # Service Worker
 ├── robots.txt              # Правила для поисковых роботов
 ├── sitemap.xml             # Карта сайта
+├── .htaccess               # HTTPS, кэш, сжатие (Apache)
 ├── assets/
-│   ├── logo-mm33.png       # Логотип (шапка, hero, OG, иконки PWA)
+│   ├── logo-og.webp        # OG-превью, JSON-LD
+│   ├── logo-hero.webp      # Hero-карточка (920w)
+│   ├── logo-hero-680.webp  # Hero-карточка (680w, preload)
+│   ├── logo-48.webp        # Логотип в шапке
+│   ├── logo-96.webp        # Логотип 2x
+│   ├── logo-44.webp        # Логотип в footer
 │   ├── favicon.svg         # Иконка вкладки
-│   ├── logo-placeholder.svg
-│   ├── garage-6x4.png      # Фото гаражей
-│   ├── garage-6x6.png
-│   ├── garage-8x6.png
-│   ├── garage-6x8.png
-│   ├── canopy-car.png      # Фото навесов
-│   ├── canopy-gable.png
-│   ├── canopy-single-slope.png
-│   ├── canopy-two-cars.png
-│   └── canopy-house.png
+│   ├── favicon-48.png      # Favicon PNG
+│   ├── icon-192.webp       # PWA-иконка
+│   ├── icon-512.webp       # PWA-иконка
+│   ├── garage-6x4.webp     # Фото гаражей (+ *-560.webp превью)
+│   ├── garage-6x6.webp
+│   ├── garage-8x6.webp
+│   ├── garage-6x8.webp
+│   ├── canopy-car.webp     # Фото навесов (+ *-560.webp превью)
+│   ├── canopy-gable.webp
+│   ├── canopy-single-slope.webp
+│   ├── canopy-two-cars.webp
+│   └── canopy-house.webp
 └── README.md
 ```
+
+### Секции main.js
+
+Файл организован сверху вниз по логическим блокам:
+
+| Секция            | Содержимое                                                                                                                                          |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Данные**        | Объект `company` — весь контент сайта                                                                                                               |
+| **Константы**     | `THEME_KEY`, `SELECTORS`, `CAROUSEL_NAMES`, SVG-иконки темы и кровли                                                                                |
+| **Утилиты**       | `$()`, `setTextById()`, `escapeHtml()`, `carouselImgAttrs()`, `getSiteUrl()`, `absUrl()`, `setMeta()`, `fillContainer()`, `fillDualContainers()`    |
+| **Тема**          | `getSystemTheme`, `applyTheme`, `initTheme`                                                                                                         |
+| **Рендеринг**     | `renderText`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
+| **SEO**           | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                |
+| **Интерактив**    | FAQ-аккордеон, мобильное меню, lightbox, карусели, scroll reveal, scroll-to-top                                                                     |
+| **PWA**           | `registerServiceWorker`                                                                                                                             |
+| **Инициализация** | `init()` + `DOMContentLoaded`                                                                                                                       |
+
+### Секции styles.css
+
+| Секция                     | Содержимое                                                                                                               |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **CSS-переменные**         | Тёмная тема (`:root`), светлая (`data-theme`, `prefers-color-scheme`), z-index, отступы секций, transition               |
+| **Reset / base**           | `*`, `html`, `body`, типографика                                                                                         |
+| **Утилиты**                | `.container`, `.skip-link`, `.section`                                                                                   |
+| **Компоненты**             | Header → Hero → Carousel → Roofs → Workflow → FAQ → Services → Contact/Footer → Scroll-to-top → Lightbox → Scroll reveal |
+| **Адаптив**                | `@media (max-width: 980px)` и `720px`                                                                                    |
+| **prefers-reduced-motion** | FAQ и scroll reveal без анимаций                                                                                         |
 
 ## Запуск локально
 
@@ -124,20 +159,20 @@ garages: [
     title: 'Гараж 6×4 м',
     size: '6000 × 4000 × 3600 мм',
     meta: 'Длина 6 м · Ширина 4 м · Высота 3,6 м',
-    img: './assets/garage-6x4.png',
+    img: './assets/garage-6x4.webp',
   },
   // ...
 ],
 canopies: [
   {
     title: 'Навес для авто',
-    img: './assets/canopy-car.png',
+    img: './assets/canopy-car.webp',
   },
   // ...
 ],
 ```
 
-Чтобы добавить или заменить фото — положите файл в `assets/` и укажите путь в поле `img`.
+Чтобы добавить или заменить фото — положите файл в `assets/` (формат WebP) и укажите путь в поле `img`. Для каруселей автоматически подставляется превью `*-560.webp` через `carouselImgAttrs()`.
 
 ### Остальные поля
 
@@ -215,7 +250,7 @@ seo: {
     region: 'Владимирская область',
     cities: ['Владимир', 'Ковров', 'Муром', /* ... */],
   },
-  ogImage: './assets/logo-mm33.png',
+  ogImage: './assets/logo-og.webp',
 }
 ```
 
@@ -223,21 +258,21 @@ seo: {
 
 3. Зарегистрируйте сайт в [Яндекс.Вебмастер](https://webmaster.yandex.ru/) и [Google Search Console](https://search.google.com/search-console).
 
-4. Убедитесь, что `assets/logo-mm33.png` на месте — он используется в шапке, hero, OG-превью и PWA-иконках.
+4. Убедитесь, что `assets/logo-og.webp` на месте — он используется в OG-превью, JSON-LD и PWA.
 
 ### SEO-поля в main.js
 
-| Поле                     | Назначение                                |
-| ------------------------ | ----------------------------------------- |
-| `seo.siteUrl`            | Канонический домен (без завершающего `/`) |
+| Поле                     | Назначение                                   |
+| ------------------------ | -------------------------------------------- |
+| `seo.siteUrl`            | Канонический домен (без завершающего `/`)    |
 | `seo.mirrorUrls`         | Дополнительные URL, где доступен тот же сайт |
-| `seo.title`              | Заголовок страницы                        |
-| `seo.description`        | Описание для поисковиков и соцсетей       |
-| `seo.keywords`           | Ключевые слова                            |
-| `seo.region`             | Код региона (`RU-VLA`)                    |
-| `seo.serviceArea.region` | Название региона обслуживания             |
-| `seo.serviceArea.cities` | Список городов (используется в JSON-LD)   |
-| `seo.ogImage`            | Картинка для превью в соцсетях            |
+| `seo.title`              | Заголовок страницы                           |
+| `seo.description`        | Описание для поисковиков и соцсетей          |
+| `seo.keywords`           | Ключевые слова                               |
+| `seo.region`             | Код региона (`RU-VLA`)                       |
+| `seo.serviceArea.region` | Название региона обслуживания                |
+| `seo.serviceArea.cities` | Список городов (используется в JSON-LD)      |
+| `seo.ogImage`            | Картинка для превью в соцсетях               |
 
 ## Разработчик
 

@@ -1,3 +1,6 @@
+# robots.txt — правила для поисковых роботов
+# URL sitemap синхронизирован с company.seo.siteUrl в main.js
+
 User-agent: *
 Allow: /
 

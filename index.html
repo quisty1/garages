@@ -9,11 +9,11 @@
     </title>
     <meta
       name="description"
-      content="Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам."
+      content="Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление."
     />
     <meta
       name="keywords"
-      content="гаражи под ключ, металлические гаражи, навесы для авто, гаражи из сэндвич-панелей, монтаж гаражей, Владимирская область, гаражи Владимир, гаражи Ковров, гаражи Муром, металлоконструкции"
+      content="гаражи под ключ, металлические гаражи, навесы для авто, гаражи из сэндвич-панелей, монтаж гаражей, Владимирская область, гаражи Владимир, гаражи Ковров, гаражи Муром, навесы Александров, металлоконструкции"
     />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="author" content="Металл Монтаж 33" />
@@ -69,7 +69,7 @@
       media="(prefers-color-scheme: light)"
     />
 
-    <!-- Open Graph -->
+    <!-- SEO: статические fallback-значения; renderSEO() в main.js обновляет при загрузке -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Металл Монтаж 33" />
     <meta
@@ -78,7 +78,7 @@
     />
     <meta
       property="og:description"
-      content="Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона."
+      content="Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление."
     />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:url" content="https://metallmontage33.ru/" />
@@ -98,7 +98,7 @@
     />
     <meta
       name="twitter:description"
-      content="Гаражи и навесы под ключ во Владимирской области и всех городах региона."
+      content="Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление."
     />
     <meta
       name="twitter:image"
@@ -106,77 +106,20 @@
     />
 
     <link rel="stylesheet" href="./styles.css" />
+    <!-- JSON-LD fallback; renderJsonLd() перезаписывает #json-ld из company.seo -->
     <script type="application/ld+json" id="json-ld">
       {
         "@context": "https://schema.org",
         "@type": "HomeAndConstructionBusiness",
         "name": "Металл Монтаж 33",
-        "description": "Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона.",
+        "description": "Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление.",
         "url": "https://metallmontage33.ru/",
         "image": "https://metallmontage33.ru/assets/logo-og.webp",
         "email": "MetallMontage33@yandex.ru",
-        "telephone": ["+79042543674", "+79203434727"],
-        "areaServed": [
-          { "@type": "AdministrativeArea", "name": "Владимирская область" },
-          {
-            "@type": "City",
-            "name": "Владимир",
-            "containedInPlace": {
-              "@type": "AdministrativeArea",
-              "name": "Владимирская область"
-            }
-          },
-          {
-            "@type": "City",
-            "name": "Ковров",
-            "containedInPlace": {
-              "@type": "AdministrativeArea",
-              "name": "Владимирская область"
-            }
-          },
-          {
-            "@type": "City",
-            "name": "Муром",
-            "containedInPlace": {
-              "@type": "AdministrativeArea",
-              "name": "Владимирская область"
-            }
-          },
-          {
-            "@type": "City",
-            "name": "Александров",
-            "containedInPlace": {
-              "@type": "AdministrativeArea",
-              "name": "Владимирская область"
-            }
-          },
-          {
-            "@type": "City",
-            "name": "Гусь-Хрустальный",
-            "containedInPlace": {
-              "@type": "AdministrativeArea",
-              "name": "Владимирская область"
-            }
-          }
-        ],
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday",
-              "Sunday"
-            ],
-            "opens": "08:00",
-            "closes": "18:00"
-          }
-        ]
+        "telephone": ["+79042543674", "+79203434727"]
       }
     </script>
+    <!-- Ранняя установка темы до загрузки CSS (предотвращает мигание) -->
     <script>
       (function () {
         var saved = localStorage.getItem('mm33-theme');
@@ -192,6 +135,7 @@
   <body>
     <a class="skip-link" href="#contact">Перейти к контактам</a>
 
+    <!-- Header: навигация, переключатель темы, мобильное меню -->
     <header class="site-header" data-header>
       <div class="container header-inner">
         <div class="brand">
@@ -252,6 +196,7 @@
     <div class="nav-backdrop" data-nav-backdrop aria-hidden="true" hidden></div>
 
     <main id="top">
+      <!-- Hero: #hero-* заполняются из company.hero в renderText() -->
       <section class="hero" aria-label="Первый экран">
         <div class="container hero__inner">
           <div class="hero__content">
@@ -320,6 +265,7 @@
         </div>
       </section>
 
+      <!-- Garages: слайды в [data-carousel-track] — renderCarousels() -->
       <section class="section" id="garages">
         <div class="container">
           <div class="section__head">
@@ -360,6 +306,7 @@
         </div>
       </section>
 
+      <!-- Canopies: слайды в [data-carousel-track] — renderCarousels() -->
       <section class="section section--muted" id="canopies">
         <div class="container">
           <div class="section__head">
@@ -399,6 +346,7 @@
         </div>
       </section>
 
+      <!-- Roof types: [data-roofs] — renderRoofs() -->
       <section class="section" id="roofs">
         <div class="container">
           <div class="section__head">
@@ -412,6 +360,7 @@
         </div>
       </section>
 
+      <!-- Services: [data-services] — renderServices(); side-card — статический контент -->
       <section class="section section--muted" id="services">
         <div class="container">
           <div class="two-cols">
@@ -445,6 +394,7 @@
         </div>
       </section>
 
+      <!-- Extras: [data-extras] — renderExtras() -->
       <section class="section" id="extras">
         <div class="container">
           <div class="section__head">
@@ -458,6 +408,7 @@
         </div>
       </section>
 
+      <!-- Workflow: [data-workflow] — renderWorkflow(); заголовок секции — статический fallback -->
       <section class="section section--muted" id="workflow">
         <div class="container">
           <div class="section__head">
@@ -471,6 +422,7 @@
         </div>
       </section>
 
+      <!-- FAQ: [data-faq] — renderFaq() + initFaqAccordion() -->
       <section class="section" id="faq">
         <div class="container">
           <div class="section__head">
@@ -484,6 +436,7 @@
         </div>
       </section>
 
+      <!-- Contact: [data-phones], [data-messengers] — renderPhones(), renderMessengers() -->
       <section
         class="section section--contact"
         id="contact"
@@ -529,6 +482,7 @@
       </section>
     </main>
 
+    <!-- Footer: [data-footer-phones], [data-footer-messengers] — из main.js -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <div class="footer-brand">
@@ -607,7 +561,13 @@
       </div>
     </footer>
 
-    <a href="#top" class="scroll-top" aria-label="Наверх">
+    <a
+      href="#top"
+      class="scroll-top"
+      aria-label="Наверх"
+      aria-hidden="true"
+      tabindex="-1"
+    >
       <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
         <path
           fill="currentColor"
