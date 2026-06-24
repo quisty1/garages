@@ -11,43 +11,82 @@ const company = {
   seo: {
     siteUrl: 'https://metallmontage33.ru', // Канонический домен (без /)
     mirrorUrls: ['https://cp283311.tw1.ru'], // Зеркала; canonical всегда siteUrl
-    title: 'Металл Монтаж 33 — гаражи и навесы под ключ | Владимирская область',
+    title:
+      'Металл Монтаж 33 — гаражи и навесы под ключ | Владимирская,  Московская, Нижегородская и Ивановская обл.',
     description:
-      'Производство и монтаж металлических гаражей и навесов во Владимирской области и всех городах региона: Владимир, Ковров, Муром, Александров и др. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление.',
+      'Производство и монтаж металлических гаражей и навесов во Владимирской, Московской, Нижегородской и Ивановской областях, в Москве и по всем городам в этих регионах. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление.',
     keywords:
-      'гаражи под ключ, металлические гаражи, навесы для авто, гаражи из сэндвич-панелей, монтаж гаражей, Владимирская область, гаражи Владимир, гаражи Ковров, гаражи Муром, навесы Александров, металлоконструкции',
-    region: 'RU-VLA', // Код региона для geo.region
+      'гаражи под ключ, металлические гаражи, навесы для авто, гаражи из сэндвич-панелей, монтаж гаражей, Владимирская область,  Московская область, Нижегородская область, Ивановская область, гаражи  гаражи Владимир, гаражи Ковров, гаражи Муром, навесы Александров, металлоконструкции, все города регионов',
+    region: 'RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA', // Коды регионов для geo.region
     serviceArea: {
-      region: 'Владимирская область',
-      cities: [
-        'Владимир',
-        'Ковров',
-        'Муром',
-        'Александров',
-        'Гусь-Хрустальный',
-        'Киржач',
-        'Кольчугино',
-        'Вязники',
-        'Радужный',
-        'Собинка',
-        'Меленки',
-        'Петушки',
-        'Камешково',
-        'Юрьев-Польский',
-        'Суздаль',
-        'Гороховец',
-        'Лакинск',
-        'Струнино',
-        'Покров',
-        'Костерёво',
-        'Судогда',
+      regions: [
+        {
+          name: 'Владимирская область',
+          cities: [
+            'Владимир',
+            'Ковров',
+            'Муром',
+            'Александров',
+            'Гусь-Хрустальный',
+            'Киржач',
+            'Кольчугино',
+            'Вязники',
+            'Радужный',
+            'Собинка',
+            'Меленки',
+            'Петушки',
+            'Камешково',
+            'Юрьев-Польский',
+            'Суздаль',
+            'Гороховец',
+            'Лакинск',
+            'Струнино',
+            'Покров',
+            'Костерёво',
+            'Судогда',
+          ],
+        },
+        { name: 'Московская область' },
+        {
+          name: 'Нижегородская область',
+          cities: [
+            'Нижний Новгород',
+            'Арзамас',
+            'Ворсма',
+            'Дзержинск',
+            'Кстово',
+            'Кулебаки',
+            'Лукоянов',
+            'Сергач',
+            'Городец',
+            'Клявлино',
+            'Балахна',
+            'Ворсма',
+            'Дзержинск',
+            'Кстово',
+            'Кулебаки',
+          ],
+        },
+        {
+          name: 'Ивановская область',
+          cities: [
+            'Иваново',
+            'Кинешма',
+            'Шуя',
+            'Плес',
+            'Фурманов',
+            'Южа',
+            'Заволжье',
+            'Пестяки',
+          ],
+        },
       ],
     },
     ogImage: './assets/logo-og.webp', // OG, Twitter, JSON-LD
   },
   phones: [
-    { label: 'Алексей', value: '+7 (904) 254-36-74', href: 'tel:+79042543674' },
-    { label: 'Евгений', value: '+7 (920) 343-47-27', href: 'tel:+79203434727' },
+    { value: '+7 (904) 254-36-74', href: 'tel:+79042543674' },
+    { value: '+7 (920) 343-47-27', href: 'tel:+79203434727' },
   ],
   email: 'MetallMontage33@yandex.ru',
   hours: 'Ежедневно 8:00–18:00',
@@ -62,8 +101,9 @@ const company = {
   hero: {
     title: 'Металлические гаражи и навесы под ключ',
     text: 'Производим и монтируем гаражи и навесы из сэндвич-панелей и металлокаркаса. Сварочное соединение, любые размеры по вашим чертежам.',
-    geo: 'Владимирская область',
-    warranty: '3 года',
+    sizes: { value: 'Любые', detail: 'по вашим чертежам' },
+    geo: ['Московская', 'Нижегородская', 'Владимирская', 'Ивановская'],
+    warranty: { value: '3 года', detail: 'на все работы' },
   },
   workflow: {
     title: 'Как мы работаем',
@@ -126,7 +166,7 @@ const company = {
     },
     {
       q: 'В каком регионе вы работаете?',
-      a: 'Работаем по всей Владимирской области: Владимир, Ковров, Муром, Александров и другие города региона.',
+      a: 'Работаем во Владимирской, Московской, Нижегородской и Ивановской областях, в Москве и по всем городам в этих регионах.',
     },
     {
       q: 'Из каких материалов делаются конструкции?',
@@ -457,6 +497,23 @@ function initTheme() {
 
 /* ── Рендеринг контента ──────────────────────────────── */
 
+/** Мета-карточки первого экрана: размеры, гарантия, география-теги. */
+function renderHeroMeta() {
+  const h = company.hero;
+  setTextById('hero-sizes', h.sizes?.value ?? 'Любые');
+  setTextById('hero-sizes-detail', h.sizes?.detail ?? 'по вашим чертежам');
+  setTextById('hero-warranty', h.warranty?.value ?? '3 года');
+  setTextById('hero-warranty-detail', h.warranty?.detail ?? 'на все работы');
+
+  const geoEl = $('hero-geo');
+  if (!geoEl) return;
+
+  const regions = Array.isArray(h.geo) ? h.geo : [h.geo].filter(Boolean);
+  geoEl.innerHTML = regions
+    .map((r) => `<span class="meta-card__tag">${escapeHtml(r)}</span>`)
+    .join('');
+}
+
 /**
  * Подставляет текстовый контент в элементы с id и data-атрибутами.
  * DOM: #page-title, #company-name, #hero-*, #contact-*, #footer-*, [data-phone]
@@ -471,8 +528,7 @@ function renderText() {
   setTextById('footer-company-name2', company.name);
   setTextById('hero-title', company.hero.title);
   setTextById('hero-text', company.hero.text);
-  setTextById('hero-geo', company.hero.geo);
-  setTextById('hero-warranty', company.hero.warranty);
+  renderHeroMeta();
 
   const primaryPhone = company.phones[0];
   const phoneBtn = document.querySelector(SELECTORS.phone);
@@ -499,7 +555,7 @@ function renderText() {
 function phoneTileHtml(p) {
   return `
     <a class="contact-tile contact-tile--accent" href="${escapeHtml(p.href)}">
-      <span class="contact-tile__label">Телефон · ${escapeHtml(p.label)}</span>
+      <span class="contact-tile__label">Телефон</span>
       <span class="contact-tile__value">${escapeHtml(p.value)}</span>
     </a>
   `;
@@ -509,7 +565,6 @@ function phoneTileHtml(p) {
 function phoneFooterHtml(p) {
   return `
     <li>
-      ${escapeHtml(p.label)}:
       <a href="${escapeHtml(p.href)}">${escapeHtml(p.value)}</a>
     </li>
   `;
@@ -730,22 +785,27 @@ function renderFaq() {
 
 /** Массив areaServed для JSON-LD: регион + города. */
 function buildAreaServedJsonLd() {
-  const area = company.seo?.serviceArea;
-  if (!area) return [];
+  const regions = company.seo?.serviceArea?.regions;
+  if (!regions?.length) return [];
 
-  const regionPlace = {
-    '@type': 'AdministrativeArea',
-    name: area.region,
-  };
-
-  return [
-    regionPlace,
-    ...area.cities.map((city) => ({
-      '@type': 'City',
-      name: city,
-      containedInPlace: regionPlace,
-    })),
-  ];
+  const result = [];
+  for (const region of regions) {
+    const regionPlace = {
+      '@type': 'AdministrativeArea',
+      name: region.name,
+    };
+    result.push(regionPlace);
+    if (region.cities?.length) {
+      for (const city of region.cities) {
+        result.push({
+          '@type': 'City',
+          name: city,
+          containedInPlace: regionPlace,
+        });
+      }
+    }
+  }
+  return result;
 }
 
 /**
@@ -835,9 +895,15 @@ function renderSEO() {
   const pageUrl = siteUrl ? `${siteUrl}/` : '';
   const description = seo.description;
   const ogImage = absUrl(seo.ogImage || './assets/logo-og.webp');
-  const placename = seo.serviceArea
-    ? `${seo.serviceArea.region} (${seo.serviceArea.cities.slice(0, 5).join(', ')} и др.)`
-    : 'Владимирская область';
+  const regions = seo.serviceArea?.regions;
+  const placename = regions?.length
+    ? `${regions
+        .map((region) => {
+          if (!region.cities?.length) return region.name;
+          return `${region.name} (${region.cities.slice(0, 5).join(', ')} и др.)`;
+        })
+        .join('; ')}; по всем городам в этих регионах`
+    : 'Владимирская,  Московская, Нижегородская и Ивановская области';
 
   setMeta('description', description);
   setMeta('keywords', seo.keywords);
