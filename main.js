@@ -766,6 +766,42 @@ function buildGarageOffer(pageUrl) {
   return offer;
 }
 
+/** @id товара в JSON-LD для связи каталога с Product на верхнем уровне. */
+function garageProductId(pageUrl, index) {
+  return `${pageUrl}#product-garage-${index}`;
+}
+
+/** Product с offers — отдельная сущность в @graph (требование Google для Product). */
+function buildGarageProduct(g, pageUrl, index) {
+  const product = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: g.title,
+    description: g.meta,
+    image: absUrl(g.img),
+    offers: buildGarageOffer(pageUrl),
+  };
+  if (pageUrl) product['@id'] = garageProductId(pageUrl, index);
+  return product;
+}
+
+/** ListItem каталога: ссылка на Product по @id или полный объект без pageUrl. */
+function buildGarageCatalogListItems(pageUrl) {
+  return company.garages.map((g, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: pageUrl
+      ? { '@id': garageProductId(pageUrl, i) }
+      : {
+          '@type': 'Product',
+          name: g.title,
+          description: g.meta,
+          image: absUrl(g.img),
+          offers: buildGarageOffer(pageUrl),
+        },
+  }));
+}
+
 /** FAQPage для расширенных сниппетов в поиске. */
 function buildFaqJsonLd(pageUrl) {
   if (!company.faq?.length) return null;
@@ -852,8 +888,8 @@ function isMirrorHost() {
 }
 
 /**
- * Записывает JSON-LD (LocalBusiness + WebSite) в #json-ld.
- * Каталог гаражей — OfferCatalog с ценой «от 22 000 ₽».
+ * Записывает JSON-LD (LocalBusiness + WebSite + Product[]) в #json-ld.
+ * Каждый гараж — отдельный Product на верхнем уровне с offers (требование Google).
  */
 function renderJsonLd(siteUrl, pageUrl, ogImage) {
   const host = $('json-ld');
@@ -896,17 +932,7 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Гаражи и навесы',
-      itemListElement: company.garages.map((g, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        item: {
-          '@type': 'Product',
-          name: g.title,
-          description: g.meta,
-          image: absUrl(g.img),
-          offers: buildGarageOffer(pageUrl),
-        },
-      })),
+      itemListElement: buildGarageCatalogListItems(pageUrl),
     },
   };
 
@@ -928,7 +954,11 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
     webSite.publisher = { '@id': `${pageUrl}#organization` };
   }
 
-  const schemas = [localBusiness, webSite];
+  const garageProducts = company.garages.map((g, i) =>
+    buildGarageProduct(g, pageUrl, i),
+  );
+
+  const schemas = [localBusiness, webSite, ...garageProducts];
   const faqPage = buildFaqJsonLd(pageUrl);
   if (faqPage) schemas.push(faqPage);
 
