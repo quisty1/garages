@@ -1,7 +1,7 @@
 /* ── Service Worker: Металл Монтаж 33 ───────────────── */
 
 /** Версия кэша — инкрементировать при изменении PRECACHE или стратегий. */
-const CACHE = 'mm33-v8';
+const CACHE = 'mm33-v9';
 
 /**
  * Файлы для precache при install.

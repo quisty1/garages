@@ -15,10 +15,11 @@
 
 ### Интерфейс
 
+- Промышленный премиум-дизайн: техническая сетка, контурные блоки, крупная типографика, акцент на фото гаражей и навесов
 - Адаптивная вёрстка для телефона, планшета и десктопа
-- Фиксированная шапка с учётом `scroll-margin` при переходе по якорям
-- Мобильное меню с backdrop и закрытием по Escape
-- Переключение тёмной и светлой темы (SVG-иконки)
+- Фиксированная шапка с телефоном на десктопе, переключателем темы и якорной навигацией
+- Мобильное меню с backdrop и закрытием по Escape (с ширины ≤ 860px)
+- Переключение тёмной и светлой темы (SVG-иконки) — отдельные палитры, не просто инверсия
 - Автовыбор темы по `prefers-color-scheme`, сохранение в `localStorage`
 - Lightbox для фото в каруселях (клавиши ←/→ и Escape)
 - Плавное появление секций при прокрутке (`IntersectionObserver`)
@@ -90,7 +91,7 @@ garages/
 | **Константы**     | `THEME_KEY`, `SELECTORS`, `CAROUSEL_NAMES`, SVG-иконки темы и кровли                                                                                |
 | **Утилиты**       | `$()`, `setTextById()`, `escapeHtml()`, `carouselImgAttrs()`, `getSiteUrl()`, `absUrl()`, `setMeta()`, `fillContainer()`, `fillDualContainers()`    |
 | **Тема**          | `getSystemTheme`, `applyTheme`, `initTheme`                                                                                                         |
-| **Рендеринг**     | `renderText`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
+| **Рендеринг**     | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
 | **SEO**           | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                |
 | **Интерактив**    | FAQ-аккордеон, мобильное меню, lightbox, карусели, scroll reveal, scroll-to-top                                                                     |
 | **PWA**           | `registerServiceWorker`                                                                                                                             |
@@ -104,7 +105,8 @@ garages/
 | **Reset / base**           | `*`, `html`, `body`, типографика                                                                                         |
 | **Утилиты**                | `.container`, `.skip-link`, `.section`                                                                                   |
 | **Компоненты**             | Header → Hero → Carousel → Roofs → Workflow → FAQ → Services → Contact/Footer → Scroll-to-top → Lightbox → Scroll reveal |
-| **Адаптив**                | `@media (max-width: 980px)` и `720px`                                                                                    |
+| **Industrial redesign**    | Промышленная палитра, сетка, контурные карточки, крупные слайды, отдельные стили светлой темы                            |
+| **Адаптив**                | `@media (max-width: 1120px)`, `980px`, `860px` (мобильное меню), `720px`                                                 |
 | **prefers-reduced-motion** | FAQ и scroll reveal без анимаций                                                                                         |
 
 ## Запуск локально
@@ -193,22 +195,28 @@ canopies: [
 - По умолчанию — системная тема устройства
 - Кнопка в шапке переключает тёмную и светлую тему
 - Выбор сохраняется в `localStorage` под ключом `mm33-theme`
+- Тёмная тема: графитовый фон, тёплый медно-оранжевый акцент (`#d98232`)
+- Светлая тема: тёплый технический фон (`#f4efe6`), более глубокий акцент (`#bd6328`)
 
-Основные CSS-переменные в `styles.css`:
+Основные CSS-переменные в `styles.css` (блок **Industrial redesign**):
 
-| Переменная        | Назначение                           |
-| ----------------- | ------------------------------------ |
-| `--primary`       | Оранжевый акцент                     |
-| `--bg`            | Фон страницы                         |
-| `--text`          | Основной цвет текста                 |
-| `--surface`       | Фон карточек и панелей               |
-| `--header-height` | Высота шапки (для якорной прокрутки) |
+| Переменная        | Назначение                                              |
+| ----------------- | ------------------------------------------------------- |
+| `--primary`       | Медно-оранжевый акцент                                  |
+| `--bg`            | Фон страницы                                            |
+| `--text`          | Основной цвет текста                                    |
+| `--surface`       | Фон карточек и панелей                                  |
+| `--steel`         | Вторичный «металлический» акцент для иконок и деталей   |
+| `--container`     | Максимальная ширина контента (`1400px`)                 |
+| `--header-height` | Высота шапки (для якорной прокрутки)                    |
+
+Цвета `theme-color` синхронизированы в `main.js` (`THEME_COLORS`), `index.html` и `manifest.json`.
 
 ## PWA и Service Worker
 
 | Файл            | Назначение                                      |
 | --------------- | ----------------------------------------------- |
-| `manifest.json` | Название, иконки, `start_url`, цвета темы       |
+| `manifest.json` | Название, иконки, `start_url`, `background_color` (`#111418`), `theme_color` (`#d98232`) |
 | `sw.js`         | Precache ключевых файлов, стратегии кэширования |
 
 При смене версии кэша (`CACHE` в `sw.js`) старые записи удаляются при активации. После обновления SW страница перезагружается автоматически.

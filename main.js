@@ -278,8 +278,8 @@ const THEME_KEY = 'mm33-theme';
 
 /** Цвета meta theme-color для светлой и тёмной темы. */
 const THEME_COLORS = {
-  light: '#f2f2f2',
-  dark: '#1e1e22',
+  light: '#f4efe6',
+  dark: '#111418',
 };
 
 /** Порог прокрутки (px) для показа кнопки «Наверх». */
@@ -360,7 +360,7 @@ function escapeHtml(str) {
  */
 function carouselImgAttrs(img) {
   const small = img.replace(/\.webp$/, '-560.webp');
-  return `src="${escapeHtml(img)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(img)} 680w" sizes="(max-width: 720px) 280px, 340px" width="680" height="453" loading="lazy" decoding="async"`;
+  return `src="${escapeHtml(img)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(img)} 680w" sizes="(max-width: 720px) 82vw, (max-width: 980px) 48vw, 520px" width="680" height="453" loading="lazy" decoding="async"`;
 }
 
 /**
@@ -604,8 +604,9 @@ function renderExtras() {
     SELECTORS.extras,
     company.extras
       .map(
-        (e) => `
+        (e, i) => `
       <article class="card">
+        <div class="card__num">${String(i + 1).padStart(2, '0')}</div>
         <h3 class="card__title">${escapeHtml(e.title)}</h3>
         <p class="card__text">${escapeHtml(e.text)}</p>
       </article>
@@ -621,8 +622,9 @@ function renderRoofs() {
     SELECTORS.roofs,
     company.roofs
       .map(
-        (r) => `
+        (r, i) => `
       <article class="roof-card">
+        <div class="roof-card__meta">кровля ${String(i + 1).padStart(2, '0')}</div>
         <div class="roof-card__icon" aria-hidden="true">${
           ROOF_ICONS[r.icon] || ''
         }</div>
@@ -653,10 +655,12 @@ function garageSlideHtml(p) {
     <article class="slide">
       <div class="slide__img">
         <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(p.title)}" />
-        <span class="slide__badge">${escapeHtml(p.size)}</span>
+        <span class="slide__badge">сварной каркас</span>
       </div>
       <div class="slide__body">
+        <div class="slide__kicker">типовой размер</div>
         <h3 class="slide__title">${escapeHtml(p.title)}</h3>
+        <p class="slide__size">${escapeHtml(p.size)}</p>
         <p class="slide__meta">${escapeHtml(p.meta)}</p>
       </div>
     </article>
@@ -669,8 +673,10 @@ function canopySlideHtml(p) {
     <article class="slide slide--photo">
       <div class="slide__img slide__img--tall">
         <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(p.title)}" />
+        <span class="slide__badge">навес под ключ</span>
       </div>
       <div class="slide__body">
+        <div class="slide__kicker">металлоконструкция</div>
         <h3 class="slide__title">${escapeHtml(p.title)}</h3>
       </div>
     </article>
@@ -706,6 +712,7 @@ function renderWorkflow() {
         (step, i) => `
       <li class="workflow-step">
         <div class="workflow-step__num" aria-hidden="true">${i + 1}</div>
+        <div class="workflow-step__line" aria-hidden="true"></div>
         <div class="workflow-step__body">
           <h3 class="workflow-step__title">${escapeHtml(step.title)}</h3>
           <p class="workflow-step__text">${escapeHtml(step.text)}</p>

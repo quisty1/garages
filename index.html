@@ -29,23 +29,30 @@
       id="canonical-link"
       href="https://metallmontage33.ru/"
     />
-    <link rel="icon" href="./favicon.ico" sizes="48x48" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link
       rel="icon"
-      href="./assets/favicon-48.png"
+      href="/assets/favicon-48.png"
       type="image/png"
       sizes="48x48"
     />
     <link
       rel="icon"
-      href="./assets/favicon-96.png"
+      href="/assets/favicon-96.png"
       type="image/png"
       sizes="96x96"
     />
-    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="icon"
+      href="/assets/icon-512.png"
+      type="image/png"
+      sizes="512x512"
+    />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link
       rel="apple-touch-icon"
-      href="./assets/apple-touch-icon.png"
+      href="/assets/apple-touch-icon.png"
       sizes="180x180"
     />
     <link rel="manifest" href="./manifest.json" />
@@ -61,12 +68,12 @@
     />
     <meta
       name="theme-color"
-      content="#1e1e22"
+      content="#111418"
       media="(prefers-color-scheme: dark)"
     />
     <meta
       name="theme-color"
-      content="#f2f2f2"
+      content="#f4efe6"
       media="(prefers-color-scheme: light)"
     />
 
@@ -143,16 +150,24 @@
           <a class="brand__link" href="#top">
             <img
               id="company-logo"
-              src="./assets/logo-48.webp"
-              srcset="./assets/logo-48.webp 1x, ./assets/logo-96.webp 2x"
+              src="./assets/favicon-48.png"
+              srcset="./assets/favicon-48.png 1x, ./assets/favicon-96.png 2x"
               alt="Логотип Металл Монтаж 33"
               width="48"
               height="48"
               decoding="async"
             />
-            <span class="brand__name" id="company-name">Металл Монтаж 33</span>
+            <span class="brand__text">
+              <span class="brand__name" id="company-name">Металл Монтаж 33</span>
+              <span class="brand__sub">металлоконструкции под ключ</span>
+            </span>
           </a>
         </div>
+
+        <a class="header-phone" href="tel:+79042543674">
+          <span class="header-phone__label">Связаться</span>
+          <span class="header-phone__value">+7 (904) 254-36-74</span>
+        </a>
 
         <button
           class="theme-toggle"
@@ -201,7 +216,10 @@
       <section class="hero" aria-label="Первый экран">
         <div class="container hero__inner">
           <div class="hero__content">
-            <div class="pill">Металл Монтаж 33 · сварочное соединение</div>
+            <div class="hero__kicker">
+              <span>Металл Монтаж 33</span>
+              <span>сварочное соединение</span>
+            </div>
             <h1 class="hero__title" id="hero-title">
               Металлические гаражи и навесы под ключ
             </h1>
@@ -216,6 +234,12 @@
               <a class="btn btn--ghost" href="tel:+79042543674" data-phone>
                 Позвонить +7 (904) 254-36-74
               </a>
+            </div>
+
+            <div class="hero__proof" aria-label="Ключевые особенности">
+              <span>Выезд на участок</span>
+              <span>Производство по чертежу</span>
+              <span>Монтаж бригадой</span>
             </div>
 
             <div class="hero__meta">
@@ -249,6 +273,7 @@
           </div>
 
           <div class="hero__visual" aria-hidden="true">
+            <div class="hero__measure hero__measure--top">металл / панель / кровля</div>
             <div class="hero-card">
               <div class="hero-card__img">
                 <img
@@ -266,6 +291,7 @@
                 />
               </div>
               <div class="hero-card__footer">
+                <div class="hero-card__mark">объект под ключ</div>
                 <div class="hero-card__title">
                   Рассчитаем проект под ваш участок
                 </div>
@@ -274,6 +300,7 @@
                 </div>
               </div>
             </div>
+            <div class="hero__measure hero__measure--side">замер · доставка · монтаж</div>
           </div>
         </div>
       </section>
@@ -282,7 +309,10 @@
       <section class="section" id="garages">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Гаражи</h2>
+            <div>
+              <div class="section__eyebrow">Каталог / сварные гаражи</div>
+              <h2 class="section__title">Гаражи</h2>
+            </div>
             <p class="section__text">
               Четыре популярных размера. Любой проект адаптируем под ваш
               участок.
@@ -323,7 +353,10 @@
       <section class="section section--muted" id="canopies">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Навесы</h2>
+            <div>
+              <div class="section__eyebrow">Каталог / навесы</div>
+              <h2 class="section__title">Навесы</h2>
+            </div>
             <p class="section__text">
               Металлические навесы для авто, дома и хозяйственных нужд.
             </p>
@@ -363,7 +396,10 @@
       <section class="section" id="roofs">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Тип кровли</h2>
+            <div>
+              <div class="section__eyebrow">Конструктив</div>
+              <h2 class="section__title">Тип кровли</h2>
+            </div>
             <p class="section__text">
               Подберём оптимальный тип кровли под планировку участка и задачи.
             </p>
@@ -378,6 +414,7 @@
         <div class="container">
           <div class="two-cols">
             <div>
+              <div class="section__eyebrow">Работы и комплектация</div>
               <h2 class="section__title">Услуги</h2>
               <p class="section__text">
                 Полный цикл: от чертежа до монтажа на вашем участке.
@@ -387,6 +424,7 @@
 
             <div class="side-card">
               <div class="side-card__top">Индивидуальный проект</div>
+              <div class="side-card__stamp">по месту</div>
               <div class="side-card__body">
                 <p class="side-card__text">
                   Мы можем изменить любую деталь проекта согласно Вашим
@@ -411,7 +449,10 @@
       <section class="section" id="extras">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Дополнительные услуги</h2>
+            <div>
+              <div class="section__eyebrow">Опции</div>
+              <h2 class="section__title">Дополнительные услуги</h2>
+            </div>
             <p class="section__text">
               Доукомплектуем гараж и навес функциональными опциями.
             </p>
@@ -425,7 +466,10 @@
       <section class="section section--muted" id="workflow">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Как мы работаем</h2>
+            <div>
+              <div class="section__eyebrow">Маршрут объекта</div>
+              <h2 class="section__title">Как мы работаем</h2>
+            </div>
             <p class="section__text">
               От заявки до сдачи объекта — прозрачный процесс без лишних этапов.
             </p>
@@ -439,7 +483,10 @@
       <section class="section" id="faq">
         <div class="container">
           <div class="section__head">
-            <h2 class="section__title">Частые вопросы</h2>
+            <div>
+              <div class="section__eyebrow">Вопросы до замера</div>
+              <h2 class="section__title">Частые вопросы</h2>
+            </div>
             <p class="section__text">
               Цены, сроки и условия — кратко о главном.
             </p>
@@ -457,7 +504,10 @@
       >
         <div class="container">
           <div class="section__head section__head--contact">
-            <h2 class="section__title">Контакты</h2>
+            <div>
+              <div class="section__eyebrow">Расчёт и консультация</div>
+              <h2 class="section__title">Контакты</h2>
+            </div>
             <p class="section__text">
               Позвоните или напишите — ответим и поможем с расчётом (размер,
               ворота, материалы, адрес).
@@ -500,8 +550,8 @@
       <div class="container footer-inner">
         <div class="footer-brand">
           <img
-            src="./assets/logo-44.webp"
-            srcset="./assets/logo-44.webp 1x, ./assets/logo-88.webp 2x"
+            src="./assets/favicon-48.png"
+            srcset="./assets/favicon-48.png 1x, ./assets/favicon-96.png 2x"
             alt="Логотип Металл Монтаж 33"
             width="44"
             height="44"
