@@ -85,17 +85,17 @@ garages/
 
 Файл организован сверху вниз по логическим блокам:
 
-| Секция            | Содержимое                                                                                                                                          |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Данные**        | Объект `company` — весь контент сайта                                                                                                               |
-| **Константы**     | `THEME_KEY`, `SELECTORS`, `CAROUSEL_NAMES`, SVG-иконки темы и кровли                                                                                |
-| **Утилиты**       | `$()`, `setTextById()`, `escapeHtml()`, `carouselImgAttrs()`, `getSiteUrl()`, `absUrl()`, `setMeta()`, `fillContainer()`, `fillDualContainers()`    |
-| **Тема**          | `getSystemTheme`, `applyTheme`, `initTheme`                                                                                                         |
+| Секция            | Содержимое                                                                                                                                                            |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Данные**        | Объект `company` — весь контент сайта                                                                                                                                 |
+| **Константы**     | `THEME_KEY`, `SELECTORS`, `CAROUSEL_NAMES`, SVG-иконки темы и кровли                                                                                                  |
+| **Утилиты**       | `$()`, `setTextById()`, `escapeHtml()`, `carouselImgAttrs()`, `getSiteUrl()`, `absUrl()`, `setMeta()`, `fillContainer()`, `fillDualContainers()`                      |
+| **Тема**          | `getSystemTheme`, `applyTheme`, `initTheme`                                                                                                                           |
 | **Рендеринг**     | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
-| **SEO**           | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                |
-| **Интерактив**    | FAQ-аккордеон, мобильное меню, lightbox, карусели, scroll reveal, scroll-to-top                                                                     |
-| **PWA**           | `registerServiceWorker`                                                                                                                             |
-| **Инициализация** | `init()` + `DOMContentLoaded`                                                                                                                       |
+| **SEO**           | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
+| **Интерактив**    | FAQ-аккордеон, мобильное меню, lightbox, карусели, scroll reveal, scroll-to-top                                                                                       |
+| **PWA**           | `registerServiceWorker`                                                                                                                                               |
+| **Инициализация** | `init()` + `DOMContentLoaded`                                                                                                                                         |
 
 ### Секции styles.css
 
@@ -200,24 +200,24 @@ canopies: [
 
 Основные CSS-переменные в `styles.css` (блок **Industrial redesign**):
 
-| Переменная        | Назначение                                              |
-| ----------------- | ------------------------------------------------------- |
-| `--primary`       | Медно-оранжевый акцент                                  |
-| `--bg`            | Фон страницы                                            |
-| `--text`          | Основной цвет текста                                    |
-| `--surface`       | Фон карточек и панелей                                  |
-| `--steel`         | Вторичный «металлический» акцент для иконок и деталей   |
-| `--container`     | Максимальная ширина контента (`1400px`)                 |
-| `--header-height` | Высота шапки (для якорной прокрутки)                    |
+| Переменная        | Назначение                                            |
+| ----------------- | ----------------------------------------------------- |
+| `--primary`       | Медно-оранжевый акцент                                |
+| `--bg`            | Фон страницы                                          |
+| `--text`          | Основной цвет текста                                  |
+| `--surface`       | Фон карточек и панелей                                |
+| `--steel`         | Вторичный «металлический» акцент для иконок и деталей |
+| `--container`     | Максимальная ширина контента (`1400px`)               |
+| `--header-height` | Высота шапки (для якорной прокрутки)                  |
 
 Цвета `theme-color` синхронизированы в `main.js` (`THEME_COLORS`), `index.html` и `manifest.json`.
 
 ## PWA и Service Worker
 
-| Файл            | Назначение                                      |
-| --------------- | ----------------------------------------------- |
+| Файл            | Назначение                                                                               |
+| --------------- | ---------------------------------------------------------------------------------------- |
 | `manifest.json` | Название, иконки, `start_url`, `background_color` (`#111418`), `theme_color` (`#d98232`) |
-| `sw.js`         | Precache ключевых файлов, стратегии кэширования |
+| `sw.js`         | Precache ключевых файлов, стратегии кэширования                                          |
 
 При смене версии кэша (`CACHE` в `sw.js`) старые записи удаляются при активации. После обновления SW страница перезагружается автоматически.
 
@@ -228,7 +228,6 @@ canopies: [
 Сайт состоит только из статических файлов. Загрузите содержимое репозитория на хостинг:
 
 - [metallmontage33.ru](https://metallmontage33.ru/) — основной домен
-- [cp283311.tw1.ru](https://cp283311.tw1.ru/) — зеркало на хостинге Timeweb
 - Netlify / Vercel / Cloudflare Pages
 - Обычный веб-хостинг по FTP
 
@@ -252,7 +251,6 @@ canopies: [
 ```js
 seo: {
   siteUrl: 'https://metallmontage33.ru',
-  mirrorUrls: ['https://cp283311.tw1.ru'],
   serviceArea: {
     regions: [
       {
@@ -268,7 +266,7 @@ seo: {
 }
 ```
 
-2. Синхронизируйте URL в `index.html` (canonical, OG), `robots.txt`, `sitemap.xml` и `manifest.json` — либо полагайтесь на `renderSEO()`, которая подставляет значения из `company.seo` при загрузке. Зеркальные домены (`mirrorUrls`) не дублируют канонический URL — canonical всегда указывает на `siteUrl`.
+2. Синхронизируйте URL в `index.html` (canonical, OG), `robots.txt`, `sitemap.xml` и `manifest.json` — либо полагайтесь на `renderSEO()`, которая подставляет значения из `company.seo` при загрузке.
 
 3. Зарегистрируйте сайт в [Яндекс.Вебмастер](https://webmaster.yandex.ru/) и [Google Search Console](https://search.google.com/search-console).
 
@@ -279,7 +277,6 @@ seo: {
 | Поле                      | Назначение                                               |
 | ------------------------- | -------------------------------------------------------- |
 | `seo.siteUrl`             | Канонический домен (без завершающего `/`)                |
-| `seo.mirrorUrls`          | Дополнительные URL, где доступен тот же сайт             |
 | `seo.title`               | Заголовок страницы                                       |
 | `seo.description`         | Описание для поисковиков и соцсетей                      |
 | `seo.keywords`            | Ключевые слова                                           |

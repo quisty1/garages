@@ -10,16 +10,18 @@ const company = {
   tagline: 'Гаражи и навесы из металла под ключ',
   seo: {
     siteUrl: 'https://metallmontage33.ru', // Канонический домен (без /)
-    mirrorUrls: ['https://cp283311.tw1.ru'], // Зеркала; canonical всегда siteUrl
     title:
-      'Металл Монтаж 33 — гаражи и навесы под ключ | Владимирская,  Московская, Нижегородская и Ивановская обл.',
+      'Гаражи и навесы под ключ — Владимирская, Московская, Нижегородская и Ивановская области | Металл Монтаж 33',
     description:
-      'Производство и монтаж металлических гаражей и навесов во Владимирской, Московской, Нижегородской и Ивановской областях, в Москве и по всем городам в этих регионах. Сэндвич-панели, сварочное соединение, размеры по чертежам, секционные ворота, утепление.',
+      'Металлические гаражи и навесы под ключ во Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.',
     keywords:
-      'гаражи под ключ, металлические гаражи, навесы для авто, гаражи из сэндвич-панелей, монтаж гаражей, Владимирская область,  Московская область, Нижегородская область, Ивановская область, гаражи  гаражи Владимир, гаражи Ковров, гаражи Муром, навесы Александров, металлоконструкции, все города регионов',
+      'металлические гаражи под ключ, гараж из сэндвич-панелей, навесы для авто, металлический навес, монтаж металлоконструкций, гаражи Владимир, гаражи Москва, гаражи Нижний Новгород, навесы Московская область, гаражи Иваново, производство гаражей, гараж под ключ цена',
     region: 'RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA', // Коды регионов для geo.region
+    ogImageWidth: 1200,
+    ogImageHeight: 800,
     serviceArea: {
       regions: [
+        { name: 'Москва' },
         {
           name: 'Владимирская область',
           cities: [
@@ -61,10 +63,6 @@ const company = {
             'Городец',
             'Клявлино',
             'Балахна',
-            'Ворсма',
-            'Дзержинск',
-            'Кстово',
-            'Кулебаки',
           ],
         },
         {
@@ -102,7 +100,13 @@ const company = {
     title: 'Металлические гаражи и навесы под ключ',
     text: 'Производим и монтируем гаражи и навесы из сэндвич-панелей и металлокаркаса. Сварочное соединение, любые размеры по вашим чертежам.',
     sizes: { value: 'Любые', detail: 'по вашим чертежам' },
-    geo: ['Московская', 'Нижегородская', 'Владимирская', 'Ивановская'],
+    geo: [
+      'Москва',
+      'Московская',
+      'Нижегородская',
+      'Владимирская',
+      'Ивановская',
+    ],
     warranty: { value: '3 года', detail: 'на все работы' },
   },
   workflow: {
@@ -361,6 +365,15 @@ function escapeHtml(str) {
 function carouselImgAttrs(img) {
   const small = img.replace(/\.webp$/, '-560.webp');
   return `src="${escapeHtml(img)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(img)} 680w" sizes="(max-width: 720px) 82vw, (max-width: 980px) 48vw, 520px" width="680" height="453" loading="lazy" decoding="async"`;
+}
+
+/** SEO alt для фото гаражей и навесов в каруселях. */
+function seoImageAlt(title, kind) {
+  const lower = title.toLowerCase();
+  if (kind === 'garage') {
+    return `Металлический ${lower} из сэндвич-панелей на сварном каркасе — Металл Монтаж 33`;
+  }
+  return `Металлический ${lower} под ключ — Металл Монтаж 33`;
 }
 
 /**
@@ -654,7 +667,7 @@ function garageSlideHtml(p) {
   return `
     <article class="slide">
       <div class="slide__img">
-        <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(p.title)}" />
+        <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(seoImageAlt(p.title, 'garage'))}" />
         <span class="slide__badge">сварной каркас</span>
       </div>
       <div class="slide__body">
@@ -672,7 +685,7 @@ function canopySlideHtml(p) {
   return `
     <article class="slide slide--photo">
       <div class="slide__img slide__img--tall">
-        <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(p.title)}" />
+        <img ${carouselImgAttrs(p.img)} alt="${escapeHtml(seoImageAlt(p.title, 'canopy'))}" />
         <span class="slide__badge">навес под ключ</span>
       </div>
       <div class="slide__body">
@@ -797,6 +810,10 @@ function buildAreaServedJsonLd() {
 
   const result = [];
   for (const region of regions) {
+    if (!region.name.includes('область') && !region.cities?.length) {
+      result.push({ '@type': 'City', name: region.name });
+      continue;
+    }
     const regionPlace = {
       '@type': 'AdministrativeArea',
       name: region.name,
@@ -816,14 +833,15 @@ function buildAreaServedJsonLd() {
 }
 
 /**
- * Создаёт объект Offer для каталога гаражей в JSON-LD.
- * Цена «от 22 000 ₽» — соответствует FAQ, не менять без согласования контента.
+ * Создаёт объект Offer для каталога в JSON-LD.
+ * @param {string} pageUrl
+ * @param {string} price — минимальная цена «от»
  */
-function buildGarageOffer(pageUrl) {
+function buildProductOffer(pageUrl, price) {
   const offer = {
     '@type': 'Offer',
     priceCurrency: 'RUB',
-    price: '22000',
+    price,
     availability: 'https://schema.org/InStock',
   };
   if (pageUrl) {
@@ -834,37 +852,37 @@ function buildGarageOffer(pageUrl) {
 }
 
 /** @id товара в JSON-LD для связи каталога с Product на верхнем уровне. */
-function garageProductId(pageUrl, index) {
-  return `${pageUrl}#product-garage-${index}`;
+function productId(pageUrl, kind, index) {
+  return `${pageUrl}#product-${kind}-${index}`;
 }
 
 /** Product с offers — отдельная сущность в @graph (требование Google для Product). */
-function buildGarageProduct(g, pageUrl, index) {
+function buildCatalogProduct(item, pageUrl, kind, index, price, description) {
   const product = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: g.title,
-    description: g.meta,
-    image: absUrl(g.img),
-    offers: buildGarageOffer(pageUrl),
+    name: item.title,
+    description: description || item.meta || item.title,
+    image: absUrl(item.img),
+    offers: buildProductOffer(pageUrl, price),
   };
-  if (pageUrl) product['@id'] = garageProductId(pageUrl, index);
+  if (pageUrl) product['@id'] = productId(pageUrl, kind, index);
   return product;
 }
 
 /** ListItem каталога: ссылка на Product по @id или полный объект без pageUrl. */
-function buildGarageCatalogListItems(pageUrl) {
-  return company.garages.map((g, i) => ({
+function buildCatalogListItems(items, pageUrl, kind, price, descriptionFn) {
+  return items.map((item, i) => ({
     '@type': 'ListItem',
     position: i + 1,
     item: pageUrl
-      ? { '@id': garageProductId(pageUrl, i) }
+      ? { '@id': productId(pageUrl, kind, i) }
       : {
           '@type': 'Product',
-          name: g.title,
-          description: g.meta,
-          image: absUrl(g.img),
-          offers: buildGarageOffer(pageUrl),
+          name: item.title,
+          description: descriptionFn(item),
+          image: absUrl(item.img),
+          offers: buildProductOffer(pageUrl, price),
         },
   }));
 }
@@ -910,7 +928,7 @@ function renderSEO() {
           return `${region.name} (${region.cities.slice(0, 5).join(', ')} и др.)`;
         })
         .join('; ')}; по всем городам в этих регионах`
-    : 'Владимирская,  Московская, Нижегородская и Ивановская области';
+    : 'Владимирская, Московская, Нижегородская и Ивановская области';
 
   setMeta('description', description);
   setMeta('keywords', seo.keywords);
@@ -925,7 +943,15 @@ function renderSEO() {
   setMeta('og:description', description, 'property');
   setMeta('og:locale', 'ru_RU', 'property');
   setMeta('og:image', ogImage, 'property');
-  setMeta('og:image:alt', `${company.name} — логотип`, 'property');
+  setMeta('og:image:secure_url', ogImage, 'property');
+  setMeta('og:image:width', String(seo.ogImageWidth || 1200), 'property');
+  setMeta('og:image:height', String(seo.ogImageHeight || 800), 'property');
+  setMeta('og:image:type', 'image/webp', 'property');
+  setMeta(
+    'og:image:alt',
+    `${company.name} — гаражи и навесы под ключ`,
+    'property',
+  );
   if (pageUrl) {
     setMeta('og:url', pageUrl, 'property');
     const canonical = $('canonical-link');
@@ -936,28 +962,9 @@ function renderSEO() {
   setMeta('twitter:title', seo.title);
   setMeta('twitter:description', description);
   setMeta('twitter:image', ogImage);
-
-  if (isMirrorHost()) {
-    setMeta('robots', 'noindex, follow');
-  }
+  setMeta('twitter:image:alt', `${company.name} — гаражи и навесы под ключ`);
 
   renderJsonLd(siteUrl, pageUrl, ogImage);
-}
-
-/** true, если страница открыта на зеркальном домене из mirrorUrls. */
-function isMirrorHost() {
-  const mirrors = company.seo?.mirrorUrls;
-  if (!mirrors?.length || !window.location.protocol.startsWith('http')) {
-    return false;
-  }
-  const host = window.location.hostname.toLowerCase();
-  return mirrors.some((url) => {
-    try {
-      return new URL(url).hostname.toLowerCase() === host;
-    } catch {
-      return false;
-    }
-  });
 }
 
 /**
@@ -979,7 +986,15 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
     image: ogImage,
     email: company.email,
     telephone: phones,
+    priceRange: 'от 6 000 ₽',
     areaServed: buildAreaServedJsonLd(),
+    contactPoint: company.phones.map((phone) => ({
+      '@type': 'ContactPoint',
+      telephone: phone.href.replace('tel:', ''),
+      contactType: 'sales',
+      areaServed: 'RU',
+      availableLanguage: ['ru'],
+    })),
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -1002,11 +1017,31 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
       'Сэндвич-панели',
       'Монтаж металлоконструкций',
     ],
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Гаражи и навесы',
-      itemListElement: buildGarageCatalogListItems(pageUrl),
-    },
+    hasOfferCatalog: [
+      {
+        '@type': 'OfferCatalog',
+        name: 'Металлические гаражи',
+        itemListElement: buildCatalogListItems(
+          company.garages,
+          pageUrl,
+          'garage',
+          '22000',
+          (g) => g.meta,
+        ),
+      },
+      {
+        '@type': 'OfferCatalog',
+        name: 'Металлические навесы',
+        itemListElement: buildCatalogListItems(
+          company.canopies,
+          pageUrl,
+          'canopy',
+          '6000',
+          (c) => seoImageAlt(c.title, 'canopy'),
+        ),
+      },
+    ],
+    sameAs: company.messengers.map((messenger) => messenger.href),
   };
 
   if (pageUrl) {
@@ -1024,18 +1059,60 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
 
   if (pageUrl) {
     webSite.url = pageUrl;
+    webSite['@id'] = `${pageUrl}#website`;
     webSite.publisher = { '@id': `${pageUrl}#organization` };
   }
 
+  const webPage = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: company.seo.title,
+    description: company.seo.description,
+    inLanguage: 'ru-RU',
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: ogImage,
+      width: company.seo.ogImageWidth || 1200,
+      height: company.seo.ogImageHeight || 800,
+    },
+  };
+
+  if (pageUrl) {
+    webPage.url = pageUrl;
+    webPage['@id'] = `${pageUrl}#webpage`;
+    webPage.isPartOf = { '@id': `${pageUrl}#website` };
+    webPage.about = { '@id': `${pageUrl}#organization` };
+  }
+
   const garageProducts = company.garages.map((g, i) =>
-    buildGarageProduct(g, pageUrl, i),
+    buildCatalogProduct(g, pageUrl, 'garage', i, '22000', g.meta),
   );
 
-  const schemas = [localBusiness, webSite, ...garageProducts];
+  const canopyProducts = company.canopies.map((c, i) =>
+    buildCatalogProduct(
+      c,
+      pageUrl,
+      'canopy',
+      i,
+      '6000',
+      seoImageAlt(c.title, 'canopy'),
+    ),
+  );
+
+  const schemas = [
+    localBusiness,
+    webSite,
+    webPage,
+    ...garageProducts,
+    ...canopyProducts,
+  ];
   const faqPage = buildFaqJsonLd(pageUrl);
   if (faqPage) schemas.push(faqPage);
 
-  host.textContent = JSON.stringify(schemas);
+  host.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': schemas,
+  });
 }
 
 /* ── Интерактив ──────────────────────────────────────── */

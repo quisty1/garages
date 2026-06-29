@@ -4,4 +4,5 @@
 User-agent: *
 Allow: /
 
+Host: metallmontage33.ru
 Sitemap: https://metallmontage33.ru/sitemap.xml
