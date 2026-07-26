@@ -239,19 +239,21 @@ canopies: [
 
 - Title, description, keywords с региональными ключевыми словами
 - Open Graph и Twitter Card
-- JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, каталог гаражей (`OfferCatalog`)
-- `robots.txt` и `sitemap.xml`
-- Гео-мета-теги для Владимирской, Московской, Нижегородской и Ивановской областей, Москвы и всех городов в этих регионах
+- JSON-LD: `HomeAndConstructionBusiness` (адрес, geo, hasMap), `WebSite`, `WebPage`, `Product` (гаражи и навесы), `FAQPage`
+- `robots.txt` и `sitemap.xml` (включая изображения каталога)
+- Гео-мета-теги и видимый блок «Где работаем» с ключевыми городами
+- Юридический адрес во Владимире (мкр. Веризино, ул. Куйбышева, 5г)
 - Один `h1`, иерархия заголовков, alt у изображений
 
 ### Перед публикацией на новый домен
 
-1. Обновите канонический URL в `main.js`:
+1. Обновите канонический URL и адрес в `main.js`:
 
 ```js
 seo: {
   siteUrl: 'https://metallmontage33.ru',
   serviceArea: {
+    featuredCities: ['Владимир', 'Ковров', /* ... */],
     regions: [
       {
         name: 'Владимирская область',
@@ -263,26 +265,44 @@ seo: {
     ],
   },
   ogImage: './assets/logo-og.webp',
+},
+address: {
+  streetAddress: 'ул. Куйбышева, 5г',
+  addressNote: 'мкр. Веризино (Сновицы-Веризино)',
+  addressLocality: 'Владимир',
+  addressRegion: 'Владимирская область',
+  postalCode: '600029',
+  addressCountry: 'RU',
+  latitude: 56.1605,
+  longitude: 40.3734,
+  mapUrl: 'https://yandex.ru/maps/?...',
 }
 ```
 
 2. Синхронизируйте URL в `index.html` (canonical, OG), `robots.txt`, `sitemap.xml` и `manifest.json` — либо полагайтесь на `renderSEO()`, которая подставляет значения из `company.seo` при загрузке.
 
-3. Зарегистрируйте сайт в [Яндекс.Вебмастер](https://webmaster.yandex.ru/) и [Google Search Console](https://search.google.com/search-console).
+3. Зарегистрируйте сайт в [Яндекс.Вебмастер](https://webmaster.yandex.ru/) и [Google Search Console](https://search.google.com/search-console), отправьте `sitemap.xml`.
 
-4. Убедитесь, что `assets/logo-og.webp` на месте — он используется в OG-превью, JSON-LD и PWA.
+4. Создайте карточку в [Яндекс.Бизнес](https://business.yandex.ru/) с тем же адресом, телефонами и фото.
+
+5. Убедитесь, что `assets/logo-og.webp` на месте — он используется в OG-превью, JSON-LD и PWA.
+
+6. При наличии ID Яндекс.Метрики или verification-кодов — добавьте их в `<head>` `index.html`.
 
 ### SEO-поля в main.js
 
-| Поле                      | Назначение                                               |
-| ------------------------- | -------------------------------------------------------- |
-| `seo.siteUrl`             | Канонический домен (без завершающего `/`)                |
-| `seo.title`               | Заголовок страницы                                       |
-| `seo.description`         | Описание для поисковиков и соцсетей                      |
-| `seo.keywords`            | Ключевые слова                                           |
-| `seo.region`              | Коды регионов (`RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA`) |
-| `seo.serviceArea.regions` | Список регионов обслуживания (с городами для JSON-LD)    |
-| `seo.ogImage`             | Картинка для превью в соцсетях                           |
+| Поле                             | Назначение                                               |
+| -------------------------------- | -------------------------------------------------------- |
+| `seo.siteUrl`                    | Канонический домен (без завершающего `/`)                |
+| `seo.title`                      | Заголовок страницы                                       |
+| `seo.description`                | Описание для поисковиков и соцсетей                      |
+| `seo.keywords`                   | Ключевые слова                                           |
+| `seo.region`                     | Коды регионов (`RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA`) |
+| `seo.serviceArea.regions`        | Список регионов обслуживания (с городами для JSON-LD)    |
+| `seo.serviceArea.featuredCities` | Ключевые города для блока «Где работаем»                 |
+| `seo.ogImage`                    | Картинка для превью в соцсетях                           |
+| `address`                        | Юридический адрес, координаты и ссылка на карту          |
+| `serviceAreaSection`             | Заголовки и текст секции «Где работаем»                  |
 
 ## Разработчик
 

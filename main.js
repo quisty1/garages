@@ -10,16 +10,34 @@ const company = {
   tagline: 'Гаражи и навесы из металла под ключ',
   seo: {
     siteUrl: 'https://metallmontage33.ru', // Канонический домен (без /)
-    title:
-      'Гаражи и навесы под ключ — Владимирская, Московская, Нижегородская и Ивановская области | Металл Монтаж 33',
+    title: 'Гаражи и навесы под ключ во Владимире и области | Металл Монтаж 33',
     description:
-      'Металлические гаражи и навесы под ключ во Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.',
+      'Металлические гаражи и навесы под ключ во Владимире, Москве, Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.',
     keywords:
-      'металлические гаражи под ключ, гараж из сэндвич-панелей, навесы для авто, металлический навес, монтаж металлоконструкций, гаражи Владимир, гаражи Москва, гаражи Нижний Новгород, навесы Московская область, гаражи Иваново, производство гаражей, гараж под ключ цена',
+      'металлические гаражи под ключ, гараж из сэндвич-панелей, навесы для авто, металлический навес, монтаж металлоконструкций, гаражи Владимир, гаражи Ковров, гаражи Москва, гаражи Нижний Новгород, навесы Московская область, гаражи Иваново, производство гаражей, гараж под ключ цена, гаражи Веризино',
     region: 'RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA', // Коды регионов для geo.region
     ogImageWidth: 1200,
     ogImageHeight: 800,
     serviceArea: {
+      // Ключевые города для видимого блока «Где работаем»
+      featuredCities: [
+        'Владимир',
+        'Ковров',
+        'Муром',
+        'Александров',
+        'Гусь-Хрустальный',
+        'Суздаль',
+        'Покров',
+        'Москва',
+        'Нижний Новгород',
+        'Дзержинск',
+        'Арзамас',
+        'Кстово',
+        'Балахна',
+        'Иваново',
+        'Кинешма',
+        'Шуя',
+      ],
       regions: [
         { name: 'Москва' },
         {
@@ -82,12 +100,36 @@ const company = {
     },
     ogImage: './assets/logo-og.webp', // OG, Twitter, JSON-LD
   },
+  address: {
+    streetAddress: 'ул. Куйбышева, 5г',
+    addressNote: 'мкр. Веризино (Сновицы-Веризино)',
+    addressLocality: 'Владимир',
+    addressRegion: 'Владимирская область',
+    postalCode: '600029',
+    addressCountry: 'RU',
+    latitude: 56.1605,
+    longitude: 40.3734,
+    mapUrl:
+      'https://yandex.ru/maps/?ll=40.3734%2C56.1605&z=17&text=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%2C%20%D1%83%D0%BB.%20%D0%9A%D1%83%D0%B9%D0%B1%D1%8B%D1%88%D0%B5%D0%B2%D0%B0%2C%205%D0%B3',
+  },
   phones: [
     { value: '+7 (904) 254-36-74', href: 'tel:+79042543674' },
     { value: '+7 (920) 343-47-27', href: 'tel:+79203434727' },
   ],
   email: 'MetallMontage33@yandex.ru',
   hours: 'Ежедневно 8:00–18:00',
+  serviceAreaSection: {
+    title: 'Где работаем',
+    eyebrow: 'География',
+    text: 'Производство и база во Владимире. Выезжаем на замер и монтаж по Владимирской, Московской, Нижегородской и Ивановской областям, в Москву и другие города этих регионов.',
+    moreLabel: 'и другие города регионов',
+  },
+  legal: {
+    form: 'ИП',
+    fullName: 'Перфилов Алексей Геннадьевич',
+    inn: '332401320440',
+    ogrnip: '326330000050600',
+  },
   messengers: [
     {
       id: 'max', // CSS-модификатор messenger-link--{id}
@@ -170,7 +212,11 @@ const company = {
     },
     {
       q: 'В каком регионе вы работаете?',
-      a: 'Работаем во Владимирской, Московской, Нижегородской и Ивановской областях, в Москве и по всем городам в этих регионах.',
+      a: 'Работаем во Владимирской, Московской, Нижегородской и Ивановской областях, в Москве и по всем городам в этих регионах. База — во Владимире, мкр. Веризино, ул. Куйбышева, 5г.',
+    },
+    {
+      q: 'Работаете во Владимире и Коврове?',
+      a: 'Да. База и производство во Владимире (мкр. Веризино, ул. Куйбышева, 5г). Выезжаем на замер и монтаж во Владимир, Ковров, Муром и другие города Владимирской области, а также в Москву, Нижний Новгород, Иваново и по четырём областям.',
     },
     {
       q: 'Из каких материалов делаются конструкции?',
@@ -306,6 +352,7 @@ const SELECTORS = {
   roofs: '[data-roofs]',
   workflow: '[data-workflow]',
   faq: '[data-faq]',
+  featuredCities: '[data-featured-cities]',
   messengers: '[data-messengers]',
   footerMessengers: '[data-footer-messengers]',
   navToggle: '[data-nav-toggle]',
@@ -374,6 +421,63 @@ function seoImageAlt(title, kind) {
     return `Металлический ${lower} из сэндвич-панелей на сварном каркасе — Металл Монтаж 33`;
   }
   return `Металлический ${lower} под ключ — Металл Монтаж 33`;
+}
+
+/** Однострочный адрес для UI и schema. */
+function formatAddressLine(address = company.address) {
+  if (!address) return '';
+  const parts = [
+    address.addressLocality ? `г. ${address.addressLocality}` : '',
+    address.addressNote || '',
+    address.streetAddress || '',
+    address.postalCode || '',
+  ].filter(Boolean);
+  return parts.join(', ');
+}
+
+/** Ссылка на Яндекс.Карты по адресу или готовому mapUrl. */
+function getMapUrl(address = company.address) {
+  if (!address) return '';
+  if (address.mapUrl) return address.mapUrl;
+  const query = [address.addressLocality, address.streetAddress]
+    .filter(Boolean)
+    .join(', ');
+  if (!query) return '';
+  return `https://yandex.ru/maps/?text=${encodeURIComponent(query)}`;
+}
+
+/** PostalAddress, geo и hasMap для JSON-LD организации. */
+function buildAddressJsonLd(address = company.address) {
+  if (!address) return null;
+
+  const result = {
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: address.addressNote
+        ? `${address.streetAddress}, ${address.addressNote}`
+        : address.streetAddress,
+      addressLocality: address.addressLocality,
+      addressRegion: address.addressRegion,
+      postalCode: address.postalCode,
+      addressCountry: address.addressCountry || 'RU',
+    },
+  };
+
+  if (
+    typeof address.latitude === 'number' &&
+    typeof address.longitude === 'number'
+  ) {
+    result.geo = {
+      '@type': 'GeoCoordinates',
+      latitude: address.latitude,
+      longitude: address.longitude,
+    };
+  }
+
+  const mapUrl = getMapUrl(address);
+  if (mapUrl) result.hasMap = mapUrl;
+
+  return result;
 }
 
 /**
@@ -539,6 +643,16 @@ function renderText() {
   setTextById('company-name', company.name);
   setTextById('footer-company-name', company.name);
   setTextById('footer-company-name2', company.name);
+  if (company.legal) {
+    const { form, fullName, inn, ogrnip } = company.legal;
+    setTextById(
+      'footer-legal',
+      `${form} ${fullName} · ИНН ${inn} · ОГРНИП ${ogrnip}`,
+    );
+    setTextById('requisites-name', `${form} ${fullName}`);
+    setTextById('requisites-ogrnip', ogrnip);
+    setTextById('requisites-inn', inn);
+  }
   setTextById('hero-title', company.hero.title);
   setTextById('hero-text', company.hero.text);
   renderHeroMeta();
@@ -562,6 +676,53 @@ function renderText() {
   setTextById('contact-hours', company.hours);
   setTextById('footer-hours', company.hours);
   setTextById('year', new Date().getFullYear());
+  renderAddress();
+  renderServiceArea();
+}
+
+/** Подставляет адрес в контакты и footer. */
+function renderAddress() {
+  const line = formatAddressLine();
+  const mapUrl = getMapUrl();
+  if (!line) return;
+
+  setTextById('contact-address', line);
+  setTextById('footer-address', line);
+
+  const contactLink = $('contact-address-tile');
+  if (contactLink && mapUrl) {
+    contactLink.href = mapUrl;
+    contactLink.target = '_blank';
+    contactLink.rel = 'noopener noreferrer';
+  }
+
+  const footerLink = $('footer-address-link');
+  if (footerLink && mapUrl) {
+    footerLink.href = mapUrl;
+    footerLink.target = '_blank';
+    footerLink.rel = 'noopener noreferrer';
+  }
+
+  const section = company.serviceAreaSection;
+  if (section) {
+    setTextById('service-area-eyebrow', section.eyebrow);
+    setTextById('service-area-title', section.title);
+    setTextById('service-area-text', section.text);
+    setTextById('service-area-more', section.moreLabel);
+  }
+}
+
+/** DOM: [data-featured-cities] — ключевые города зоны обслуживания. */
+function renderServiceArea() {
+  const cities = company.seo?.serviceArea?.featuredCities;
+  if (!cities?.length) return;
+
+  fillContainer(
+    SELECTORS.featuredCities,
+    cities
+      .map((city) => `<li class="service-area__city">${escapeHtml(city)}</li>`)
+      .join(''),
+  );
 }
 
 /** HTML плитки телефона для блока контактов. */
@@ -936,6 +1097,16 @@ function renderSEO() {
   setMeta('author', company.name);
   setMeta('geo.region', seo.region);
   setMeta('geo.placename', placename);
+  if (company.address?.latitude != null && company.address?.longitude != null) {
+    setMeta(
+      'geo.position',
+      `${company.address.latitude};${company.address.longitude}`,
+    );
+    setMeta(
+      'ICBM',
+      `${company.address.latitude}, ${company.address.longitude}`,
+    );
+  }
 
   setMeta('og:type', 'website', 'property');
   setMeta('og:site_name', company.name, 'property');
@@ -1043,6 +1214,9 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
     ],
     sameAs: company.messengers.map((messenger) => messenger.href),
   };
+
+  const addressFields = buildAddressJsonLd();
+  if (addressFields) Object.assign(localBusiness, addressFields);
 
   if (pageUrl) {
     localBusiness.url = pageUrl;
