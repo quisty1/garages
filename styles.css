@@ -1231,6 +1231,12 @@ a.contact-tile:hover {
   font-size: 16px;
   color: var(--text);
 }
+.requisites-panel__subtitle {
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--muted2);
+}
 .requisites-panel__list {
   margin: 0;
   padding-left: 1.2em;

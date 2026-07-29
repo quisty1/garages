@@ -129,6 +129,12 @@ const company = {
     fullName: 'Перфилов Алексей Геннадьевич',
     inn: '332401320440',
     ogrnip: '326330000050600',
+    bank: {
+      name: 'АО «ВЛАДБИЗНЕСБАНК»',
+      account: '40802810600000004637',
+      bic: '042202719',
+      corrAccount: '30101810045372202719',
+    },
   },
   messengers: [
     {
@@ -644,7 +650,7 @@ function renderText() {
   setTextById('footer-company-name', company.name);
   setTextById('footer-company-name2', company.name);
   if (company.legal) {
-    const { form, fullName, inn, ogrnip } = company.legal;
+    const { form, fullName, inn, ogrnip, bank } = company.legal;
     setTextById(
       'footer-legal',
       `${form} ${fullName} · ИНН ${inn} · ОГРНИП ${ogrnip}`,
@@ -652,6 +658,12 @@ function renderText() {
     setTextById('requisites-name', `${form} ${fullName}`);
     setTextById('requisites-ogrnip', ogrnip);
     setTextById('requisites-inn', inn);
+    if (bank) {
+      setTextById('requisites-bank', bank.name);
+      setTextById('requisites-account', bank.account);
+      setTextById('requisites-corr-account', bank.corrAccount);
+      setTextById('requisites-bic', bank.bic);
+    }
   }
   setTextById('hero-title', company.hero.title);
   setTextById('hero-text', company.hero.text);
