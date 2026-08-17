@@ -84,7 +84,7 @@
       media="(prefers-color-scheme: light)"
     />
 
-    <!-- SEO: статические fallback-значения; renderSEO() в main.js обновляет при загрузке -->
+    <!-- SEO: static fallback values; renderSEO() in main.js updates them on load -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Металл Монтаж 33" />
     <meta
@@ -133,7 +133,7 @@
     />
 
     <link rel="stylesheet" href="./styles.css" />
-    <!-- JSON-LD fallback; renderJsonLd() синхронизирует #json-ld из company.seo -->
+    <!-- JSON-LD fallback; renderJsonLd() syncs #json-ld from company.seo -->
     <script type="application/ld+json" id="json-ld">
       {
         "@context": "https://schema.org",
@@ -498,7 +498,7 @@
         ]
       }
     </script>
-    <!-- Ранняя установка темы до загрузки CSS (предотвращает мигание) -->
+    <!-- Apply theme before CSS loads (avoids a flash) -->
     <script>
       (function () {
         var saved = localStorage.getItem('mm33-theme');
@@ -514,7 +514,7 @@
   <body>
     <a class="skip-link" href="#contact">Перейти к контактам</a>
 
-    <!-- Header: навигация, переключатель темы, мобильное меню -->
+    <!-- Header: nav, theme toggle, mobile menu -->
     <header class="site-header" data-header>
       <div class="container header-inner">
         <div class="brand">
@@ -586,7 +586,7 @@
     <div class="nav-backdrop" data-nav-backdrop aria-hidden="true" hidden></div>
 
     <main id="top">
-      <!-- Hero: #hero-* заполняются из company.hero в renderText() -->
+      <!-- Hero: #hero-* filled from company.hero in renderText() -->
       <section class="hero" aria-label="Первый экран">
         <div class="container hero__inner">
           <div class="hero__content">
@@ -684,7 +684,7 @@
         </div>
       </section>
 
-      <!-- Garages: слайды в [data-carousel-track] — renderCarousels() -->
+      <!-- Garages: slides in [data-carousel-track] — renderCarousels() -->
       <section class="section" id="garages">
         <div class="container">
           <div class="section__head">
@@ -834,7 +834,7 @@
         </div>
       </section>
 
-      <!-- Canopies: слайды в [data-carousel-track] — renderCarousels() -->
+      <!-- Canopies: slides in [data-carousel-track] — renderCarousels() -->
       <section class="section section--muted" id="canopies">
         <div class="container">
           <div class="section__head">
@@ -1032,7 +1032,7 @@
         </div>
       </section>
 
-      <!-- Services: [data-services] — renderServices(); side-card — статический контент -->
+      <!-- Services: [data-services] — renderServices(); side-card is static -->
       <section class="section section--muted" id="services">
         <div class="container">
           <div class="two-cols">
@@ -1138,7 +1138,7 @@
         </div>
       </section>
 
-      <!-- Workflow: [data-workflow] — renderWorkflow(); заголовок секции — статический fallback -->
+      <!-- Workflow: [data-workflow] — renderWorkflow(); section heading is a static fallback -->
       <section class="section section--muted" id="workflow">
         <div class="container">
           <div class="section__head">
@@ -1415,7 +1415,7 @@
         </div>
       </section>
 
-      <!-- География: [data-featured-cities] — renderServiceArea() -->
+      <!-- Service area: [data-featured-cities] — renderServiceArea() -->
       <section
         class="section section--muted"
         id="service-area"
@@ -1587,7 +1587,7 @@
       </section>
     </main>
 
-    <!-- Footer: [data-footer-phones], [data-footer-messengers] — из main.js -->
+    <!-- Footer: [data-footer-phones], [data-footer-messengers] — from main.js -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <div class="footer-brand">

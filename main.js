@@ -1,25 +1,25 @@
-/* ── Данные ──────────────────────────────────────────── */
+/* ── Data ──────────────────────────────────────────────── */
 
 /**
- * Единый источник контента сайта.
- * Тексты, телефоны, цены и URL редактируются здесь; HTML — заготовки с fallback.
+ * Single source of site content.
+ * Copy, phones, prices, and URLs are edited here; HTML is a fallback shell.
  */
 const company = {
   name: 'Металл Монтаж 33',
-  shortName: 'ММ33', // Для PWA short_name в manifest.json
+  shortName: 'ММ33', // PWA short_name in manifest.json
   tagline: 'Гаражи и навесы из металла под ключ',
   seo: {
-    siteUrl: 'https://metallmontage33.ru', // Канонический домен (без /)
+    siteUrl: 'https://metallmontage33.ru', // Canonical domain (no trailing /)
     title: 'Гаражи и навесы под ключ во Владимире и области | Металл Монтаж 33',
     description:
       'Металлические гаражи и навесы под ключ во Владимире, Москве, Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.',
     keywords:
       'металлические гаражи под ключ, гараж из сэндвич-панелей, навесы для авто, металлический навес, монтаж металлоконструкций, гаражи Владимир, гаражи Ковров, гаражи Москва, гаражи Нижний Новгород, навесы Московская область, гаражи Иваново, производство гаражей, гараж под ключ цена, гаражи Веризино',
-    region: 'RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA', // Коды регионов для geo.region
+    region: 'RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA', // Region codes for geo.region
     ogImageWidth: 1200,
     ogImageHeight: 800,
     serviceArea: {
-      // Ключевые города для видимого блока «Где работаем»
+      // Featured cities for the visible "Where we work" block
       featuredCities: [
         'Владимир',
         'Ковров',
@@ -138,7 +138,7 @@ const company = {
   },
   messengers: [
     {
-      id: 'max', // CSS-модификатор messenger-link--{id}
+      id: 'max', // CSS modifier messenger-link--{id}
       label: 'MAX',
       href: 'https://max.ru/u/f9LHodD0cOIq2YDVCLrWTqtmxuz0snFv2pGd3TIadt7A0CoRYGP8OpgDZPc',
       hint: 'Написать в MAX',
@@ -289,7 +289,7 @@ const company = {
     {
       title: 'Двускатная',
       text: 'Классическая кровля с двумя скатами — равномерный сход осадков, увеличенная высота под потолком.',
-      icon: 'gable', // Ключ в ROOF_ICONS
+      icon: 'gable', // Key in ROOF_ICONS
     },
     {
       title: 'Скат набок',
@@ -327,27 +327,27 @@ const company = {
   ],
 };
 
-/* ── Константы ───────────────────────────────────────── */
+/* ── Constants ─────────────────────────────────────────── */
 
-/** Ключ localStorage для сохранения выбранной темы (синхронизирован с inline-скриптом в index.html). */
+/** localStorage key for the chosen theme (kept in sync with the inline script in index.html). */
 const THEME_KEY = 'mm33-theme';
 
-/** Цвета meta theme-color для светлой и тёмной темы. */
+/** meta theme-color values for light and dark. */
 const THEME_COLORS = {
   light: '#f4efe6',
   dark: '#111418',
 };
 
-/** Порог прокрутки (px) для показа кнопки «Наверх». */
+/** Scroll threshold (px) before showing the "Back to top" button. */
 const SCROLL_TOP_THRESHOLD = 320;
 
-/** Задержка очистки src в lightbox после закрытия (мс), совпадает с CSS transition. */
+/** Delay (ms) before clearing lightbox src after close; matches the CSS transition. */
 const LIGHTBOX_CLOSE_MS = 260;
 
-/** Имена каруселей — значения data-carousel и аргументы initCarousel(). */
+/** Carousel names — data-carousel values and initCarousel() arguments. */
 const CAROUSEL_NAMES = ['garages', 'canopies'];
 
-/** Селекторы data-атрибутов, используемых в разметке и JS. */
+/** data-attribute selectors used in markup and JS. */
 const SELECTORS = {
   themeToggle: '[data-theme-toggle]',
   phone: '[data-phone]',
@@ -371,15 +371,15 @@ const SELECTORS = {
   scrollTop: '.scroll-top',
 };
 
-/** SVG-иконка луны (показывается в тёмной теме — переключить на светлую). */
+/** Moon SVG (shown in dark theme — switch to light). */
 const ICON_DARK =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
 
-/** SVG-иконка солнца (показывается в светлой теме — переключить на тёмную). */
+/** Sun SVG (shown in light theme — switch to dark). */
 const ICON_LIGHT =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
 
-/** SVG-иконки типов кровли для карточек [data-roofs]. */
+/** Roof-type SVGs for [data-roofs] cards. */
 const ROOF_ICONS = {
   gable:
     '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 34 L32 8 L60 34" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="34" x2="60" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
@@ -387,20 +387,20 @@ const ROOF_ICONS = {
   back: '<svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M58 12 L6 32" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="34" x2="58" y2="34" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
 };
 
-/* ── Утилиты ─────────────────────────────────────────── */
+/* ── Utilities ─────────────────────────────────────────── */
 
-/** Сокращение для document.getElementById. */
+/** Shortcut for document.getElementById. */
 function $(id) {
   return document.getElementById(id);
 }
 
-/** Безопасная установка textContent по id (если элемент отсутствует — пропуск). */
+/** Set textContent by id (no-op if the element is missing). */
 function setTextById(id, text) {
   const el = $(id);
   if (el) el.textContent = text;
 }
 
-/** Экранирование строк для безопасной вставки в innerHTML. */
+/** Escape a string for safe innerHTML insertion. */
 function escapeHtml(str) {
   return String(str)
     .replaceAll('&', '&amp;')
@@ -411,16 +411,16 @@ function escapeHtml(str) {
 }
 
 /**
- * Атрибуты <img> для слайдов карусели: srcset с превью -560.webp.
- * Превью генерируется заменой суффикса .webp → -560.webp (см. assets/).
- * @param {string} img — путь к полноразмерному webp
+ * <img> attrs for carousel slides: srcset with a -560.webp preview.
+ * Preview path is .webp → -560.webp (see assets/).
+ * @param {string} img — path to the full-size webp
  */
 function carouselImgAttrs(img) {
   const small = img.replace(/\.webp$/, '-560.webp');
   return `src="${escapeHtml(img)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(img)} 680w" sizes="(max-width: 720px) 82vw, (max-width: 980px) 48vw, 520px" width="680" height="453" loading="lazy" decoding="async"`;
 }
 
-/** SEO alt для фото гаражей и навесов в каруселях. */
+/** SEO alt for garage and canopy photos in carousels. */
 function seoImageAlt(title, kind) {
   const lower = title.toLowerCase();
   if (kind === 'garage') {
@@ -429,7 +429,7 @@ function seoImageAlt(title, kind) {
   return `Металлический ${lower} под ключ — Металл Монтаж 33`;
 }
 
-/** Однострочный адрес для UI и schema. */
+/** One-line address for UI and schema. */
 function formatAddressLine(address = company.address) {
   if (!address) return '';
   const parts = [
@@ -441,7 +441,7 @@ function formatAddressLine(address = company.address) {
   return parts.join(', ');
 }
 
-/** Ссылка на Яндекс.Карты по адресу или готовому mapUrl. */
+/** Yandex Maps link from an address or a ready mapUrl. */
 function getMapUrl(address = company.address) {
   if (!address) return '';
   if (address.mapUrl) return address.mapUrl;
@@ -452,7 +452,7 @@ function getMapUrl(address = company.address) {
   return `https://yandex.ru/maps/?text=${encodeURIComponent(query)}`;
 }
 
-/** PostalAddress, geo и hasMap для JSON-LD организации. */
+/** PostalAddress, geo, and hasMap for organization JSON-LD. */
 function buildAddressJsonLd(address = company.address) {
   if (!address) return null;
 
@@ -487,8 +487,8 @@ function buildAddressJsonLd(address = company.address) {
 }
 
 /**
- * Канонический URL сайта из company.seo.siteUrl
- * или вычисленный из window.location (для локальной разработки).
+ * Canonical site URL from company.seo.siteUrl
+ * or derived from window.location (local development).
  */
 function getSiteUrl() {
   const configured = company.seo?.siteUrl?.replace(/\/$/, '');
@@ -502,7 +502,7 @@ function getSiteUrl() {
   return '';
 }
 
-/** Абсолютный URL для относительного пути (OG, JSON-LD). */
+/** Absolute URL for a relative path (OG, JSON-LD). */
 function absUrl(path) {
   const base = getSiteUrl();
   if (!base) return path;
@@ -511,8 +511,8 @@ function absUrl(path) {
 }
 
 /**
- * Создаёт или обновляет meta-тег в <head>.
- * @param {string} name — значение name или property
+ * Create or update a meta tag in <head>.
+ * @param {string} name — name or property value
  * @param {string} content
  * @param {'name'|'property'} attr
  */
@@ -528,7 +528,7 @@ function setMeta(name, content, attr = 'name') {
 }
 
 /**
- * Заполняет innerHTML контейнера по селектору.
+ * Fill a container's innerHTML by selector.
  * @returns {Element|null}
  */
 function fillContainer(selector, html) {
@@ -538,8 +538,8 @@ function fillContainer(selector, html) {
 }
 
 /**
- * Заполняет два связанных контейнера (основной блок + footer).
- * Используется для телефонов и мессенджеров.
+ * Fill two linked containers (main block + footer).
+ * Used for phones and messengers.
  */
 function fillDualContainers(
   primarySelector,
@@ -552,23 +552,23 @@ function fillDualContainers(
   fillContainer(footerSelector, items.map(footerFn).join(''));
 }
 
-/* ── Тема ────────────────────────────────────────────── */
+/* ── Theme ─────────────────────────────────────────────── */
 
-/** Тема ОС по prefers-color-scheme. */
+/** OS theme from prefers-color-scheme. */
 function getSystemTheme() {
   return window.matchMedia('(prefers-color-scheme: light)').matches
     ? 'light'
     : 'dark';
 }
 
-/** Сохранённая тема или системная. */
+/** Saved theme, or the system theme. */
 function getActiveTheme() {
   return localStorage.getItem(THEME_KEY) || getSystemTheme();
 }
 
 /**
- * Применяет тему: data-theme на <html>, theme-color в meta,
- * иконка и aria-label на [data-theme-toggle].
+ * Apply theme: data-theme on <html>, theme-color in meta,
+ * icon and aria-label on [data-theme-toggle].
  */
 function applyTheme(theme) {
   const html = document.documentElement;
@@ -594,7 +594,7 @@ function applyTheme(theme) {
   }
 }
 
-/** Инициализация темы: применение, переключатель, отслеживание смены ОС. */
+/** Init theme: apply, toggle, watch OS changes. */
 function initTheme() {
   applyTheme(getActiveTheme());
 
@@ -618,9 +618,9 @@ function initTheme() {
     });
 }
 
-/* ── Рендеринг контента ──────────────────────────────── */
+/* ── Content rendering ─────────────────────────────────── */
 
-/** Мета-карточки первого экрана: размеры, гарантия, география-теги. */
+/** Hero meta cards: sizes, warranty, geography tags. */
 function renderHeroMeta() {
   const h = company.hero;
   setTextById('hero-sizes', h.sizes?.value ?? 'Любые');
@@ -638,7 +638,7 @@ function renderHeroMeta() {
 }
 
 /**
- * Подставляет текстовый контент в элементы с id и data-атрибутами.
+ * Fill text content into elements with ids and data-attributes.
  * DOM: #page-title, #company-name, #hero-*, #contact-*, #footer-*, [data-phone]
  */
 function renderText() {
@@ -692,7 +692,7 @@ function renderText() {
   renderServiceArea();
 }
 
-/** Подставляет адрес в контакты и footer. */
+/** Fill address into contacts and footer. */
 function renderAddress() {
   const line = formatAddressLine();
   const mapUrl = getMapUrl();
@@ -724,7 +724,7 @@ function renderAddress() {
   }
 }
 
-/** DOM: [data-featured-cities] — ключевые города зоны обслуживания. */
+/** DOM: [data-featured-cities] — featured cities in the service area. */
 function renderServiceArea() {
   const cities = company.seo?.serviceArea?.featuredCities;
   if (!cities?.length) return;
@@ -737,7 +737,7 @@ function renderServiceArea() {
   );
 }
 
-/** HTML плитки телефона для блока контактов. */
+/** Phone tile HTML for the contacts block. */
 function phoneTileHtml(p) {
   return `
     <a class="contact-tile contact-tile--accent" href="${escapeHtml(p.href)}">
@@ -747,7 +747,7 @@ function phoneTileHtml(p) {
   `;
 }
 
-/** HTML пункта телефона для footer. */
+/** Phone item HTML for the footer. */
 function phoneFooterHtml(p) {
   return `
     <li>
@@ -784,7 +784,7 @@ function renderServices() {
   );
 }
 
-/** DOM: [data-extras] — карточки дополнительных услуг. */
+/** DOM: [data-extras] — extra-service cards. */
 function renderExtras() {
   fillContainer(
     SELECTORS.extras,
@@ -802,7 +802,7 @@ function renderExtras() {
   );
 }
 
-/** DOM: [data-roofs] — карточки типов кровли с SVG-иконками. */
+/** DOM: [data-roofs] — roof-type cards with SVG icons. */
 function renderRoofs() {
   fillContainer(
     SELECTORS.roofs,
@@ -824,7 +824,7 @@ function renderRoofs() {
 }
 
 /**
- * Общий рендер трека карусели.
+ * Shared carousel-track render.
  * DOM: [data-carousel="{name}"] [data-carousel-track]
  */
 function renderCarouselTrack(name, items, buildSlide) {
@@ -835,7 +835,7 @@ function renderCarouselTrack(name, items, buildSlide) {
   track.innerHTML = items.map(buildSlide).join('');
 }
 
-/** HTML слайда гаража с размером и мета-данными. */
+/** Garage slide HTML with size and meta. */
 function garageSlideHtml(p) {
   return `
     <article class="slide">
@@ -853,7 +853,7 @@ function garageSlideHtml(p) {
   `;
 }
 
-/** HTML слайда навеса (фото + заголовок). */
+/** Canopy slide HTML (photo + title). */
 function canopySlideHtml(p) {
   return `
     <article class="slide slide--photo">
@@ -869,14 +869,14 @@ function canopySlideHtml(p) {
   `;
 }
 
-/** Конфигурация каруселей: имя → данные и функция рендера слайда. */
+/** Carousel config: name → data and slide render fn. */
 const CAROUSEL_CONFIG = {
   garages: { items: () => company.garages, buildSlide: garageSlideHtml },
   canopies: { items: () => company.canopies, buildSlide: canopySlideHtml },
 };
 
 /**
- * Рендер всех каруселей по CAROUSEL_CONFIG.
+ * Render all carousels from CAROUSEL_CONFIG.
  * DOM: [data-carousel="garages"], [data-carousel="canopies"]
  */
 function renderCarousels() {
@@ -888,7 +888,7 @@ function renderCarousels() {
   });
 }
 
-/** DOM: [data-workflow] — нумерованные шаги. */
+/** DOM: [data-workflow] — numbered steps. */
 function renderWorkflow() {
   if (!company.workflow) return;
   fillContainer(
@@ -910,7 +910,7 @@ function renderWorkflow() {
   );
 }
 
-/** HTML плитки мессенджера для блока контактов. */
+/** Messenger tile HTML for the contacts block. */
 function messengerTileHtml(m) {
   return `
     <a
@@ -925,7 +925,7 @@ function messengerTileHtml(m) {
   `;
 }
 
-/** HTML пункта мессенджера для footer. */
+/** Messenger item HTML for the footer. */
 function messengerFooterHtml(m) {
   return `
     <li>
@@ -946,8 +946,8 @@ function renderMessengers() {
 }
 
 /**
- * DOM: [data-faq] — аккордеон из <details>.
- * После рендера вызывает initFaqAccordion для анимации.
+ * DOM: [data-faq] — <details> accordion.
+ * After render, calls initFaqAccordion for animation.
  */
 function renderFaq() {
   if (!company.faq) return;
@@ -976,7 +976,7 @@ function renderFaq() {
 
 /* ── SEO ─────────────────────────────────────────────── */
 
-/** Массив areaServed для JSON-LD: регион + города. */
+/** areaServed array for JSON-LD: region + cities. */
 function buildAreaServedJsonLd() {
   const regions = company.seo?.serviceArea?.regions;
   if (!regions?.length) return [];
@@ -1006,9 +1006,9 @@ function buildAreaServedJsonLd() {
 }
 
 /**
- * Создаёт объект Offer для каталога в JSON-LD.
+ * Build an Offer object for the JSON-LD catalog.
  * @param {string} pageUrl
- * @param {string} price — минимальная цена «от»
+ * @param {string} price — minimum "from" price
  */
 function buildProductOffer(pageUrl, price) {
   const offer = {
@@ -1024,12 +1024,12 @@ function buildProductOffer(pageUrl, price) {
   return offer;
 }
 
-/** @id товара в JSON-LD для связи каталога с Product на верхнем уровне. */
+/** Product @id in JSON-LD to link the catalog to the top-level Product. */
 function productId(pageUrl, kind, index) {
   return `${pageUrl}#product-${kind}-${index}`;
 }
 
-/** Product с offers — отдельная сущность в @graph (требование Google для Product). */
+/** Product with offers — a separate @graph entity (Google Product requirement). */
 function buildCatalogProduct(item, pageUrl, kind, index, price, description) {
   const product = {
     '@context': 'https://schema.org',
@@ -1043,7 +1043,7 @@ function buildCatalogProduct(item, pageUrl, kind, index, price, description) {
   return product;
 }
 
-/** ListItem каталога: ссылка на Product по @id или полный объект без pageUrl. */
+/** Catalog ListItem: Product @id link, or a full object when there is no pageUrl. */
 function buildCatalogListItems(items, pageUrl, kind, price, descriptionFn) {
   return items.map((item, i) => ({
     '@type': 'ListItem',
@@ -1060,7 +1060,7 @@ function buildCatalogListItems(items, pageUrl, kind, price, descriptionFn) {
   }));
 }
 
-/** FAQPage для расширенных сниппетов в поиске. */
+/** FAQPage for rich search snippets. */
 function buildFaqJsonLd(pageUrl) {
   if (!company.faq?.length) return null;
 
@@ -1082,8 +1082,8 @@ function buildFaqJsonLd(pageUrl) {
 }
 
 /**
- * Обновляет meta-теги, canonical, OG, Twitter и JSON-LD из company.seo.
- * DOM: meta в <head>, #canonical-link, #json-ld
+ * Update meta tags, canonical, OG, Twitter, and JSON-LD from company.seo.
+ * DOM: meta in <head>, #canonical-link, #json-ld
  */
 function renderSEO() {
   const seo = company.seo;
@@ -1151,8 +1151,8 @@ function renderSEO() {
 }
 
 /**
- * Записывает JSON-LD (LocalBusiness + WebSite + Product[]) в #json-ld.
- * Каждый гараж — отдельный Product на верхнем уровне с offers (требование Google).
+ * Write JSON-LD (LocalBusiness + WebSite + Product[]) into #json-ld.
+ * Each garage is a top-level Product with offers (Google requirement).
  */
 function renderJsonLd(siteUrl, pageUrl, ogImage) {
   const host = $('json-ld');
@@ -1301,11 +1301,11 @@ function renderJsonLd(siteUrl, pageUrl, ogImage) {
   });
 }
 
-/* ── Интерактив ──────────────────────────────────────── */
+/* ── Interaction ───────────────────────────────────────── */
 
 /**
- * FAQ-аккордеон: один открытый пункт, анимация height/opacity.
- * При prefers-reduced-motion — мгновенное открытие без transition.
+ * FAQ accordion: one open item, height/opacity animation.
+ * With prefers-reduced-motion, open instantly with no transition.
  * DOM: .faq-item, .faq-item__question, .faq-item__panel
  */
 function initFaqAccordion() {
@@ -1335,7 +1335,7 @@ function initFaqAccordion() {
         return;
       }
 
-      // Закрыть другие открытые пункты (аккордеон — один за раз)
+      // Close other open items (accordion: one at a time)
       items.forEach((other) => {
         if (other !== item && other.classList.contains('is-open')) {
           const otherPanel = other.querySelector('.faq-item__panel');
@@ -1360,7 +1360,7 @@ function initFaqAccordion() {
   });
 }
 
-/** Анимированное раскрытие панели FAQ (height → scrollHeight → auto). */
+/** Animated FAQ panel open (height → scrollHeight → auto). */
 function openFaqItem(item, panel) {
   item.classList.add('is-open');
   item.setAttribute('open', '');
@@ -1382,7 +1382,7 @@ function openFaqItem(item, panel) {
   panel.addEventListener('transitionend', onEnd);
 }
 
-/** Анимированное закрытие панели FAQ. */
+/** Animated FAQ panel close. */
 function closeFaqItem(item, panel) {
   panel.style.height = `${panel.scrollHeight}px`;
   panel.style.opacity = '1';
@@ -1403,7 +1403,7 @@ function closeFaqItem(item, panel) {
 }
 
 /**
- * Мобильное меню: backdrop, закрытие по Escape и клику вне.
+ * Mobile menu: backdrop, close on Escape and outside click.
  * DOM: [data-nav-toggle], [data-nav], [data-nav-backdrop]
  */
 function initMobileMenu() {
@@ -1439,8 +1439,8 @@ function initMobileMenu() {
 }
 
 /**
- * Lightbox для фото каруселей: клик по .slide__img, навигация ←/→, Escape.
- * Создаёт overlay в document.body при инициализации.
+ * Carousel photo lightbox: click .slide__img, ←/→ navigation, Escape.
+ * Creates an overlay on document.body at init.
  */
 function initLightbox() {
   const overlay = document.createElement('div');
@@ -1510,7 +1510,7 @@ function initLightbox() {
     document.body.classList.remove('lightbox-open');
     items = [];
     currentIndex = 0;
-    // Очистка src после анимации закрытия
+    // Clear src after the close animation
     setTimeout(() => {
       img.src = '';
     }, LIGHTBOX_CLOSE_MS);
@@ -1541,7 +1541,7 @@ function initLightbox() {
     if (e.key === 'ArrowRight') step(1);
   });
 
-  // Делегирование: клик по фото в любой карусели открывает lightbox
+  // Delegation: a photo click in any carousel opens the lightbox
   document.addEventListener('click', (e) => {
     const slideImg = e.target.closest('.slide__img');
     if (!slideImg) return;
@@ -1563,7 +1563,7 @@ function initLightbox() {
 }
 
 /**
- * Карусель: стрелки прокручивают слайды через scrollIntoView.
+ * Carousel: arrows scroll slides via scrollIntoView.
  * DOM: [data-carousel="{name}"], [data-carousel-prev/next], .slide
  */
 function initCarousel(name) {
@@ -1587,15 +1587,15 @@ function initCarousel(name) {
   nextBtn?.addEventListener('click', () => goTo(activeIndex + 1));
 }
 
-/** Инициализация всех каруселей из CAROUSEL_NAMES. */
+/** Init all carousels from CAROUSEL_NAMES. */
 function initCarousels() {
   CAROUSEL_NAMES.forEach(initCarousel);
 }
 
 /**
- * Плавное появление секций при прокрутке.
- * DOM: .section — добавляет классы reveal / is-visible.
- * Отключается при prefers-reduced-motion или без IntersectionObserver.
+ * Fade sections in on scroll.
+ * DOM: .section — adds reveal / is-visible.
+ * Disabled with prefers-reduced-motion or without IntersectionObserver.
  */
 function initScrollReveal() {
   if (!('IntersectionObserver' in window)) return;
@@ -1626,8 +1626,8 @@ function initScrollReveal() {
 }
 
 /**
- * Кнопка «Наверх»: видимость после прокрутки > SCROLL_TOP_THRESHOLD.
- * DOM: .scroll-top — tabindex и aria-hidden управляются динамически.
+ * "Back to top" button: shown after scroll > SCROLL_TOP_THRESHOLD.
+ * DOM: .scroll-top — tabindex and aria-hidden are set dynamically.
  */
 function initScrollTop() {
   const btn = document.querySelector(SELECTORS.scrollTop);
@@ -1657,8 +1657,8 @@ function initScrollTop() {
 /* ── PWA ─────────────────────────────────────────────── */
 
 /**
- * Регистрация Service Worker на localhost/HTTPS.
- * При смене controller — автоперезагрузка страницы.
+ * Register the Service Worker on localhost/HTTPS.
+ * Reload the page when the controller changes.
  */
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
@@ -1684,16 +1684,16 @@ function registerServiceWorker() {
   });
 }
 
-/* ── Инициализация ───────────────────────────────────── */
+/* ── Init ──────────────────────────────────────────────── */
 
 /**
- * Точка входа. Порядок вызовов важен:
- * 1. Тема — до отрисовки интерактива (иконка переключателя).
- * 2. Рендер контента и SEO — заполнение DOM до привязки обработчиков.
- * 3. FAQ — renderFaq() вызывает initFaqAccordion() внутри.
- * 4. Карусели и lightbox — после renderCarousels() (слайды в DOM).
- * 5. Scroll reveal / scroll-top — независимы от контента.
- * 6. Service Worker — в конце, не блокирует UI.
+ * Entry point. Call order matters:
+ * 1. Theme — before interactive paint (toggle icon).
+ * 2. Content and SEO render — fill the DOM before binding handlers.
+ * 3. FAQ — renderFaq() calls initFaqAccordion() internally.
+ * 4. Carousels and lightbox — after renderCarousels() (slides in the DOM).
+ * 5. Scroll reveal / scroll-top — independent of content.
+ * 6. Service Worker — last, does not block the UI.
  */
 function init() {
   initTheme();

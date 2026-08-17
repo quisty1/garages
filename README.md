@@ -1,79 +1,79 @@
-# Металл Монтаж 33
+# Metall Montage 33
 
-Лендинг компании по производству и монтажу металлических гаражей и навесов. Статический сайт без сборки и зависимостей — открывается в браузере как есть.
+Landing page for a company that manufactures and installs metal garages and canopies. A static site with no build step and no dependencies — it opens in the browser as-is.
 
-## Возможности
+## Features
 
-### Контент и разделы
+### Content and sections
 
-- Первый экран с CTA, телефоном и ключевыми преимуществами
-- Карусели гаражей (4 размера) и навесов (5 типов)
-- Типы кровли, основные и дополнительные услуги
-- Блок «Как мы работаем» (7 этапов)
-- FAQ с аккордеоном (один открытый пункт за раз)
-- Контакты: телефоны, email, часы работы, мессенджер MAX
+- Hero with CTA, phone, and key benefits
+- Garage carousels (4 sizes) and canopy carousels (5 types)
+- Roof types, core and extra services
+- “How we work” block (7 steps)
+- FAQ accordion (one open item at a time)
+- Contacts: phones, email, hours, MAX messenger
 
-### Интерфейс
+### Interface
 
-- Промышленный премиум-дизайн: техническая сетка, контурные блоки, крупная типографика, акцент на фото гаражей и навесов
-- Адаптивная вёрстка для телефона, планшета и десктопа
-- Фиксированная шапка с телефоном на десктопе, переключателем темы и якорной навигацией
-- Мобильное меню с backdrop и закрытием по Escape (с ширины ≤ 860px)
-- Переключение тёмной и светлой темы (SVG-иконки) — отдельные палитры, не просто инверсия
-- Автовыбор темы по `prefers-color-scheme`, сохранение в `localStorage`
-- Lightbox для фото в каруселях (клавиши ←/→ и Escape)
-- Плавное появление секций при прокрутке (`IntersectionObserver`)
-- Кнопка «Наверх» после прокрутки
+- Industrial premium design: technical grid, outlined blocks, large type, focus on garage and canopy photos
+- Responsive layout for phone, tablet, and desktop
+- Fixed header with phone on desktop, theme switcher, and anchor navigation
+- Mobile menu with backdrop and Escape to close (from width ≤ 860px)
+- Dark and light theme toggle (SVG icons) — separate palettes, not a simple invert
+- Auto theme from `prefers-color-scheme`, stored in `localStorage`
+- Lightbox for carousel photos (←/→ and Escape)
+- Smooth section reveal on scroll (`IntersectionObserver`)
+- Back-to-top button after scrolling
 
-### PWA и офлайн
+### PWA and offline
 
-- Web App Manifest (`manifest.json`) — установка на домашний экран
-- Service Worker (`sw.js`) — кэширование и работа без сети
-- HTML/CSS/JS обновляются по стратегии network-first, изображения — cache-first
+- Web App Manifest (`manifest.json`) — install to the home screen
+- Service Worker (`sw.js`) — caching and offline use
+- HTML/CSS/JS update with network-first; images use cache-first
 
-### SEO и доступность
+### SEO and accessibility
 
-- Мета-теги, Open Graph, Twitter Card, гео-теги
-- JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, каталог гаражей
-- `robots.txt` и `sitemap.xml`
-- Семантическая разметка, alt у изображений, ARIA у интерактивных элементов
-- Учёт `prefers-reduced-motion` в FAQ и анимациях
+- Meta tags, Open Graph, Twitter Card, geo tags
+- JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, garage catalog
+- `robots.txt` and `sitemap.xml`
+- Semantic markup, image alts, ARIA on interactive elements
+- `prefers-reduced-motion` respected in FAQ and animations
 
-## Стек
+## Stack
 
-| Слой     | Технологии                       |
-| -------- | -------------------------------- |
-| Разметка | HTML5                            |
-| Стили    | CSS3 (переменные, Grid, Flexbox) |
-| Логика   | Vanilla JavaScript (ES2020+)     |
+| Layer  | Technologies                     |
+| ------ | -------------------------------- |
+| Markup | HTML5                            |
+| Styles | CSS3 (variables, Grid, Flexbox)  |
+| Logic  | Vanilla JavaScript (ES2020+)     |
 
-## Структура проекта
+## Project structure
 
 ```
 garages/
-├── index.html              # Разметка страницы (SEO-заготовки + секции)
-├── main.js                 # Объект company и вся логика сайта
-├── styles.css              # Стили, темы, компоненты
-├── manifest.json           # PWA-манифест
+├── index.html              # Page markup (SEO stubs + sections)
+├── main.js                 # company object and all site logic
+├── styles.css              # Styles, themes, components
+├── manifest.json           # PWA manifest
 ├── sw.js                   # Service Worker
-├── robots.txt              # Правила для поисковых роботов
-├── sitemap.xml             # Карта сайта
+├── robots.txt              # Crawler rules
+├── sitemap.xml             # Sitemap
 ├── assets/
-│   ├── logo-og.webp        # OG-превью, JSON-LD
-│   ├── logo-hero.webp      # Hero-карточка (920w)
-│   ├── logo-hero-680.webp  # Hero-карточка (680w, preload)
-│   ├── logo-48.webp        # Логотип в шапке
-│   ├── logo-96.webp        # Логотип 2x
-│   ├── logo-44.webp        # Логотип в footer
-│   ├── favicon.svg         # Иконка вкладки
+│   ├── logo-og.webp        # OG preview, JSON-LD
+│   ├── logo-hero.webp      # Hero card (920w)
+│   ├── logo-hero-680.webp  # Hero card (680w, preload)
+│   ├── logo-48.webp        # Header logo
+│   ├── logo-96.webp        # Logo 2x
+│   ├── logo-44.webp        # Footer logo
+│   ├── favicon.svg         # Tab icon
 │   ├── favicon-48.png      # Favicon PNG
-│   ├── icon-192.webp       # PWA-иконка
-│   ├── icon-512.webp       # PWA-иконка
-│   ├── garage-6x4.webp     # Фото гаражей (+ *-560.webp превью)
+│   ├── icon-192.webp       # PWA icon
+│   ├── icon-512.webp       # PWA icon
+│   ├── garage-6x4.webp     # Garage photos (+ *-560.webp previews)
 │   ├── garage-6x6.webp
 │   ├── garage-8x6.webp
 │   ├── garage-6x8.webp
-│   ├── canopy-car.webp     # Фото навесов (+ *-560.webp превью)
+│   ├── canopy-car.webp     # Canopy photos (+ *-560.webp previews)
 │   ├── canopy-gable.webp
 │   ├── canopy-single-slope.webp
 │   ├── canopy-two-cars.webp
@@ -81,59 +81,59 @@ garages/
 └── README.md
 ```
 
-### Секции main.js
+### main.js sections
 
-Файл организован сверху вниз по логическим блокам:
+The file is organized top to bottom by logical blocks:
 
-| Секция            | Содержимое                                                                                                                                                            |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Данные**        | Объект `company` — весь контент сайта                                                                                                                                 |
-| **Константы**     | `THEME_KEY`, `SELECTORS`, `CAROUSEL_NAMES`, SVG-иконки темы и кровли                                                                                                  |
-| **Утилиты**       | `$()`, `setTextById()`, `escapeHtml()`, `carouselImgAttrs()`, `getSiteUrl()`, `absUrl()`, `setMeta()`, `fillContainer()`, `fillDualContainers()`                      |
-| **Тема**          | `getSystemTheme`, `applyTheme`, `initTheme`                                                                                                                           |
-| **Рендеринг**     | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
-| **SEO**           | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
-| **Интерактив**    | FAQ-аккордеон, мобильное меню, lightbox, карусели, scroll reveal, scroll-to-top                                                                                       |
-| **PWA**           | `registerServiceWorker`                                                                                                                                               |
-| **Инициализация** | `init()` + `DOMContentLoaded`                                                                                                                                         |
+| Section            | Contents                                                                                                                                                              |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Data**           | `company` object — all site content                                                                                                                                   |
+| **Constants**      | `THEME_KEY`, `SELECTORS`, `CAROUSEL_NAMES`, theme and roof SVG icons                                                                                                  |
+| **Utilities**      | `$()`, `setTextById()`, `escapeHtml()`, `carouselImgAttrs()`, `getSiteUrl()`, `absUrl()`, `setMeta()`, `fillContainer()`, `fillDualContainers()`                      |
+| **Theme**          | `getSystemTheme`, `applyTheme`, `initTheme`                                                                                                                           |
+| **Rendering**      | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
+| **SEO**            | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
+| **Interactivity**  | FAQ accordion, mobile menu, lightbox, carousels, scroll reveal, scroll-to-top                                                                                         |
+| **PWA**            | `registerServiceWorker`                                                                                                                                               |
+| **Init**           | `init()` + `DOMContentLoaded`                                                                                                                                         |
 
-### Секции styles.css
+### styles.css sections
 
-| Секция                     | Содержимое                                                                                                               |
+| Section                    | Contents                                                                                                                 |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **CSS-переменные**         | Тёмная тема (`:root`), светлая (`data-theme`, `prefers-color-scheme`), z-index, отступы секций, transition               |
-| **Reset / base**           | `*`, `html`, `body`, типографика                                                                                         |
-| **Утилиты**                | `.container`, `.skip-link`, `.section`                                                                                   |
-| **Компоненты**             | Header → Hero → Carousel → Roofs → Workflow → FAQ → Services → Contact/Footer → Scroll-to-top → Lightbox → Scroll reveal |
-| **Industrial redesign**    | Промышленная палитра, сетка, контурные карточки, крупные слайды, отдельные стили светлой темы                            |
-| **Адаптив**                | `@media (max-width: 1120px)`, `980px`, `860px` (мобильное меню), `720px`                                                 |
-| **prefers-reduced-motion** | FAQ и scroll reveal без анимаций                                                                                         |
+| **CSS variables**          | Dark theme (`:root`), light (`data-theme`, `prefers-color-scheme`), z-index, section spacing, transition                 |
+| **Reset / base**           | `*`, `html`, `body`, typography                                                                                          |
+| **Utilities**              | `.container`, `.skip-link`, `.section`                                                                                   |
+| **Components**             | Header → Hero → Carousel → Roofs → Workflow → FAQ → Services → Contact/Footer → Scroll-to-top → Lightbox → Scroll reveal |
+| **Industrial redesign**    | Industrial palette, grid, outlined cards, large slides, separate light-theme styles                                      |
+| **Responsive**             | `@media (max-width: 1120px)`, `980px`, `860px` (mobile menu), `720px`                                                    |
+| **prefers-reduced-motion** | FAQ and scroll reveal without animations                                                                                 |
 
-## Запуск локально
+## Local run
 
-Сайт не требует установки пакетов. Достаточно открыть `index.html` в браузере.
+The site does not require installing packages. Opening `index.html` in a browser is enough.
 
-**Быстрый способ** — открыть `index.html` в браузере. Service Worker и PWA в этом режиме могут работать ограниченно (нужен origin, не `file://`).
+**Quick way** — open `index.html` in a browser. The Service Worker and PWA may be limited in this mode (an origin is required, not `file://`).
 
-**Для разработки** — локальный HTTP-сервер:
+**For development** — a local HTTP server:
 
 ```bash
 # Python 3
 python3 -m http.server 8080
 
-# или npx (если установлен Node.js)
+# or npx (if Node.js is installed)
 npx serve .
 ```
 
-Откройте [http://localhost:8080](http://localhost:8080).
+Open [http://localhost:8080](http://localhost:8080).
 
-> Service Worker регистрируется только по HTTPS или на `localhost`.
+> The Service Worker registers only over HTTPS or on `localhost`.
 
-## Редактирование контента
+## Editing content
 
-Весь контент собран в объекте `company` в `main.js`. HTML-секции содержат заготовки; при загрузке страницы `init()` подставляет актуальные данные.
+All content lives in the `company` object in `main.js`. HTML sections contain stubs; on load, `init()` fills in the current data.
 
-### Контакты и общая информация
+### Contacts and general info
 
 ```js
 const company = {
@@ -150,9 +150,9 @@ const company = {
 };
 ```
 
-### Гаражи и навесы
+### Garages and canopies
 
-Массивы `garages` и `canopies` управляют каруселями:
+The `garages` and `canopies` arrays drive the carousels:
 
 ```js
 garages: [
@@ -173,81 +173,81 @@ canopies: [
 ],
 ```
 
-Чтобы добавить или заменить фото — положите файл в `assets/` (формат WebP) и укажите путь в поле `img`. Для каруселей автоматически подставляется превью `*-560.webp` через `carouselImgAttrs()`.
+To add or replace a photo, put a WebP file in `assets/` and set the `img` path. Carousels automatically get a `*-560.webp` preview via `carouselImgAttrs()`.
 
-### Остальные поля
+### Other fields
 
-| Поле в `main.js` | Что отображает на сайте                                |
-| ---------------- | ------------------------------------------------------ |
-| `hero`           | Заголовок, текст и мета-карточки первого экрана        |
-| `services`       | Список основных услуг                                  |
-| `roofs`          | Карточки типов кровли                                  |
-| `extras`         | Дополнительные услуги                                  |
-| `workflow`       | Заголовок и шаги «Как мы работаем»                     |
-| `faq`            | Вопросы и ответы (массив `{ q, a }`)                   |
-| `messengers`     | Ссылки на мессенджеры                                  |
-| `seo`            | Title, description, keywords, URL, регион, OG-картинка |
+| Field in `main.js` | What it shows on the site                          |
+| ------------------ | -------------------------------------------------- |
+| `hero`             | Hero heading, copy, and meta cards                 |
+| `services`         | List of core services                              |
+| `roofs`            | Roof type cards                                    |
+| `extras`           | Extra services                                     |
+| `workflow`         | Heading and “How we work” steps                    |
+| `faq`              | Questions and answers (`{ q, a }` array)           |
+| `messengers`       | Messenger links                                    |
+| `seo`              | Title, description, keywords, URL, region, OG image |
 
-После правок `company.seo` функция `renderSEO()` обновляет мета-теги и JSON-LD в `<head>`.
+After editing `company.seo`, `renderSEO()` updates meta tags and JSON-LD in `<head>`.
 
-## Тема оформления
+## Theme
 
-- По умолчанию — системная тема устройства
-- Кнопка в шапке переключает тёмную и светлую тему
-- Выбор сохраняется в `localStorage` под ключом `mm33-theme`
-- Тёмная тема: графитовый фон, тёплый медно-оранжевый акцент (`#d98232`)
-- Светлая тема: тёплый технический фон (`#f4efe6`), более глубокий акцент (`#bd6328`)
+- Default is the device system theme
+- The header button toggles dark and light
+- Choice is stored in `localStorage` under `mm33-theme`
+- Dark theme: graphite background, warm copper-orange accent (`#d98232`)
+- Light theme: warm technical background (`#f4efe6`), deeper accent (`#bd6328`)
 
-Основные CSS-переменные в `styles.css` (блок **Industrial redesign**):
+Main CSS variables in `styles.css` (**Industrial redesign** block):
 
-| Переменная        | Назначение                                            |
+| Variable          | Purpose                                               |
 | ----------------- | ----------------------------------------------------- |
-| `--primary`       | Медно-оранжевый акцент                                |
-| `--bg`            | Фон страницы                                          |
-| `--text`          | Основной цвет текста                                  |
-| `--surface`       | Фон карточек и панелей                                |
-| `--steel`         | Вторичный «металлический» акцент для иконок и деталей |
-| `--container`     | Максимальная ширина контента (`1400px`)               |
-| `--header-height` | Высота шапки (для якорной прокрутки)                  |
+| `--primary`       | Copper-orange accent                                  |
+| `--bg`            | Page background                                       |
+| `--text`          | Primary text color                                    |
+| `--surface`       | Card and panel background                             |
+| `--steel`         | Secondary “metal” accent for icons and details        |
+| `--container`     | Max content width (`1400px`)                          |
+| `--header-height` | Header height (for anchor scrolling)                  |
 
-Цвета `theme-color` синхронизированы в `main.js` (`THEME_COLORS`), `index.html` и `manifest.json`.
+`theme-color` values are kept in sync in `main.js` (`THEME_COLORS`), `index.html`, and `manifest.json`.
 
-## PWA и Service Worker
+## PWA and Service Worker
 
-| Файл            | Назначение                                                                               |
+| File            | Purpose                                                                                  |
 | --------------- | ---------------------------------------------------------------------------------------- |
-| `manifest.json` | Название, иконки, `start_url`, `background_color` (`#111418`), `theme_color` (`#d98232`) |
-| `sw.js`         | Precache ключевых файлов, стратегии кэширования                                          |
+| `manifest.json` | Name, icons, `start_url`, `background_color` (`#111418`), `theme_color` (`#d98232`)      |
+| `sw.js`         | Precache of key files, caching strategies                                                |
 
-При смене версии кэша (`CACHE` в `sw.js`) старые записи удаляются при активации. После обновления SW страница перезагружается автоматически.
+When the cache version (`CACHE` in `sw.js`) changes, old entries are removed on activate. After an SW update the page reloads automatically.
 
-**Домен:** в `manifest.json` указаны `start_url` и `scope` как `/`. При смене домена или пути деплоя обновите их вместе с `seo.siteUrl` в `main.js`.
+**Domain:** `manifest.json` sets `start_url` and `scope` to `/`. If the domain or deploy path changes, update them together with `seo.siteUrl` in `main.js`.
 
-## Публикация
+## Publishing
 
-Сайт состоит только из статических файлов. Загрузите содержимое репозитория на хостинг:
+The site is static files only. Upload the repository contents to a host:
 
-- [metallmontage33.ru](https://metallmontage33.ru/) — основной домен
+- [metallmontage33.ru](https://metallmontage33.ru/) — primary domain
 - Netlify / Vercel / Cloudflare Pages
-- Обычный веб-хостинг по FTP
+- Regular web hosting over FTP
 
-`index.html` должен быть доступен по корневому URL сайта (или подпути, если настроен base path).
+`index.html` should be available at the site root URL (or a subpath if a base path is configured).
 
 ## SEO
 
-### Что уже настроено
+### What is already set up
 
-- Title, description, keywords с региональными ключевыми словами
-- Open Graph и Twitter Card
-- JSON-LD: `HomeAndConstructionBusiness` (адрес, geo, hasMap), `WebSite`, `WebPage`, `Product` (гаражи и навесы), `FAQPage`
-- `robots.txt` и `sitemap.xml` (включая изображения каталога)
-- Гео-мета-теги и видимый блок «Где работаем» с ключевыми городами
-- Юридический адрес во Владимире (мкр. Веризино, ул. Куйбышева, 5г)
-- Один `h1`, иерархия заголовков, alt у изображений
+- Title, description, keywords with regional search terms
+- Open Graph and Twitter Card
+- JSON-LD: `HomeAndConstructionBusiness` (address, geo, hasMap), `WebSite`, `WebPage`, `Product` (garages and canopies), `FAQPage`
+- `robots.txt` and `sitemap.xml` (including catalog images)
+- Geo meta tags and a visible “Where we work” block with key cities
+- Legal address in Vladimir (Verizino district, Kuibysheva St., 5g)
+- One `h1`, heading hierarchy, image alts
 
-### Перед публикацией на новый домен
+### Before publishing on a new domain
 
-1. Обновите канонический URL и адрес в `main.js`:
+1. Update the canonical URL and address in `main.js`:
 
 ```js
 seo: {
@@ -279,35 +279,35 @@ address: {
 }
 ```
 
-2. Синхронизируйте URL в `index.html` (canonical, OG), `robots.txt`, `sitemap.xml` и `manifest.json` — либо полагайтесь на `renderSEO()`, которая подставляет значения из `company.seo` при загрузке.
+2. Sync URLs in `index.html` (canonical, OG), `robots.txt`, `sitemap.xml`, and `manifest.json` — or rely on `renderSEO()`, which fills values from `company.seo` on load.
 
-3. Зарегистрируйте сайт в [Яндекс.Вебмастер](https://webmaster.yandex.ru/) и [Google Search Console](https://search.google.com/search-console), отправьте `sitemap.xml`.
+3. Register the site in [Yandex Webmaster](https://webmaster.yandex.ru/) and [Google Search Console](https://search.google.com/search-console), then submit `sitemap.xml`.
 
-4. Создайте карточку в [Яндекс.Бизнес](https://business.yandex.ru/) с тем же адресом, телефонами и фото.
+4. Create a listing in [Yandex Business](https://business.yandex.ru/) with the same address, phones, and photos.
 
-5. Убедитесь, что `assets/logo-og.webp` на месте — он используется в OG-превью, JSON-LD и PWA.
+5. Make sure `assets/logo-og.webp` is in place — it is used for OG preview, JSON-LD, and PWA.
 
-6. При наличии ID Яндекс.Метрики или verification-кодов — добавьте их в `<head>` `index.html`.
+6. If you have a Yandex Metrica ID or verification codes, add them to `<head>` in `index.html`.
 
-### SEO-поля в main.js
+### SEO fields in main.js
 
-| Поле                             | Назначение                                               |
+| Field                            | Purpose                                                  |
 | -------------------------------- | -------------------------------------------------------- |
-| `seo.siteUrl`                    | Канонический домен (без завершающего `/`)                |
-| `seo.title`                      | Заголовок страницы                                       |
-| `seo.description`                | Описание для поисковиков и соцсетей                      |
-| `seo.keywords`                   | Ключевые слова                                           |
-| `seo.region`                     | Коды регионов (`RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA`) |
-| `seo.serviceArea.regions`        | Список регионов обслуживания (с городами для JSON-LD)    |
-| `seo.serviceArea.featuredCities` | Ключевые города для блока «Где работаем»                 |
-| `seo.ogImage`                    | Картинка для превью в соцсетях                           |
-| `address`                        | Юридический адрес, координаты и ссылка на карту          |
-| `serviceAreaSection`             | Заголовки и текст секции «Где работаем»                  |
+| `seo.siteUrl`                    | Canonical domain (no trailing `/`)                       |
+| `seo.title`                      | Page title                                               |
+| `seo.description`                | Description for search and social                        |
+| `seo.keywords`                   | Keywords                                                 |
+| `seo.region`                     | Region codes (`RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA`)  |
+| `seo.serviceArea.regions`        | Service regions (with cities for JSON-LD)                |
+| `seo.serviceArea.featuredCities` | Key cities for the “Where we work” block                 |
+| `seo.ogImage`                    | Social preview image                                     |
+| `address`                        | Legal address, coordinates, and map link                 |
+| `serviceAreaSection`             | Headings and copy for the “Where we work” section        |
 
-## Разработчик
+## Developer
 
-Сайт разработал [Брагин Ярослав](https://t.me/yar_bragin) — [Telegram](https://t.me/yar_bragin).
+The site was built by [Yaroslav Bragin](https://t.me/yar_bragin) — [Telegram](https://t.me/yar_bragin).
 
-## Лицензия
+## License
 
-Проект создан для компании «Металл Монтаж 33». Все права защищены.
+Created for Metall Montage 33. All rights reserved.

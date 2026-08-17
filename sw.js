@@ -1,12 +1,12 @@
-/* ── Service Worker: Металл Монтаж 33 ───────────────── */
+/* ── Service Worker: Metall Montage 33 ──────────────── */
 
-/** Версия кэша — инкрементировать при изменении PRECACHE или стратегий. */
+/** Cache version — bump when PRECACHE or strategies change. */
 const CACHE = 'mm33-v11';
 
 /**
- * Файлы для precache при install.
- * Критичные для первого экрана: HTML, CSS, JS, логотипы, иконки PWA.
- * Превью каруселей (*-560.webp) и полноразмерные фото — cache-first при первом запросе.
+ * Files to precache on install.
+ * First-screen critical: HTML, CSS, JS, logos, PWA icons.
+ * Carousel previews (*-560.webp) and full-size photos use cache-first on first request.
  */
 const PRECACHE = [
   './',
@@ -29,13 +29,13 @@ const PRECACHE = [
   './assets/icon-512.png',
 ];
 
-/** Типы запросов, для которых применяется network-first. */
+/** Request destinations that use network-first. */
 const NETWORK_FIRST_DESTINATIONS = new Set(['document', 'script', 'style']);
 
 /**
- * HTML, CSS, JS — network-first: свежая версия при наличии сети,
- * fallback на кэш при офлайне.
- * Изображения и прочее — cache-first (см. обработчик fetch).
+ * HTML, CSS, JS — network-first: fresh copy when online,
+ * cache fallback when offline.
+ * Images and the rest — cache-first (see the fetch handler).
  */
 function shouldUseNetworkFirst(request) {
   if (NETWORK_FIRST_DESTINATIONS.has(request.destination)) return true;
@@ -60,7 +60,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-/** Network-first: сеть → обновление кэша; при ошибке — из кэша. */
+/** Network-first: network → update cache; on error, serve from cache. */
 async function networkFirst(request) {
   try {
     const response = await fetch(request);
@@ -76,7 +76,7 @@ async function networkFirst(request) {
   }
 }
 
-/** Cache-first: кэш → сеть; при успехе — дополнение кэша. */
+/** Cache-first: cache → network; on success, populate the cache. */
 async function cacheFirst(request) {
   const cached = await caches.match(request);
   if (cached) return cached;

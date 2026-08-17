@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- sitemap.xml — URL синхронизирован с company.seo.siteUrl в main.js -->
+<!-- sitemap.xml — URL is kept in sync with company.seo.siteUrl in main.js -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 	<url>
 		<loc>

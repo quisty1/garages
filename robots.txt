@@ -1,5 +1,5 @@
-# robots.txt — правила для поисковых роботов
-# URL sitemap синхронизирован с company.seo.siteUrl в main.js
+# robots.txt — crawler rules
+# Sitemap URL is kept in sync with company.seo.siteUrl in main.js
 
 User-agent: *
 Allow: /
