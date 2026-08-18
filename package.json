@@ -1,0 +1,13 @@
+{
+  "name": "metallmontage33-static-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Zero-dependency checks for the Metall Montage 33 static site",
+  "scripts": {
+    "validate": "node ./scripts/validate-site.mjs",
+    "test": "npm run validate"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

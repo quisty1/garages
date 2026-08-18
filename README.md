@@ -1,6 +1,8 @@
 # Metall Montage 33
 
-Landing page for a company that manufactures and installs metal garages and canopies. A static site with no build step and no dependencies — it opens in the browser as-is.
+Landing page for a company that manufactures and installs metal garages and canopies. A static site with no build step and no dependencies.
+
+JavaScript is ES modules, so the page needs HTTP (`localhost` or production). Opening `index.html` as a `file://` URL still shows the CSS and HTML fallback, but interactive JS will not run.
 
 ## Features
 
@@ -18,7 +20,7 @@ Landing page for a company that manufactures and installs metal garages and cano
 - Industrial premium design: technical grid, outlined blocks, large type, focus on garage and canopy photos
 - Responsive layout for phone, tablet, and desktop
 - Fixed header with phone on desktop, theme switcher, and anchor navigation
-- Mobile menu with backdrop and Escape to close (from width ≤ 860px)
+- Mobile menu with backdrop, focus management, and Escape to close (from width ≤ 1360px)
 - Dark and light theme toggle (SVG icons) — separate palettes, not a simple invert
 - Auto theme from `prefers-color-scheme`, stored in `localStorage`
 - Lightbox for carousel photos (←/→ and Escape)
@@ -29,44 +31,63 @@ Landing page for a company that manufactures and installs metal garages and cano
 
 - Web App Manifest (`manifest.json`) — install to the home screen
 - Service Worker (`sw.js`) — caching and offline use
-- HTML/CSS/JS update with network-first; images use cache-first
+- Documents/code use network-first; precached hero/icons and runtime images use stale-while-revalidate (runtime cache is bounded)
 
 ### SEO and accessibility
 
 - Meta tags, Open Graph, Twitter Card, geo tags
-- JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, garage catalog
+- JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, service catalog with “from” prices
 - `robots.txt` and `sitemap.xml`
 - Semantic markup, image alts, ARIA on interactive elements
 - `prefers-reduced-motion` respected in FAQ and animations
 
 ## Stack
 
-| Layer  | Technologies                     |
-| ------ | -------------------------------- |
-| Markup | HTML5                            |
-| Styles | CSS3 (variables, Grid, Flexbox)  |
-| Logic  | Vanilla JavaScript (ES2020+)     |
+| Layer  | Technologies                    |
+| ------ | ------------------------------- |
+| Markup | HTML5                           |
+| Styles | CSS3 (variables, Grid, Flexbox) |
+| Logic  | Vanilla JavaScript (ES2020+)    |
 
 ## Project structure
 
 ```
 garages/
 ├── index.html              # Page markup (SEO stubs + sections)
-├── main.js                 # company object and all site logic
-├── styles.css              # Styles, themes, components
+├── site-data.js            # Single runtime source for company/site data
+├── js/
+│   ├── main.js             # Entry: init() and DOMContentLoaded
+│   ├── shared.js           # Selectors, company, shared utilities
+│   ├── theme.js            # Dark/light theme
+│   ├── content.js          # DOM rendering from site data
+│   ├── seo.js              # Meta tags and JSON-LD
+│   ├── ui.js               # Menu, FAQ, lightbox, carousels, scroll
+│   └── pwa.js              # Service Worker registration
+├── styles.css              # CSS entry (@import of css/*)
+├── css/
+│   ├── tokens.css          # Color, layout, and motion variables
+│   ├── base.css            # Reset, typography, reduced motion
+│   ├── header.css          # Header, nav, mobile drawer
+│   ├── hero.css            # Hero and buttons
+│   ├── sections.css        # Shared sections, cards, services
+│   ├── gallery.css         # Carousels and roof types
+│   ├── workflow-faq.css    # Workflow steps and FAQ
+│   ├── contact.css         # Contacts, messengers, footer
+│   └── overlays.css        # Scroll-top, lightbox, reveal
 ├── manifest.json           # PWA manifest
 ├── sw.js                   # Service Worker
 ├── robots.txt              # Crawler rules
 ├── sitemap.xml             # Sitemap
+├── package.json            # Zero-dependency validation commands
+├── scripts/
+│   └── validate-site.mjs   # Data, asset, PWA, sitemap, and accessibility checks
 ├── assets/
 │   ├── logo-og.webp        # OG preview, JSON-LD
 │   ├── logo-hero.webp      # Hero card (920w)
 │   ├── logo-hero-680.webp  # Hero card (680w, preload)
-│   ├── logo-48.webp        # Header logo
-│   ├── logo-96.webp        # Logo 2x
-│   ├── logo-44.webp        # Footer logo
 │   ├── favicon.svg         # Tab icon
-│   ├── favicon-48.png      # Favicon PNG
+│   ├── favicon-48.png      # Header/footer logo and favicon
+│   ├── favicon-96.png      # Header/footer logo 2x
 │   ├── icon-192.webp       # PWA icon
 │   ├── icon-512.webp       # PWA icon
 │   ├── garage-6x4.webp     # Garage photos (+ *-560.webp previews)
@@ -81,41 +102,41 @@ garages/
 └── README.md
 ```
 
-### main.js sections
+### JavaScript modules
 
-The file is organized top to bottom by logical blocks:
+`js/main.js` loads as an ES module and imports the rest:
 
-| Section            | Contents                                                                                                                                                              |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Data**           | `company` object — all site content                                                                                                                                   |
-| **Constants**      | `THEME_KEY`, `SELECTORS`, `CAROUSEL_NAMES`, theme and roof SVG icons                                                                                                  |
-| **Utilities**      | `$()`, `setTextById()`, `escapeHtml()`, `carouselImgAttrs()`, `getSiteUrl()`, `absUrl()`, `setMeta()`, `fillContainer()`, `fillDualContainers()`                      |
-| **Theme**          | `getSystemTheme`, `applyTheme`, `initTheme`                                                                                                                           |
-| **Rendering**      | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
-| **SEO**            | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
-| **Interactivity**  | FAQ accordion, mobile menu, lightbox, carousels, scroll reveal, scroll-to-top                                                                                         |
-| **PWA**            | `registerServiceWorker`                                                                                                                                               |
-| **Init**           | `init()` + `DOMContentLoaded`                                                                                                                                         |
+| Module         | Contents                                                                                                                                                              |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **shared.js**  | `company`, `SELECTORS`, `CAROUSEL_NAMES`, `$()`, `escapeHtml()`, `fillContainer()`, `fillDualContainers()`                                                            |
+| **theme.js**   | `THEME_KEY`, `THEME_COLORS`, `initTheme`                                                                                                                              |
+| **content.js** | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
+| **seo.js**     | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
+| **ui.js**      | FAQ accordion, mobile menu, lightbox, carousels, scroll reveal, scroll-to-top                                                                                         |
+| **pwa.js**     | `registerServiceWorker`                                                                                                                                               |
+| **main.js**    | `init()` + `DOMContentLoaded`                                                                                                                                         |
 
-### styles.css sections
+### CSS partials
 
-| Section                    | Contents                                                                                                                 |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **CSS variables**          | Dark theme (`:root`), light (`data-theme`, `prefers-color-scheme`), z-index, section spacing, transition                 |
-| **Reset / base**           | `*`, `html`, `body`, typography                                                                                          |
-| **Utilities**              | `.container`, `.skip-link`, `.section`                                                                                   |
-| **Components**             | Header → Hero → Carousel → Roofs → Workflow → FAQ → Services → Contact/Footer → Scroll-to-top → Lightbox → Scroll reveal |
-| **Industrial redesign**    | Industrial palette, grid, outlined cards, large slides, separate light-theme styles                                      |
-| **Responsive**             | `@media (max-width: 1120px)`, `980px`, `860px` (mobile menu), `720px`                                                    |
-| **prefers-reduced-motion** | FAQ and scroll reveal without animations                                                                                 |
+`styles.css` only `@import`s files from `css/` (order is the cascade):
+
+| File                 | Contents                                                                                          |
+| -------------------- | ------------------------------------------------------------------------------------------------- |
+| **tokens.css**       | Dark theme (`:root`), light (`data-theme`, `prefers-color-scheme`), z-index, spacing, transitions |
+| **base.css**         | Reset, typography, `.container`, skip-link, reduced-motion, `:focus-visible`                      |
+| **header.css**       | Header, nav, theme toggle, mobile drawer (`max-width: 1360px`)                                    |
+| **hero.css**         | Hero, buttons, meta cards                                                                         |
+| **sections.css**     | Shared `.section`, extras, advantages, price factors, services                                    |
+| **gallery.css**      | Carousels and roof-type cards                                                                     |
+| **workflow-faq.css** | Workflow steps and FAQ accordion                                                                  |
+| **contact.css**      | Contacts, service area, messengers, footer                                                        |
+| **overlays.css**     | Scroll-to-top, lightbox, scroll reveal                                                            |
 
 ## Local run
 
-The site does not require installing packages. Opening `index.html` in a browser is enough.
+The site does not require installing packages.
 
-**Quick way** — open `index.html` in a browser. The Service Worker and PWA may be limited in this mode (an origin is required, not `file://`).
-
-**For development** — a local HTTP server:
+**For development** — a local HTTP server (required for ES modules and the Service Worker):
 
 ```bash
 # Python 3
@@ -131,7 +152,7 @@ Open [http://localhost:8080](http://localhost:8080).
 
 ## Editing content
 
-All content lives in the `company` object in `main.js`. HTML sections contain stubs; on load, `init()` fills in the current data.
+All runtime content lives in the `company` object in `site-data.js`. HTML sections contain crawlable/no-JS fallbacks; on load, `init()` fills in the current data. Run `npm test` after edits to catch drift in key contacts and geography, structured data, assets, manifest, sitemap, and Service Worker behavior.
 
 ### Contacts and general info
 
@@ -177,16 +198,16 @@ To add or replace a photo, put a WebP file in `assets/` and set the `img` path. 
 
 ### Other fields
 
-| Field in `main.js` | What it shows on the site                          |
-| ------------------ | -------------------------------------------------- |
-| `hero`             | Hero heading, copy, and meta cards                 |
-| `services`         | List of core services                              |
-| `roofs`            | Roof type cards                                    |
-| `extras`           | Extra services                                     |
-| `workflow`         | Heading and “How we work” steps                    |
-| `faq`              | Questions and answers (`{ q, a }` array)           |
-| `messengers`       | Messenger links                                    |
-| `seo`              | Title, description, keywords, URL, region, OG image |
+| Field in `site-data.js` | What it shows on the site                           |
+| ----------------------- | --------------------------------------------------- |
+| `hero`                  | Hero heading, copy, and meta cards                  |
+| `services`              | List of core services                               |
+| `roofs`                 | Roof type cards                                     |
+| `extras`                | Extra services                                      |
+| `workflow`              | Heading and “How we work” steps                     |
+| `faq`                   | Questions and answers (`{ q, a }` array)            |
+| `messengers`            | Messenger links                                     |
+| `seo`                   | Title, description, keywords, URL, region, OG image |
 
 After editing `company.seo`, `renderSEO()` updates meta tags and JSON-LD in `<head>`.
 
@@ -196,32 +217,42 @@ After editing `company.seo`, `renderSEO()` updates meta tags and JSON-LD in `<he
 - The header button toggles dark and light
 - Choice is stored in `localStorage` under `mm33-theme`
 - Dark theme: graphite background, warm copper-orange accent (`#d98232`)
-- Light theme: warm technical background (`#f4efe6`), deeper accent (`#bd6328`)
+- Light theme: warm technical background (`#f4efe6`), WCAG AA accent (`#98421b`)
 
-Main CSS variables in `styles.css` (**Industrial redesign** block):
+Main CSS variables in `css/tokens.css`:
 
-| Variable          | Purpose                                               |
-| ----------------- | ----------------------------------------------------- |
-| `--primary`       | Copper-orange accent                                  |
-| `--bg`            | Page background                                       |
-| `--text`          | Primary text color                                    |
-| `--surface`       | Card and panel background                             |
-| `--steel`         | Secondary “metal” accent for icons and details        |
-| `--container`     | Max content width (`1400px`)                          |
-| `--header-height` | Header height (for anchor scrolling)                  |
+| Variable          | Purpose                                        |
+| ----------------- | ---------------------------------------------- |
+| `--primary`       | Copper-orange accent                           |
+| `--bg`            | Page background                                |
+| `--text`          | Primary text color                             |
+| `--surface`       | Card and panel background                      |
+| `--steel`         | Secondary “metal” accent for icons and details |
+| `--container`     | Max content width (`1400px`)                   |
+| `--header-height` | Header height (for anchor scrolling)           |
 
-`theme-color` values are kept in sync in `main.js` (`THEME_COLORS`), `index.html`, and `manifest.json`.
+`theme-color` values are kept in sync in `js/theme.js` (`THEME_COLORS`), `index.html`, and `manifest.json`.
 
 ## PWA and Service Worker
 
-| File            | Purpose                                                                                  |
-| --------------- | ---------------------------------------------------------------------------------------- |
-| `manifest.json` | Name, icons, `start_url`, `background_color` (`#111418`), `theme_color` (`#d98232`)      |
-| `sw.js`         | Precache of key files, caching strategies                                                |
+| File            | Purpose                                                                             |
+| --------------- | ----------------------------------------------------------------------------------- |
+| `manifest.json` | Name, icons, `start_url`, `background_color` (`#111418`), `theme_color` (`#d98232`) |
+| `sw.js`         | Precache of key files, caching strategies                                           |
 
-When the cache version (`CACHE` in `sw.js`) changes, old entries are removed on activate. After an SW update the page reloads automatically.
+When `CACHE_VERSION` changes, activation removes only outdated `mm33-*` caches; unrelated origin caches are preserved. Updates claim open clients without forcing a page reload. Navigation falls back to the canonical cached index on offline/5xx responses, including query/UTM URLs.
 
-**Domain:** `manifest.json` sets `start_url` and `scope` to `/`. If the domain or deploy path changes, update them together with `seo.siteUrl` in `main.js`.
+**Domain:** `manifest.json` sets `id`, `start_url`, and `scope` to `/`. If the domain or deploy path changes, update them together with `seo.siteUrl` in `site-data.js`.
+
+## Validation
+
+The repository includes a zero-dependency validation suite (Node.js 18+):
+
+```bash
+npm test
+```
+
+It checks JavaScript/JSON syntax, static/runtime JSON-LD parity, truthful “from” prices, geography, local assets, image sitemap structure, manifest invariants, core WCAG AA color pairs, Service Worker behavior, and basic accessibility contracts.
 
 ## Publishing
 
@@ -239,7 +270,7 @@ The site is static files only. Upload the repository contents to a host:
 
 - Title, description, keywords with regional search terms
 - Open Graph and Twitter Card
-- JSON-LD: `HomeAndConstructionBusiness` (address, geo, hasMap), `WebSite`, `WebPage`, `Product` (garages and canopies), `FAQPage`
+- JSON-LD: `HomeAndConstructionBusiness` (address, geo, hasMap), `WebSite`, `WebPage`, `Service` offers with `minPrice`, `FAQPage`
 - `robots.txt` and `sitemap.xml` (including catalog images)
 - Geo meta tags and a visible “Where we work” block with key cities
 - Legal address in Vladimir (Verizino district, Kuibysheva St., 5g)
@@ -247,7 +278,7 @@ The site is static files only. Upload the repository contents to a host:
 
 ### Before publishing on a new domain
 
-1. Update the canonical URL and address in `main.js`:
+1. Update the canonical URL and address in `site-data.js`:
 
 ```js
 seo: {
@@ -279,7 +310,7 @@ address: {
 }
 ```
 
-2. Sync URLs in `index.html` (canonical, OG), `robots.txt`, `sitemap.xml`, and `manifest.json` — or rely on `renderSEO()`, which fills values from `company.seo` on load.
+2. Sync URLs in `index.html` (canonical, OG), `robots.txt`, `sitemap.xml`, and `manifest.json`, then run `npm test`; `renderSEO()` also fills runtime values from `company.seo`.
 
 3. Register the site in [Yandex Webmaster](https://webmaster.yandex.ru/) and [Google Search Console](https://search.google.com/search-console), then submit `sitemap.xml`.
 
@@ -289,20 +320,20 @@ address: {
 
 6. If you have a Yandex Metrica ID or verification codes, add them to `<head>` in `index.html`.
 
-### SEO fields in main.js
+### SEO fields in site-data.js
 
-| Field                            | Purpose                                                  |
-| -------------------------------- | -------------------------------------------------------- |
-| `seo.siteUrl`                    | Canonical domain (no trailing `/`)                       |
-| `seo.title`                      | Page title                                               |
-| `seo.description`                | Description for search and social                        |
-| `seo.keywords`                   | Keywords                                                 |
-| `seo.region`                     | Region codes (`RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA`)  |
-| `seo.serviceArea.regions`        | Service regions (with cities for JSON-LD)                |
-| `seo.serviceArea.featuredCities` | Key cities for the “Where we work” block                 |
-| `seo.ogImage`                    | Social preview image                                     |
-| `address`                        | Legal address, coordinates, and map link                 |
-| `serviceAreaSection`             | Headings and copy for the “Where we work” section        |
+| Field                            | Purpose                                                 |
+| -------------------------------- | ------------------------------------------------------- |
+| `seo.siteUrl`                    | Canonical domain (no trailing `/`)                      |
+| `seo.title`                      | Page title                                              |
+| `seo.description`                | Description for search and social                       |
+| `seo.keywords`                   | Keywords                                                |
+| `seo.region`                     | Region codes (`RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA`) |
+| `seo.serviceArea.regions`        | Service regions (with cities for JSON-LD)               |
+| `seo.serviceArea.featuredCities` | Key cities for the “Where we work” block                |
+| `seo.ogImage`                    | Social preview image                                    |
+| `address`                        | Legal address, coordinates, and map link                |
+| `serviceAreaSection`             | Headings and copy for the “Where we work” section       |
 
 ## Developer
 

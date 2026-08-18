@@ -84,7 +84,7 @@
       media="(prefers-color-scheme: light)"
     />
 
-    <!-- SEO: static fallback values; renderSEO() in main.js updates them on load -->
+    <!-- SEO: static fallback values; renderSEO() in js/seo.js updates them on load -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Металл Монтаж 33" />
     <meta
@@ -139,45 +139,348 @@
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@context": "https://schema.org",
             "@type": "HomeAndConstructionBusiness",
-            "@id": "https://metallmontage33.ru/#organization",
             "name": "Металл Монтаж 33",
             "description": "Металлические гаражи и навесы под ключ во Владимире, Москве, Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.",
             "slogan": "Гаражи и навесы из металла под ключ",
-            "url": "https://metallmontage33.ru/",
             "image": "https://metallmontage33.ru/assets/logo-og.webp",
             "email": "MetallMontage33@yandex.ru",
             "telephone": ["+79042543674", "+79203434727"],
-            "priceRange": "от 6 000 ₽",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "ул. Куйбышева, 5г, мкр. Веризино (Сновицы-Веризино)",
-              "addressLocality": "Владимир",
-              "addressRegion": "Владимирская область",
-              "postalCode": "600029",
-              "addressCountry": "RU"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 56.1605,
-              "longitude": 40.3734
-            },
-            "hasMap": "https://yandex.ru/maps/?ll=40.3734%2C56.1605&z=17&text=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%2C%20%D1%83%D0%BB.%20%D0%9A%D1%83%D0%B9%D0%B1%D1%8B%D1%88%D0%B5%D0%B2%D0%B0%2C%205%D0%B3",
+            "priceRange": "от 6 000 ₽",
             "areaServed": [
-              { "@type": "City", "name": "Москва" },
-              { "@type": "AdministrativeArea", "name": "Владимирская область" },
-              { "@type": "AdministrativeArea", "name": "Московская область" },
+              {
+                "@type": "City",
+                "name": "Москва"
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Владимирская область"
+              },
+              {
+                "@type": "City",
+                "name": "Владимир",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Ковров",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Муром",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Александров",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Гусь-Хрустальный",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Киржач",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Кольчугино",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Вязники",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Радужный",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Собинка",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Меленки",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Петушки",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Камешково",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Юрьев-Польский",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Суздаль",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Гороховец",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Лакинск",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Струнино",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Покров",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Костерёво",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Судогда",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Владимирская область"
+                }
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Московская область"
+              },
               {
                 "@type": "AdministrativeArea",
                 "name": "Нижегородская область"
               },
-              { "@type": "AdministrativeArea", "name": "Ивановская область" }
-            ],
-            "knowsAbout": [
-              "Металлические гаражи",
-              "Навесы для автомобилей",
-              "Сэндвич-панели",
-              "Монтаж металлоконструкций"
+              {
+                "@type": "City",
+                "name": "Нижний Новгород",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Арзамас",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Ворсма",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Дзержинск",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Кстово",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Кулебаки",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Лукоянов",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Сергач",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Городец",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Балахна",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Нижегородская область"
+                }
+              },
+              {
+                "@type": "AdministrativeArea",
+                "name": "Ивановская область"
+              },
+              {
+                "@type": "City",
+                "name": "Иваново",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Кинешма",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Шуя",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Плес",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Фурманов",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Южа",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Заволжск",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              },
+              {
+                "@type": "City",
+                "name": "Пестяки",
+                "containedInPlace": {
+                  "@type": "AdministrativeArea",
+                  "name": "Ивановская область"
+                }
+              }
             ],
             "contactPoint": [
               {
@@ -211,6 +514,12 @@
                 "closes": "18:00"
               }
             ],
+            "knowsAbout": [
+              "Металлические гаражи",
+              "Навесы для автомобилей",
+              "Сэндвич-панели",
+              "Монтаж металлоконструкций"
+            ],
             "hasOfferCatalog": [
               {
                 "@type": "OfferCatalog",
@@ -218,9 +527,21 @@
                 "itemListElement": [
                   {
                     "@type": "Offer",
-                    "name": "Металлические гаражи под ключ",
-                    "priceCurrency": "RUB",
-                    "price": "22000"
+                    "name": "Металлические гаражи — от 22 000 ₽",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Металлические гаражи",
+                      "serviceType": "Металлические гаражи",
+                      "provider": {
+                        "@id": "https://metallmontage33.ru/#organization"
+                      }
+                    },
+                    "priceSpecification": {
+                      "@type": "PriceSpecification",
+                      "priceCurrency": "RUB",
+                      "minPrice": 22000
+                    },
+                    "url": "https://metallmontage33.ru/#contact"
                   }
                 ]
               },
@@ -230,180 +551,81 @@
                 "itemListElement": [
                   {
                     "@type": "Offer",
-                    "name": "Металлические навесы под ключ",
-                    "priceCurrency": "RUB",
-                    "price": "6000"
+                    "name": "Металлические навесы — от 6 000 ₽",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Металлические навесы",
+                      "serviceType": "Металлические навесы",
+                      "provider": {
+                        "@id": "https://metallmontage33.ru/#organization"
+                      }
+                    },
+                    "priceSpecification": {
+                      "@type": "PriceSpecification",
+                      "priceCurrency": "RUB",
+                      "minPrice": 6000
+                    },
+                    "url": "https://metallmontage33.ru/#contact"
                   }
                 ]
               }
             ],
             "sameAs": [
               "https://max.ru/u/f9LHodD0cOIq2YDVCLrWTqtmxuz0snFv2pGd3TIadt7A0CoRYGP8OpgDZPc"
-            ]
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "ул. Куйбышева, 5г, мкр. Веризино (Сновицы-Веризино)",
+              "addressLocality": "Владимир",
+              "addressRegion": "Владимирская область",
+              "postalCode": "600029",
+              "addressCountry": "RU"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 56.1605,
+              "longitude": 40.3734
+            },
+            "hasMap": "https://yandex.ru/maps/?ll=40.3734%2C56.1605&z=17&text=%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%2C%20%D1%83%D0%BB.%20%D0%9A%D1%83%D0%B9%D0%B1%D1%8B%D1%88%D0%B5%D0%B2%D0%B0%2C%205%D0%B3",
+            "url": "https://metallmontage33.ru/",
+            "@id": "https://metallmontage33.ru/#organization"
           },
           {
+            "@context": "https://schema.org",
             "@type": "WebSite",
-            "@id": "https://metallmontage33.ru/#website",
-            "url": "https://metallmontage33.ru/",
             "name": "Металл Монтаж 33",
             "description": "Металлические гаражи и навесы под ключ во Владимире, Москве, Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.",
             "inLanguage": "ru-RU",
-            "publisher": { "@id": "https://metallmontage33.ru/#organization" }
+            "url": "https://metallmontage33.ru/",
+            "@id": "https://metallmontage33.ru/#website",
+            "publisher": {
+              "@id": "https://metallmontage33.ru/#organization"
+            }
           },
           {
+            "@context": "https://schema.org",
             "@type": "WebPage",
-            "@id": "https://metallmontage33.ru/#webpage",
-            "url": "https://metallmontage33.ru/",
             "name": "Гаражи и навесы под ключ во Владимире и области | Металл Монтаж 33",
             "description": "Металлические гаражи и навесы под ключ во Владимире, Москве, Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.",
             "inLanguage": "ru-RU",
-            "isPartOf": { "@id": "https://metallmontage33.ru/#website" },
-            "about": { "@id": "https://metallmontage33.ru/#organization" },
             "primaryImageOfPage": {
               "@type": "ImageObject",
               "url": "https://metallmontage33.ru/assets/logo-og.webp",
               "width": 1200,
               "height": 800
+            },
+            "url": "https://metallmontage33.ru/",
+            "@id": "https://metallmontage33.ru/#webpage",
+            "isPartOf": {
+              "@id": "https://metallmontage33.ru/#website"
+            },
+            "about": {
+              "@id": "https://metallmontage33.ru/#organization"
             }
           },
           {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-garage-0",
-            "name": "Гараж 6×4 м",
-            "description": "Длина 6 м · Ширина 4 м · Высота 3,6 м",
-            "image": "https://metallmontage33.ru/assets/garage-6x4.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "22000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-garage-1",
-            "name": "Гараж 6×6 м",
-            "description": "Длина 6 м · Ширина 6 м · Высота 3,6 м",
-            "image": "https://metallmontage33.ru/assets/garage-6x6.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "22000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-garage-2",
-            "name": "Гараж 8×6 м",
-            "description": "Длина 8 м · Ширина 6 м · Высота 3,6 м",
-            "image": "https://metallmontage33.ru/assets/garage-8x6.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "22000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-garage-3",
-            "name": "Гараж 6×8 м",
-            "description": "Длина 6 м · Ширина 8 м · Высота 3,6 м",
-            "image": "https://metallmontage33.ru/assets/garage-6x8.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "22000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-canopy-0",
-            "name": "Навес для авто",
-            "description": "Металлический навес для авто под ключ — Металл Монтаж 33",
-            "image": "https://metallmontage33.ru/assets/canopy-car.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "6000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-canopy-1",
-            "name": "Навес двускатный",
-            "description": "Металлический навес двускатный под ключ — Металл Монтаж 33",
-            "image": "https://metallmontage33.ru/assets/canopy-gable.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "6000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-canopy-2",
-            "name": "Навес односкатный",
-            "description": "Металлический навес односкатный под ключ — Металл Монтаж 33",
-            "image": "https://metallmontage33.ru/assets/canopy-single-slope.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "6000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-canopy-3",
-            "name": "Навес на 2 авто",
-            "description": "Металлический навес на 2 авто под ключ — Металл Монтаж 33",
-            "image": "https://metallmontage33.ru/assets/canopy-two-cars.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "6000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
-            "@type": "Product",
-            "@id": "https://metallmontage33.ru/#product-canopy-4",
-            "name": "Навес для дома",
-            "description": "Металлический навес для дома под ключ — Металл Монтаж 33",
-            "image": "https://metallmontage33.ru/assets/canopy-house.webp",
-            "offers": {
-              "@type": "Offer",
-              "priceCurrency": "RUB",
-              "price": "6000",
-              "availability": "https://schema.org/InStock",
-              "url": "https://metallmontage33.ru/#contact",
-              "seller": { "@id": "https://metallmontage33.ru/#organization" }
-            }
-          },
-          {
+            "@context": "https://schema.org",
             "@type": "FAQPage",
-            "url": "https://metallmontage33.ru/#faq",
             "mainEntity": [
               {
                 "@type": "Question",
@@ -493,21 +715,38 @@
                   "text": "Позвоните по телефону, напишите на email или в мессенджер MAX — бесплатно проконсультируем и поможем с расчётом."
                 }
               }
-            ]
+            ],
+            "url": "https://metallmontage33.ru/#faq"
           }
         ]
       }
     </script>
-    <!-- Apply theme before CSS loads (avoids a flash) -->
+    <!-- Apply theme before CSS loads (avoids a flash of the wrong palette). -->
     <script>
       (function () {
-        var saved = localStorage.getItem('mm33-theme');
+        var root = document.documentElement;
+        var saved = null;
+        // Enable JS-only drawer CSS immediately; main.js later confirms with .js-ready.
+        root.classList.add('js');
+        window.setTimeout(function () {
+          // If modules never load, drop .js so the no-JS header remains usable.
+          if (!root.classList.contains('js-ready')) {
+            root.classList.remove('js');
+          }
+        }, 5000);
+        try {
+          saved = localStorage.getItem('mm33-theme');
+        } catch (error) {
+          saved = null;
+        }
+        // Saved choice wins; otherwise follow prefers-color-scheme.
         var theme =
-          saved ||
-          (window.matchMedia('(prefers-color-scheme: light)').matches
-            ? 'light'
-            : 'dark');
-        document.documentElement.setAttribute('data-theme', theme);
+          saved === 'light' || saved === 'dark'
+            ? saved
+            : window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+        root.setAttribute('data-theme', theme);
       })();
     </script>
   </head>
@@ -537,9 +776,11 @@
           </a>
         </div>
 
-        <a class="header-phone" href="tel:+79042543674">
+        <a class="header-phone" href="tel:+79042543674" data-primary-phone-link>
           <span class="header-phone__label">Связаться</span>
-          <span class="header-phone__value">+7 (904) 254-36-74</span>
+          <span class="header-phone__value" data-primary-phone-value
+            >+7 (904) 254-36-74</span
+          >
         </a>
 
         <button
@@ -716,7 +957,11 @@
             <div class="carousel__viewport" data-carousel-viewport tabindex="0">
               <div class="carousel__track" data-carousel-track>
                 <article class="slide">
-                  <div class="slide__img">
+                  <button
+                    class="slide__img"
+                    type="button"
+                    aria-label="Открыть фото: гараж 6×4 м"
+                  >
                     <img
                       src="./assets/garage-6x4.webp"
                       srcset="
@@ -731,7 +976,7 @@
                       decoding="async"
                     />
                     <span class="slide__badge">сварной каркас</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 6×4 м</h3>
@@ -742,7 +987,11 @@
                   </div>
                 </article>
                 <article class="slide">
-                  <div class="slide__img">
+                  <button
+                    class="slide__img"
+                    type="button"
+                    aria-label="Открыть фото: гараж 6×6 м"
+                  >
                     <img
                       src="./assets/garage-6x6.webp"
                       srcset="
@@ -757,7 +1006,7 @@
                       decoding="async"
                     />
                     <span class="slide__badge">сварной каркас</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 6×6 м</h3>
@@ -768,7 +1017,11 @@
                   </div>
                 </article>
                 <article class="slide">
-                  <div class="slide__img">
+                  <button
+                    class="slide__img"
+                    type="button"
+                    aria-label="Открыть фото: гараж 8×6 м"
+                  >
                     <img
                       src="./assets/garage-8x6.webp"
                       srcset="
@@ -783,7 +1036,7 @@
                       decoding="async"
                     />
                     <span class="slide__badge">сварной каркас</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 8×6 м</h3>
@@ -794,7 +1047,11 @@
                   </div>
                 </article>
                 <article class="slide">
-                  <div class="slide__img">
+                  <button
+                    class="slide__img"
+                    type="button"
+                    aria-label="Открыть фото: гараж 6×8 м"
+                  >
                     <img
                       src="./assets/garage-6x8.webp"
                       srcset="
@@ -809,7 +1066,7 @@
                       decoding="async"
                     />
                     <span class="slide__badge">сварной каркас</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 6×8 м</h3>
@@ -866,7 +1123,11 @@
             <div class="carousel__viewport" data-carousel-viewport tabindex="0">
               <div class="carousel__track" data-carousel-track>
                 <article class="slide slide--photo">
-                  <div class="slide__img slide__img--tall">
+                  <button
+                    class="slide__img slide__img--tall"
+                    type="button"
+                    aria-label="Открыть фото: навес для авто"
+                  >
                     <img
                       src="./assets/canopy-car.webp"
                       srcset="
@@ -881,14 +1142,18 @@
                       decoding="async"
                     />
                     <span class="slide__badge">навес под ключ</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">металлоконструкция</div>
                     <h3 class="slide__title">Навес для авто</h3>
                   </div>
                 </article>
                 <article class="slide slide--photo">
-                  <div class="slide__img slide__img--tall">
+                  <button
+                    class="slide__img slide__img--tall"
+                    type="button"
+                    aria-label="Открыть фото: навес двускатный"
+                  >
                     <img
                       src="./assets/canopy-gable.webp"
                       srcset="
@@ -903,14 +1168,18 @@
                       decoding="async"
                     />
                     <span class="slide__badge">навес под ключ</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">металлоконструкция</div>
                     <h3 class="slide__title">Навес двускатный</h3>
                   </div>
                 </article>
                 <article class="slide slide--photo">
-                  <div class="slide__img slide__img--tall">
+                  <button
+                    class="slide__img slide__img--tall"
+                    type="button"
+                    aria-label="Открыть фото: навес односкатный"
+                  >
                     <img
                       src="./assets/canopy-single-slope.webp"
                       srcset="
@@ -925,14 +1194,18 @@
                       decoding="async"
                     />
                     <span class="slide__badge">навес под ключ</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">металлоконструкция</div>
                     <h3 class="slide__title">Навес односкатный</h3>
                   </div>
                 </article>
                 <article class="slide slide--photo">
-                  <div class="slide__img slide__img--tall">
+                  <button
+                    class="slide__img slide__img--tall"
+                    type="button"
+                    aria-label="Открыть фото: навес на 2 авто"
+                  >
                     <img
                       src="./assets/canopy-two-cars.webp"
                       srcset="
@@ -947,14 +1220,18 @@
                       decoding="async"
                     />
                     <span class="slide__badge">навес под ключ</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">металлоконструкция</div>
                     <h3 class="slide__title">Навес на 2 авто</h3>
                   </div>
                 </article>
                 <article class="slide slide--photo">
-                  <div class="slide__img slide__img--tall">
+                  <button
+                    class="slide__img slide__img--tall"
+                    type="button"
+                    aria-label="Открыть фото: навес для дома"
+                  >
                     <img
                       src="./assets/canopy-house.webp"
                       srcset="
@@ -969,7 +1246,7 @@
                       decoding="async"
                     />
                     <span class="slide__badge">навес под ключ</span>
-                  </div>
+                  </button>
                   <div class="slide__body">
                     <div class="slide__kicker">металлоконструкция</div>
                     <h3 class="slide__title">Навес для дома</h3>
@@ -1097,8 +1374,99 @@
         </div>
       </section>
 
+      <!-- Advantages: [data-advantages] — renderAdvantages() -->
+      <section class="section" id="advantages">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <div class="section__eyebrow">Почему мы</div>
+              <h2 class="section__title">Преимущества</h2>
+            </div>
+            <p class="section__text">
+              Сварной каркас, панели 50–250&nbsp;мм, любые размеры и выезд по
+              четырём областям.
+            </p>
+          </div>
+
+          <div class="stats-grid" data-advantages>
+            <article class="stat-card stat-card--primary">
+              <div class="stat-card__num" aria-hidden="true">01</div>
+              <h3 class="stat-card__title">Энергосбережение</h3>
+              <p class="stat-card__value">50–250 мм</p>
+              <p class="stat-card__text">
+                <span>Толщина стеновых панелей</span>
+                <span>Минвата или пенопласт</span>
+              </p>
+            </article>
+            <article class="stat-card stat-card--steel">
+              <div class="stat-card__num" aria-hidden="true">02</div>
+              <h3 class="stat-card__title">Срок работ</h3>
+              <p class="stat-card__value">По замеру</p>
+              <p class="stat-card__text">
+                <span>Кратчайшие сроки</span>
+                <span>После замера и проекта</span>
+              </p>
+            </article>
+            <article class="stat-card stat-card--primary">
+              <div class="stat-card__num" aria-hidden="true">03</div>
+              <h3 class="stat-card__title">Гарантия</h3>
+              <p class="stat-card__value">3 года</p>
+              <p class="stat-card__text">
+                <span>На все работы</span>
+                <span>С момента сдачи объекта</span>
+              </p>
+            </article>
+            <article class="stat-card stat-card--steel">
+              <div class="stat-card__num" aria-hidden="true">04</div>
+              <h3 class="stat-card__title">Каркас</h3>
+              <p class="stat-card__value">Сварка</p>
+              <p class="stat-card__text">
+                <span>Сварочное соединение</span>
+                <span>Металлокаркас на объекте</span>
+              </p>
+            </article>
+            <article class="stat-card stat-card--primary">
+              <div class="stat-card__num" aria-hidden="true">05</div>
+              <h3 class="stat-card__title">Размеры</h3>
+              <p class="stat-card__value">Любые</p>
+              <p class="stat-card__text">
+                <span>По вашим чертежам</span>
+                <span>Нестандарт — без ограничений</span>
+              </p>
+            </article>
+            <article class="stat-card stat-card--steel">
+              <div class="stat-card__num" aria-hidden="true">06</div>
+              <h3 class="stat-card__title">Машино-места</h3>
+              <p class="stat-card__value">Без лимита</p>
+              <p class="stat-card__text">
+                <span>Количество мест не ограничено</span>
+                <span>Под задачу участка</span>
+              </p>
+            </article>
+            <article class="stat-card stat-card--primary">
+              <div class="stat-card__num" aria-hidden="true">07</div>
+              <h3 class="stat-card__title">Кровля</h3>
+              <p class="stat-card__value">2 типа</p>
+              <p class="stat-card__text">
+                <span>Односкатная и двускатная</span>
+                <span>Скат набок, назад или классика</span>
+              </p>
+            </article>
+            <article class="stat-card stat-card--steel">
+              <div class="stat-card__num" aria-hidden="true">08</div>
+              <h3 class="stat-card__title">География</h3>
+              <p class="stat-card__value">4 области</p>
+              <p class="stat-card__text">
+                <span>Владимир, Москва и регионы</span>
+                <span>Выезд на замер и монтаж</span>
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <!-- Extras: [data-extras] — renderExtras() -->
-      <section class="section" id="extras">
+      <section class="section section--muted" id="extras">
         <div class="container">
           <div class="section__head">
             <div>
@@ -1138,15 +1506,74 @@
         </div>
       </section>
 
+      <!-- Price factors: [data-price-factors] — renderPriceFactors() -->
+      <section class="section" id="price-factors">
+        <div class="container">
+          <div class="section__head section__head--center">
+            <div>
+              <div class="section__eyebrow">Расчёт сметы</div>
+              <h2 class="section__title">Факторы, влияющие на стоимость</h2>
+            </div>
+          </div>
+
+          <div class="factors-grid" data-price-factors>
+            <article class="factor-cell">
+              <h3 class="factor-cell__title">Площадь объекта</h3>
+              <p class="factor-cell__text">
+                Гараж — от 22 000 ₽, навес — от 6 000 ₽. Размер задаёт объём
+                металла и панелей; точная цена — после замера.
+              </p>
+            </article>
+            <article class="factor-cell">
+              <h3 class="factor-cell__title">Тип фундамента</h3>
+              <p class="factor-cell__text">
+                Бетонная плита или сваи — выбираете по участку. Тип основания
+                влияет на объём работ и итоговую смету.
+              </p>
+            </article>
+            <article class="factor-cell">
+              <h3 class="factor-cell__title">Толщина панелей</h3>
+              <p class="factor-cell__text">
+                Стеновые панели от 50 до 250 мм. Утеплитель — минеральная вата
+                или пенопласт.
+              </p>
+            </article>
+            <article class="factor-cell">
+              <h3 class="factor-cell__title">Комплектация ворот</h3>
+              <p class="factor-cell__text">
+                Секционные ворота с автоматическим приводом. Привод и
+                комплектация входят в расчёт объекта.
+              </p>
+            </article>
+            <article class="factor-cell">
+              <h3 class="factor-cell__title">Доп. опции</h3>
+              <p class="factor-cell__text">
+                Водосток, снегозадержание, вытяжка и другие опции — по задаче
+                объекта.
+              </p>
+            </article>
+            <article class="factor-cell factor-cell--alt">
+              <h3 class="factor-cell__title">Регион и логистика</h3>
+              <p class="factor-cell__text">
+                Выезжаем на замер и монтаж по Владимирской, Московской,
+                Нижегородской и Ивановской областям и в Москву.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <!-- Workflow: [data-workflow] — renderWorkflow(); section heading is a static fallback -->
       <section class="section section--muted" id="workflow">
         <div class="container">
           <div class="section__head">
             <div>
               <div class="section__eyebrow">Маршрут объекта</div>
-              <h2 class="section__title">Как мы работаем</h2>
+              <h2 class="section__title" id="workflow-title">
+                Как мы работаем
+              </h2>
             </div>
-            <p class="section__text">
+            <p class="section__text" id="workflow-text">
               От заявки до сдачи объекта — прозрачный процесс без лишних этапов.
             </p>
           </div>
@@ -1563,31 +1990,33 @@
                 <span id="requisites-inn">332401320440</span>
               </li>
             </ul>
-            <div class="requisites-panel__subtitle">Банковские реквизиты</div>
-            <ul class="requisites-panel__list">
-              <li>
-                <strong>Банк</strong>
-                <span id="requisites-bank">АО «ВЛАДБИЗНЕСБАНК»</span>
-              </li>
-              <li>
-                <strong>Р/с</strong>
-                <span id="requisites-account">40802810600000004637</span>
-              </li>
-              <li>
-                <strong>К/с</strong>
-                <span id="requisites-corr-account">30101810045372202719</span>
-              </li>
-              <li>
-                <strong>БИК</strong>
-                <span id="requisites-bic">042202719</span>
-              </li>
-            </ul>
+            <div id="requisites-bank-details">
+              <div class="requisites-panel__subtitle">Банковские реквизиты</div>
+              <ul class="requisites-panel__list">
+                <li>
+                  <strong>Банк</strong>
+                  <span id="requisites-bank">АО «ВЛАДБИЗНЕСБАНК»</span>
+                </li>
+                <li>
+                  <strong>Р/с</strong>
+                  <span id="requisites-account">40802810600000004637</span>
+                </li>
+                <li>
+                  <strong>К/с</strong>
+                  <span id="requisites-corr-account">30101810045372202719</span>
+                </li>
+                <li>
+                  <strong>БИК</strong>
+                  <span id="requisites-bic">042202719</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- Footer: [data-footer-phones], [data-footer-messengers] — from main.js -->
+    <!-- Footer: [data-footer-phones], [data-footer-messengers] — from js/content.js -->
     <footer class="site-footer">
       <div class="container footer-inner">
         <div class="footer-brand">
@@ -1711,6 +2140,7 @@
       </svg>
     </a>
 
-    <script src="./main.js" defer></script>
+    <script src="./site-data.js" defer></script>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>

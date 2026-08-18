@@ -1,0 +1,426 @@
+/* ── Contact / Footer ────────────────────────────────── */
+.contacts-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 22px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 22px;
+}
+
+.contacts-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.contacts-panel__grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.contact-tile {
+  display: grid;
+  gap: 8px;
+  padding: 16px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+a.contact-tile:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(20, 20, 28, 0.35);
+}
+.contact-tile--accent {
+  border-color: var(--primary-soft-strong);
+  background: var(--primary-soft);
+}
+.contact-tile--accent .contact-tile__value {
+  color: var(--primary);
+}
+.contact-tile--static {
+  cursor: default;
+}
+.contact-tile__label {
+  color: var(--muted2);
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.contact-tile__value {
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 1.3;
+  word-break: break-word;
+  color: var(--text);
+}
+.contact-tile__hint {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 13px;
+}
+.contact-tile--address .contact-tile__value {
+  font-size: 16px;
+}
+
+.contacts-panel__subtitle {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+/* ── Service area / cities ──────────────────────────── */
+.service-area__cities {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.service-area__city {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.2;
+}
+.service-area__more {
+  margin: 16px 0 0;
+  color: var(--muted2);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.requisites-panel {
+  margin-top: 20px;
+  max-width: 980px;
+  margin-left: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 22px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 12px;
+}
+.requisites-panel__title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+.requisites-panel__name {
+  font-weight: 900;
+  font-size: 16px;
+  color: var(--text);
+}
+.requisites-panel__subtitle {
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--muted2);
+}
+.requisites-panel__list {
+  margin: 0;
+  padding-left: 1.2em;
+  display: grid;
+  gap: 6px;
+  color: var(--text);
+}
+.requisites-panel__list strong {
+  font-weight: 800;
+  margin-right: 0.35em;
+}
+
+.messenger-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.messenger-link {
+  display: grid;
+  gap: 4px;
+  padding: 16px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  text-decoration: none;
+  color: var(--text);
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+.messenger-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+.messenger-link__label {
+  font-weight: 900;
+  font-size: 15px;
+}
+.messenger-link__hint {
+  color: var(--muted);
+  font-size: 13px;
+}
+.messenger-link--max {
+  border-color: var(--primary-soft-strong);
+  background: var(--primary-soft);
+}
+.messenger-link--max .messenger-link__label {
+  color: var(--primary);
+}
+
+.footer-list--messengers {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--footer-line);
+}
+
+.site-footer {
+  padding: 36px 0 24px;
+  border-top: 1px solid var(--footer-line);
+  background: var(--footer-bg);
+  color: var(--footer-text);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  display: flex;
+  gap: 14px;
+}
+.footer-brand__name {
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: var(--footer-text);
+}
+.footer-brand__sub {
+  color: var(--footer-muted);
+  margin-top: 4px;
+  font-size: 14px;
+}
+.footer-cols {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-col {
+  min-width: 240px;
+}
+.footer-col__title {
+  font-weight: 900;
+  margin-bottom: 10px;
+  color: var(--primary);
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--footer-muted);
+}
+.footer-list li {
+  margin: 10px 0;
+}
+.footer-list a {
+  color: var(--footer-text);
+  text-decoration: none;
+}
+.footer-list a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--footer-muted2);
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--footer-line);
+  font-size: 14px;
+}
+.footer-bottom__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.footer-legal {
+  font-size: 13px;
+  color: var(--footer-muted2);
+  line-height: 1.4;
+}
+.footer-credit {
+  font-size: 13px;
+  color: var(--footer-muted2);
+}
+.footer-credit a {
+  color: var(--footer-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.footer-credit a:hover {
+  color: var(--primary);
+}
+.footer-bottom__links {
+  display: flex;
+  gap: 14px;
+}
+.footer-bottom__links a {
+  color: var(--footer-muted2);
+  text-decoration: none;
+}
+.footer-bottom__links a:hover {
+  color: var(--primary);
+}
+
+/* Later rules in this file override the earlier contact/footer layout. */
+/* ── Industrial premium redesign ─────────────────────── */
+.contact-tile,
+.messenger-link,
+.contacts-panel,
+.service-area__city {
+  position: relative;
+  border-radius: 0;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 32%),
+    var(--card);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.contact-tile::before,
+.messenger-link::before,
+.contacts-panel::before {
+  content: '';
+  position: absolute;
+  inset: -1px auto auto -1px;
+  width: 18px;
+  height: 18px;
+  border-top: 2px solid var(--primary);
+  border-left: 2px solid var(--primary);
+  pointer-events: none;
+}
+
+a.contact-tile:hover,
+.messenger-link:hover {
+  transform: translateY(-3px);
+}
+
+.section--contact {
+  overflow: hidden;
+}
+
+.contacts-panel {
+  max-width: 980px;
+  margin-left: auto;
+  padding: 28px;
+  background:
+    linear-gradient(135deg, var(--primary-soft), transparent 34%),
+    var(--surface);
+}
+
+.requisites-panel {
+  padding: 28px;
+  background:
+    linear-gradient(135deg, var(--primary-soft), transparent 34%),
+    var(--surface);
+}
+
+.contact-tile,
+.messenger-link {
+  padding: 20px;
+}
+
+.contact-tile__label {
+  letter-spacing: 0.14em;
+}
+
+.contact-tile__value {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: -0.04em;
+}
+
+.contact-tile--address .contact-tile__value {
+  font-size: clamp(15px, 2.2vw, 18px);
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.messenger-link__label {
+  font-size: 20px;
+  letter-spacing: -0.03em;
+}
+
+.footer-brand img {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+}
+
+.site-footer {
+  padding-top: 44px;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 18px,
+      rgba(255, 255, 255, 0.028) 18px 19px
+    ),
+    var(--footer-bg);
+}
+
+.footer-brand__name,
+.footer-col__title {
+  letter-spacing: 0.14em;
+}
+
+.footer-bottom__links {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 980px) {
+  .contacts-panel__grid,
+  .contacts-panel__grid--2 {
+    grid-template-columns: 1fr;
+  }
+  .messenger-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .contacts-panel {
+    padding: 20px;
+  }
+
+  .footer-inner,
+  .footer-bottom {
+    display: grid;
+  }
+
+  .footer-bottom__links {
+    justify-content: flex-start;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+  }
+}

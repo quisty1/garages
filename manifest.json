@@ -2,10 +2,11 @@
   "name": "Металл Монтаж 33 — гаражи и навесы",
   "short_name": "ММ33",
   "description": "Производство и монтаж металлических гаражей и навесов во Владимире, Москве, Владимирской, Московской, Нижегородской и Ивановской областях и по всем городам в этих регионах",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "background_color": "#111418",
   "theme_color": "#d98232",
   "lang": "ru",
@@ -33,18 +34,6 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
-    },
-    {
-      "src": "./assets/icon-512.webp",
-      "sizes": "512x512",
-      "type": "image/webp",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./assets/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
     }
   ]
 }

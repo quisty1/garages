@@ -1,0 +1,129 @@
+/* ── Design tokens: industrial dark theme (default) ───── */
+:root {
+  /* Colors */
+  --bg: #111418;
+  --bg-2: #171b20;
+  --surface: #1b2026;
+  --surface-2: #222830;
+  --card: #171c22;
+  --text: #f5efe6;
+  --muted: rgba(245, 239, 230, 0.72);
+  --muted2: rgba(245, 239, 230, 0.55);
+  --line: rgba(245, 239, 230, 0.12);
+  --line-strong: rgba(245, 239, 230, 0.24);
+  --primary: #d98232;
+  --primary-2: #c06728;
+  --primary-soft: rgba(217, 130, 50, 0.13);
+  --primary-soft-strong: rgba(217, 130, 50, 0.28);
+  --steel: #9da7ad;
+  --steel-soft: rgba(157, 167, 173, 0.16);
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+  --header-bg: rgba(17, 20, 24, 0.86);
+  --body-bg-start: #0f1215;
+  --nav-mobile-bg: #15191e;
+  --on-primary: #170f09;
+  --media-bg: #0e1115;
+  --footer-bg: #0d1013;
+  --footer-text: rgba(245, 239, 230, 0.94);
+  --footer-muted: rgba(245, 239, 230, 0.68);
+  --footer-muted2: rgba(245, 239, 230, 0.52);
+  --footer-line: rgba(245, 239, 230, 0.12);
+  --nav-hover-bg: rgba(217, 130, 50, 0.1);
+  --grid-column: rgba(255, 255, 255, 0.035);
+  --grid-row: rgba(255, 255, 255, 0.03);
+  --primary-glow: rgba(217, 130, 50, 0.16);
+  --steel-glow: rgba(157, 167, 173, 0.1);
+  --button-shine: rgba(255, 255, 255, 0.26);
+
+  /* Layout */
+  --header-height: 72px;
+  --scroll-offset: calc(var(--header-height) + 16px);
+  --container: 1400px;
+  --container-gutter: clamp(18px, 5vw, 24px);
+  --section-padding: 86px;
+  --section-contact-padding: 64px 0 72px;
+
+  /* Shape */
+  --radius: 4px;
+  --radius-sm: 3px;
+
+  /* Motion (disabled by the prefers-reduced-motion override) */
+  --transition-fast: 0.15s ease;
+  --transition-reveal: 0.65s ease;
+
+  /* z-index: backdrop 40 → header 50 → nav 51 → toggle 52 → scroll-top 90 → lightbox 200 */
+  --z-nav-backdrop: 40;
+  --z-header: 50;
+  --z-nav: 51;
+  --z-nav-toggle: 52;
+  --z-scroll-top: 90;
+  --z-lightbox: 200;
+  --z-skip-link: 9999;
+}
+
+/* ── Light theme ──────────────────────────────────────── */
+/* Duplicated with prefers-color-scheme below on purpose: data-theme and system theme */
+html[data-theme='light'] {
+  --bg: #f4efe6;
+  --bg-2: #e9e0d1;
+  --surface: #fff9ef;
+  --surface-2: #efe4d3;
+  --card: #fbf3e6;
+  --text: #1d2225;
+  --muted: rgba(29, 34, 37, 0.76);
+  --muted2: rgba(29, 34, 37, 0.68);
+  --line: rgba(64, 53, 42, 0.16);
+  --line-strong: rgba(64, 53, 42, 0.28);
+  --primary: #98421b;
+  --primary-2: #743017;
+  --primary-soft: rgba(152, 66, 27, 0.14);
+  --primary-soft-strong: rgba(152, 66, 27, 0.28);
+  --steel: #5f6970;
+  --steel-soft: rgba(95, 105, 112, 0.12);
+  --shadow: 0 26px 70px rgba(79, 54, 28, 0.16);
+  --header-bg: rgba(244, 239, 230, 0.88);
+  --body-bg-start: #fbf7ee;
+  --nav-mobile-bg: #fbf3e6;
+  --on-primary: #fffaf2;
+  --media-bg: #ded3c1;
+  --nav-hover-bg: rgba(152, 66, 27, 0.1);
+  --grid-column: rgba(58, 46, 33, 0.055);
+  --grid-row: rgba(58, 46, 33, 0.045);
+  --primary-glow: rgba(152, 66, 27, 0.14);
+  --steel-glow: rgba(95, 105, 112, 0.1);
+  --button-shine: rgba(255, 255, 255, 0.1);
+}
+
+/* Auto light theme from the OS unless the user overrode it */
+@media (prefers-color-scheme: light) {
+  html:not([data-theme='dark']) {
+    --bg: #f4efe6;
+    --bg-2: #e9e0d1;
+    --surface: #fff9ef;
+    --surface-2: #efe4d3;
+    --card: #fbf3e6;
+    --text: #1d2225;
+    --muted: rgba(29, 34, 37, 0.76);
+    --muted2: rgba(29, 34, 37, 0.68);
+    --line: rgba(64, 53, 42, 0.16);
+    --line-strong: rgba(64, 53, 42, 0.28);
+    --primary: #98421b;
+    --primary-2: #743017;
+    --primary-soft: rgba(152, 66, 27, 0.14);
+    --primary-soft-strong: rgba(152, 66, 27, 0.28);
+    --steel: #5f6970;
+    --steel-soft: rgba(95, 105, 112, 0.12);
+    --shadow: 0 26px 70px rgba(79, 54, 28, 0.16);
+    --header-bg: rgba(244, 239, 230, 0.88);
+    --body-bg-start: #fbf7ee;
+    --nav-mobile-bg: #fbf3e6;
+    --on-primary: #fffaf2;
+    --media-bg: #ded3c1;
+    --nav-hover-bg: rgba(152, 66, 27, 0.1);
+    --grid-column: rgba(58, 46, 33, 0.055);
+    --grid-row: rgba(58, 46, 33, 0.045);
+    --primary-glow: rgba(152, 66, 27, 0.14);
+    --steel-glow: rgba(95, 105, 112, 0.1);
+    --button-shine: rgba(255, 255, 255, 0.1);
+  }
+}

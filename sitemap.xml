@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- sitemap.xml — URL is kept in sync with company.seo.siteUrl in main.js -->
+<!-- sitemap.xml — URL is kept in sync with company.seo.siteUrl in site-data.js -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 	<url>
 		<loc>
 			https://metallmontage33.ru/
 		</loc>
 		<lastmod>
-			2026-07-26
+			2026-08-18
 		</lastmod>
 		<changefreq>
 			monthly
@@ -14,88 +14,55 @@
 		<priority>
 			1.0
 		</priority>
-		<image>
-			<loc>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/logo-og.webp
-			</loc>
-			<title>
-				Металл Монтаж 33 — гаражи и навесы под ключ
-			</title>
-			<caption>
-				Металлические гаражи и навесы под ключ во Владимире, Москве и четырёх областях
-			</caption>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/garage-6x4.webp
-			</loc>
-			<title>
-				Металлический гараж 6×4 м
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/garage-6x6.webp
-			</loc>
-			<title>
-				Металлический гараж 6×6 м
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/garage-8x6.webp
-			</loc>
-			<title>
-				Металлический гараж 8×6 м
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/garage-6x8.webp
-			</loc>
-			<title>
-				Металлический гараж 6×8 м
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/canopy-car.webp
-			</loc>
-			<title>
-				Металлический навес для авто
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/canopy-gable.webp
-			</loc>
-			<title>
-				Металлический навес двускатный
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/canopy-single-slope.webp
-			</loc>
-			<title>
-				Металлический навес односкатный
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/canopy-two-cars.webp
-			</loc>
-			<title>
-				Металлический навес на 2 авто
-			</title>
-		</image>
-		<image>
-			<loc>
+			</image:loc>
+		</image:image>
+		<image:image>
+			<image:loc>
 				https://metallmontage33.ru/assets/canopy-house.webp
-			</loc>
-			<title>
-				Металлический навес для дома
-			</title>
-		</image>
+			</image:loc>
+		</image:image>
 	</url>
 </urlset>
