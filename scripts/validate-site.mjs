@@ -241,7 +241,7 @@ const JS_MODULE_ORDER = [
   'js/main.js',
 ];
 
-// Stylesheets imported by styles.css; used to detect stray/missing partials.
+// Stylesheets linked from index.html in cascade order.
 const CSS_PARTIALS = [
   'css/tokens.css',
   'css/base.css',
@@ -268,32 +268,21 @@ function bundleJsModules() {
   ).join('\n');
 }
 
-// Inline @import chains into one stylesheet string.
-function resolveStylesheet(entry = 'styles.css') {
-  const seen = new Set();
-  const chunks = [];
+// Concatenate CSS partials in cascade order for token and url() checks.
+function bundleStylesheets() {
+  return CSS_PARTIALS.map((relativePath) => read(relativePath)).join('\n');
+}
 
-  function visit(relativePath) {
-    const key = relativePath.replaceAll('\\', '/');
-    if (seen.has(key)) return;
-    seen.add(key);
-    const source = read(key);
-    const importPattern =
-      /@import\s+(?:url\(\s*)?(?:["']([^"']+)["']|([^);]+))\s*\)?\s*;/gi;
-    for (const match of source.matchAll(importPattern)) {
-      const href = String(match[1] || match[2] || '').trim();
-      if (!href || /^(?:https?:|data:)/i.test(href)) continue;
-      const resolved = relative(
-        projectRoot,
-        resolve(dirname(resolve(projectRoot, key)), href),
-      ).replaceAll('\\', '/');
-      visit(resolved);
-    }
-    chunks.push(source.replace(importPattern, ''));
+// Stylesheet hrefs from <link rel="stylesheet"> tags, without a leading ./
+function htmlStylesheetHrefs(html) {
+  const hrefs = [];
+  for (const match of html.matchAll(/<link\b[^>]*>/gi)) {
+    const tag = match[0];
+    if (!/\brel\s*=\s*(["'])stylesheet\1/i.test(tag)) continue;
+    const href = tag.match(/\bhref\s*=\s*(["'])([^"']+)\1/i)?.[2];
+    if (href) hrefs.push(href.replace(/^\.\//, ''));
   }
-
-  visit(entry);
-  return chunks.join('\n');
+  return hrefs;
 }
 
 // Run renderJsonLd() from js/seo.js in a stub DOM and return the parsed graph.
@@ -364,7 +353,7 @@ function checkJavaScriptSyntax(relativePath) {
 // Load the sources used by the remaining check groups.
 const indexHtml = read('index.html');
 const mainSource = bundleJsModules();
-const stylesSource = resolveStylesheet('styles.css');
+const stylesSource = bundleStylesheets();
 const siteDataSource = read('site-data.js');
 const serviceWorkerSource = read('sw.js');
 const manifestSource = read('manifest.json');
@@ -395,8 +384,14 @@ const extraCssPartials = CSS_PARTIALS.filter(
 );
 assert(
   missingCssPartials.length === 0 && extraCssPartials.length === 0,
-  'CSS entry lists every stylesheet in css/',
+  'CSS_PARTIALS lists every stylesheet in css/',
   [...missingCssPartials, ...extraCssPartials].join(', '),
+);
+const linkedCss = htmlStylesheetHrefs(indexHtml);
+assert(
+  linkedCss.join('|') === CSS_PARTIALS.join('|'),
+  'index.html links every CSS partial in cascade order',
+  linkedCss.join(', '),
 );
 for (const relativePath of listScriptFiles()) {
   checkJavaScriptSyntax(relativePath);
@@ -1074,7 +1069,7 @@ for (const match of mainSource.matchAll(
 for (const match of stylesSource.matchAll(
   /url\(\s*(?:(["'])(.*?)\1|([^)'"\s]+))\s*\)/gi,
 )) {
-  recordReference(match[2] || match[3], 'styles.css');
+  recordReference(match[2] || match[3], 'css/');
 }
 for (const match of serviceWorkerSource.matchAll(
   /(["'])([^"'\r\n]*\.(?:css|html?|ico|js|json|webmanifest))\1/gi,
@@ -1125,7 +1120,6 @@ assert(
 
 const requiredAppShellAssets = new Set([
   'index.html',
-  'styles.css',
   ...CSS_PARTIALS,
   'site-data.js',
   ...JS_MODULE_ORDER,

@@ -1,7 +1,7 @@
 // ── Service Worker: Metall Montage 33 ────────────────
 
 const CACHE_PREFIX = 'mm33-';
-const CACHE_VERSION = 'v12';
+const CACHE_VERSION = 'v13';
 const PRECACHE_CACHE = `${CACHE_PREFIX}precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `${CACHE_PREFIX}runtime-${CACHE_VERSION}`;
 const CURRENT_CACHES = new Set([PRECACHE_CACHE, RUNTIME_CACHE]);
@@ -13,7 +13,6 @@ const INDEX_URL = new URL('index.html', SCOPE_URL).href;
 // Lazy gallery images remain runtime-only.
 const PRECACHE_URLS = [
   'index.html',
-  'styles.css',
   'css/tokens.css',
   'css/base.css',
   'css/header.css',
@@ -48,7 +47,6 @@ const PRECACHE_URLS = [
 const NETWORK_FIRST_URLS = new Set(
   [
     'index.html',
-    'styles.css',
     'css/tokens.css',
     'css/base.css',
     'css/header.css',

@@ -63,7 +63,6 @@ garages/
 │   ├── seo.js              # Meta tags and JSON-LD
 │   ├── ui.js               # Menu, FAQ, lightbox, carousels, scroll
 │   └── pwa.js              # Service Worker registration
-├── styles.css              # CSS entry (@import of css/*)
 ├── css/
 │   ├── tokens.css          # Color, layout, and motion variables
 │   ├── base.css            # Reset, typography, reduced motion
@@ -118,7 +117,7 @@ garages/
 
 ### CSS partials
 
-`styles.css` only `@import`s files from `css/` (order is the cascade):
+`index.html` links files from `css/` with `<link rel="stylesheet">` (order is the cascade):
 
 | File                 | Contents                                                                                          |
 | -------------------- | ------------------------------------------------------------------------------------------------- |
