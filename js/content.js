@@ -264,6 +264,34 @@ function renderPriceFactors() {
   );
 }
 
+// DOM: [data-composition] — frame / panels / doors cards.
+function renderComposition() {
+  const items = asArray(company.composition).filter(Boolean);
+  fillContainer(
+    SELECTORS.composition,
+    items
+      .map(
+        (item) => `
+      <article class="composition-card">
+        <div class="composition-card__media">
+          <img
+            src="${escapeHtml(item.img)}"
+            alt="${escapeHtml(item.title)}"
+            width="720"
+            height="480"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <h3 class="composition-card__title">${escapeHtml(item.title)}</h3>
+        <p class="composition-card__text">${escapeHtml(item.text)}</p>
+      </article>
+    `,
+      )
+      .join(''),
+  );
+}
+
 // DOM: [data-roofs] — roof-type cards with SVG icons.
 function renderRoofs() {
   const roofs = asArray(company.roofs).filter(Boolean);
@@ -355,6 +383,54 @@ function renderCarousels() {
   });
 }
 
+// Format price as "1 150 000 ₽"
+function formatProjectPrice(price) {
+  const n = Number(price);
+  if (!Number.isFinite(n)) return '';
+  return `${n.toLocaleString('ru-RU')} ₽`;
+}
+
+// Completed garage project block HTML (photo + specs).
+function garageProjectHtml(p) {
+  const alt = seoImageAlt(p.title, 'garage');
+  const specs = asArray(p.specs)
+    .filter(Boolean)
+    .map((s) => `<li>${escapeHtml(s)}</li>`)
+    .join('');
+  const priceLabel = formatProjectPrice(p.price);
+  return `
+    <article class="project">
+      <button class="slide__img project__img" type="button" aria-label="Открыть фото: ${escapeHtml(alt)}">
+        <img ${carouselImgAttrs(p.img, '(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px')} alt="${escapeHtml(alt)}" />
+      </button>
+      <div class="project__body">
+        <h3 class="project__title">${escapeHtml(p.title)}</h3>
+        <p class="project__size">${escapeHtml(p.size)}</p>
+        ${
+          priceLabel
+            ? `<p class="project__price">Цена: ${escapeHtml(priceLabel)}</p>`
+            : ''
+        }
+        ${specs ? `<ul class="project__specs">${specs}</ul>` : ''}
+        ${
+          p.location
+            ? `<p class="project__location">${escapeHtml(p.location)}</p>`
+            : ''
+        }
+      </div>
+    </article>
+  `;
+}
+
+// DOM: [data-garage-projects] — stacked completed-garage blocks.
+function renderGarageProjects() {
+  const projects = asArray(company.garageProjects).filter(Boolean);
+  fillContainer(
+    SELECTORS.garageProjects,
+    projects.map(garageProjectHtml).join(''),
+  );
+}
+
 // DOM: [data-workflow] — numbered steps.
 function renderWorkflow() {
   if (!company.workflow) return;
@@ -444,8 +520,10 @@ function renderFaq() {
 export {
   renderAdvantages,
   renderCarousels,
+  renderComposition,
   renderExtras,
   renderFaq,
+  renderGarageProjects,
   renderMessengers,
   renderPhones,
   renderPriceFactors,

@@ -815,7 +815,9 @@
         <nav class="nav" id="site-nav" aria-label="Основная навигация" data-nav>
           <ul class="nav__list">
             <li><a class="nav__link" href="#garages">Гаражи</a></li>
+            <li><a class="nav__link" href="#garage-projects">Примеры</a></li>
             <li><a class="nav__link" href="#canopies">Навесы</a></li>
+            <li><a class="nav__link" href="#composition">Комплектация</a></li>
             <li><a class="nav__link" href="#roofs">Кровля</a></li>
             <li><a class="nav__link" href="#services">Услуги</a></li>
             <li><a class="nav__link" href="#extras">Опции</a></li>
@@ -987,9 +989,9 @@
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 6×4 м</h3>
-                    <p class="slide__size">6000 × 4000 × 3600 мм</p>
+                    <p class="slide__size">6000 × 4000 × 2400 мм</p>
                     <p class="slide__meta">
-                      Длина 6 м · Ширина 4 м · Высота 3,6 м
+                      Длина 6 м · Ширина 4 м · Высота 2,4 м
                     </p>
                   </div>
                 </article>
@@ -1017,9 +1019,9 @@
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 6×6 м</h3>
-                    <p class="slide__size">6000 × 6000 × 3600 мм</p>
+                    <p class="slide__size">6000 × 6000 × 2400 мм</p>
                     <p class="slide__meta">
-                      Длина 6 м · Ширина 6 м · Высота 3,6 м
+                      Длина 6 м · Ширина 6 м · Высота 2,4 м
                     </p>
                   </div>
                 </article>
@@ -1047,9 +1049,9 @@
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 8×6 м</h3>
-                    <p class="slide__size">8000 × 6000 × 3600 мм</p>
+                    <p class="slide__size">8000 × 6000 × 2400 мм</p>
                     <p class="slide__meta">
-                      Длина 8 м · Ширина 6 м · Высота 3,6 м
+                      Длина 8 м · Ширина 6 м · Высота 2,4 м
                     </p>
                   </div>
                 </article>
@@ -1077,9 +1079,9 @@
                   <div class="slide__body">
                     <div class="slide__kicker">типовой размер</div>
                     <h3 class="slide__title">Гараж 6×8 м</h3>
-                    <p class="slide__size">6000 × 8000 × 3600 мм</p>
+                    <p class="slide__size">6000 × 8000 × 2400 мм</p>
                     <p class="slide__meta">
-                      Длина 6 м · Ширина 8 м · Высота 3,6 м
+                      Длина 6 м · Ширина 8 м · Высота 2,4 м
                     </p>
                   </div>
                 </article>
@@ -1094,6 +1096,132 @@
             >
               →
             </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Garage projects: [data-garage-projects] — renderGarageProjects() -->
+      <section class="section" id="garage-projects">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <div class="section__eyebrow">Готовые объекты</div>
+              <h2 class="section__title">Примеры гаражей</h2>
+            </div>
+            <p class="section__text">
+              Реализованные гаражи из сэндвич-панелей с размерами, комплектацией
+              и стоимостью под ключ.
+            </p>
+          </div>
+
+          <div class="project-list" data-garage-projects>
+            <article class="project">
+              <button
+                class="slide__img project__img"
+                type="button"
+                aria-label="Открыть фото: гараж из сэндвич панелей 6500×5000"
+              >
+                <img
+                  src="./assets/garage-project-6-5.webp"
+                  srcset="
+                    ./assets/garage-project-6-5-560.webp 560w,
+                    ./assets/garage-project-6-5.webp     680w
+                  "
+                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
+                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
+                  width="680"
+                  height="453"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="project__body">
+                <h3 class="project__title">Гараж из сэндвич панелей</h3>
+                <p class="project__size">6500 × 5000 × 2400 мм</p>
+                <p class="project__price">Цена: 1&nbsp;150&nbsp;000&nbsp;₽</p>
+                <ul class="project__specs">
+                  <li>Рама 80×80×3</li>
+                  <li>Ферма 80×80×3</li>
+                </ul>
+                <p class="project__location">
+                  Город Владимир, Ковровский район
+                </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <button
+                class="slide__img project__img"
+                type="button"
+                aria-label="Открыть фото: гараж из сэндвич панелей 6000×8000"
+              >
+                <img
+                  src="./assets/garage-project-6-8.webp"
+                  srcset="
+                    ./assets/garage-project-6-8-560.webp 560w,
+                    ./assets/garage-project-6-8.webp     680w
+                  "
+                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
+                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
+                  width="680"
+                  height="453"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="project__body">
+                <h3 class="project__title">Гараж из сэндвич панелей</h3>
+                <p class="project__size">6000 × 8000 × 2400 мм</p>
+                <p class="project__price">Цена: 1&nbsp;256&nbsp;000&nbsp;₽</p>
+                <ul class="project__specs">
+                  <li>Рама 80×80×3</li>
+                  <li>Ферма 60×60×3</li>
+                  <li>Стена сэндвич панели 100 мм</li>
+                  <li>Кровля сэндвич панели 100 мм</li>
+                  <li>Ворота «Алютех»</li>
+                </ul>
+                <p class="project__location">
+                  Московская область, Орехово-Зуево
+                </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <button
+                class="slide__img project__img"
+                type="button"
+                aria-label="Открыть фото: гараж из сэндвич панелей 8000×8000"
+              >
+                <img
+                  src="./assets/garage-project-8-8.webp"
+                  srcset="
+                    ./assets/garage-project-8-8-560.webp 560w,
+                    ./assets/garage-project-8-8.webp     680w
+                  "
+                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
+                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
+                  width="680"
+                  height="453"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="project__body">
+                <h3 class="project__title">Гараж из сэндвич панелей</h3>
+                <p class="project__size">8000 × 8000 × 2400 мм</p>
+                <p class="project__price">Цена: 1&nbsp;460&nbsp;000&nbsp;₽</p>
+                <ul class="project__specs">
+                  <li>Рама 80×80×3</li>
+                  <li>Ферма 80×80×3</li>
+                  <li>Стеновая сэндвич панели 100 мм</li>
+                  <li>Кровля сэндвич панели 100 мм</li>
+                  <li>Ворота «Алютех»</li>
+                </ul>
+                <p class="project__location">
+                  Нижегородская область, город Бор
+                </p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -1274,6 +1402,73 @@
         </div>
       </section>
 
+      <!-- Composition: [data-composition] — renderComposition() -->
+      <section class="section" id="composition">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <div class="section__eyebrow">Состав</div>
+              <h2 class="section__title">Комплектация</h2>
+            </div>
+            <p class="section__text">
+              Базовая комплектация гаража: сварной каркас, сэндвич-панели и
+              секционные ворота.
+            </p>
+          </div>
+
+          <div class="composition-grid" data-composition>
+            <article class="composition-card">
+              <div class="composition-card__media">
+                <img
+                  src="./assets/composition-frame.webp"
+                  alt="Металлический каркас"
+                  width="720"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <h3 class="composition-card__title">Металлический каркас</h3>
+              <p class="composition-card__text">
+                Профильная труба 80×80 мм, антикоррозийное покрытие
+              </p>
+            </article>
+            <article class="composition-card">
+              <div class="composition-card__media">
+                <img
+                  src="./assets/composition-panels.webp"
+                  alt="Сэндвич-панели"
+                  width="720"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <h3 class="composition-card__title">Сэндвич-панели</h3>
+              <p class="composition-card__text">
+                Стеновые и кровельные, толщина утеплителя 100 мм
+              </p>
+            </article>
+            <article class="composition-card">
+              <div class="composition-card__media">
+                <img
+                  src="./assets/composition-doors.webp"
+                  alt="Секционные ворота"
+                  width="720"
+                  height="480"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <h3 class="composition-card__title">Секционные ворота</h3>
+              <p class="composition-card__text">
+                Автоматика или механика, высота 2,1—2,5 м
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <!-- Roof types: [data-roofs] — renderRoofs() -->
       <section class="section" id="roofs">
         <div class="container">
@@ -1390,82 +1585,62 @@
               <h2 class="section__title">Преимущества</h2>
             </div>
             <p class="section__text">
-              Сварной каркас, панели 50–250&nbsp;мм, любые размеры и выезд по
-              четырём областям.
+              Панели 50–250&nbsp;мм, сварной каркас и гарантия 3&nbsp;года на
+              все работы.
             </p>
           </div>
 
           <div class="stats-grid" data-advantages>
             <article class="stat-card stat-card--primary">
               <div class="stat-card__num" aria-hidden="true">01</div>
-              <h3 class="stat-card__title">Энергосбережение</h3>
+              <h3 class="stat-card__title">Энергоэффективность</h3>
               <p class="stat-card__value">50–250 мм</p>
               <p class="stat-card__text">
-                <span>Толщина стеновых панелей</span>
-                <span>Минвата или пенопласт</span>
+                <span>Толщина стеновых панелей.</span>
+                <span>Утеплитель — минвата или пенопласт.</span>
               </p>
             </article>
             <article class="stat-card stat-card--steel">
               <div class="stat-card__num" aria-hidden="true">02</div>
-              <h3 class="stat-card__title">Срок работ</h3>
+              <h3 class="stat-card__title">Скорость монтажа</h3>
               <p class="stat-card__value">По замеру</p>
               <p class="stat-card__text">
-                <span>Кратчайшие сроки</span>
-                <span>После замера и проекта</span>
+                <span>Кратчайшие сроки после замера</span>
+                <span>и утверждения проекта.</span>
               </p>
             </article>
             <article class="stat-card stat-card--primary">
               <div class="stat-card__num" aria-hidden="true">03</div>
-              <h3 class="stat-card__title">Гарантия</h3>
-              <p class="stat-card__value">3 года</p>
+              <h3 class="stat-card__title">Долговечность</h3>
+              <p class="stat-card__value">Сварка</p>
               <p class="stat-card__text">
-                <span>На все работы</span>
-                <span>С момента сдачи объекта</span>
+                <span>Металлокаркас со сварочным соединением.</span>
+                <span>Устойчивая конструкция.</span>
               </p>
             </article>
             <article class="stat-card stat-card--steel">
               <div class="stat-card__num" aria-hidden="true">04</div>
-              <h3 class="stat-card__title">Каркас</h3>
-              <p class="stat-card__value">Сварка</p>
+              <h3 class="stat-card__title">Утеплитель</h3>
+              <p class="stat-card__value">Минвата</p>
               <p class="stat-card__text">
-                <span>Сварочное соединение</span>
-                <span>Металлокаркас на объекте</span>
+                <span>Опция минеральной ваты.</span>
+                <span>Также доступен пенопласт.</span>
               </p>
             </article>
             <article class="stat-card stat-card--primary">
               <div class="stat-card__num" aria-hidden="true">05</div>
-              <h3 class="stat-card__title">Размеры</h3>
-              <p class="stat-card__value">Любые</p>
+              <h3 class="stat-card__title">Гарантия</h3>
+              <p class="stat-card__value">3 года</p>
               <p class="stat-card__text">
-                <span>По вашим чертежам</span>
-                <span>Нестандарт — без ограничений</span>
+                <span>На все работы с момента сдачи объекта.</span>
               </p>
             </article>
             <article class="stat-card stat-card--steel">
               <div class="stat-card__num" aria-hidden="true">06</div>
-              <h3 class="stat-card__title">Машино-места</h3>
-              <p class="stat-card__value">Без лимита</p>
+              <h3 class="stat-card__title">Эстетика</h3>
+              <p class="stat-card__value">Цвет</p>
               <p class="stat-card__text">
-                <span>Количество мест не ограничено</span>
-                <span>Под задачу участка</span>
-              </p>
-            </article>
-            <article class="stat-card stat-card--primary">
-              <div class="stat-card__num" aria-hidden="true">07</div>
-              <h3 class="stat-card__title">Кровля</h3>
-              <p class="stat-card__value">2 типа</p>
-              <p class="stat-card__text">
-                <span>Односкатная и двускатная</span>
-                <span>Скат набок, назад или классика</span>
-              </p>
-            </article>
-            <article class="stat-card stat-card--steel">
-              <div class="stat-card__num" aria-hidden="true">08</div>
-              <h3 class="stat-card__title">География</h3>
-              <p class="stat-card__value">4 области</p>
-              <p class="stat-card__text">
-                <span>Владимир, Москва и регионы</span>
-                <span>Выезд на замер и монтаж</span>
+                <span>Размер, форма и цвет под задачу объекта.</span>
               </p>
             </article>
           </div>
@@ -1519,7 +1694,7 @@
           <div class="section__head section__head--center">
             <div>
               <div class="section__eyebrow">Расчёт сметы</div>
-              <h2 class="section__title">Факторы, влияющие на стоимость</h2>
+              <h2 class="section__title">Факторы влияющие на стоимость</h2>
             </div>
           </div>
 
@@ -2121,6 +2296,7 @@
         <div class="footer-bottom__links">
           <a href="#garages">Гаражи</a>
           <a href="#canopies">Навесы</a>
+          <a href="#composition">Комплектация</a>
           <a href="#roofs">Кровля</a>
           <a href="#services">Услуги</a>
           <a href="#extras">Доп. услуги</a>

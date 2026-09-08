@@ -4,8 +4,10 @@ import { initTheme } from './theme.js';
 import {
   renderAdvantages,
   renderCarousels,
+  renderComposition,
   renderExtras,
   renderFaq,
+  renderGarageProjects,
   renderMessengers,
   renderPhones,
   renderPriceFactors,
@@ -59,7 +61,9 @@ function init() {
       ['этапы работы', renderWorkflow],
       ['FAQ', renderFaq],
       ['виды кровли', renderRoofs],
+      ['комплектация', renderComposition],
       ['галереи', renderCarousels],
+      ['готовые гаражи', renderGarageProjects],
       ['мессенджеры', renderMessengers],
     ].forEach(([label, callback]) => runInitStep(label, callback));
   } else {

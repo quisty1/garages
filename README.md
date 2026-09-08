@@ -178,8 +178,8 @@ The `garages` and `canopies` arrays drive the carousels:
 garages: [
   {
     title: 'Гараж 6×4 м',
-    size: '6000 × 4000 × 3600 мм',
-    meta: 'Длина 6 м · Ширина 4 м · Высота 3,6 м',
+    size: '6000 × 4000 × 2400 мм',
+    meta: 'Длина 6 м · Ширина 4 м · Высота 2,4 м',
     img: './assets/garage-6x4.webp',
   },
   // ...

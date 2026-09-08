@@ -353,8 +353,10 @@ function initLightbox() {
     e.preventDefault();
 
     const carousel = slideImg.closest('[data-carousel]');
-    const images = carousel
-      ? Array.from(carousel.querySelectorAll('.slide__img img'))
+    const projectList = slideImg.closest('[data-garage-projects]');
+    const group = carousel || projectList;
+    const images = group
+      ? Array.from(group.querySelectorAll('.slide__img img'))
       : [image];
     const startIndex = Math.max(0, images.indexOf(image));
 

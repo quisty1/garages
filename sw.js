@@ -1,7 +1,7 @@
 // ── Service Worker: Metall Montage 33 ────────────────
 
 const CACHE_PREFIX = 'mm33-';
-const CACHE_VERSION = 'v13';
+const CACHE_VERSION = 'v14';
 const PRECACHE_CACHE = `${CACHE_PREFIX}precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `${CACHE_PREFIX}runtime-${CACHE_VERSION}`;
 const CURRENT_CACHES = new Set([PRECACHE_CACHE, RUNTIME_CACHE]);

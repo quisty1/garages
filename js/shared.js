@@ -32,6 +32,8 @@ const SELECTORS = {
   advantages: '[data-advantages]',
   priceFactors: '[data-price-factors]',
   roofs: '[data-roofs]',
+  composition: '[data-composition]',
+  garageProjects: '[data-garage-projects]',
   workflow: '[data-workflow]',
   faq: '[data-faq]',
   featuredCities: '[data-featured-cities]',
@@ -115,10 +117,12 @@ function escapeHtml(str) {
 
 // <img> attrs for carousel slides: srcset with a -560.webp preview.
 // Preview path is .webp → -560.webp (see assets/).
-function carouselImgAttrs(img) {
+function carouselImgAttrs(img, sizes) {
   const source = String(img || '');
   const small = source.replace(/\.webp$/, '-560.webp');
-  return `src="${escapeHtml(source)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(source)} 680w" sizes="(max-width: 720px) 82vw, (max-width: 980px) 48vw, 520px" width="680" height="453" loading="lazy" decoding="async"`;
+  const sizesAttr =
+    sizes || '(max-width: 720px) 82vw, (max-width: 980px) 48vw, 520px';
+  return `src="${escapeHtml(source)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(source)} 680w" sizes="${escapeHtml(sizesAttr)}" width="680" height="453" loading="lazy" decoding="async"`;
 }
 
 // SEO alt for garage and canopy photos in carousels.
