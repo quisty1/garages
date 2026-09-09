@@ -253,3 +253,31 @@ body.lightbox-open {
     max-width: calc(100vw - 100px);
   }
 }
+/* Small motion cues only on controls and interactive photography. */
+.btn, .carousel__btn, .theme-toggle, .nav-toggle {
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+.btn:active, .carousel__btn:active:not(:disabled), .theme-toggle:active {
+  transform: scale(.97);
+}
+.slide__img img {
+  transition: transform .45s cubic-bezier(.2,.7,.2,1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .slide__img:hover img, .slide__img:focus-visible img { transform: scale(1.035); }
+  .btn--primary:hover { transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, .carousel__btn, .theme-toggle, .nav-toggle, .slide__img img {
+    transition: none;
+    transform: none !important;
+  }
+}
+/* Added only after the observer is ready; no-JS content stays visible. */
+.scroll-reveal-pending { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal-pending { opacity: 1; }
+}
+@media print {
+  .scroll-reveal-pending { opacity: 1; }
+}

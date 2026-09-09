@@ -435,3 +435,20 @@ body.menu-open {
     justify-content: center;
   }
 }
+/* Current position in the document; shape and color both signal the state. */
+.nav__link { position: relative; }
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 4px;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .2s ease;
+}
+.nav__link[aria-current='location'] { color: var(--primary); }
+.nav__link[aria-current='location']::after { transform: scaleX(1); }
+.nav__link--contact[aria-current='location'] { color: var(--on-primary); }

@@ -24,8 +24,11 @@ JavaScript is ES modules, so the page needs HTTP (`localhost` or production). Op
 - Dark and light theme toggle (SVG icons) — separate palettes, not a simple invert
 - Auto theme from `prefers-color-scheme`, stored in `localStorage`
 - Lightbox for carousel photos (←/→ and Escape)
-- Sections stay visible while scrolling; no entrance animation
+- One-time entrance animations for section headings and selected blocks; reduced-motion support
 - Back-to-top button after scrolling
+- Current section highlighted in navigation
+- Explicit copy buttons for phone, email and requisites with success/error feedback
+- Subtle button feedback and photo zoom on hover
 
 ### PWA and offline
 

@@ -18,6 +18,8 @@ import {
 } from './content.js';
 import { renderSEO } from './seo.js';
 import {
+  initActiveNavigation,
+  initContactCopy,
   initCarousels,
   initFaqAccordion,
   initLightbox,
@@ -78,6 +80,8 @@ function init() {
     ['карусели', initCarousels],
     ['просмотр изображений', initLightbox],
     ['анимацию секций', initScrollReveal],
+    ['текущий раздел меню', initActiveNavigation],
+    ['копирование контактов', initContactCopy],
     ['кнопку прокрутки', initScrollTop],
     ['Service Worker', registerServiceWorker],
   ].forEach(([label, callback]) => runInitStep(label, callback));

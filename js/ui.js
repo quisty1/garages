@@ -441,35 +441,171 @@ function initCarousels() {
   CAROUSEL_NAMES.forEach(initCarousel);
 }
 
-// Fade sections in on scroll.
-// DOM: .section — adds reveal / is-visible.
-// Disabled with prefers-reduced-motion or without IntersectionObserver.
+// Reveal below-fold content once, with a short stagger within each group.
 function initScrollReveal() {
   if (!('IntersectionObserver' in window)) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  const sections = document.querySelectorAll('.section');
-
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motion.matches || !Element.prototype.animate) return;
+  const running = new Set();
+  const pending = new Set();
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
+      const groups = new Map();
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting || !pending.has(target)) return;
+        observer.unobserve(target);
+        pending.delete(target);
+        target.classList.remove('scroll-reveal-pending');
+        if (motion.matches || !target.animate) return;
+        const index = groups.get(target.parentElement) || 0;
+        groups.set(target.parentElement, index + 1);
+        const animation = target.animate(
+          [
+            { opacity: 0, transform: 'translateY(64px)' },
+            { opacity: 1, transform: 'translateY(0)' },
+          ],
+          {
+            duration: 1100,
+            delay: Math.min(index, 3) * 140,
+            easing: 'cubic-bezier(.2,.55,.25,1)',
+            fill: 'backwards',
+          },
+        );
+        running.add(animation);
+        animation.finished
+          .catch(() => {})
+          .finally(() => running.delete(animation));
       });
     },
-    { threshold: 0.07, rootMargin: '0px 0px -32px 0px' },
+    // Start inside the visible area so the motion is seen, not spent below the fold.
+    { threshold: 0, rootMargin: `0px 0px -${Math.min(120, Math.round(window.innerHeight * 0.15))}px 0px` },
   );
-
-  sections.forEach((el) => {
-    const rect = el.getBoundingClientRect();
-    const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
-    if (!alreadyVisible) {
-      el.classList.add('reveal');
-    }
-    observer.observe(el);
+  document
+    .querySelectorAll(
+      '.section__head, .carousel, .project, .workflow-step, .composition-card, .card, .stat-card, .roof-card, .factor-cell, .faq-item, .contacts-panel',
+    )
+    .forEach((el) => {
+      if (el.getBoundingClientRect().top >= window.innerHeight) {
+        observer.observe(el);
+        pending.add(el);
+        el.classList.add('scroll-reveal-pending');
+      }
+    });
+  // Keyboard navigation must never focus an invisible control.
+  document.addEventListener('focusin', (event) => {
+    const target = event.target.closest('.scroll-reveal-pending');
+    if (!target) return;
+    target.classList.remove('scroll-reveal-pending');
+    pending.delete(target);
+    observer.unobserve(target);
   });
+  motion.addEventListener('change', () => {
+    if (!motion.matches) return;
+    running.forEach((animation) => animation.cancel());
+    pending.forEach((el) => el.classList.remove('scroll-reveal-pending'));
+    pending.clear();
+    observer.disconnect();
+  });
+}
+
+// Keep the current navigation item in sync with scrolling and anchor jumps.
+function initActiveNavigation() {
+  const links = [...document.querySelectorAll('#site-nav a[href^="#"]')];
+  const targets = links
+    .map((link) => ({
+      link,
+      section: document.getElementById(link.hash.slice(1)),
+    }))
+    .filter(({ section }) => section);
+  let pending = false;
+  function update() {
+    pending = false;
+    const scrollPadding =
+      parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) ||
+      0;
+    let active = null;
+    targets.forEach((item) => {
+      const margin =
+        parseFloat(getComputedStyle(item.section).scrollMarginTop) || 0;
+      if (
+        item.section.getBoundingClientRect().top <=
+        scrollPadding + margin + 24
+      )
+        active = item;
+    });
+    targets.forEach(({ link }) => {
+      if (link === active?.link) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  function schedule() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(update);
+  }
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  update();
+}
+
+// Explicit clipboard actions leave phone/email links available for their usual use.
+function initContactCopy() {
+  const panel = document.querySelector('.contacts-panel');
+  if (!panel || !navigator.clipboard?.writeText) return;
+  const row = document.createElement('div');
+  row.className = 'contact-copy';
+  row.setAttribute('role', 'group');
+  row.setAttribute('aria-label', 'Скопировать контактные данные');
+  const status = document.createElement('p');
+  status.className = 'contact-copy__status';
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  const sources = [
+    [
+      'телефон',
+      () =>
+        panel.querySelector('a[href^="tel:"] .contact-tile__value')
+          ?.textContent,
+    ],
+    ['email', () => document.getElementById('contact-email')?.textContent],
+    [
+      'реквизиты',
+      () => {
+        const element = document.getElementById('requisites');
+        return element && !element.hidden ? element.innerText : '';
+      },
+    ],
+  ];
+  sources.forEach(([label, read]) => {
+    if (!read()?.trim()) return;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'contact-copy__button';
+    button.textContent = `Скопировать ${label}`;
+    button.addEventListener('click', async () => {
+      // Serialize requests so a late clipboard response cannot overwrite feedback.
+      const buttons = row.querySelectorAll('button');
+      buttons.forEach((item) => {
+        item.disabled = true;
+      });
+      status.textContent = '';
+      try {
+        await navigator.clipboard.writeText(read().trim());
+        status.textContent = 'Скопировано в буфер обмена';
+      } catch {
+        status.textContent =
+          'Не удалось скопировать. Выделите нужный текст и скопируйте вручную.';
+      } finally {
+        buttons.forEach((item) => {
+          item.disabled = false;
+        });
+      }
+    });
+    row.append(button);
+  });
+  if (!row.childElementCount) return;
+  row.append(status);
+  panel.append(row);
 }
 
 // "Back to top" button: shown after scroll > SCROLL_TOP_THRESHOLD.
@@ -500,6 +636,8 @@ function initScrollTop() {
 }
 
 export {
+  initActiveNavigation,
+  initContactCopy,
   initCarousels,
   initFaqAccordion,
   initLightbox,
