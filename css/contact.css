@@ -4,7 +4,7 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 24px 22px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
   display: grid;
   gap: 22px;
 }
@@ -24,7 +24,7 @@
   padding: 16px 16px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
-  background: var(--surface-2);
+  background: var(--card);
   text-decoration: none;
   color: inherit;
   transition:
@@ -32,11 +32,12 @@
     transform 0.15s ease,
     box-shadow 0.15s ease,
     background 0.15s ease;
+  box-shadow: none;
 }
 a.contact-tile:hover {
   border-color: var(--primary);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(20, 20, 28, 0.35);
+  transform: none;
+  box-shadow: none;
 }
 .contact-tile--accent {
   border-color: var(--primary-soft-strong);
@@ -50,13 +51,13 @@ a.contact-tile:hover {
 }
 .contact-tile__label {
   color: var(--muted2);
-  font-weight: 800;
+  font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: .04em;
 }
 .contact-tile__value {
-  font-weight: 900;
+  font-weight: 700;
   font-size: 18px;
   line-height: 1.3;
   word-break: break-word;
@@ -74,7 +75,7 @@ a.contact-tile:hover {
 .contacts-panel__subtitle {
   margin: 0 0 12px;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 /* ── Service area / cities ──────────────────────────── */
@@ -112,24 +113,24 @@ a.contact-tile:hover {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 24px 22px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
   display: grid;
   gap: 12px;
 }
 .requisites-panel__title {
   margin: 0;
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
 }
 .requisites-panel__name {
-  font-weight: 900;
+  font-weight: 700;
   font-size: 16px;
   color: var(--text);
 }
 .requisites-panel__subtitle {
   margin: 8px 0 0;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--muted2);
 }
 .requisites-panel__list {
@@ -140,7 +141,7 @@ a.contact-tile:hover {
   color: var(--text);
 }
 .requisites-panel__list strong {
-  font-weight: 800;
+  font-weight: 600;
   margin-right: 0.35em;
 }
 
@@ -163,11 +164,11 @@ a.contact-tile:hover {
     transform var(--transition-fast);
 }
 .messenger-link:hover {
-  transform: translateY(-2px);
+  transform: none;
   border-color: var(--primary);
 }
 .messenger-link__label {
-  font-weight: 900;
+  font-weight: 700;
   font-size: 15px;
 }
 .messenger-link__hint {
@@ -205,7 +206,7 @@ a.contact-tile:hover {
   gap: 14px;
 }
 .footer-brand__name {
-  font-weight: 900;
+  font-weight: 700;
   font-size: 16px;
   text-transform: uppercase;
   color: var(--footer-text);
@@ -224,7 +225,7 @@ a.contact-tile:hover {
   min-width: 240px;
 }
 .footer-col__title {
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 10px;
   color: var(--primary);
   text-transform: uppercase;
@@ -293,35 +294,20 @@ a.contact-tile:hover {
 }
 
 /* Later rules in this file override the earlier contact/footer layout. */
-/* ── Industrial premium redesign ─────────────────────── */
+/* Component layout and responsive refinements. */
 .contact-tile,
 .messenger-link,
 .contacts-panel,
 .service-area__city {
   position: relative;
   border-radius: 0;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 32%),
-    var(--card);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
-}
-
-.contact-tile::before,
-.messenger-link::before,
-.contacts-panel::before {
-  content: '';
-  position: absolute;
-  inset: -1px auto auto -1px;
-  width: 18px;
-  height: 18px;
-  border-top: 2px solid var(--primary);
-  border-left: 2px solid var(--primary);
-  pointer-events: none;
+  background: var(--card);
+  box-shadow: none;
 }
 
 a.contact-tile:hover,
 .messenger-link:hover {
-  transform: translateY(-3px);
+  transform: none;
 }
 
 .section--contact {
@@ -332,16 +318,14 @@ a.contact-tile:hover,
   max-width: 980px;
   margin-left: auto;
   padding: 28px;
-  background:
-    linear-gradient(135deg, var(--primary-soft), transparent 34%),
-    var(--surface);
+  background: var(--surface);
+  box-shadow: none;
 }
 
 .requisites-panel {
   padding: 28px;
-  background:
-    linear-gradient(135deg, var(--primary-soft), transparent 34%),
-    var(--surface);
+  background: var(--surface);
+  box-shadow: none;
 }
 
 .contact-tile,
@@ -350,7 +334,7 @@ a.contact-tile:hover,
 }
 
 .contact-tile__label {
-  letter-spacing: 0.14em;
+  letter-spacing: .04em;
 }
 
 .contact-tile__value {
@@ -361,7 +345,7 @@ a.contact-tile:hover,
 .contact-tile--address .contact-tile__value {
   font-size: clamp(15px, 2.2vw, 18px);
   letter-spacing: -0.02em;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .messenger-link__label {
@@ -372,23 +356,17 @@ a.contact-tile:hover,
 .footer-brand img {
   border: 1px solid var(--line-strong);
   background: var(--surface);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+  box-shadow: none;
 }
 
 .site-footer {
   padding-top: 44px;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      transparent 0 18px,
-      rgba(255, 255, 255, 0.028) 18px 19px
-    ),
-    var(--footer-bg);
+  background: var(--footer-bg);
 }
 
 .footer-brand__name,
 .footer-col__title {
-  letter-spacing: 0.14em;
+  letter-spacing: .04em;
 }
 
 .footer-bottom__links {
@@ -409,6 +387,8 @@ a.contact-tile:hover,
 @media (max-width: 720px) {
   .contacts-panel {
     padding: 20px;
+    background: var(--surface);
+    box-shadow: none;
   }
 
   .footer-inner,

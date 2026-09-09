@@ -24,26 +24,8 @@ body {
     Arial,
     sans-serif;
   letter-spacing: -0.01em;
-  background:
-    linear-gradient(90deg, var(--grid-column) 1px, transparent 1px),
-    linear-gradient(180deg, var(--grid-row) 1px, transparent 1px),
-    radial-gradient(
-      720px 480px at 76% 8%,
-      var(--primary-glow),
-      transparent 62%
-    ),
-    radial-gradient(
-      820px 540px at 4% 14%,
-      var(--steel-glow),
-      transparent 60%
-    ),
-    linear-gradient(180deg, var(--body-bg-start), var(--bg) 45%, var(--bg-2));
-  background-size:
-    44px 44px,
-    44px 44px,
-    auto,
-    auto,
-    auto;
+  background: var(--bg);
+  background-size: auto;
   color: var(--text);
   min-height: 100vh;
 }
@@ -122,12 +104,8 @@ main {
   }
 
   body {
-    background-size:
-      30px 30px,
-      30px 30px,
-      auto,
-      auto,
-      auto;
+    background-size: auto;
+    background: var(--bg);
   }
 
   img {

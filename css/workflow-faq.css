@@ -4,9 +4,11 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
   counter-reset: workflow;
+  overflow: visible;
+  padding-bottom: 0;
 }
 .workflow-step {
   position: relative;
@@ -21,10 +23,11 @@
   transition:
     border-color var(--transition-fast),
     transform var(--transition-fast);
+  min-width: 0;
 }
 .workflow-step:hover {
   border-color: var(--primary);
-  transform: translateY(-2px);
+  transform: none;
 }
 .workflow-step__num {
   display: inline-flex;
@@ -34,18 +37,19 @@
   height: 36px;
   border-radius: 10px;
   background: var(--primary-soft);
-  border: 1px solid var(--primary-soft-strong);
+  border: 0;
   color: var(--primary);
-  font-weight: 900;
+  font-weight: 700;
   font-size: 15px;
   flex-shrink: 0;
 }
 .workflow-step__title {
   margin: 0 0 6px;
-  font-weight: 900;
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 18px;
   line-height: 1.3;
   color: var(--text);
+  text-transform: none;
 }
 .workflow-step__text {
   margin: 0;
@@ -74,7 +78,7 @@
 .faq-item.is-open,
 .faq-item[open] {
   border-color: var(--primary-soft-strong);
-  box-shadow: 0 10px 28px rgba(20, 20, 28, 0.12);
+  box-shadow: none;
 }
 .faq-item__question {
   display: flex;
@@ -83,8 +87,8 @@
   gap: 16px;
   padding: 16px 18px;
   cursor: pointer;
-  font-weight: 800;
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 16px;
   line-height: 1.4;
   color: var(--text);
   list-style: none;
@@ -195,47 +199,36 @@
 }
 
 /* Later rules in this file override the earlier workflow/FAQ layout. */
-/* ── Industrial premium redesign ─────────────────────── */
+/* Component layout and responsive refinements. */
 .workflow {
-  display: flex;
-  gap: 0;
+  display: grid;
+  gap: 16px;
   overflow-x: auto;
-  padding-bottom: 12px;
+  padding-bottom: 0;
   scroll-snap-type: x mandatory;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: visible;
 }
 
 .workflow-step,
 .faq-item {
   position: relative;
   border-radius: 0;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 32%),
-    var(--card);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
-}
-
-.workflow-step::before,
-.faq-item::before {
-  content: '';
-  position: absolute;
-  inset: -1px auto auto -1px;
-  width: 18px;
-  height: 18px;
-  border-top: 2px solid var(--primary);
-  border-left: 2px solid var(--primary);
-  pointer-events: none;
+  background: var(--card);
+  box-shadow: none;
 }
 
 .workflow-step {
-  min-width: 184px;
+  min-width: 0;
   border-radius: 0;
   border-right: 0;
   padding: 18px;
   scroll-snap-align: start;
+  border: 1px solid var(--line);
 }
 
 .workflow-step:hover {
-  transform: translateY(-3px);
+  transform: none;
 }
 
 .workflow-step:last-child {
@@ -243,11 +236,12 @@
 }
 
 .workflow-step__num {
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   border-radius: 0;
-  color: var(--on-primary);
-  background: linear-gradient(180deg, var(--primary), var(--primary-2));
+  color: var(--primary);
+  background: var(--primary-soft);
+  border: 0;
 }
 
 .workflow-step__line {
@@ -257,8 +251,8 @@
 }
 
 .workflow-step__title {
-  font-size: 17px;
-  text-transform: uppercase;
+  font-size: 18px;
+  text-transform: none;
 }
 
 .faq {
@@ -272,7 +266,8 @@
 
 .faq-item__question {
   padding: 20px 22px;
-  font-size: 17px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .faq-item__icon {
@@ -315,7 +310,11 @@
 
 @media (max-width: 980px) {
   .workflow {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: grid;
+    gap: 16px;
+    overflow: visible;
+    padding-bottom: 0;
   }
 }
 
@@ -325,10 +324,12 @@
     grid-template-columns: 1fr;
     overflow: visible;
     padding-bottom: 0;
+    gap: 16px;
   }
 
   .workflow-step {
     min-width: 0;
     border-right: 1px solid var(--line);
+    border: 1px solid var(--line);
   }
 }

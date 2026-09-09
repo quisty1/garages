@@ -11,20 +11,20 @@ JavaScript is ES modules, so the page needs HTTP (`localhost` or production). Op
 - Hero with CTA, phone, and key benefits
 - Garage carousels (4 sizes) and canopy carousels (5 types)
 - Roof types, core and extra services
-- “How we work” block (7 steps)
+- “How we work” block (7 steps in a responsive grid)
 - FAQ accordion (one open item at a time)
 - Contacts: phones, email, hours, MAX messenger
 
 ### Interface
 
-- Industrial premium design: technical grid, outlined blocks, large type, focus on garage and canopy photos
+- Industrial design: graphite/orange palette, restrained surfaces, readable headings and clear primary actions
 - Responsive layout for phone, tablet, and desktop
 - Fixed header with phone on desktop, theme switcher, and anchor navigation
 - Mobile menu with backdrop, focus management, and Escape to close (from width ≤ 1360px)
 - Dark and light theme toggle (SVG icons) — separate palettes, not a simple invert
 - Auto theme from `prefers-color-scheme`, stored in `localStorage`
 - Lightbox for carousel photos (←/→ and Escape)
-- Smooth section reveal on scroll (`IntersectionObserver`)
+- Sections stay visible while scrolling; no entrance animation
 - Back-to-top button after scrolling
 
 ### PWA and offline
