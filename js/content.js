@@ -401,7 +401,7 @@ function garageProjectHtml(p) {
   return `
     <article class="project">
       <button class="slide__img project__img" type="button" aria-label="Открыть фото: ${escapeHtml(alt)}">
-        <img ${carouselImgAttrs(p.img, '(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px')} alt="${escapeHtml(alt)}" />
+        <img ${carouselImgAttrs(p.img, '(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px', p.imgWidth, p.imgHeight)} alt="${escapeHtml(alt)}" />
       </button>
       <div class="project__body">
         <h3 class="project__title">${escapeHtml(p.title)}</h3>

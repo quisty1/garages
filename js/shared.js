@@ -115,14 +115,16 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-// <img> attrs for carousel slides: srcset with a -560.webp preview.
-// Preview path is .webp → -560.webp (see assets/).
-function carouselImgAttrs(img, sizes) {
+// <img> attrs for carousel slides: srcset with a -560 preview.
+// The preview keeps the source extension (for example .webp or .jpg).
+function carouselImgAttrs(img, sizes, width = 680, height = 453) {
   const source = String(img || '');
-  const small = source.replace(/\.webp$/, '-560.webp');
+  const small = source.replace(/(\.[a-z0-9]+)$/i, '-560$1');
   const sizesAttr =
     sizes || '(max-width: 720px) 82vw, (max-width: 980px) 48vw, 520px';
-  return `src="${escapeHtml(source)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(source)} 680w" sizes="${escapeHtml(sizesAttr)}" width="680" height="453" loading="lazy" decoding="async"`;
+  const sourceWidth = Number(width) || 680;
+  const sourceHeight = Number(height) || 453;
+  return `src="${escapeHtml(source)}" srcset="${escapeHtml(small)} 560w, ${escapeHtml(source)} ${sourceWidth}w" sizes="${escapeHtml(sizesAttr)}" width="${sourceWidth}" height="${sourceHeight}" loading="lazy" decoding="async"`;
 }
 
 // SEO alt for garage and canopy photos in carousels.

@@ -290,7 +290,9 @@
         price: 1150000,
         specs: ['Рама 80×80×3', 'Ферма 80×80×3'],
         location: 'Город Владимир, Ковровский район',
-        img: './assets/garage-project-6-5.webp',
+        img: './assets/garage-project-6-4-v2.jpg',
+        imgWidth: 1672,
+        imgHeight: 941,
       },
       {
         title: 'Гараж из сэндвич панелей',
@@ -304,7 +306,9 @@
           'Ворота «Алютех»',
         ],
         location: 'Московская область, Орехово-Зуево',
-        img: './assets/garage-project-6-8.webp',
+        img: './assets/garage-project-6-8-v2.jpg',
+        imgWidth: 1672,
+        imgHeight: 941,
       },
       {
         title: 'Гараж из сэндвич панелей',
@@ -318,7 +322,9 @@
           'Ворота «Алютех»',
         ],
         location: 'Нижегородская область, город Бор',
-        img: './assets/garage-project-8-8.webp',
+        img: './assets/garage-project-8-8-v2.jpg',
+        imgWidth: 1672,
+        imgHeight: 941,
       },
     ],
     // Canopy carousel slides
