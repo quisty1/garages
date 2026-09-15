@@ -28,7 +28,7 @@
 .section__title {
   margin: 0;
   font-size: clamp(30px, 3.8vw, 46px);
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
   color: var(--text);
   text-transform: none;
 }
@@ -69,7 +69,7 @@
   font-size: 22px;
   color: var(--primary);
   text-transform: none;
-  letter-spacing: -.01em;
+  letter-spacing: -0.01em;
 }
 .card__text {
   margin: 0;
@@ -358,7 +358,7 @@
   color: var(--primary);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
 
@@ -369,7 +369,7 @@
 .section__title {
   font-size: clamp(30px, 3.8vw, 46px);
   line-height: 1.12;
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
   text-transform: none;
 }
 
@@ -497,7 +497,7 @@
 .card__title {
   color: var(--text);
   font-size: 22px;
-  letter-spacing: -.01em;
+  letter-spacing: -0.01em;
   text-transform: none;
 }
 
@@ -585,13 +585,13 @@
   .section__title {
     font-size: clamp(30px, 3.8vw, 46px);
     text-transform: none;
-    letter-spacing: -.025em;
+    letter-spacing: -0.025em;
   }
 
   .card__title {
     font-size: 22px;
     text-transform: none;
-    letter-spacing: -.01em;
+    letter-spacing: -0.01em;
   }
 
   .side-card,

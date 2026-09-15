@@ -129,19 +129,19 @@ html[data-theme='light'] .calculator__input {
   color: var(--primary);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: .09em;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
 .calculator__price {
   display: flex;
   flex-wrap: wrap;
-  column-gap: .22em;
+  column-gap: 0.22em;
   color: var(--text);
   font-size: clamp(28px, 4vw, 46px);
   font-weight: 750;
   line-height: 1.08;
-  letter-spacing: -.035em;
+  letter-spacing: -0.035em;
 }
 
 .calculator__price span {

@@ -112,17 +112,17 @@ garages/
 
 `js/main.js` loads as an ES module and imports the rest:
 
-| Module         | Contents                                                                                                                                                              |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **shared.js**  | `company`, `SELECTORS`, `CAROUSEL_NAMES`, `$()`, `escapeHtml()`, `fillContainer()`, `fillDualContainers()`                                                            |
-| **theme.js**   | `THEME_KEY`, `THEME_COLORS`, `initTheme`                                                                                                                              |
-| **content.js** | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
-| **seo.js**     | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
-| **ui.js**      | FAQ accordion, mobile menu, lightbox, carousels, scroll reveal, scroll-to-top                                                                                         |
-| **analytics.js** | Yandex Metrica loading and conversion goal tracking                                                                                                                 |
-| **calculator.js** | Preliminary estimate calculation and calculator interaction                                                                                                        |
-| **pwa.js**     | `registerServiceWorker`                                                                                                                                               |
-| **main.js**    | `init()` + `DOMContentLoaded`                                                                                                                                         |
+| Module            | Contents                                                                                                                                                              |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **shared.js**     | `company`, `SELECTORS`, `CAROUSEL_NAMES`, `$()`, `escapeHtml()`, `fillContainer()`, `fillDualContainers()`                                                            |
+| **theme.js**      | `THEME_KEY`, `THEME_COLORS`, `initTheme`                                                                                                                              |
+| **content.js**    | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
+| **seo.js**        | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
+| **ui.js**         | FAQ accordion, mobile menu, lightbox, carousels, scroll reveal, scroll-to-top                                                                                         |
+| **analytics.js**  | Yandex Metrica loading and conversion goal tracking                                                                                                                   |
+| **calculator.js** | Preliminary estimate calculation and calculator interaction                                                                                                           |
+| **pwa.js**        | `registerServiceWorker`                                                                                                                                               |
+| **main.js**       | `init()` + `DOMContentLoaded`                                                                                                                                         |
 
 ### CSS partials
 

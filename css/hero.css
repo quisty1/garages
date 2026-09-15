@@ -132,7 +132,7 @@
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
 }
 .meta-card__value {
   margin-top: 6px;
@@ -251,7 +251,7 @@
   flex-wrap: wrap;
   align-items: center;
   font-weight: 600;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
 }
 
 .hero__kicker span {
@@ -348,7 +348,7 @@
 }
 
 .meta-card__label {
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
 }
 
 .meta-card__value {

@@ -3,8 +3,14 @@ function initPageProgress() {
   let frame = 0;
   const update = () => {
     frame = 0;
-    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    document.documentElement.style.setProperty('--page-progress', Math.min(1, window.scrollY / max).toFixed(4));
+    const max = Math.max(
+      1,
+      document.documentElement.scrollHeight - window.innerHeight,
+    );
+    document.documentElement.style.setProperty(
+      '--page-progress',
+      Math.min(1, window.scrollY / max).toFixed(4),
+    );
   };
   const schedule = () => {
     if (!frame) frame = requestAnimationFrame(update);
@@ -31,8 +37,8 @@ function initHeroBlueprint() {
   };
   card.addEventListener('pointermove', (event) => {
     const rect = card.getBoundingClientRect();
-    nextX = ((event.clientX - rect.left) / rect.width - .5) * 2;
-    nextY = ((event.clientY - rect.top) / rect.height - .5) * 2;
+    nextX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+    nextY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
     if (!frame) frame = requestAnimationFrame(paint);
   });
   card.addEventListener('pointerleave', () => {

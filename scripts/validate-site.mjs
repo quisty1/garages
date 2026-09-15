@@ -461,10 +461,7 @@ for (const goal of [
   'calculator_start',
   'calculator_complete',
 ]) {
-  assert(
-    mainSource.includes(`'${goal}'`),
-    `Analytics goal is wired: ${goal}`,
-  );
+  assert(mainSource.includes(`'${goal}'`), `Analytics goal is wired: ${goal}`);
 }
 assert(
   analyticsSource.includes('webvisor: false'),

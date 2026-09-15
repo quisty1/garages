@@ -33,7 +33,7 @@
 }
 .brand__name {
   font-weight: 700;
-  letter-spacing: .03em;
+  letter-spacing: 0.03em;
   font-size: 16px;
   text-transform: uppercase;
   min-width: 0;
@@ -205,7 +205,7 @@ body.menu-open {
 
 .brand__name {
   font-size: 14px;
-  letter-spacing: .03em;
+  letter-spacing: 0.03em;
 }
 
 .brand__sub {
@@ -401,7 +401,7 @@ body.menu-open {
   .brand__name {
     max-width: 148px;
     font-size: 12px;
-    letter-spacing: .03em;
+    letter-spacing: 0.03em;
   }
 
   .js .nav {
@@ -436,7 +436,9 @@ body.menu-open {
   }
 }
 /* Current position in the document; shape and color both signal the state. */
-.nav__link { position: relative; }
+.nav__link {
+  position: relative;
+}
 .nav__link::after {
   content: '';
   position: absolute;
@@ -447,8 +449,14 @@ body.menu-open {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
-.nav__link[aria-current='location'] { color: var(--primary); }
-.nav__link[aria-current='location']::after { transform: scaleX(1); }
-.nav__link--contact[aria-current='location'] { color: var(--on-primary); }
+.nav__link[aria-current='location'] {
+  color: var(--primary);
+}
+.nav__link[aria-current='location']::after {
+  transform: scaleX(1);
+}
+.nav__link--contact[aria-current='location'] {
+  color: var(--on-primary);
+}

@@ -14,55 +14,55 @@
 		<priority>
 			1.0
 		</priority>
-		<image:image>
-			<image:loc>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/logo-og.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/garage-6x4.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/garage-6x6.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/garage-8x6.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/garage-6x8.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/canopy-car.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/canopy-gable.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/canopy-single-slope.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/canopy-two-cars.webp
-			</image:loc>
-		</image:image>
-		<image:image>
-			<image:loc>
+			</loc>
+		</image>
+		<image>
+			<loc>
 				https://metallmontage33.ru/assets/canopy-house.webp
-			</image:loc>
-		</image:image>
+			</loc>
+		</image>
 	</url>
 </urlset>

@@ -54,7 +54,7 @@ a.contact-tile:hover {
   font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
 }
 .contact-tile__value {
   font-weight: 700;
@@ -334,7 +334,7 @@ a.contact-tile:hover,
 }
 
 .contact-tile__label {
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
 }
 
 .contact-tile__value {
@@ -366,7 +366,7 @@ a.contact-tile:hover,
 
 .footer-brand__name,
 .footer-col__title {
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
 }
 
 .footer-bottom__links {
@@ -404,7 +404,13 @@ a.contact-tile:hover,
     align-items: flex-start;
   }
 }
-.contact-copy { display: flex; flex-wrap: wrap; gap: 8px 12px; border-top: 1px solid var(--line); padding-top: 20px; }
+.contact-copy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
 .contact-copy__button {
   min-height: 44px;
   padding: 10px 14px;
@@ -415,8 +421,23 @@ a.contact-tile:hover,
   font: inherit;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color .18s ease, border-color .18s ease;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease;
 }
-.contact-copy__button:hover { background: var(--primary-soft); border-color: var(--primary); }
-.contact-copy__button:disabled { opacity: .6; cursor: wait; }
-.contact-copy__status { flex-basis: 100%; min-height: 1.5em; margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.contact-copy__button:hover {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+}
+.contact-copy__button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.contact-copy__status {
+  flex-basis: 100%;
+  min-height: 1.5em;
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}

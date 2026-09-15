@@ -478,7 +478,10 @@ function initScrollReveal() {
       });
     },
     // Start inside the visible area so the motion is seen, not spent below the fold.
-    { threshold: 0, rootMargin: `0px 0px -${Math.min(120, Math.round(window.innerHeight * 0.15))}px 0px` },
+    {
+      threshold: 0,
+      rootMargin: `0px 0px -${Math.min(120, Math.round(window.innerHeight * 0.15))}px 0px`,
+    },
   );
   document
     .querySelectorAll(

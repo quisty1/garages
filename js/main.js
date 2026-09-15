@@ -30,10 +30,7 @@ import {
 import { registerServiceWorker } from './pwa.js';
 import { initAnalytics } from './analytics.js';
 import { initCalculator } from './calculator.js';
-import {
-  initHeroBlueprint,
-  initPageProgress,
-} from './interactions.js';
+import { initHeroBlueprint, initPageProgress } from './interactions.js';
 
 // CSS switches to interactive drawer rules only after this script executes.
 document.documentElement.classList.add('js');
