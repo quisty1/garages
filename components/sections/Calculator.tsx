@@ -4,7 +4,7 @@
 
 import { useMemo, useState } from 'react';
 import { calculate, money } from '@/lib/calculator';
-import { sendGoal } from '@/lib/analytics';
+import { GOAL, sendGoal } from '@/lib/analytics';
 import { company } from '@/lib/site-data';
 
 export function Calculator() {
@@ -41,7 +41,7 @@ export function Calculator() {
   const trackStart = () => {
     if (started) return;
     setStarted(true);
-    sendGoal('calculator_start');
+    sendGoal(GOAL.calculator_start);
   };
 
   const toggleOption = (id: string) => {
@@ -258,7 +258,11 @@ export function Calculator() {
               особенности участка и нестандартные решения уточняются после
               замера.
             </p>
-            <a className="btn btn--ghost" href="#contact" data-cta>
+            <a
+              className="btn btn--ghost"
+              href="#contact"
+              data-analytics-goal={GOAL.calculator_complete}
+            >
               Уточнить смету
             </a>
           </aside>

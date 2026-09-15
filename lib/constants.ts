@@ -27,6 +27,7 @@ export const GOAL = {
   map_click: 'map_click',
   contact_copy: 'contact_copy',
   calculator_start: 'calculator_start',
+  calculator_complete: 'calculator_complete',
 } as const;
 
 export type AnalyticsGoal = (typeof GOAL)[keyof typeof GOAL];
@@ -40,4 +41,5 @@ export const ANALYTICS_GOALS: readonly AnalyticsGoal[] = [
   GOAL.map_click,
   GOAL.contact_copy,
   GOAL.calculator_start,
+  GOAL.calculator_complete,
 ];

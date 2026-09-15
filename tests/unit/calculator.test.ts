@@ -93,6 +93,7 @@ describe('seo', () => {
       'map_click',
       'contact_copy',
       'calculator_start',
+      'calculator_complete',
     ]);
   });
 });
