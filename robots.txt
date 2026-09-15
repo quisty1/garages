@@ -1,8 +1,0 @@
-# robots.txt — crawler rules
-# Sitemap URL is kept in sync with company.seo.siteUrl in main.js
-
-User-agent: *
-Allow: /
-
-Host: metallmontage33.ru
-Sitemap: https://metallmontage33.ru/sitemap.xml

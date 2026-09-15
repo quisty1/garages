@@ -1,0 +1,159 @@
+/* ── Design tokens: industrial dark theme (default) ───── */
+:root {
+  /* Colors */
+  --bg: #111418;
+  --bg-2: #171b20;
+  --surface: #1b2026;
+  --surface-2: #222830;
+  --card: #171c22;
+  --text: #f5efe6;
+  --muted: rgba(245, 239, 230, 0.72);
+  --muted2: rgba(245, 239, 230, 0.55);
+  --line: rgba(245, 239, 230, 0.12);
+  --line-strong: rgba(245, 239, 230, 0.24);
+  --primary: #d98232;
+  --primary-2: #c06728;
+  --primary-soft: rgba(217, 130, 50, 0.13);
+  --primary-soft-strong: rgba(217, 130, 50, 0.28);
+  --steel: #9da7ad;
+  --steel-soft: rgba(157, 167, 173, 0.16);
+  --shadow: 0 28px 80px rgba(0, 0, 0, 0.38);
+  --header-bg: rgba(17, 20, 24, 0.86);
+  --body-bg-start: #0f1215;
+  --nav-mobile-bg: #15191e;
+  --on-primary: #170f09;
+  --media-bg: #0e1115;
+  --footer-bg: #0d1013;
+  --footer-text: rgba(245, 239, 230, 0.94);
+  --footer-muted: rgba(245, 239, 230, 0.68);
+  --footer-muted2: rgba(245, 239, 230, 0.52);
+  --footer-accent: #d98232;
+  --footer-line: rgba(245, 239, 230, 0.12);
+  --nav-hover-bg: rgba(217, 130, 50, 0.1);
+  --grid-column: rgba(255, 255, 255, 0.035);
+  --grid-row: rgba(255, 255, 255, 0.03);
+  --primary-glow: rgba(217, 130, 50, 0.16);
+  --steel-glow: rgba(157, 167, 173, 0.1);
+  --button-shine: rgba(255, 255, 255, 0.26);
+  --scrollbar-track: #0d1013;
+  --scrollbar-track-detail: rgba(245, 239, 230, 0.08);
+  --scrollbar-thumb: #a75e27;
+  --scrollbar-thumb-start: #e49a55;
+  --scrollbar-thumb-end: #6f3b1c;
+  --scrollbar-thumb-hover: #ed9b4e;
+  --scrollbar-thumb-active: #c06728;
+  --scrollbar-thumb-detail: rgba(255, 255, 255, 0.2);
+  --scrollbar-glow: rgba(217, 130, 50, 0.34);
+
+  /* Layout */
+  --header-height: 72px;
+  --scroll-offset: calc(var(--header-height) + 16px);
+  --container: 1400px;
+  --container-gutter: clamp(18px, 5vw, 24px);
+  --section-padding: 86px;
+  --section-contact-padding: 64px 0 72px;
+
+  /* Shape */
+  --radius: 4px;
+  --radius-sm: 3px;
+
+  /* Motion (disabled by the prefers-reduced-motion override) */
+  --transition-fast: 0.15s ease;
+  --transition-reveal: 0.65s ease;
+
+  /* z-index: backdrop 40 → header 50 → nav 51 → toggle 52 → scroll-top 90 → lightbox 200 */
+  --z-nav-backdrop: 40;
+  --z-header: 50;
+  --z-nav: 51;
+  --z-nav-toggle: 52;
+  --z-scroll-top: 90;
+  --z-lightbox: 200;
+  --z-skip-link: 9999;
+}
+
+/* ── Light theme ──────────────────────────────────────── */
+/* Duplicated with prefers-color-scheme below on purpose: data-theme and system theme */
+html[data-theme='light'] {
+  --bg: #f6f7f9;
+  --bg-2: #eceff3;
+  --surface: #ffffff;
+  --surface-2: #e4e8ed;
+  --card: #ffffff;
+  --text: #171a1f;
+  --muted: rgba(23, 26, 31, 0.72);
+  --muted2: #62666b;
+  --line: rgba(23, 26, 31, 0.13);
+  --line-strong: rgba(23, 26, 31, 0.24);
+  --primary: #bd4308;
+  --primary-2: #a73705;
+  --primary-soft: rgba(202, 77, 13, 0.1);
+  --primary-soft-strong: rgba(202, 77, 13, 0.22);
+  --steel: #65717c;
+  --steel-soft: rgba(101, 113, 124, 0.12);
+  --shadow: 0 24px 64px rgba(15, 23, 42, 0.12);
+  --header-bg: rgba(246, 247, 249, 0.9);
+  --body-bg-start: #ffffff;
+  --nav-mobile-bg: #ffffff;
+  --on-primary: #ffffff;
+  --media-bg: #e1e5ea;
+  --footer-accent: #d98232;
+  --nav-hover-bg: rgba(189, 67, 8, 0.09);
+  --grid-column: rgba(23, 26, 31, 0.045);
+  --grid-row: rgba(23, 26, 31, 0.035);
+  --primary-glow: rgba(202, 77, 13, 0.12);
+  --steel-glow: rgba(101, 113, 124, 0.09);
+  --button-shine: rgba(255, 255, 255, 0.18);
+  --scrollbar-track: #e4e8ed;
+  --scrollbar-track-detail: rgba(23, 26, 31, 0.1);
+  --scrollbar-thumb: #b84b14;
+  --scrollbar-thumb-start: #e1793f;
+  --scrollbar-thumb-end: #913204;
+  --scrollbar-thumb-hover: #ca4d0d;
+  --scrollbar-thumb-active: #a73705;
+  --scrollbar-thumb-detail: rgba(255, 255, 255, 0.28);
+  --scrollbar-glow: rgba(202, 77, 13, 0.25);
+}
+
+/* Auto light theme from the OS unless the user overrode it */
+@media (prefers-color-scheme: light) {
+  html:not([data-theme='dark']) {
+    --bg: #f6f7f9;
+    --bg-2: #eceff3;
+    --surface: #ffffff;
+    --surface-2: #e4e8ed;
+    --card: #ffffff;
+    --text: #171a1f;
+    --muted: rgba(23, 26, 31, 0.72);
+    --muted2: #62666b;
+    --line: rgba(23, 26, 31, 0.13);
+    --line-strong: rgba(23, 26, 31, 0.24);
+    --primary: #bd4308;
+    --primary-2: #a73705;
+    --primary-soft: rgba(202, 77, 13, 0.1);
+    --primary-soft-strong: rgba(202, 77, 13, 0.22);
+    --steel: #65717c;
+    --steel-soft: rgba(101, 113, 124, 0.12);
+    --shadow: 0 24px 64px rgba(15, 23, 42, 0.12);
+    --header-bg: rgba(246, 247, 249, 0.9);
+    --body-bg-start: #ffffff;
+    --nav-mobile-bg: #ffffff;
+    --on-primary: #ffffff;
+    --media-bg: #e1e5ea;
+    --footer-accent: #d98232;
+    --nav-hover-bg: rgba(189, 67, 8, 0.09);
+    --grid-column: rgba(23, 26, 31, 0.045);
+    --grid-row: rgba(23, 26, 31, 0.035);
+    --primary-glow: rgba(202, 77, 13, 0.12);
+    --steel-glow: rgba(101, 113, 124, 0.09);
+    --button-shine: rgba(255, 255, 255, 0.18);
+    --scrollbar-track: #e4e8ed;
+    --scrollbar-track-detail: rgba(23, 26, 31, 0.1);
+    --scrollbar-thumb: #b84b14;
+    --scrollbar-thumb-start: #e1793f;
+    --scrollbar-thumb-end: #913204;
+    --scrollbar-thumb-hover: #ca4d0d;
+    --scrollbar-thumb-active: #a73705;
+    --scrollbar-thumb-detail: rgba(255, 255, 255, 0.28);
+    --scrollbar-glow: rgba(202, 77, 13, 0.25);
+  }
+}

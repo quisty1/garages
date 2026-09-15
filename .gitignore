@@ -1,3 +1,25 @@
+# dependencies
 node_modules/
-package-lock.json
-yandex_e3abed833f0bbd1d.html
+
+# Next.js
+.next/
+out/
+
+# env
+.env
+.env*.local
+
+# logs / OS
+*.log
+.DS_Store
+Thumbs.db
+
+# test artifacts
+test-results/
+playwright-report/
+blob-report/
+coverage/
+*.tsbuildinfo
+
+# The deployed verification file lives in public/.
+/yandex_*.html
