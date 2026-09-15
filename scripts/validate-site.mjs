@@ -237,6 +237,7 @@ const JS_MODULE_ORDER = [
   'js/content.js',
   'js/seo.js',
   'js/ui.js',
+  'js/interactions.js',
   'js/pwa.js',
   'js/main.js',
 ];
@@ -252,6 +253,7 @@ const CSS_PARTIALS = [
   'css/workflow-faq.css',
   'css/contact.css',
   'css/overlays.css',
+  'css/interactions.css',
 ];
 
 // Drop ESM import/export lines so modules can be concatenated and run in vm.

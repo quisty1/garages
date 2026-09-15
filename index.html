@@ -65,12 +65,12 @@
     <link rel="manifest" href="./manifest.json" />
     <link
       rel="preload"
-      href="./assets/logo-hero-680.webp"
+      href="./assets/garage-project-8-8-v2-560.jpg"
       as="image"
-      type="image/webp"
+      type="image/jpeg"
       fetchpriority="high"
-      imagesrcset="./assets/logo-hero-680.webp 680w, ./assets/logo-hero.webp 920w"
-      imagesizes="(max-width: 720px) 100vw, 460px"
+      imagesrcset="./assets/garage-project-8-8-v2-560.jpg 560w, ./assets/garage-project-8-8-v2.jpg 1536w"
+      imagesizes="(max-width: 1120px) 92vw, 52vw"
     />
     <meta
       name="theme-color"
@@ -79,7 +79,7 @@
     />
     <meta
       name="theme-color"
-      content="#f4efe6"
+      content="#f6f7f9"
       media="(prefers-color-scheme: light)"
     />
 
@@ -140,6 +140,7 @@
     <link rel="stylesheet" href="./css/workflow-faq.css" />
     <link rel="stylesheet" href="./css/contact.css" />
     <link rel="stylesheet" href="./css/overlays.css" />
+    <link rel="stylesheet" href="./css/interactions.css" />
     <!-- JSON-LD fallback; renderJsonLd() syncs #json-ld from company.seo -->
     <script type="application/ld+json" id="json-ld">
       {
@@ -761,6 +762,7 @@
     <a class="skip-link" href="#contact">Перейти к контактам</a>
 
     <!-- Header: nav, theme toggle, mobile menu -->
+    <div class="page-progress" aria-hidden="true"><span></span></div>
     <header class="site-header" data-header>
       <div class="container header-inner">
         <div class="brand">
@@ -894,34 +896,59 @@
           </div>
 
           <div class="hero__visual" aria-hidden="true">
-            <div class="hero-card">
+            <div class="hero-card" data-hero-card>
               <div class="hero-card__img">
                 <img
-                  src="./assets/logo-hero-680.webp"
+                  src="./assets/garage-project-8-8-v2-560.jpg"
                   srcset="
-                    ./assets/logo-hero-680.webp 680w,
-                    ./assets/logo-hero.webp     920w
+                    ./assets/garage-project-8-8-v2-560.jpg 560w,
+                    ./assets/garage-project-8-8-v2.jpg     1536w
                   "
-                  sizes="(max-width: 720px) 100vw, 460px"
-                  alt="Металл Монтаж 33 — гаражи и навесы под ключ"
-                  width="680"
-                  height="453"
+                  sizes="(max-width: 1120px) 92vw, 52vw"
+                  alt="Готовый гараж на два автомобиля"
+                  width="1536"
+                  height="1024"
                   fetchpriority="high"
                   decoding="async"
                 />
+                <div class="hero-blueprint" aria-hidden="true">
+                  <span class="hero-blueprint__line hero-blueprint__line--width"></span>
+                  <span class="hero-blueprint__line hero-blueprint__line--height"></span>
+                  <span class="hero-blueprint__label hero-blueprint__label--width">8000 мм</span>
+                  <span class="hero-blueprint__label hero-blueprint__label--height">2400 мм</span>
+                  <span class="hero-blueprint__point hero-blueprint__point--a"></span>
+                  <span class="hero-blueprint__point hero-blueprint__point--b"></span>
+                </div>
               </div>
               <div class="hero-card__footer">
                 <div class="hero-card__title">
-                  Рассчитаем проект под ваш участок
+                  Гараж 8×8 м / 2 автомобиля
                 </div>
                 <div class="hero-card__sub">
-                  Размер, кровля, ворота, утепление — на выбор
+                  Сэндвич-панели 100 мм · ворота «Алютех»
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <div class="spec-ticker" aria-label="Основные параметры производства">
+        <div class="spec-ticker__track">
+          <div class="spec-ticker__group">
+            <span>Сварной каркас</span><b>✦</b><span>Панели 50–250 мм</span><b>✦</b><span>Гарантия 3 года</span><b>✦</b><span>Размер по чертежу</span><b>✦</b><span>Монтаж под ключ</span><b>✦</b>
+          </div>
+          <div class="spec-ticker__group" aria-hidden="true">
+            <span>Сварной каркас</span><b>✦</b><span>Панели 50–250 мм</span><b>✦</b><span>Гарантия 3 года</span><b>✦</b><span>Размер по чертежу</span><b>✦</b><span>Монтаж под ключ</span><b>✦</b>
+          </div>
+          <div class="spec-ticker__group" aria-hidden="true">
+            <span>Сварной каркас</span><b>✦</b><span>Панели 50–250 мм</span><b>✦</b><span>Гарантия 3 года</span><b>✦</b><span>Размер по чертежу</span><b>✦</b><span>Монтаж под ключ</span><b>✦</b>
+          </div>
+          <div class="spec-ticker__group" aria-hidden="true">
+            <span>Сварной каркас</span><b>✦</b><span>Панели 50–250 мм</span><b>✦</b><span>Гарантия 3 года</span><b>✦</b><span>Размер по чертежу</span><b>✦</b><span>Монтаж под ключ</span><b>✦</b>
+          </div>
+        </div>
+      </div>
 
       <!-- Garages: slides in [data-carousel-track] — renderCarousels() -->
       <section class="section" id="garages">

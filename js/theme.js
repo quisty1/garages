@@ -6,7 +6,7 @@ const THEME_KEY = 'mm33-theme';
 
 // meta theme-color values for light and dark.
 const THEME_COLORS = {
-  light: '#f4efe6',
+  light: '#f6f7f9',
   dark: '#111418',
 };
 

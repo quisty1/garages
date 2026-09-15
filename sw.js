@@ -1,7 +1,7 @@
 // ── Service Worker: Metall Montage 33 ────────────────
 
 const CACHE_PREFIX = 'mm33-';
-const CACHE_VERSION = 'v18';
+const CACHE_VERSION = 'v19';
 const PRECACHE_CACHE = `${CACHE_PREFIX}precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `${CACHE_PREFIX}runtime-${CACHE_VERSION}`;
 const CURRENT_CACHES = new Set([PRECACHE_CACHE, RUNTIME_CACHE]);
@@ -22,12 +22,14 @@ const PRECACHE_URLS = [
   'css/workflow-faq.css',
   'css/contact.css',
   'css/overlays.css',
+  'css/interactions.css',
   'site-data.js',
   'js/shared.js',
   'js/theme.js',
   'js/content.js',
   'js/seo.js',
   'js/ui.js',
+  'js/interactions.js',
   'js/pwa.js',
   'js/main.js',
   'manifest.json',
@@ -42,6 +44,8 @@ const PRECACHE_URLS = [
   'assets/icon-512.webp',
   'assets/logo-hero-680.webp',
   'assets/logo-hero.webp',
+  'assets/garage-project-8-8-v2-560.jpg',
+  'assets/garage-project-8-8-v2.jpg',
 ].map((path) => new URL(path, SCOPE_URL).href);
 
 const NETWORK_FIRST_URLS = new Set(
@@ -56,12 +60,14 @@ const NETWORK_FIRST_URLS = new Set(
     'css/workflow-faq.css',
     'css/contact.css',
     'css/overlays.css',
+    'css/interactions.css',
     'site-data.js',
     'js/shared.js',
     'js/theme.js',
     'js/content.js',
     'js/seo.js',
     'js/ui.js',
+    'js/interactions.js',
     'js/pwa.js',
     'js/main.js',
     'manifest.json',

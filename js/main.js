@@ -28,6 +28,10 @@ import {
   initScrollTop,
 } from './ui.js';
 import { registerServiceWorker } from './pwa.js';
+import {
+  initHeroBlueprint,
+  initPageProgress,
+} from './interactions.js';
 
 // CSS switches to interactive drawer rules only after this script executes.
 document.documentElement.classList.add('js');
@@ -83,6 +87,8 @@ function init() {
     ['текущий раздел меню', initActiveNavigation],
     ['копирование контактов', initContactCopy],
     ['кнопку прокрутки', initScrollTop],
+    ['прогресс страницы', initPageProgress],
+    ['интерактив первого экрана', initHeroBlueprint],
     ['Service Worker', registerServiceWorker],
   ].forEach(([label, callback]) => runInitStep(label, callback));
 }
