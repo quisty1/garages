@@ -34,6 +34,15 @@
   --primary-glow: rgba(217, 130, 50, 0.16);
   --steel-glow: rgba(157, 167, 173, 0.1);
   --button-shine: rgba(255, 255, 255, 0.26);
+  --scrollbar-track: #0d1013;
+  --scrollbar-track-detail: rgba(245, 239, 230, 0.08);
+  --scrollbar-thumb: #a75e27;
+  --scrollbar-thumb-start: #e49a55;
+  --scrollbar-thumb-end: #6f3b1c;
+  --scrollbar-thumb-hover: #ed9b4e;
+  --scrollbar-thumb-active: #c06728;
+  --scrollbar-thumb-detail: rgba(255, 255, 255, 0.2);
+  --scrollbar-glow: rgba(217, 130, 50, 0.34);
 
   /* Layout */
   --header-height: 72px;
@@ -92,6 +101,15 @@ html[data-theme='light'] {
   --primary-glow: rgba(202, 77, 13, 0.12);
   --steel-glow: rgba(101, 113, 124, 0.09);
   --button-shine: rgba(255, 255, 255, 0.18);
+  --scrollbar-track: #e4e8ed;
+  --scrollbar-track-detail: rgba(23, 26, 31, 0.1);
+  --scrollbar-thumb: #b84b14;
+  --scrollbar-thumb-start: #e1793f;
+  --scrollbar-thumb-end: #913204;
+  --scrollbar-thumb-hover: #ca4d0d;
+  --scrollbar-thumb-active: #a73705;
+  --scrollbar-thumb-detail: rgba(255, 255, 255, 0.28);
+  --scrollbar-glow: rgba(202, 77, 13, 0.25);
 }
 
 /* Auto light theme from the OS unless the user overrode it */
@@ -125,5 +143,14 @@ html[data-theme='light'] {
     --primary-glow: rgba(202, 77, 13, 0.12);
     --steel-glow: rgba(101, 113, 124, 0.09);
     --button-shine: rgba(255, 255, 255, 0.18);
+    --scrollbar-track: #e4e8ed;
+    --scrollbar-track-detail: rgba(23, 26, 31, 0.1);
+    --scrollbar-thumb: #b84b14;
+    --scrollbar-thumb-start: #e1793f;
+    --scrollbar-thumb-end: #913204;
+    --scrollbar-thumb-hover: #ca4d0d;
+    --scrollbar-thumb-active: #a73705;
+    --scrollbar-thumb-detail: rgba(255, 255, 255, 0.28);
+    --scrollbar-glow: rgba(202, 77, 13, 0.25);
   }
 }
