@@ -582,6 +582,8 @@ function initContactCopy() {
     button.type = 'button';
     button.className = 'contact-copy__button';
     button.textContent = `Скопировать ${label}`;
+    button.dataset.analyticsGoal = 'contact_copy';
+    button.dataset.analyticsLabel = label;
     button.addEventListener('click', async () => {
       // Serialize requests so a late clipboard response cannot overwrite feedback.
       const buttons = row.querySelectorAll('button');

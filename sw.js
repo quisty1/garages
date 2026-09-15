@@ -1,7 +1,7 @@
 // ── Service Worker: Metall Montage 33 ────────────────
 
 const CACHE_PREFIX = 'mm33-';
-const CACHE_VERSION = 'v19';
+const CACHE_VERSION = 'v21';
 const PRECACHE_CACHE = `${CACHE_PREFIX}precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `${CACHE_PREFIX}runtime-${CACHE_VERSION}`;
 const CURRENT_CACHES = new Set([PRECACHE_CACHE, RUNTIME_CACHE]);
@@ -18,6 +18,7 @@ const PRECACHE_URLS = [
   'css/header.css',
   'css/hero.css',
   'css/sections.css',
+  'css/calculator.css',
   'css/gallery.css',
   'css/workflow-faq.css',
   'css/contact.css',
@@ -30,6 +31,8 @@ const PRECACHE_URLS = [
   'js/seo.js',
   'js/ui.js',
   'js/interactions.js',
+  'js/analytics.js',
+  'js/calculator.js',
   'js/pwa.js',
   'js/main.js',
   'manifest.json',
@@ -56,6 +59,7 @@ const NETWORK_FIRST_URLS = new Set(
     'css/header.css',
     'css/hero.css',
     'css/sections.css',
+    'css/calculator.css',
     'css/gallery.css',
     'css/workflow-faq.css',
     'css/contact.css',
@@ -68,6 +72,8 @@ const NETWORK_FIRST_URLS = new Set(
     'js/seo.js',
     'js/ui.js',
     'js/interactions.js',
+    'js/analytics.js',
+    'js/calculator.js',
     'js/pwa.js',
     'js/main.js',
     'manifest.json',

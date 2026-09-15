@@ -134,6 +134,7 @@
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/hero.css" />
     <link rel="stylesheet" href="./css/sections.css" />
+    <link rel="stylesheet" href="./css/calculator.css" />
     <link rel="stylesheet" href="./css/gallery.css" />
     <link rel="stylesheet" href="./css/workflow-faq.css" />
     <link rel="stylesheet" href="./css/contact.css" />
@@ -815,11 +816,11 @@
         <nav class="nav" id="site-nav" aria-label="Основная навигация" data-nav>
           <ul class="nav__list">
             <li><a class="nav__link" href="#garages">Гаражи</a></li>
+            <li><a class="nav__link" href="#canopies">Навесы</a></li>
             <li>
               <a class="nav__link" href="#garage-projects">Наши работы</a>
             </li>
-            <li><a class="nav__link" href="#canopies">Навесы</a></li>
-            <li><a class="nav__link" href="#composition">Комплектация</a></li>
+            <li><a class="nav__link" href="#services">Услуги</a></li>
             <li><a class="nav__link" href="#workflow">Этапы</a></li>
             <li><a class="nav__link" href="#faq">Вопросы</a></li>
             <li>
@@ -850,7 +851,7 @@
               металлокаркаса.
             </p>
             <div class="hero__actions">
-              <a class="btn btn--primary" href="#contact" data-cta>
+              <a class="btn btn--primary" href="#calculator" data-cta>
                 Рассчитать стоимость
               </a>
               <a class="btn btn--ghost" href="tel:+79042543674" data-phone>
@@ -1140,132 +1141,6 @@
         </div>
       </section>
 
-      <!-- Garage projects: [data-garage-projects] — renderGarageProjects() -->
-      <section class="section" id="garage-projects">
-        <div class="container">
-          <div class="section__head">
-            <div>
-              <div class="section__eyebrow">Готовые объекты</div>
-              <h2 class="section__title">Примеры гаражей</h2>
-            </div>
-            <p class="section__text">
-              Реализованные гаражи из сэндвич-панелей с размерами, комплектацией
-              и стоимостью под ключ.
-            </p>
-          </div>
-
-          <div class="project-list" data-garage-projects>
-            <article class="project">
-              <button
-                class="slide__img project__img"
-                type="button"
-                aria-label="Открыть фото: гараж из сэндвич панелей 6000×4000"
-              >
-                <img
-                  src="./assets/garage-project-6-4-v2.jpg"
-                  srcset="
-                    ./assets/garage-project-6-4-v2-560.jpg  560w,
-                    ./assets/garage-project-6-4-v2.jpg     1672w
-                  "
-                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
-                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
-                  width="1672"
-                  height="941"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
-              <div class="project__body">
-                <h3 class="project__title">Гараж из сэндвич панелей</h3>
-                <p class="project__size">6000 × 4000 × 2400 мм</p>
-                <p class="project__price">Цена: 1&nbsp;150&nbsp;000&nbsp;₽</p>
-                <ul class="project__specs">
-                  <li>Рама 80×80×3</li>
-                  <li>Ферма 80×80×3</li>
-                </ul>
-                <p class="project__location">
-                  Город Владимир, Ковровский район
-                </p>
-              </div>
-            </article>
-
-            <article class="project">
-              <button
-                class="slide__img project__img"
-                type="button"
-                aria-label="Открыть фото: гараж из сэндвич панелей 6000×8000"
-              >
-                <img
-                  src="./assets/garage-project-6-8-v2.jpg"
-                  srcset="
-                    ./assets/garage-project-6-8-v2-560.jpg  560w,
-                    ./assets/garage-project-6-8-v2.jpg     1672w
-                  "
-                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
-                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
-                  width="1672"
-                  height="941"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
-              <div class="project__body">
-                <h3 class="project__title">Гараж из сэндвич панелей</h3>
-                <p class="project__size">6000 × 8000 × 2400 мм</p>
-                <p class="project__price">Цена: 1&nbsp;256&nbsp;000&nbsp;₽</p>
-                <ul class="project__specs">
-                  <li>Рама 80×80×3</li>
-                  <li>Ферма 60×60×3</li>
-                  <li>Стена сэндвич панели 100 мм</li>
-                  <li>Кровля сэндвич панели 100 мм</li>
-                  <li>Ворота «Алютех»</li>
-                </ul>
-                <p class="project__location">
-                  Московская область, Орехово-Зуево
-                </p>
-              </div>
-            </article>
-
-            <article class="project">
-              <button
-                class="slide__img project__img"
-                type="button"
-                aria-label="Открыть фото: гараж из сэндвич панелей 8000×8000"
-              >
-                <img
-                  src="./assets/garage-project-8-8-v2.jpg"
-                  srcset="
-                    ./assets/garage-project-8-8-v2-560.jpg  560w,
-                    ./assets/garage-project-8-8-v2.jpg     1672w
-                  "
-                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
-                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
-                  width="1672"
-                  height="941"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </button>
-              <div class="project__body">
-                <h3 class="project__title">Гараж из сэндвич панелей</h3>
-                <p class="project__size">8000 × 8000 × 2400 мм</p>
-                <p class="project__price">Цена: 1&nbsp;460&nbsp;000&nbsp;₽</p>
-                <ul class="project__specs">
-                  <li>Рама 80×80×3</li>
-                  <li>Ферма 80×80×3</li>
-                  <li>Стеновая сэндвич панели 100 мм</li>
-                  <li>Кровля сэндвич панели 100 мм</li>
-                  <li>Ворота «Алютех»</li>
-                </ul>
-                <p class="project__location">
-                  Нижегородская область, город Бор
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <!-- Canopies: slides in [data-carousel-track] — renderCarousels() -->
       <section class="section section--muted" id="canopies">
         <div class="container">
@@ -1442,6 +1317,132 @@
         </div>
       </section>
 
+      <!-- Garage projects: [data-garage-projects] — renderGarageProjects() -->
+      <section class="section" id="garage-projects">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <div class="section__eyebrow">Готовые объекты</div>
+              <h2 class="section__title">Примеры гаражей</h2>
+            </div>
+            <p class="section__text">
+              Реализованные гаражи из сэндвич-панелей с размерами, комплектацией
+              и стоимостью под ключ.
+            </p>
+          </div>
+
+          <div class="project-list" data-garage-projects>
+            <article class="project">
+              <button
+                class="slide__img project__img"
+                type="button"
+                aria-label="Открыть фото: гараж из сэндвич панелей 6000×4000"
+              >
+                <img
+                  src="./assets/garage-project-6-4-v2.jpg"
+                  srcset="
+                    ./assets/garage-project-6-4-v2-560.jpg  560w,
+                    ./assets/garage-project-6-4-v2.jpg     1672w
+                  "
+                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
+                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
+                  width="1672"
+                  height="941"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="project__body">
+                <h3 class="project__title">Гараж из сэндвич панелей</h3>
+                <p class="project__size">6000 × 4000 × 2400 мм</p>
+                <p class="project__price">Цена: 1&nbsp;150&nbsp;000&nbsp;₽</p>
+                <ul class="project__specs">
+                  <li>Рама 80×80×3</li>
+                  <li>Ферма 80×80×3</li>
+                </ul>
+                <p class="project__location">
+                  Город Владимир, Ковровский район
+                </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <button
+                class="slide__img project__img"
+                type="button"
+                aria-label="Открыть фото: гараж из сэндвич панелей 6000×8000"
+              >
+                <img
+                  src="./assets/garage-project-6-8-v2.jpg"
+                  srcset="
+                    ./assets/garage-project-6-8-v2-560.jpg  560w,
+                    ./assets/garage-project-6-8-v2.jpg     1672w
+                  "
+                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
+                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
+                  width="1672"
+                  height="941"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="project__body">
+                <h3 class="project__title">Гараж из сэндвич панелей</h3>
+                <p class="project__size">6000 × 8000 × 2400 мм</p>
+                <p class="project__price">Цена: 1&nbsp;256&nbsp;000&nbsp;₽</p>
+                <ul class="project__specs">
+                  <li>Рама 80×80×3</li>
+                  <li>Ферма 60×60×3</li>
+                  <li>Стена сэндвич панели 100 мм</li>
+                  <li>Кровля сэндвич панели 100 мм</li>
+                  <li>Ворота «Алютех»</li>
+                </ul>
+                <p class="project__location">
+                  Московская область, Орехово-Зуево
+                </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <button
+                class="slide__img project__img"
+                type="button"
+                aria-label="Открыть фото: гараж из сэндвич панелей 8000×8000"
+              >
+                <img
+                  src="./assets/garage-project-8-8-v2.jpg"
+                  srcset="
+                    ./assets/garage-project-8-8-v2-560.jpg  560w,
+                    ./assets/garage-project-8-8-v2.jpg     1672w
+                  "
+                  sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
+                  alt="Металлический гараж из сэндвич панелей на сварном каркасе — Металл Монтаж 33"
+                  width="1672"
+                  height="941"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+              <div class="project__body">
+                <h3 class="project__title">Гараж из сэндвич панелей</h3>
+                <p class="project__size">8000 × 8000 × 2400 мм</p>
+                <p class="project__price">Цена: 1&nbsp;460&nbsp;000&nbsp;₽</p>
+                <ul class="project__specs">
+                  <li>Рама 80×80×3</li>
+                  <li>Ферма 80×80×3</li>
+                  <li>Стеновая сэндвич панели 100 мм</li>
+                  <li>Кровля сэндвич панели 100 мм</li>
+                  <li>Ворота «Алютех»</li>
+                </ul>
+                <p class="project__location">
+                  Нижегородская область, город Бор
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <!-- Composition: [data-composition] — renderComposition() -->
       <section class="section" id="composition">
         <div class="container">
@@ -1608,7 +1609,7 @@
                 </ul>
               </div>
               <div class="side-card__actions">
-                <a class="btn btn--primary" href="#contact">Получить расчёт</a>
+                <a class="btn btn--primary" href="#calculator" data-cta>Получить расчёт</a>
               </div>
             </div>
           </div>
@@ -1784,8 +1785,91 @@
         </div>
       </section>
 
+      <section class="section section--muted" id="calculator">
+        <div class="container">
+          <div class="section__head">
+            <div>
+              <div class="section__eyebrow">Предварительная стоимость</div>
+              <h2 class="section__title">Калькулятор проекта</h2>
+            </div>
+            <p class="section__text">
+              Укажите основные параметры и получите ориентировочный диапазон.
+              Точную смету подготовим после замера и согласования проекта.
+            </p>
+          </div>
+
+          <div class="calculator">
+            <form class="calculator__form" data-calculator>
+              <div class="calculator__fields">
+                <label class="calculator__field calculator__field--wide">
+                  <span class="calculator__label">Что строим</span>
+                  <select class="calculator__input" name="type">
+                    <option value="garages">Гараж</option>
+                    <option value="canopies">Навес</option>
+                  </select>
+                </label>
+
+                <label class="calculator__field">
+                  <span class="calculator__label">Длина, м</span>
+                  <input class="calculator__input" name="length" type="number" min="3" max="30" step="0.5" value="6" inputmode="decimal" required />
+                </label>
+
+                <label class="calculator__field">
+                  <span class="calculator__label">Ширина, м</span>
+                  <input class="calculator__input" name="width" type="number" min="3" max="30" step="0.5" value="4" inputmode="decimal" required />
+                </label>
+
+                <label class="calculator__field" data-garage-field>
+                  <span class="calculator__label">Толщина панелей</span>
+                  <select class="calculator__input" name="panelThickness">
+                    <option value="50">50 мм</option>
+                    <option value="100" selected>100 мм</option>
+                    <option value="150">150 мм</option>
+                    <option value="200">200 мм</option>
+                    <option value="250">250 мм</option>
+                  </select>
+                </label>
+
+                <label class="calculator__field" data-garage-field>
+                  <span class="calculator__label">Количество ворот</span>
+                  <select class="calculator__input" name="gates">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </label>
+
+                <fieldset class="calculator__options">
+                  <legend class="calculator__legend">Добавить в расчёт</legend>
+                  <div class="calculator__checks">
+                    <label class="calculator__check"><input type="checkbox" name="foundation" />Основание</label>
+                    <label class="calculator__check"><input type="checkbox" name="options" value="drain" />Водосток</label>
+                    <label class="calculator__check"><input type="checkbox" name="options" value="snow" />Снегозадержание</label>
+                    <label class="calculator__check"><input type="checkbox" name="options" value="ventilation" />Вытяжка</label>
+                  </div>
+                </fieldset>
+
+                <button class="btn btn--primary calculator__submit" type="submit">Рассчитать стоимость</button>
+              </div>
+            </form>
+
+            <aside class="calculator__result" data-calculator-result tabindex="-1" aria-live="polite">
+              <div class="calculator__result-label">Ориентировочная стоимость</div>
+              <div class="calculator__price" data-calculator-price><span>919 000 ₽</span><span>— 1 174 000 ₽</span></div>
+              <p class="calculator__summary">
+                <strong class="calculator__area" data-calculator-area>24 м²</strong>
+                <span data-calculator-details>Гараж · панели 100 мм · ворота: 1</span>
+              </p>
+              <p class="calculator__note">Расчёт предварительный и не является публичной офертой. Доставка, особенности участка и нестандартные решения уточняются после замера.</p>
+              <a class="btn btn--ghost" href="#contact" data-cta>Уточнить смету</a>
+            </aside>
+          </div>
+        </div>
+      </section>
+
       <!-- Workflow: [data-workflow] — renderWorkflow(); section heading is a static fallback -->
-      <section class="section section--muted" id="workflow">
+      <section class="section" id="workflow">
         <div class="container">
           <div class="section__head">
             <div>
@@ -2335,12 +2419,9 @@
         <div class="footer-bottom__links">
           <a href="#garages">Гаражи</a>
           <a href="#canopies">Навесы</a>
-          <a href="#composition">Комплектация</a>
-          <a href="#roofs">Кровля</a>
+          <a href="#garage-projects">Наши работы</a>
           <a href="#services">Услуги</a>
-          <a href="#extras">Доп. услуги</a>
-          <a href="#workflow">Как работаем</a>
-          <a href="#service-area">Регионы</a>
+          <a href="#workflow">Этапы</a>
           <a href="#faq">Вопросы</a>
           <a href="#contact">Контакты</a>
         </div>

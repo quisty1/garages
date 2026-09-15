@@ -238,6 +238,8 @@ const JS_MODULE_ORDER = [
   'js/seo.js',
   'js/ui.js',
   'js/interactions.js',
+  'js/analytics.js',
+  'js/calculator.js',
   'js/pwa.js',
   'js/main.js',
 ];
@@ -249,6 +251,7 @@ const CSS_PARTIALS = [
   'css/header.css',
   'css/hero.css',
   'css/sections.css',
+  'css/calculator.css',
   'css/gallery.css',
   'css/workflow-faq.css',
   'css/contact.css',
@@ -358,6 +361,7 @@ const mainSource = bundleJsModules();
 const stylesSource = bundleStylesheets();
 const siteDataSource = read('site-data.js');
 const serviceWorkerSource = read('sw.js');
+const analyticsSource = read('js/analytics.js');
 const manifestSource = read('manifest.json');
 const sitemapXml = read('sitemap.xml');
 const robotsText = read('robots.txt');
@@ -429,6 +433,64 @@ if (packageJson) {
     'npm validate and test scripts are defined',
   );
 }
+
+heading('Yandex Metrica');
+const metrikaCounterId = Number(
+  siteDataSource.match(/counterId:\s*(\d+)/)?.[1] || 0,
+);
+assert(
+  Number.isSafeInteger(metrikaCounterId) && metrikaCounterId > 0,
+  'Yandex Metrica counter ID is configured',
+);
+assert(
+  analyticsSource.includes('https://mc.yandex.ru/metrika/tag.js'),
+  'Analytics loads the official Yandex Metrica tag',
+);
+assert(
+  analyticsSource.includes("window.ym(counterId, 'init'") &&
+    analyticsSource.includes("'reachGoal'"),
+  'Analytics initializes the counter and sends JavaScript goals',
+);
+for (const goal of [
+  'cta_calculate',
+  'phone_click',
+  'email_click',
+  'messenger_click',
+  'map_click',
+  'contact_copy',
+  'calculator_start',
+  'calculator_complete',
+]) {
+  assert(
+    mainSource.includes(`'${goal}'`),
+    `Analytics goal is wired: ${goal}`,
+  );
+}
+assert(
+  analyticsSource.includes('webvisor: false'),
+  'Session Replay remains disabled by default',
+);
+
+heading('Price calculator');
+assert(
+  /<form[^>]+data-calculator/.test(indexHtml),
+  'Calculator form is present in static HTML',
+);
+for (const field of ['type', 'length', 'width', 'panelThickness', 'gates']) {
+  assert(
+    new RegExp(`name=["']${field}["']`).test(indexHtml),
+    `Calculator field is present: ${field}`,
+  );
+}
+assert(
+  mainSource.includes('function initCalculator()') &&
+    mainSource.includes("'calculator_complete'"),
+  'Calculator initializes and tracks completed calculations',
+);
+assert(
+  /href=["']#calculator["'][^>]*data-cta/.test(indexHtml),
+  'Primary CTA leads to the calculator',
+);
 
 // XML declaration, namespaces, and lastmod format.
 heading('Sitemap structure');

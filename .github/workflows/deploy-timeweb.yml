@@ -1,0 +1,64 @@
+name: Deploy to Timeweb
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: timeweb-production
+  cancel-in-progress: true
+
+jobs:
+  validate-and-deploy:
+    name: Validate and deploy production
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://metallmontage33.ru/
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate the site
+        run: npm test
+
+      - name: Install the FTPS client
+        run: sudo apt-get update && sudo apt-get install --yes lftp
+
+      - name: Deploy static files to Timeweb
+        env:
+          TIMEWEB_FTP_SERVER: ${{ secrets.TIMEWEB_FTP_SERVER }}
+          TIMEWEB_FTP_USERNAME: ${{ secrets.TIMEWEB_FTP_USERNAME }}
+          TIMEWEB_FTP_PASSWORD: ${{ secrets.TIMEWEB_FTP_PASSWORD }}
+        run: |
+          lftp "$TIMEWEB_FTP_SERVER" <<LFTP
+          set cmd:fail-exit yes
+          set ftp:ssl-force yes
+          set ftp:ssl-protect-data yes
+          set net:max-retries 2
+          set net:timeout 20
+          user "$TIMEWEB_FTP_USERNAME" "$TIMEWEB_FTP_PASSWORD"
+          mirror --reverse --delete --verbose --parallel=4 \
+            --exclude-glob .git/** \
+            --exclude-glob .github/** \
+            --exclude-glob .well-known/** \
+            --exclude-glob node_modules/** \
+            --exclude-glob scripts/** \
+            --exclude-glob README.md \
+            --exclude-glob package.json \
+            --exclude-glob package-lock.json \
+            --exclude-glob yandex_*.html \
+            ./ /
+          bye
+          LFTP

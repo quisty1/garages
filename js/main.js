@@ -28,6 +28,8 @@ import {
   initScrollTop,
 } from './ui.js';
 import { registerServiceWorker } from './pwa.js';
+import { initAnalytics } from './analytics.js';
+import { initCalculator } from './calculator.js';
 import {
   initHeroBlueprint,
   initPageProgress,
@@ -89,6 +91,8 @@ function init() {
     ['кнопку прокрутки', initScrollTop],
     ['прогресс страницы', initPageProgress],
     ['интерактив первого экрана', initHeroBlueprint],
+    ['Яндекс Метрику', initAnalytics],
+    ['калькулятор', initCalculator],
     ['Service Worker', registerServiceWorker],
   ].forEach(([label, callback]) => runInitStep(label, callback));
 }

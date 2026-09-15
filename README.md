@@ -13,6 +13,7 @@ JavaScript is ES modules, so the page needs HTTP (`localhost` or production). Op
 - Roof types, core and extra services
 - “How we work” block (7 steps in a responsive grid)
 - FAQ accordion (one open item at a time)
+- Preliminary garage and canopy price calculator with configurable coefficients
 - Contacts: phones, email, hours, MAX messenger
 
 ### Interface
@@ -28,6 +29,7 @@ JavaScript is ES modules, so the page needs HTTP (`localhost` or production). Op
 - Back-to-top button after scrolling
 - Current section highlighted in navigation
 - Explicit copy buttons for phone, email and requisites with success/error feedback
+- Optional Yandex Metrica integration with conversion goals for the main contact actions
 - Subtle button feedback and photo zoom on hover
 
 ### PWA and offline
@@ -65,6 +67,8 @@ garages/
 │   ├── content.js          # DOM rendering from site data
 │   ├── seo.js              # Meta tags and JSON-LD
 │   ├── ui.js               # Menu, FAQ, lightbox, carousels, scroll
+│   ├── calculator.js       # Preliminary price calculation
+│   ├── analytics.js        # Yandex Metrica and conversion goals
 │   └── pwa.js              # Service Worker registration
 ├── css/
 │   ├── tokens.css          # Color, layout, and motion variables
@@ -115,6 +119,8 @@ garages/
 | **content.js** | `renderText`, `renderHeroMeta`, `renderPhones`, `renderServices`, `renderExtras`, `renderRoofs`, `renderCarousels`, `renderWorkflow`, `renderFaq`, `renderMessengers` |
 | **seo.js**     | `renderSEO`, `renderJsonLd`, `buildAreaServedJsonLd`                                                                                                                  |
 | **ui.js**      | FAQ accordion, mobile menu, lightbox, carousels, scroll reveal, scroll-to-top                                                                                         |
+| **analytics.js** | Yandex Metrica loading and conversion goal tracking                                                                                                                 |
+| **calculator.js** | Preliminary estimate calculation and calculator interaction                                                                                                        |
 | **pwa.js**     | `registerServiceWorker`                                                                                                                                               |
 | **main.js**    | `init()` + `DOMContentLoaded`                                                                                                                                         |
 
@@ -212,6 +218,30 @@ To add or replace a photo, put a WebP file in `assets/` and set the `img` path. 
 | `seo`                   | Title, description, keywords, URL, region, OG image |
 
 After editing `company.seo`, `renderSEO()` updates meta tags and JSON-LD in `<head>`.
+
+## Yandex Metrica
+
+Set the numeric counter ID in `site-data.js`:
+
+```js
+analytics: {
+  yandexMetrika: {
+    counterId: 12345678,
+    allowedHosts: ['metallmontage33.ru', 'www.metallmontage33.ru'],
+  },
+},
+```
+
+The tag is loaded only on the configured production hosts, so localhost and preview traffic do not affect reports. Session Replay is disabled by default. Create JavaScript-event goals in the Yandex Metrica UI with these exact IDs:
+
+- `cta_calculate`
+- `phone_click`
+- `email_click`
+- `messenger_click`
+- `map_click`
+- `contact_copy`
+- `calculator_start`
+- `calculator_complete`
 
 ## Theme
 
@@ -320,7 +350,7 @@ address: {
 
 5. Make sure `assets/logo-og.webp` is in place — it is used for OG preview, JSON-LD, and PWA.
 
-6. If you have a Yandex Metrica ID or verification codes, add them to `<head>` in `index.html`.
+6. Add the Yandex Metrica counter ID to `analytics.yandexMetrika.counterId` in `site-data.js`; add search-engine verification codes to `<head>` in `index.html`.
 
 ### SEO fields in site-data.js
 
