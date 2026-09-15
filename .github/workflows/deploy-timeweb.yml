@@ -33,7 +33,7 @@ jobs:
       - name: Validate the site
         run: npm test
 
-      - name: Install the FTPS client
+      - name: Install the FTP client
         run: sudo apt-get update && sudo apt-get install --yes lftp
 
       - name: Deploy static files to Timeweb
@@ -44,8 +44,7 @@ jobs:
         run: |
           lftp "$TIMEWEB_FTP_SERVER" <<LFTP
           set cmd:fail-exit yes
-          set ftp:ssl-force yes
-          set ftp:ssl-protect-data yes
+          set ftp:ssl-allow no
           set net:max-retries 2
           set net:timeout 20
           user "$TIMEWEB_FTP_USERNAME" "$TIMEWEB_FTP_PASSWORD"
