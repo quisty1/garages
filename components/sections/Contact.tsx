@@ -26,54 +26,56 @@ export function Contact() {
         />
 
         <div className="contacts-panel">
-          <div className="contacts-panel__grid" data-phones>
-            {company.phones.map((phone) => (
-              <a
-                className="contact-tile contact-tile--accent"
-                href={phone.href}
-                key={phone.href}
-              >
-                <span className="contact-tile__label">Телефон</span>
-                <span className="contact-tile__value">{phone.value}</span>
-              </a>
-            ))}
-          </div>
+          <div className="contacts-panel__main">
+            <div className="contacts-panel__call">
+              <h3 className="contacts-panel__subtitle">Позвоните нам</h3>
+              <div className="contacts-panel__phones" data-phones>
+                {company.phones.map((phone) => (
+                  <a
+                    className="contact-tile contact-tile--accent"
+                    href={phone.href}
+                    key={phone.href}
+                  >
+                    <span className="contact-tile__value">{phone.value}</span>
+                  </a>
+                ))}
+              </div>
+              <div className="contacts-panel__hours">
+                <span className="contact-tile__label">Время работы</span>
+                <span id="contact-hours">{company.hours}</span>
+              </div>
+            </div>
 
-          <div className="contacts-panel__grid contacts-panel__grid--2">
-            <a
-              className="contact-tile"
-              href={`mailto:${company.email}`}
-              id="contact-email-tile"
-            >
-              <span className="contact-tile__label">Email</span>
-              <span className="contact-tile__value" id="contact-email">
-                {company.email}
-              </span>
-            </a>
-            <div className="contact-tile contact-tile--static">
-              <span className="contact-tile__label">Время работы</span>
-              <span className="contact-tile__value" id="contact-hours">
-                {company.hours}
-              </span>
+            <div className="contacts-panel__details">
+              <a
+                className="contact-tile"
+                href={`mailto:${company.email}`}
+                id="contact-email-tile"
+              >
+                <span className="contact-tile__label">Email</span>
+                <span className="contact-tile__value" id="contact-email">
+                  {company.email}
+                </span>
+              </a>
+
+              <a
+                className="contact-tile contact-tile--address"
+                id="contact-address-tile"
+                href={mapUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span className="contact-tile__label">Адрес</span>
+                <span className="contact-tile__value" id="contact-address">
+                  {addressLine}
+                </span>
+                <span className="contact-tile__hint">Открыть на карте</span>
+              </a>
             </div>
           </div>
 
-          <a
-            className="contact-tile contact-tile--address"
-            id="contact-address-tile"
-            href={mapUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="contact-tile__label">Адрес</span>
-            <span className="contact-tile__value" id="contact-address">
-              {addressLine}
-            </span>
-            <span className="contact-tile__hint">Открыть на карте</span>
-          </a>
-
           <div className="contacts-panel__block">
-            <h3 className="contacts-panel__subtitle">Мессенджеры</h3>
+            <h3 className="contacts-panel__subtitle">Напишите нам</h3>
             <MessengerLinks />
           </div>
 
