@@ -58,7 +58,9 @@ test.describe('main page e2e', () => {
       'href',
       /mailto:/,
     );
-    await expect(page.locator('.messenger-link')).toHaveCount(1);
+    await expect(
+      page.locator('#contact [data-messengers] .messenger-link').first(),
+    ).toHaveAttribute('href', /^https?:\/\//);
   });
 
   test('copies requisites as readable multiline text', async ({

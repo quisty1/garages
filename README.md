@@ -105,8 +105,10 @@ GitHub Actions (`.github/workflows/deploy-timeweb.yml`):
 
 1. `npm ci`
 2. `npm run ci`
-3. Playwright e2e и accessibility-проверки
+3. Playwright e2e и accessibility-проверки (диагностические: сбой выводит предупреждение, но не блокирует деплой)
 4. `lftp mirror` содержимого **`out/`** в корень хостинга
+
+Сборка, typecheck, lint, unit-тесты и проверка `out/` остаются обязательными. FTP повторяет временно неудачные соединения до пяти раз.
 
 ### GitHub Secrets (имена)
 
