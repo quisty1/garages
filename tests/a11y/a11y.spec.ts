@@ -15,6 +15,7 @@ test.describe('accessibility', () => {
       await page.addInitScript((value) => {
         localStorage.setItem('mm33-theme', value);
       }, theme);
+      await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto('/');
       const results = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa'])
@@ -37,5 +38,6 @@ test.describe('accessibility', () => {
     await expect(page.locator('.lightbox')).toHaveClass(/is-open/);
     await page.keyboard.press('Escape');
     await expect(page.locator('.lightbox')).not.toHaveClass(/is-open/);
+    await expect(page.locator('body')).not.toHaveClass(/lightbox-open/);
   });
 });

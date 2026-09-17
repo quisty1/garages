@@ -37,7 +37,14 @@ describe('Calculator component', () => {
 describe('FAQ component', () => {
   it('opens one item at a time', async () => {
     const user = userEvent.setup();
-    render(<Faq />);
+    render(
+      <Faq
+        items={[
+          { q: 'Сколько стоит гараж?', a: 'От 22 000 ₽.' },
+          { q: 'Сколько стоит навес?', a: 'От 6 000 ₽.' },
+        ]}
+      />,
+    );
     const first = screen.getByText('Сколько стоит гараж?');
     const second = screen.getByText('Сколько стоит навес?');
     await user.click(first);

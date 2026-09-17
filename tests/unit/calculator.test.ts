@@ -2,13 +2,14 @@
 
 import { describe, expect, it } from 'vitest';
 import { calculate, money } from '@/lib/calculator';
+import { calculatorConfig } from '@/lib/calculator-config';
 import { mediumPath, previewPath, seoImageAlt } from '@/lib/images';
 import { company } from '@/lib/site-data';
 import { buildJsonLd, formatPrice } from '@/lib/seo';
 import { ANALYTICS_GOALS } from '@/lib/constants';
 
 describe('calculator', () => {
-  const config = company.calculator;
+  const config = calculatorConfig;
 
   it('computes garage base range for 6x4 panels 100', () => {
     const result = calculate(
@@ -87,6 +88,7 @@ describe('seo', () => {
   it('keeps analytics goal ids', () => {
     expect(ANALYTICS_GOALS).toEqual([
       'cta_calculate',
+      'cta_contact',
       'phone_click',
       'email_click',
       'messenger_click',

@@ -8,11 +8,7 @@ export function Roofs() {
   return (
     <section className="section" id="roofs">
       <div className="container">
-        <SectionHead
-          eyebrow="Конструктив"
-          title="Тип кровли"
-          text="Подберём оптимальный тип кровли под планировку участка и задачи."
-        />
+        <SectionHead eyebrow="Конструктив" title="Тип кровли" />
         <div className="roofs-grid" data-roofs>
           {company.roofs.map((roof, index) => (
             <article className="roof-card" key={roof.title}>

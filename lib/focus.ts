@@ -15,7 +15,9 @@ export function getFocusable(container: Element | null): HTMLElement[] {
     container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
   ).filter(
     (element) =>
-      !element.hidden && element.getAttribute('aria-hidden') !== 'true',
+      !element.hidden &&
+      !element.closest('[hidden]') &&
+      element.getAttribute('aria-hidden') !== 'true',
   );
 }
 

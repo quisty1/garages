@@ -33,8 +33,7 @@
   transform: translateY(0);
 }
 .scroll-top.is-visible:hover {
-  transform: none;
-  box-shadow: none;
+  transform: translateY(-3px);
 }
 .scroll-top:focus-visible {
   outline: 2px solid var(--primary);
@@ -222,6 +221,10 @@ body.lightbox-open {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .scroll-top.is-visible:hover {
+    transform: translateY(0);
   }
 }
 

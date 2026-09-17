@@ -4,13 +4,12 @@
 
 import { useRef, useState } from 'react';
 import type { FaqItem } from '@/lib/types';
-import { company } from '@/lib/site-data';
 
 export function Faq({
-  items = company.faq,
+  items,
   title = 'Частые вопросы',
 }: {
-  items?: FaqItem[];
+  items: FaqItem[];
   title?: string;
 }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -73,9 +72,6 @@ export function Faq({
             <div className="section__eyebrow">Вопросы до замера</div>
             <h2 className="section__title">{title}</h2>
           </div>
-          <p className="section__text">
-            Цены, сроки и условия — кратко о главном.
-          </p>
         </div>
 
         <div className="faq" data-faq>

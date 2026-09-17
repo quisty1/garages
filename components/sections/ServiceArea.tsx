@@ -21,9 +21,6 @@ export function ServiceArea() {
               {section.title}
             </h2>
           </div>
-          <p className="section__text" id="service-area-text">
-            {section.text}
-          </p>
         </div>
         <ul className="service-area__cities" data-featured-cities>
           {company.seo.serviceArea.featuredCities.map((city) => (

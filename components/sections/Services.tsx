@@ -1,5 +1,6 @@
 // List of services offered under the brand.
 
+import { GOAL } from '@/lib/analytics';
 import { company } from '@/lib/site-data';
 
 export function Services() {
@@ -10,9 +11,6 @@ export function Services() {
           <div>
             <div className="section__eyebrow">Работы и комплектация</div>
             <h2 className="section__title">Услуги</h2>
-            <p className="section__text">
-              Полный цикл: от чертежа до монтажа на вашем участке.
-            </p>
             <ul className="checklist" data-services>
               {company.services.map((service) => (
                 <li className="service-item" key={service}>
@@ -38,7 +36,11 @@ export function Services() {
               </ul>
             </div>
             <div className="side-card__actions">
-              <a className="btn btn--primary" href="#calculator" data-cta>
+              <a
+                className="btn btn--primary"
+                href="#calculator"
+                data-analytics-goal={GOAL.cta_calculate}
+              >
                 Получить расчёт
               </a>
             </div>

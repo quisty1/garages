@@ -21,6 +21,7 @@ export const LIGHTBOX_CLOSE_MS = 260;
 // Yandex Metrika reachGoal names used across CTAs and conversion links.
 export const GOAL = {
   cta_calculate: 'cta_calculate',
+  cta_contact: 'cta_contact',
   phone_click: 'phone_click',
   email_click: 'email_click',
   messenger_click: 'messenger_click',
@@ -35,6 +36,7 @@ export type AnalyticsGoal = (typeof GOAL)[keyof typeof GOAL];
 // Ordered list of conversion goal ids (kept for tests and docs).
 export const ANALYTICS_GOALS: readonly AnalyticsGoal[] = [
   GOAL.cta_calculate,
+  GOAL.cta_contact,
   GOAL.phone_click,
   GOAL.email_click,
   GOAL.messenger_click,

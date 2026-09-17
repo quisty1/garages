@@ -1,6 +1,7 @@
 // Root layout: global CSS, SEO metadata, theme boot script, and JSON-LD.
 
 import type { Metadata, Viewport } from 'next';
+import { ScrollReset } from '@/components/effects/ScrollReset';
 import { company } from '@/lib/site-data';
 import { absUrl, buildGeoPlacename, getSiteUrl } from '@/lib/seo';
 import '@/styles/tokens.css';
@@ -15,6 +16,10 @@ import '@/styles/contact.css';
 import '@/styles/overlays.css';
 import '@/styles/interactions.css';
 import '@/styles/landing.css';
+import '@/styles/catalog.css';
+import '@/styles/blog.css';
+import '@/styles/about.css';
+import '@/styles/not-found.css';
 
 const siteUrl = getSiteUrl(company);
 const pageUrl = `${siteUrl}/`;
@@ -113,7 +118,10 @@ export default function RootLayout({
         />
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
-      <body>{children}</body>
+      <body>
+        <ScrollReset />
+        {children}
+      </body>
     </html>
   );
 }

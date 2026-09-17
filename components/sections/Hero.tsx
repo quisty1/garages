@@ -1,5 +1,7 @@
 // Above-the-fold hero with CTA and blueprint card.
 
+import { GOAL } from '@/lib/analytics';
+import { heroProjectImage } from '@/lib/images';
 import { company } from '@/lib/site-data';
 
 export function Hero() {
@@ -21,7 +23,11 @@ export function Hero() {
             {hero.text}
           </p>
           <div className="hero__actions">
-            <a className="btn btn--primary" href="#calculator" data-cta>
+            <a
+              className="btn btn--primary"
+              href="#calculator"
+              data-analytics-goal={GOAL.cta_calculate}
+            >
               Рассчитать стоимость
             </a>
             <a className="btn btn--ghost" href={primaryPhone.href} data-phone>
@@ -75,12 +81,12 @@ export function Hero() {
             <div className="hero-card__img">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/assets/garage-project-8-8-v2-560.jpg"
-                srcSet="/assets/garage-project-8-8-v2-560.jpg 560w, /assets/garage-project-8-8-v2.jpg 1536w"
-                sizes="(max-width: 1120px) 92vw, 52vw"
+                src={heroProjectImage.src}
+                srcSet={heroProjectImage.srcSet}
+                sizes={heroProjectImage.sizes}
                 alt="Готовый гараж на два автомобиля"
-                width={1536}
-                height={1024}
+                width={heroProjectImage.width}
+                height={heroProjectImage.height}
                 fetchPriority="high"
                 decoding="async"
               />

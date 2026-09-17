@@ -10,6 +10,18 @@ export type CarouselSrcSet = {
   height: number;
 };
 
+/** Shared LCP hero image — keep preload and <img> in sync. */
+export const heroProjectImage = {
+  src: '/assets/garage-project-8-8-v2-560.webp',
+  srcSet:
+    '/assets/garage-project-8-8-v2-560.webp 560w, /assets/garage-project-8-8-v2-960.webp 960w, /assets/garage-project-8-8-v2.webp 1672w',
+  sizes: '(max-width: 1120px) 92vw, 52vw',
+  width: 1672,
+  height: 941,
+  type: 'image/webp' as const,
+  preloadHref: '/assets/garage-project-8-8-v2-960.webp',
+};
+
 // Insert -560 before the file extension (keeps .webp / .jpg).
 export function previewPath(source: string): string {
   return String(source || '').replace(/(\.[a-z0-9]+)$/i, '-560$1');

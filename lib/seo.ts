@@ -2,7 +2,9 @@
 
 import type { Metadata } from 'next';
 import type { Company } from './types';
-import { getMapUrl } from './format';
+import { formatPrice, getMapUrl } from './format';
+
+export { formatPrice };
 
 function asArray<T>(value: readonly T[] | T[] | undefined | null): T[] {
   return Array.isArray(value) ? [...value] : [];
@@ -16,12 +18,6 @@ export function absUrl(company: Company, path: string): string {
   const base = getSiteUrl(company);
   const clean = path.replace(/^\.\//, '').replace(/^\//, '');
   return `${base}/${clean}`;
-}
-
-export function formatPrice(value: number): string {
-  return Number.isFinite(value)
-    ? new Intl.NumberFormat('ru-RU').format(value)
-    : '';
 }
 
 // Flatten regions + cities into schema.org Place nodes for areaServed.

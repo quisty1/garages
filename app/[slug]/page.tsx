@@ -1,11 +1,12 @@
+// SEO landing pages driven by lib/landing-pages (static export at /{slug}/).
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { landingPages, landingHref } from '@/lib/landing-pages';
+import { GOAL } from '@/lib/analytics';
 import { company } from '@/lib/site-data';
 import { absUrl, buildJsonLd } from '@/lib/seo';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
+import { PageShell } from '@/components/layout/PageShell';
 import { Calculator } from '@/components/sections/Calculator';
 import { Workflow } from '@/components/sections/Workflow';
 import { ServiceArea } from '@/components/sections/ServiceArea';
@@ -13,11 +14,8 @@ import { Contact } from '@/components/sections/Contact';
 import { Faq } from '@/components/sections/Faq';
 import { LandingLinks } from '@/components/sections/LandingLinks';
 import { LandingImage } from '@/components/sections/LandingImage';
-import {
-  ClientEffects,
-  ScrollTopButton,
-} from '@/components/effects/ClientEffects';
 
+// Only pre-built landing slugs; unknown paths 404 at build/runtime.
 export const dynamicParams = false;
 export function generateStaticParams() {
   return landingPages.map(({ slug }) => ({ slug }));
@@ -58,9 +56,11 @@ export default async function Landing({ params }: Props) {
   const page = await getPage(params);
   const url = absUrl(company, landingHref(page));
   const home = absUrl(company, '/');
+  // Reuse org + website nodes from the home graph; add page-specific entities.
   const graph = buildJsonLd(company)['@graph'].filter((node) =>
     ['HomeAndConstructionBusiness', 'WebSite'].includes(String(node['@type'])),
   );
+  // WebPage + Service + BreadcrumbList + FAQPage for this landing.
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -104,104 +104,93 @@ export default async function Landing({ params }: Props) {
     ],
   };
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
-        }}
-      />
-      <a className="skip-link" href="#main-content">
-        Перейти к содержимому
-      </a>
-      <Header />
-      <main id="top">
-        <section className="section landing-hero" id="main-content">
-          <div className="container">
-            <nav className="landing-breadcrumbs" aria-label="Хлебные крошки">
-              <Link href="/">Главная</Link>
-              <span aria-hidden="true">/</span>
-              <span aria-current="page">{page.label}</span>
-            </nav>
-            <div className="landing-hero__grid">
-              <div>
-                <div className="section__eyebrow">
-                  Изготовление · доставка · монтаж
-                </div>
-                <h1>{page.h1}</h1>
-                <p className="landing-intro">{page.intro}</p>
-                <a className="btn btn--primary" href="#calculator" data-cta>
-                  Рассчитать стоимость
-                </a>
-              </div>
-              <LandingImage
-                src={page.image}
-                alt={page.imageAlt}
-                priority
-                blueprint={page.blueprint}
-              />
-            </div>
-          </div>
-        </section>
-        <section className="section section--muted">
-          <div className="container landing-guide">
-            <div className="landing-copy">
-              {page.sections.map((section) => (
-                <article key={section.title}>
-                  <h2>{section.title}</h2>
-                  <p>{section.text}</p>
-                </article>
-              ))}
-            </div>
-            <aside className="side-card landing-checklist">
-              <div className="side-card__body">
-                <h2>Что подготовить к обсуждению проекта</h2>
-                <ul className="side-list">
-                  {page.checklist.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-                <a className="btn btn--primary" href="#contact">
-                  Обсудить проект
-                </a>
-              </div>
-            </aside>
-          </div>
-        </section>
-        <section className="section" aria-labelledby="construction-title">
-          <div className="container landing-detail">
-            <LandingImage
-              src={page.detail.image}
-              alt={page.detail.alt}
-              blueprint={page.detail.blueprint}
-            />
+    <PageShell jsonLd={jsonLd} effectsKey={page.slug}>
+      <section className="section landing-hero" id="main-content">
+        <div className="container">
+          <nav className="landing-breadcrumbs" aria-label="Хлебные крошки">
+            <Link href="/">Главная</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">{page.label}</span>
+          </nav>
+          <div className="landing-hero__grid">
             <div>
-              <div className="section__eyebrow">Конструкция в деталях</div>
-              <h2 className="section__title" id="construction-title">
-                {page.detail.title}
-              </h2>
-              <p className="section__text">{page.detail.text}</p>
+              <div className="section__eyebrow">
+                Изготовление · доставка · монтаж
+              </div>
+              <h1>{page.h1}</h1>
+              <p className="landing-intro">{page.intro}</p>
+              <a
+                className="btn btn--primary"
+                href="#calculator"
+                data-analytics-goal={GOAL.cta_calculate}
+              >
+                Рассчитать стоимость
+              </a>
+            </div>
+            <LandingImage
+              src={page.image}
+              alt={page.imageAlt}
+              priority
+              blueprint={page.blueprint}
+            />
+          </div>
+        </div>
+      </section>
+      <section className="section section--muted">
+        <div className="container landing-guide">
+          <div className="landing-copy">
+            {page.sections.map((section) => (
+              <article key={section.title}>
+                <h2>{section.title}</h2>
+                <p>{section.text}</p>
+              </article>
+            ))}
+          </div>
+          <aside className="side-card landing-checklist">
+            <div className="side-card__body">
+              <h2>Что подготовить к обсуждению проекта</h2>
               <ul className="side-list">
-                {page.detail.points.map((point) => (
-                  <li key={point}>{point}</li>
+                {page.checklist.map((item) => (
+                  <li key={item}>{item}</li>
                 ))}
               </ul>
-              <Link className="btn btn--primary" href="/#garage-projects">
-                Посмотреть выполненные работы
-              </Link>
+              <a className="btn btn--primary" href="#contact">
+                Обсудить проект
+              </a>
             </div>
+          </aside>
+        </div>
+      </section>
+      <section className="section" aria-labelledby="construction-title">
+        <div className="container landing-detail">
+          <LandingImage
+            src={page.detail.image}
+            alt={page.detail.alt}
+            blueprint={page.detail.blueprint}
+          />
+          <div>
+            <div className="section__eyebrow">Конструкция в деталях</div>
+            <h2 className="section__title" id="construction-title">
+              {page.detail.title}
+            </h2>
+            <p className="section__text">{page.detail.text}</p>
+            <ul className="side-list">
+              {page.detail.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+            <Link className="btn btn--primary" href="/#garage-projects">
+              Посмотреть выполненные работы
+            </Link>
           </div>
-        </section>
-        <Calculator initialType={page.kind} />
-        <Workflow />
-        <Faq items={page.faq} title={`Вопросы: ${page.label.toLowerCase()}`} />
-        <LandingLinks currentSlug={page.slug} />
-        <ServiceArea />
-        <Contact />
-      </main>
-      <Footer />
-      <ScrollTopButton />
-      <ClientEffects key={page.slug} />
-    </>
+        </div>
+      </section>
+      <Calculator initialType={page.kind} />
+      <Workflow />
+      <Faq items={page.faq} title={`Вопросы: ${page.label.toLowerCase()}`} />
+      <LandingLinks currentSlug={page.slug} />
+      <ServiceArea />
+      <Contact />
+    </PageShell>
   );
 }

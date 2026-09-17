@@ -1,7 +1,8 @@
-import Link from 'next/link';
 // Site header: brand, phones, theme toggle, and mobile nav.
 
 import { company } from '@/lib/site-data';
+import { landingNavLinks } from '@/lib/landing-pages';
+import { BrandLink } from './BrandLink';
 import { ThemeToggle } from './ThemeToggle';
 import { MobileNavControls, NavBackdrop } from './MobileNav';
 
@@ -16,7 +17,7 @@ export function Header() {
       <header className="site-header" data-header>
         <div className="container header-inner">
           <div className="brand">
-            <Link className="brand__link" href="/">
+            <BrandLink>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 id="company-logo"
@@ -33,7 +34,7 @@ export function Header() {
                 </span>
                 <span className="brand__sub">металлоконструкции под ключ</span>
               </span>
-            </Link>
+            </BrandLink>
           </div>
 
           <a
@@ -48,7 +49,7 @@ export function Header() {
           </a>
 
           <ThemeToggle />
-          <MobileNavControls />
+          <MobileNavControls serviceLinks={landingNavLinks} />
         </div>
       </header>
       <NavBackdrop />

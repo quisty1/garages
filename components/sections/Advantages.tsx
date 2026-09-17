@@ -7,13 +7,7 @@ export function Advantages() {
   return (
     <section className="section" id="advantages">
       <div className="container">
-        <SectionHead
-          eyebrow="Почему мы"
-          title="Преимущества"
-          text={
-            'Панели 50–250\u00a0мм, сварной каркас и гарантия 3\u00a0года на все работы.'
-          }
-        />
+        <SectionHead eyebrow="Почему мы" title="Преимущества" />
         <div className="stats-grid" data-advantages>
           {company.advantages.map((item, index) => {
             const num = String(index + 1).padStart(2, '0');

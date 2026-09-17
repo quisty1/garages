@@ -8,11 +8,7 @@ export function Canopies() {
   return (
     <section className="section section--muted" id="canopies">
       <div className="container">
-        <SectionHead
-          eyebrow="Каталог / навесы"
-          title="Навесы"
-          text="Металлические навесы для авто, дома и хозяйственных нужд — под ключ с доставкой и монтажом в Москве и по всем городам четырёх областей."
-        />
+        <SectionHead eyebrow="Каталог / навесы" title="Навесы" />
         <Carousel
           name="canopies"
           label="Карусель навесов"

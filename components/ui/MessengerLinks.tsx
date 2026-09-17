@@ -1,5 +1,6 @@
 // Messenger CTA links (tile or footer list variants).
 
+import { GOAL } from '@/lib/analytics';
 import { company } from '@/lib/site-data';
 
 interface MessengerLinksProps {
@@ -15,7 +16,13 @@ export function MessengerLinks({ variant = 'tiles' }: MessengerLinksProps) {
       >
         {company.messengers.map((messenger) => (
           <li key={messenger.id}>
-            <a href={messenger.href} target="_blank" rel="noopener noreferrer">
+            <a
+              href={messenger.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-analytics-goal={GOAL.messenger_click}
+              data-analytics-label={messenger.label}
+            >
               {messenger.label}
             </a>
           </li>
@@ -33,6 +40,8 @@ export function MessengerLinks({ variant = 'tiles' }: MessengerLinksProps) {
           href={messenger.href}
           target="_blank"
           rel="noopener noreferrer"
+          data-analytics-goal={GOAL.messenger_click}
+          data-analytics-label={messenger.label}
         >
           <span className="messenger-link__label">{messenger.label}</span>
           <span className="messenger-link__hint">{messenger.hint}</span>

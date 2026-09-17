@@ -1,6 +1,7 @@
 import Link from 'next/link';
 // Site footer with contacts, messengers, and legal links.
 
+import { GOAL } from '@/lib/analytics';
 import { company } from '@/lib/site-data';
 import { formatAddressLine, getMapUrl } from '@/lib/format';
 import { MessengerLinks } from '@/components/ui/MessengerLinks';
@@ -61,6 +62,7 @@ export function Footer() {
                   href={mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-analytics-goal={GOAL.map_click}
                 >
                   <span id="footer-address">{addressLine}</span>
                 </a>
@@ -96,13 +98,13 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom__links">
-          <Link href="/metallicheskie-garazhi/">Гаражи</Link>
-          <Link href="/navesy-dlya-avtomobilej/">Навесы</Link>
-          <Link href="/#garage-projects">Наши работы</Link>
           <Link href="/#directions">Услуги</Link>
-          <a href="#workflow">Этапы</a>
-          <a href="#faq">Вопросы</a>
-          <a href="#contact">Контакты</a>
+          <Link href="/catalog/">Каталог</Link>
+          <Link href="/#garages">Наши работы</Link>
+          <Link href="/blog/">Блог</Link>
+          <Link href="/about/">О компании</Link>
+          <Link href="/#faq">Вопросы</Link>
+          <Link href="/#contact">Контакты</Link>
         </div>
       </div>
     </footer>

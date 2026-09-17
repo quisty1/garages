@@ -7,11 +7,7 @@ export function Extras() {
   return (
     <section className="section section--muted" id="extras">
       <div className="container">
-        <SectionHead
-          eyebrow="Опции"
-          title="Дополнительные услуги"
-          text="Доукомплектуем гараж и навес функциональными опциями."
-        />
+        <SectionHead eyebrow="Опции" title="Дополнительные услуги" />
         <div className="cards-grid cards-grid--3" data-extras>
           {company.extras.map((item, index) => (
             <article className="card" key={item.title}>

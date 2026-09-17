@@ -10,9 +10,7 @@ export function Workflow() {
         <SectionHead
           eyebrow="Маршрут объекта"
           title={company.workflow.title}
-          text={company.workflow.text}
           titleId="workflow-title"
-          textId="workflow-text"
         />
         <ol className="workflow" data-workflow>
           {company.workflow.steps.map((step, index) => (

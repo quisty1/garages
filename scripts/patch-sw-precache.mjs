@@ -1,16 +1,10 @@
-// After `next export`, stamp CACHE_VERSION and inject hashed /_next shell URLs into out/sw.js.
+// After `next export`, stamp CACHE_VERSION and inject hashed /_next shell URLs into out/sw.js
+// so install() precaches HTML + required JS/CSS for offline reloads.
 
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'fs';
 import { join, relative } from 'path';
 import { createHash } from 'crypto';
-
-const outDir = join(process.cwd(), 'out');
-const swPath = join(outDir, 'sw.js');
-
-if (!existsSync(swPath)) {
-  console.warn('[patch-sw] out/sw.js missing — skip');
-  process.exit(0);
-}
+import { pathToFileURL } from 'url';
 
 function walk(dir, acc = []) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
@@ -21,36 +15,80 @@ function walk(dir, acc = []) {
   return acc;
 }
 
-// Collect JS/CSS under out/_next for network-first shell caching.
-const nextFiles = walk(join(outDir, '_next'))
-  .filter((file) => /\.(js|css)$/.test(file))
-  .map((file) => relative(outDir, file).replace(/\\/g, '/'));
+/**
+ * Patch a built `sw.js` inside `outDir` so NEXT_SHELL_FILES lists every JS/CSS
+ * under `_next` and CACHE_VERSION reflects that list.
+ * @param {string} outDir
+ * @returns {{ buildHash: string, shellCount: number }}
+ */
+export function patchServiceWorker(outDir) {
+  const swPath = join(outDir, 'sw.js');
 
-let source = readFileSync(swPath, 'utf8');
-const marker = '/* __NEXT_SHELL__ */';
-const buildHash = createHash('sha256')
-  .update(nextFiles.join('\n'))
-  .digest('hex')
-  .slice(0, 12);
+  if (!existsSync(swPath)) {
+    throw new Error(`[patch-sw] ${swPath} missing`);
+  }
 
-source = source.replace(
-  /const CACHE_VERSION = 'v22-[^']+';/,
-  `const CACHE_VERSION = 'v22-${buildHash}';`,
-);
+  const nextRoot = join(outDir, '_next');
+  if (!existsSync(nextRoot)) {
+    throw new Error(`[patch-sw] ${nextRoot} missing`);
+  }
 
-if (!source.includes(marker)) {
+  const nextFiles = walk(nextRoot)
+    .filter((file) => /\.(js|css)$/.test(file))
+    .map((file) => relative(outDir, file).replace(/\\/g, '/'))
+    .sort();
+
+  if (nextFiles.length === 0) {
+    throw new Error('[patch-sw] no JS/CSS found under out/_next');
+  }
+
+  let source = readFileSync(swPath, 'utf8');
+  const buildHash = createHash('sha256')
+    .update(nextFiles.join('\n'))
+    .digest('hex')
+    .slice(0, 12);
+
   source = source.replace(
-    'const NETWORK_FIRST_URLS = new Set(',
-    `${marker}\nconst NEXT_SHELL_FILES = ${JSON.stringify(nextFiles)};\nconst NETWORK_FIRST_URLS = new Set(`,
+    /const CACHE_VERSION = 'v22-[^']+';/,
+    `const CACHE_VERSION = 'v22-${buildHash}';`,
   );
+
+  const shellLiteral = `const NEXT_SHELL_FILES = ${JSON.stringify(nextFiles)};`;
+  if (!/const NEXT_SHELL_FILES = \[[\s\S]*?\];/.test(source)) {
+    throw new Error('[patch-sw] NEXT_SHELL_FILES placeholder missing in sw.js');
+  }
   source = source.replace(
-    '].map((path) => new URL(path, SCOPE_URL).href),\n);',
-    `].map((path) => new URL(path, SCOPE_URL).href),\n);\nNEXT_SHELL_FILES.forEach((path) => NETWORK_FIRST_URLS.add(new URL(path, SCOPE_URL).href));`,
+    /const NEXT_SHELL_FILES = \[[\s\S]*?\];/,
+    shellLiteral,
   );
-  console.log(`[patch-sw] injected ${nextFiles.length} _next shell URLs`);
-} else {
-  console.log('[patch-sw] already patched');
+
+  if (!source.includes('...NEXT_SHELL_FILES')) {
+    throw new Error(
+      '[patch-sw] PRECACHE_URLS must spread NEXT_SHELL_FILES — refusing to ship a broken SW',
+    );
+  }
+
+  writeFileSync(swPath, source);
+  return { buildHash, shellCount: nextFiles.length };
 }
 
-writeFileSync(swPath, source);
-console.log(`[patch-sw] cache version v22-${buildHash}`);
+const isMain =
+  process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (isMain) {
+  const outDir = join(process.cwd(), 'out');
+  if (!existsSync(join(outDir, 'sw.js'))) {
+    console.warn('[patch-sw] out/sw.js missing — skip');
+    process.exit(0);
+  }
+
+  try {
+    const { buildHash, shellCount } = patchServiceWorker(outDir);
+    console.log(
+      `[patch-sw] precache shell: ${shellCount} _next files, cache v22-${buildHash}`,
+    );
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : error);
+    process.exit(1);
+  }
+}

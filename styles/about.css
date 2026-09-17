@@ -1,0 +1,57 @@
+/* ── About page hero and story blocks ───────────────── */
+.about-hero {
+  padding-top: calc(var(--header-height) + 40px);
+}
+
+.about-hero h1 {
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.15;
+  margin: 14px 0 20px;
+  overflow-wrap: anywhere;
+  max-width: 22ch;
+}
+
+.about-hero__intro {
+  color: var(--muted);
+  line-height: 1.8;
+  margin: 0;
+  max-width: 64ch;
+}
+
+.about-story {
+  max-width: 76ch;
+}
+
+.about-story h2 {
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.3;
+  margin: 36px 0 16px;
+}
+
+.about-story h2:first-child {
+  margin-top: 0;
+}
+
+.about-story p {
+  color: var(--muted);
+  line-height: 1.85;
+  margin: 0 0 18px;
+}
+
+.about-story p:last-child {
+  margin-bottom: 0;
+}
+
+.about-story__block + .about-story__block {
+  margin-top: 28px;
+}
+
+.about-story__block {
+  border-radius: var(--radius);
+}
+
+@media (max-width: 760px) {
+  .about-hero h1 {
+    max-width: none;
+  }
+}

@@ -1,18 +1,18 @@
 'use client';
 
-// Interactive preliminary cost calculator; coefficients come from site-data.
+// Interactive preliminary cost calculator; coefficients come from calculator-config.
 
 import { useMemo, useState } from 'react';
 import { calculate, money } from '@/lib/calculator';
 import { GOAL, sendGoal } from '@/lib/analytics';
-import { company } from '@/lib/site-data';
+import { calculatorConfig } from '@/lib/calculator-config';
 
 export function Calculator({
   initialType = 'garages',
 }: {
   initialType?: 'garages' | 'canopies';
 }) {
-  const config = company.calculator;
+  const config = calculatorConfig;
   const [type, setType] = useState<string>(initialType);
   const [length, setLength] = useState(6);
   const [width, setWidth] = useState(4);

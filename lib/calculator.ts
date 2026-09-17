@@ -1,6 +1,9 @@
-// Pure preliminary price calculator. Coefficients live in site-data.
+// Pure preliminary price calculator. Coefficients live in calculator-config.
 
 import type { CalculatorConfig } from './types';
+import { money } from './format';
+
+export { money };
 
 const MONEY_FORMATTER = new Intl.NumberFormat('ru-RU', {
   maximumFractionDigits: 0,
@@ -23,11 +26,6 @@ export type CalculatorResult = {
   maximum: number;
   details: string[];
 };
-
-// Round to the nearest thousand for a cleaner estimate display.
-export function money(value: number): string {
-  return `${MONEY_FORMATTER.format(Math.round(value / 1000) * 1000)} ₽`;
-}
 
 export function calculate(
   input: CalculatorInput,

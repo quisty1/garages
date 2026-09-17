@@ -110,6 +110,8 @@ export interface CatalogSlide {
   size?: string;
   meta?: string;
   img: string;
+  /** Preliminary “from” price (calculator: baseCost + rate × area). */
+  priceFrom?: number;
 }
 
 export interface GarageProject {
@@ -156,7 +158,6 @@ export interface PriceFactor {
 export interface ServiceAreaSection {
   title: string;
   eyebrow: string;
-  text: string;
   moreLabel: string;
 }
 
@@ -186,7 +187,6 @@ export interface Company {
   hero: HeroContent;
   workflow: {
     title: string;
-    text: string;
     steps: WorkflowStep[];
   };
   faq: FaqItem[];

@@ -1,3 +1,4 @@
+// E2E: each SEO landing page content, calculator, FAQ, and basic a11y.
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { landingPages, landingHref } from '../../lib/landing-pages';
@@ -56,6 +57,7 @@ test('landing navigation, mobile layout, calculator and accessibility', async ({
       () => document.documentElement.scrollWidth <= window.innerWidth,
     ),
   ).toBe(true);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa'])
     .analyze();
@@ -73,13 +75,43 @@ test('offline reload preserves the visited landing', async ({
   page,
   context,
 }) => {
+  const cdp = await context.newCDPSession(page);
+  await cdp.send('Network.setCacheDisabled', { cacheDisabled: true });
+
   await page.goto('/navesy-dlya-avtomobilej/');
   await page.waitForFunction(() => navigator.serviceWorker?.controller);
   await page.reload();
   await page.waitForFunction(async () => !!(await caches.match(location.href)));
+  await page.waitForFunction(async () => {
+    const keys = await caches.keys();
+    const precache = keys.find((key) => key.includes('precache-'));
+    if (!precache) return false;
+    const cache = await caches.open(precache);
+    const entries = await cache.keys();
+    return entries.some(
+      (req) => req.url.includes('/_next/static/') && req.url.endsWith('.js'),
+    );
+  });
+
   await context.setOffline(true);
-  await page.reload();
-  await expect(page.locator('h1')).toHaveText(
-    'Металлические навесы для автомобилей',
-  );
+  try {
+    await page.reload({ waitUntil: 'domcontentloaded' });
+    await expect(page.locator('h1')).toHaveText(
+      'Металлические навесы для автомобилей',
+    );
+    await expect
+      .poll(() =>
+        page.evaluate(() => document.documentElement.classList.contains('js')),
+      )
+      .toBe(true);
+    const bodyColor = await page.evaluate(
+      () => getComputedStyle(document.body).color,
+    );
+    expect(bodyColor).not.toBe('');
+    expect(bodyColor).not.toBe('rgba(0, 0, 0, 0)');
+    await page.locator('.faq-item summary').first().click();
+    await expect(page.locator('.faq-item').first()).toHaveAttribute('open', '');
+  } finally {
+    await context.setOffline(false);
+  }
 });

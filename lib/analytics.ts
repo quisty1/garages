@@ -1,6 +1,6 @@
 // Yandex Metrika loader, host allowlist, and conversion click tracking.
 
-import { company } from './site-data';
+import { analyticsConfig } from './analytics-config';
 import type { AnalyticsGoal } from './constants';
 import { GOAL } from './constants';
 
@@ -17,8 +17,11 @@ declare global {
   }
 }
 
+let metrikaInitialized = false;
+let clickListenerBound = false;
+
 function getConfig() {
-  return company.analytics.yandexMetrika;
+  return analyticsConfig.yandexMetrika;
 }
 
 export function getCounterId(): number | null {
@@ -67,6 +70,13 @@ export function sendGoal(
   window.ym(counterId, 'reachGoal', goal, params);
 }
 
+function trackPageView(counterId: number): void {
+  if (typeof window.ym !== 'function') return;
+  window.ym(counterId, 'hit', window.location.href, {
+    title: document.title,
+  });
+}
+
 function getLinkPlacement(link: Element): string {
   if (link.closest('.site-header')) return 'header';
   if (link.closest('.hero')) return 'hero';
@@ -75,7 +85,7 @@ function getLinkPlacement(link: Element): string {
   return 'content';
 }
 
-// Infer goal from data attributes or link type (tel / mailto / messengers / map).
+// Explicit data-analytics-goal, or tel/mailto link schemes.
 function trackConversionClick(event: MouseEvent): void {
   if (!(event.target instanceof Element)) return;
   const element = event.target.closest('a, button');
@@ -84,15 +94,15 @@ function trackConversionClick(event: MouseEvent): void {
   const htmlElement = element as HTMLElement;
   const explicitGoal = htmlElement.dataset.analyticsGoal;
   if (explicitGoal) {
-    sendGoal(explicitGoal, {
-      label:
-        htmlElement.dataset.analyticsLabel || element.textContent?.trim() || '',
-    });
-    return;
-  }
-
-  if (element.matches('[data-cta]')) {
-    sendGoal(GOAL.cta_calculate, { placement: getLinkPlacement(element) });
+    const placement = getLinkPlacement(element);
+    const label = htmlElement.dataset.analyticsLabel;
+    const params: Record<string, unknown> = { placement };
+    if (explicitGoal === GOAL.messenger_click) {
+      params.messenger = label || 'unknown';
+    } else if (label) {
+      params.label = label;
+    }
+    sendGoal(explicitGoal, params);
     return;
   }
 
@@ -101,37 +111,36 @@ function trackConversionClick(event: MouseEvent): void {
     sendGoal(GOAL.phone_click, { placement: getLinkPlacement(element) });
   } else if (href.startsWith('mailto:')) {
     sendGoal(GOAL.email_click, { placement: getLinkPlacement(element) });
-  } else if (element.matches('.messenger-link')) {
-    sendGoal(GOAL.messenger_click, {
-      placement: getLinkPlacement(element),
-      messenger:
-        element.querySelector('.messenger-link__label')?.textContent?.trim() ||
-        'unknown',
-    });
-  } else if (element.matches('#contact-address-tile, #footer-address-link')) {
-    sendGoal(GOAL.map_click, { placement: getLinkPlacement(element) });
   }
 }
 
 export function initAnalytics(): () => void {
-  // Skip tracking on hosts outside the site-data allowlist.
+  // Skip tracking on hosts outside the analytics-config allowlist.
   const counterId = getCounterId();
   if (!counterId || !isAllowedHost()) return () => undefined;
 
   createMetrikaQueue();
   loadMetrikaScript();
-  window.ym?.(counterId, 'init', {
-    clickmap: true,
-    trackLinks: true,
-    accurateTrackBounce: true,
-    webvisor: false,
-  });
+
+  if (!metrikaInitialized) {
+    window.ym?.(counterId, 'init', {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: false,
+    });
+    metrikaInitialized = true;
+  } else {
+    // SPA navigations remount ClientEffects; send a virtual pageview.
+    trackPageView(counterId);
+  }
 
   // Capture phase so we still see clicks stopped by other handlers.
-  document.addEventListener('click', trackConversionClick, { capture: true });
-  return () => {
-    document.removeEventListener('click', trackConversionClick, {
-      capture: true,
-    });
-  };
+  // Keep the listener for the document lifetime across SPA page mounts.
+  if (!clickListenerBound) {
+    document.addEventListener('click', trackConversionClick, { capture: true });
+    clickListenerBound = true;
+  }
+
+  return () => undefined;
 }

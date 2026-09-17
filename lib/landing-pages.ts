@@ -1,3 +1,4 @@
+// SEO landing page content and nav helpers for app/[slug] routes.
 import type { FaqItem } from './types';
 
 export interface BlueprintSizes {
@@ -30,6 +31,7 @@ export interface LandingPage {
 }
 
 export const landingPages: LandingPage[] = [
+  // Metal garages (general).
   {
     slug: 'metallicheskie-garazhi',
     label: 'Металлические гаражи',
@@ -99,6 +101,7 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  // Sandwich-panel garages.
   {
     slug: 'garazhi-iz-sendvich-panelej',
     label: 'Гаражи из сэндвич-панелей',
@@ -167,6 +170,7 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  // Two-car garages.
   {
     slug: 'garazhi-na-dve-mashiny',
     label: 'Гаражи на две машины',
@@ -235,6 +239,7 @@ export const landingPages: LandingPage[] = [
       },
     ],
   },
+  // Car canopies / carports.
   {
     slug: 'navesy-dlya-avtomobilej',
     label: 'Навесы для автомобилей',
@@ -306,3 +311,11 @@ export const landingPages: LandingPage[] = [
 ];
 
 export const landingHref = (page: LandingPage) => `/${page.slug}/`;
+
+export type LandingNavLink = { label: string; href: string };
+
+// Header/footer nav entries derived from landingPages.
+export const landingNavLinks: LandingNavLink[] = landingPages.map((page) => ({
+  label: page.label,
+  href: landingHref(page),
+}));

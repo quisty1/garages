@@ -6,7 +6,9 @@ test.describe('main page e2e', () => {
   test('loads hero and key CTAs', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText('Металлические гаражи');
-    await expect(page.locator('[data-cta]').first()).toBeVisible();
+    await expect(
+      page.locator('[data-analytics-goal="cta_calculate"]').first(),
+    ).toBeVisible();
     await expect(page.locator('a[href^="tel:"]').first()).toBeVisible();
   });
 
@@ -33,6 +35,46 @@ test.describe('main page e2e', () => {
     await expect(page.locator('[data-nav]')).toHaveClass(/is-open/);
     await page.keyboard.press('Escape');
     await expect(page.locator('[data-nav]')).not.toHaveClass(/is-open/);
+    await expect(page.locator('body')).not.toHaveClass(/menu-open/);
+  });
+
+  test('services dropdown lists landing pages', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    const services = page.locator('[data-nav-dropdown="services"]');
+    await services.hover();
+    await expect(page.locator('#nav-services')).toBeVisible();
+    await expect(
+      page.locator('#nav-services a[href="/metallicheskie-garazhi/"]'),
+    ).toBeVisible();
+
+    const catalog = page.locator('[data-nav-dropdown="catalog"]');
+    await catalog.hover();
+    await expect(page.locator('#nav-catalog')).toBeVisible();
+    await expect(
+      page.locator('#nav-catalog a[href="/catalog/garazhi/"]'),
+    ).toBeVisible();
+
+    await services.hover();
+    await page
+      .locator('#nav-services a[href="/navesy-dlya-avtomobilej/"]')
+      .click();
+    await expect(page).toHaveURL(/\/navesy-dlya-avtomobilej\/?$/);
+  });
+
+  test('mobile services accordion expands', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    await page.locator('[data-nav-toggle]').click();
+    await page
+      .locator('[data-nav-dropdown="services"] .nav__chevron-btn')
+      .click();
+    await expect(page.locator('[data-nav-dropdown="services"]')).toHaveClass(
+      /is-open/,
+    );
+    await expect(
+      page.locator('#nav-services a[href="/garazhi-na-dve-mashiny/"]'),
+    ).toBeVisible();
   });
 
   test('FAQ accordion opens', async ({ page }) => {
@@ -70,6 +112,7 @@ test.describe('main page e2e', () => {
         .toBe(1536);
       await page.keyboard.press('Escape');
       await expect(lightbox).not.toHaveClass(/is-open/);
+      await expect(page.locator('body')).not.toHaveClass(/lightbox-open/);
     });
   }
 
@@ -87,6 +130,7 @@ test.describe('main page e2e', () => {
     );
     await page.keyboard.press('Escape');
     await expect(lightbox).not.toHaveClass(/is-open/);
+    await expect(page.locator('body')).not.toHaveClass(/lightbox-open/);
   });
 
   test('critical contact links exist', async ({ page }) => {
@@ -130,19 +174,57 @@ test.describe('main page e2e', () => {
     context,
     page,
   }) => {
+    const cdp = await context.newCDPSession(page);
+    await cdp.send('Network.setCacheDisabled', { cacheDisabled: true });
+
     await page.goto('/');
     await page.waitForFunction(
       () => navigator.serviceWorker?.controller,
       null,
-      {
-        timeout: 15_000,
+      { timeout: 15_000 },
+    );
+    await page.waitForFunction(
+      async () => {
+        const keys = await caches.keys();
+        const precache = keys.find((key) => key.includes('precache-'));
+        if (!precache) return false;
+        const cache = await caches.open(precache);
+        const entries = await cache.keys();
+        const hasJs = entries.some(
+          (req) =>
+            req.url.includes('/_next/static/') && req.url.endsWith('.js'),
+        );
+        const hasCss = entries.some(
+          (req) =>
+            req.url.includes('/_next/static/') && req.url.endsWith('.css'),
+        );
+        return hasJs && hasCss;
       },
+      null,
+      { timeout: 20_000 },
     );
 
     await context.setOffline(true);
     try {
-      await page.reload();
+      await page.reload({ waitUntil: 'domcontentloaded' });
       await expect(page.locator('h1')).toContainText('Металлические гаражи');
+      await expect
+        .poll(() =>
+          page.evaluate(() =>
+            document.documentElement.classList.contains('js'),
+          ),
+        )
+        .toBe(true);
+      const bodyColor = await page.evaluate(
+        () => getComputedStyle(document.body).color,
+      );
+      expect(bodyColor).not.toBe('');
+      expect(bodyColor).not.toBe('rgba(0, 0, 0, 0)');
+
+      const price = page.locator('[data-calculator-price]');
+      const before = await price.textContent();
+      await page.locator('select[name="type"]').selectOption('canopies');
+      await expect(price).not.toHaveText(before || '');
     } finally {
       await context.setOffline(false);
     }
@@ -169,15 +251,73 @@ test.describe('main page e2e', () => {
       (window as unknown as { __ymCalls: unknown[][] }).__ymCalls = calls;
     });
     await page.goto('http://metallmontage33.ru:4173/');
-    await page.locator('[data-cta]').first().click();
+
+    await page.locator('[data-analytics-goal="cta_calculate"]').first().click();
+
+    const popupPromise = page.waitForEvent('popup');
+    await page.locator('[data-footer-messengers] a').first().click();
+    await (await popupPromise).close();
+
+    await page.locator('.footer-bottom__links a[href="/blog/"]').click();
+    await expect(page.locator('h1')).toContainText('Блог');
+
+    await page
+      .locator('a[href="/blog/kak-vybrat-metallicheskij-garazh/"]')
+      .first()
+      .click();
+    await expect(page.locator('h1')).toContainText('металлический гараж');
+
+    const calls = await page.evaluate(
+      () => (window as unknown as { __ymCalls: unknown[][] }).__ymCalls,
+    );
+    const inits = calls.filter((call) => call[1] === 'init');
+    const hits = calls.filter((call) => call[1] === 'hit');
+    expect(inits).toHaveLength(1);
+    expect(hits).toHaveLength(2);
+    expect(calls).toContainEqual([
+      110290656,
+      'reachGoal',
+      'cta_calculate',
+      { placement: 'hero' },
+    ]);
+    expect(calls).toContainEqual([
+      110290656,
+      'reachGoal',
+      'messenger_click',
+      { placement: 'footer', messenger: 'MAX' },
+    ]);
+  });
+
+  test('catalog contact CTA sends cta_contact', async ({ page }) => {
+    await page.route('https://mc.yandex.ru/metrika/tag.js', async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/javascript',
+        body: '',
+      });
+    });
+    await page.addInitScript(() => {
+      const calls: unknown[][] = [];
+      (
+        window as unknown as {
+          ym: (...args: unknown[]) => void;
+          __ymCalls: unknown[][];
+        }
+      ).ym = (...args: unknown[]) => {
+        calls.push(args);
+      };
+      (window as unknown as { __ymCalls: unknown[][] }).__ymCalls = calls;
+    });
+    await page.goto('http://metallmontage33.ru:4173/catalog/garazhi/');
+    await page.locator('[data-analytics-goal="cta_contact"]').first().click();
     const calls = await page.evaluate(
       () => (window as unknown as { __ymCalls: unknown[][] }).__ymCalls,
     );
     expect(calls).toContainEqual([
       110290656,
       'reachGoal',
-      'cta_calculate',
-      { placement: 'hero' },
+      'cta_contact',
+      { placement: 'content' },
     ]);
   });
 });

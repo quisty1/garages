@@ -7,11 +7,7 @@ export function Composition() {
   return (
     <section className="section" id="composition">
       <div className="container">
-        <SectionHead
-          eyebrow="Состав"
-          title="Комплектация"
-          text="Базовая комплектация гаража: сварной каркас, сэндвич-панели и секционные ворота."
-        />
+        <SectionHead eyebrow="Состав" title="Комплектация" />
         <div className="composition-grid" data-composition>
           {company.composition.map((item) => (
             <article className="composition-card" key={item.title}>

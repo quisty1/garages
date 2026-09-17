@@ -9,11 +9,7 @@ export function Projects() {
   return (
     <section className="section" id="garage-projects">
       <div className="container">
-        <SectionHead
-          eyebrow="Готовые объекты"
-          title="Примеры гаражей"
-          text="Реализованные гаражи из сэндвич-панелей с размерами, комплектацией и стоимостью под ключ."
-        />
+        <SectionHead eyebrow="Готовые объекты" title="Примеры гаражей" />
         <div className="project-list" data-garage-projects>
           {company.garageProjects.map((project) => {
             const sizeLabel = project.size.split(' × ').slice(0, 2).join('×');

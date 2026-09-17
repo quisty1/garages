@@ -29,7 +29,12 @@ describe('MobileNav', () => {
       <>
         <header>
           <div className="header-inner">
-            <MobileNavControls />
+            <MobileNavControls
+              serviceLinks={[
+                { label: 'Гаражи', href: '/garazhi/' },
+                { label: 'Навесы', href: '/navesy/' },
+              ]}
+            />
           </div>
         </header>
         <NavBackdrop />

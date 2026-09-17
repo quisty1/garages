@@ -121,7 +121,32 @@ function initScrollReveal() {
 
   document
     .querySelectorAll(
-      '.section__head, .carousel, .project, .workflow-step, .composition-card, .card, .stat-card, .roof-card, .factor-cell, .faq-item, .contacts-panel',
+      [
+        '.section__head',
+        '.carousel',
+        '.project',
+        '.workflow-step',
+        '.composition-card',
+        '.card',
+        '.stat-card',
+        '.roof-card',
+        '.factor-cell',
+        '.faq-item',
+        '.contacts-panel',
+        '.catalog-hub__card',
+        '.catalog-card',
+        '.catalog-cta__inner',
+        '.blog-card',
+        '.blog-related__item',
+        '.blog-author',
+        '.blog-article__figure',
+        '.landing-copy article',
+        '.landing-checklist',
+        '.landing-detail',
+        '.landing-link',
+        '.about-story__block',
+        '.side-card',
+      ].join(', '),
     )
     .forEach((el) => {
       if (el.getBoundingClientRect().top >= window.innerHeight) {
@@ -162,8 +187,8 @@ function initScrollReveal() {
 // Highlight the nav link whose section is currently under the sticky header.
 function initActiveNavigation() {
   const links = [
-    ...document.querySelectorAll<HTMLAnchorElement>('#site-nav a[href^="#"]'),
-  ];
+    ...document.querySelectorAll<HTMLAnchorElement>('#site-nav a'),
+  ].filter((link) => Boolean(link.hash));
   const targets = links
     .map((link) => ({
       link,

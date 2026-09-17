@@ -1,3 +1,4 @@
+// Cross-links to SEO landings; hides the current slug when set.
 import { landingPages, landingHref } from '@/lib/landing-pages';
 
 export function LandingLinks({ currentSlug }: { currentSlug?: string }) {

@@ -1,5 +1,8 @@
+import { analyticsConfig } from './analytics-config';
+import { calculatorConfig } from './calculator-config';
 import type { Company } from './types';
 
+// Central company content: SEO, phones, catalog slides, projects, FAQ, etc.
 export const company = {
   name: 'Металл Монтаж 33',
   shortName: 'ММ33', // PWA short_name in manifest.json
@@ -115,13 +118,7 @@ export const company = {
   ],
   email: 'MetallMontage33@yandex.ru',
   hours: 'Ежедневно 8:00–18:00',
-  analytics: {
-    yandexMetrika: {
-      counterId: 110290656,
-      // Do not send development and preview traffic to the production counter.
-      allowedHosts: ['metallmontage33.ru', 'www.metallmontage33.ru'],
-    },
-  },
+  analytics: analyticsConfig,
   // Minimum “from” prices for schema Offer.minPrice (not a fixed catalog price)
   pricing: {
     garages: {
@@ -135,41 +132,11 @@ export const company = {
       currency: 'RUB',
     },
   },
-  // Editable coefficients for the preliminary on-page calculator.
-  calculator: {
-    types: {
-      garages: {
-        label: 'Гараж',
-        rate: 22000,
-        baseCost: 400000,
-      },
-      canopies: {
-        label: 'Навес',
-        rate: 6000,
-        baseCost: 120000,
-      },
-    },
-    panelMultipliers: {
-      50: 1,
-      100: 1.1,
-      150: 1.2,
-      200: 1.3,
-      250: 1.4,
-    },
-    extraGateCost: 140000,
-    foundationRate: 6500,
-    options: {
-      drain: { label: 'водосток', cost: 35000 },
-      snow: { label: 'снегозадержание', cost: 30000 },
-      ventilation: { label: 'вытяжка', cost: 45000 },
-    },
-    range: { minimum: 0.9, maximum: 1.15 },
-  },
+  calculator: calculatorConfig,
   // Copy for the visible “Where we work” section
   serviceAreaSection: {
     title: 'Где работаем',
     eyebrow: 'География',
-    text: 'Производство и база во Владимире. Выезжаем на замер и монтаж по Владимирской, Московской, Нижегородской и Ивановской областям, в Москву и другие города этих регионов.',
     moreLabel: 'и другие города регионов',
   },
   // Legal entity shown in contacts and footer
@@ -223,7 +190,6 @@ export const company = {
   // “How we work” steps
   workflow: {
     title: 'Как мы работаем',
-    text: 'От заявки до сдачи объекта — прозрачный процесс без лишних этапов.',
     steps: [
       {
         title: 'Заявка',
@@ -302,31 +268,63 @@ export const company = {
       a: 'Позвоните по телефону, напишите на email или в мессенджер MAX — бесплатно проконсультируем и поможем с расчётом.',
     },
   ],
-  // Garage carousel slides
+  // Garage carousel / catalog slides (priceFrom = baseCost + rate × L × W)
   garages: [
     {
       title: 'Гараж 6×4 м',
       size: '6000 × 4000 × 2400 мм',
       meta: 'Длина 6 м · Ширина 4 м · Высота 2,4 м',
       img: '/assets/garage-6x4.webp',
+      priceFrom: 928000,
     },
     {
       title: 'Гараж 6×6 м',
       size: '6000 × 6000 × 2400 мм',
       meta: 'Длина 6 м · Ширина 6 м · Высота 2,4 м',
       img: '/assets/garage-6x6.webp',
+      priceFrom: 1192000,
+    },
+    {
+      title: 'Гараж 7×5 м',
+      size: '7000 × 5000 × 2400 мм',
+      meta: 'Длина 7 м · Ширина 5 м · Высота 2,4 м',
+      img: '/assets/garage-7x5.webp',
+      priceFrom: 1170000,
     },
     {
       title: 'Гараж 8×6 м',
       size: '8000 × 6000 × 2400 мм',
       meta: 'Длина 8 м · Ширина 6 м · Высота 2,4 м',
       img: '/assets/garage-8x6.webp',
+      priceFrom: 1456000,
     },
     {
       title: 'Гараж 6×8 м',
       size: '6000 × 8000 × 2400 мм',
       meta: 'Длина 6 м · Ширина 8 м · Высота 2,4 м',
       img: '/assets/garage-6x8.webp',
+      priceFrom: 1456000,
+    },
+    {
+      title: 'Гараж 8×8 м',
+      size: '8000 × 8000 × 2700 мм',
+      meta: 'Длина 8 м · Ширина 8 м · Высота 2,7 м · на 2 авто',
+      img: '/assets/garage-8x8.webp',
+      priceFrom: 1808000,
+    },
+    {
+      title: 'Гараж 9×6 м',
+      size: '9000 × 6000 × 2700 мм',
+      meta: 'Длина 9 м · Ширина 6 м · Высота 2,7 м',
+      img: '/assets/garage-9x6.webp',
+      priceFrom: 1588000,
+    },
+    {
+      title: 'Гараж с боковой дверью',
+      size: '6000 × 5000 × 2400 мм',
+      meta: 'Длина 6 м · Ширина 5 м · калитка и хоззона',
+      img: '/assets/garage-side-door.webp',
+      priceFrom: 1060000,
     },
   ],
   // Completed garage projects (stacked blocks, not carousel)
@@ -380,27 +378,70 @@ export const company = {
       imgHeight: 941,
     },
   ],
-  // Canopy carousel slides
+  // Canopy carousel / catalog slides (priceFrom = baseCost + rate × L × W)
   canopies: [
     {
       title: 'Навес для авто',
+      size: '6000 × 3000 мм',
+      meta: 'Одно машино-место · поликарбонат или профлист',
       img: '/assets/canopy-car.webp',
+      priceFrom: 228000,
     },
     {
       title: 'Навес двускатный',
+      size: '6000 × 4000 мм',
+      meta: 'Двускатная кровля · свободный проезд',
       img: '/assets/canopy-gable.webp',
+      priceFrom: 264000,
     },
     {
       title: 'Навес односкатный',
+      size: '5000 × 3000 мм',
+      meta: 'Односкатная кровля · компактная площадка',
       img: '/assets/canopy-single-slope.webp',
+      priceFrom: 210000,
     },
     {
       title: 'Навес на 2 авто',
+      size: '6000 × 6000 мм',
+      meta: 'Два машино-места · общий пролёт',
       img: '/assets/canopy-two-cars.webp',
+      priceFrom: 336000,
     },
     {
       title: 'Навес для дома',
+      size: '8000 × 3000 мм',
+      meta: 'Пристройка к дому · отвод воды',
       img: '/assets/canopy-house.webp',
+      priceFrom: 264000,
+    },
+    {
+      title: 'Навес арочный',
+      size: '6000 × 4000 мм',
+      meta: 'Арочная кровля · усиленный каркас',
+      img: '/assets/canopy-arch.webp',
+      priceFrom: 264000,
+    },
+    {
+      title: 'Навес пристенный',
+      size: '5000 × 3000 мм',
+      meta: 'Крепление к стене · экономия опор',
+      img: '/assets/canopy-wall.webp',
+      priceFrom: 210000,
+    },
+    {
+      title: 'Навес с хозблоком',
+      size: '7000 × 4000 мм',
+      meta: 'Парковка и закрытый хозблок',
+      img: '/assets/canopy-storage.webp',
+      priceFrom: 288000,
+    },
+    {
+      title: 'Навес на 3 авто',
+      size: '9000 × 6000 мм',
+      meta: 'Три машино-места · широкий пролёт',
+      img: '/assets/canopy-three-cars.webp',
+      priceFrom: 444000,
     },
   ],
   // Composition cards (frame / panels / doors) after canopies
@@ -421,7 +462,7 @@ export const company = {
       img: '/assets/composition-doors.webp',
     },
   ],
-  // Roof-type cards; icon keys match ROOF_ICONS in components/ui/RoofIcon.tsx.
+  // Roof-type cards; icon keys match RoofIcon in components/ui/RoofIcon.tsx.
   roofs: [
     {
       title: 'Двускатная',

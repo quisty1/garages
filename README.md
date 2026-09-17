@@ -81,8 +81,8 @@ npm run preview
 
 - `public/manifest.json` — installability
 - `public/sw.js` — network-first для навигации и `/_next/static`, SWR для картинок, cache versioning, нормализация query, bounded runtime cache (48), пропуск Range/206/`Vary: *`
-
-После `build` скрипт `postbuild` дополняет SW списком shell-файлов из `out/_next`.
+- После `build` `postbuild` (`scripts/patch-sw-precache.mjs`) подставляет hashed JS/CSS из `out/_next` в `NEXT_SHELL_FILES`, которые входят в `PRECACHE_URLS` (install-time precache)
+- Активация оставляет до двух поколений `mm33-*` кэшей, чтобы открытые вкладки переживали FTP-деплой без старых hashed-файлов на сервере
 
 ## Аналитика (Yandex Metrica)
 
@@ -91,6 +91,7 @@ npm run preview
 Goal IDs (без переименования):
 
 - `cta_calculate`
+- `cta_contact`
 - `phone_click`
 - `email_click`
 - `messenger_click`
@@ -105,10 +106,12 @@ GitHub Actions (`.github/workflows/deploy-timeweb.yml`):
 
 1. `npm ci`
 2. `npm run ci`
-3. Playwright e2e и accessibility-проверки (диагностические: сбой выводит предупреждение, но не блокирует деплой)
+3. Playwright e2e и accessibility-проверки (обязательные: сбой блокирует деплой)
 4. `lftp mirror` содержимого **`out/`** в корень хостинга
 
-Сборка, typecheck, lint, unit-тесты и проверка `out/` остаются обязательными. FTP повторяет временно неудачные соединения до пяти раз.
+Сборка, typecheck, lint, unit-тесты, проверка `out/` (включая обход
+локальных ссылок и ресурсов) и браузерные проверки остаются обязательными.
+FTP повторяет временно неудачные соединения до пяти раз.
 
 ### GitHub Secrets (имена)
 

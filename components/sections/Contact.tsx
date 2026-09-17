@@ -1,5 +1,6 @@
 // Contact panel: phones, email, map, requisites, copy buttons.
 
+import { GOAL } from '@/lib/analytics';
 import { company } from '@/lib/site-data';
 import { formatAddressLine, getMapUrl } from '@/lib/format';
 import { ContactCopy } from './ContactCopy';
@@ -18,12 +19,7 @@ export function Contact() {
       aria-label="Контакты"
     >
       <div className="container">
-        <SectionHead
-          eyebrow="Расчёт и консультация"
-          title="Контакты"
-          text="Позвоните или напишите — ответим и поможем с расчётом (размер, ворота, материалы, адрес)."
-          contact
-        />
+        <SectionHead eyebrow="Расчёт и консультация" title="Контакты" contact />
 
         <div className="contacts-panel">
           <div className="contacts-panel__main">
@@ -64,6 +60,7 @@ export function Contact() {
                 href={mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-analytics-goal={GOAL.map_click}
               >
                 <span className="contact-tile__label">Адрес</span>
                 <span className="contact-tile__value" id="contact-address">

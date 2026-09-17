@@ -6,11 +6,16 @@ const CACHE_VERSION = 'v22-__BUILD_HASH__';
 const PRECACHE_CACHE = `${CACHE_PREFIX}precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `${CACHE_PREFIX}runtime-${CACHE_VERSION}`;
 const CURRENT_CACHES = new Set([PRECACHE_CACHE, RUNTIME_CACHE]);
+// Keep one previous generation so open tabs survive FTP deploys that drop old hashes.
+const MAX_CACHE_GENERATIONS = 2;
 
 const SCOPE_URL = new URL(self.registration.scope);
 const INDEX_URL = new URL('index.html', SCOPE_URL).href;
 
-// Offline app shell: stable public assets. Hashed /_next/static uses network-first by path prefix.
+// Filled by scripts/patch-sw-precache.mjs after `next build` (hashed /_next JS+CSS).
+const NEXT_SHELL_FILES = [];
+
+// Offline app shell: stable public assets + build-specific Next shell chunks.
 const PRECACHE_URLS = [
   './',
   'index.html',
@@ -29,6 +34,7 @@ const PRECACHE_URLS = [
   'assets/garage-project-8-8-v2-560.webp',
   'assets/garage-project-8-8-v2-960.webp',
   'assets/garage-project-8-8-v2.webp',
+  ...NEXT_SHELL_FILES,
 ].map((path) => new URL(path, SCOPE_URL).href);
 
 const NETWORK_FIRST_URLS = new Set(
@@ -37,9 +43,6 @@ const NETWORK_FIRST_URLS = new Set(
   ),
 );
 
-const PRECACHED_ASSET_URLS = new Set(
-  PRECACHE_URLS.filter((url) => !NETWORK_FIRST_URLS.has(url)),
-);
 const ASSETS_PATH = new URL('assets/', SCOPE_URL).pathname;
 const NEXT_STATIC_PATH = new URL('_next/static/', SCOPE_URL).pathname;
 const MANIFEST_PATH = new URL('manifest.json', SCOPE_URL).pathname;
@@ -47,6 +50,13 @@ const FAVICON_PATH = new URL('favicon.ico', SCOPE_URL).pathname;
 const IMAGE_EXTENSION = /\.(?:avif|gif|ico|jpe?g|png|svg|webp)$/i;
 const MAX_RUNTIME_ENTRIES = 48;
 const NAVIGATION_TIMEOUT_MS = 5000;
+
+const PRECACHED_ASSET_URLS = new Set(
+  PRECACHE_URLS.filter((url) => {
+    if (NETWORK_FIRST_URLS.has(url)) return false;
+    return !new URL(url).pathname.startsWith(NEXT_STATIC_PATH);
+  }),
+);
 
 function canonicalCacheKey(input) {
   const url = new URL(typeof input === 'string' ? input : input.url);
@@ -126,11 +136,62 @@ async function trimRuntimeCache(cache) {
   await Promise.all(keys.slice(0, excess).map((key) => cache.delete(key)));
 }
 
+async function precacheUrls(cache, urls) {
+  // Prefer per-URL puts over addAll: one failure must not abort the whole install.
+  await Promise.all(
+    urls.map(async (url) => {
+      try {
+        const response = await fetch(url, { cache: 'reload' });
+        if (!(await putSafely(cache, url, response))) {
+          console.warn('[MM33 SW] Precache skipped non-cacheable URL.', url);
+        }
+      } catch (error) {
+        console.warn('[MM33 SW] Precache failed for URL.', url, error);
+      }
+    }),
+  );
+}
+
+async function matchInOwnCaches(cacheKey) {
+  const keys = await caches.keys();
+  for (const key of keys) {
+    if (!key.startsWith(CACHE_PREFIX)) continue;
+    const cache = await caches.open(key);
+    const hit = await cache.match(cacheKey);
+    if (hit) return hit;
+  }
+  return undefined;
+}
+
+function sortNewestFirst(names) {
+  return [...names].sort((a, b) => b.localeCompare(a));
+}
+
+async function deleteStaleCaches() {
+  const keys = await caches.keys();
+  const ours = keys.filter((key) => key.startsWith(CACHE_PREFIX));
+  const precacheKeys = sortNewestFirst(
+    ours.filter((key) => key.includes('precache-')),
+  );
+  const runtimeKeys = sortNewestFirst(
+    ours.filter((key) => key.includes('runtime-')),
+  );
+  const retain = new Set([
+    ...precacheKeys.slice(0, MAX_CACHE_GENERATIONS),
+    ...runtimeKeys.slice(0, MAX_CACHE_GENERATIONS),
+    ...CURRENT_CACHES,
+  ]);
+
+  await Promise.all(
+    ours.filter((key) => !retain.has(key)).map((key) => caches.delete(key)),
+  );
+}
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(PRECACHE_CACHE);
-      await cache.addAll(PRECACHE_URLS);
+      await precacheUrls(cache, PRECACHE_URLS);
       await self.skipWaiting();
     })(),
   );
@@ -139,32 +200,28 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
-      // Drop previous mm33-* caches so clients do not keep stale shells.
-      const keys = await caches.keys();
-      await Promise.all(
-        keys
-          .filter(
-            (key) => key.startsWith(CACHE_PREFIX) && !CURRENT_CACHES.has(key),
-          )
-          .map((key) => caches.delete(key)),
-      );
+      await deleteStaleCaches();
       await self.clients.claim();
     })(),
   );
 });
 
 async function cachedIndex() {
-  const cache = await caches.open(PRECACHE_CACHE);
+  const root = new URL('./', SCOPE_URL).href;
   // Some static servers redirect /index.html to /. A redirected cached response
   // cannot be returned for a navigation request in Chromium, so prefer the
-  // non-redirected scope root.
-  return (await cache.match(new URL('./', SCOPE_URL).href)) || (await cache.match(INDEX_URL));
+  // non-redirected scope root. Search current + previous generations.
+  return (
+    (await matchInOwnCaches(root)) ||
+    (await matchInOwnCaches(INDEX_URL))
+  );
 }
 
 async function navigationNetworkFirst(request) {
   const cache = await caches.open(PRECACHE_CACHE);
   const cacheKey = canonicalCacheKey(request);
-  const fallback = async () => (await cache.match(cacheKey)) ||
+  const fallback = async () =>
+    (await matchInOwnCaches(cacheKey)) ||
     (isAppEntry(new URL(request.url)) ? await cachedIndex() : undefined);
   try {
     const response = await fetchWithTimeout(request, NAVIGATION_TIMEOUT_MS);
@@ -173,10 +230,7 @@ async function navigationNetworkFirst(request) {
       return (await fallback()) || response;
     }
 
-    if (
-      response.ok &&
-      isCacheable(response)
-    ) {
+    if (response.ok && isCacheable(response)) {
       await putSafely(cache, cacheKey, response);
     }
 
@@ -196,13 +250,13 @@ async function appShellNetworkFirst(request) {
     const response = await fetch(request);
 
     if (response.status >= 500) {
-      return (await cache.match(cacheKey)) || response;
+      return (await matchInOwnCaches(cacheKey)) || response;
     }
 
     await putSafely(cache, cacheKey, response);
     return response;
   } catch (error) {
-    const cached = await cache.match(cacheKey);
+    const cached = await matchInOwnCaches(cacheKey);
     if (cached) return cached;
     throw error;
   }
@@ -238,7 +292,8 @@ function staleWhileRevalidate(
   );
 
   return cachePromise.then(async (cache) => {
-    const cached = await cache.match(cacheKey);
+    const cached =
+      (await cache.match(cacheKey)) || (await matchInOwnCaches(cacheKey));
     return cached || updatePromise;
   });
 }

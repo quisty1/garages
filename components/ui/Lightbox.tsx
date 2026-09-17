@@ -1,6 +1,6 @@
 'use client';
 
-// Full-screen image lightbox opened from carousel / project slide buttons.
+// Full-screen image lightbox opened from carousel / project / blog slide buttons.
 
 import { useEffect, useRef, useState } from 'react';
 import { LIGHTBOX_CLOSE_MS } from '@/lib/constants';
@@ -9,6 +9,11 @@ import { getFocusable, setPageInert } from '@/lib/focus';
 interface LightboxItem {
   src: string;
   alt: string;
+}
+
+function releaseLock() {
+  document.body.classList.remove('lightbox-open');
+  setPageInert(false);
 }
 
 export function Lightbox() {
@@ -20,6 +25,7 @@ export function Lightbox() {
   // Keep the DOM mounted briefly after close so the CSS exit transition can run.
   const [visible, setVisible] = useState(false);
   const openerRef = useRef<HTMLElement | null>(null);
+  const closeTimerRef = useRef<number | null>(null);
 
   const show = items[index];
 
@@ -31,11 +37,12 @@ export function Lightbox() {
       if (!image) return;
       e.preventDefault();
 
-      // Group images from the same carousel, projects, or composition list.
+      // Group images from the same carousel, projects, composition, or blog article.
       const group =
         slideImg.closest('[data-carousel]') ||
         slideImg.closest('[data-garage-projects]') ||
-        slideImg.closest('[data-composition]');
+        slideImg.closest('[data-composition]') ||
+        slideImg.closest('[data-blog-gallery]');
       const images = group
         ? Array.from(
             group.querySelectorAll<HTMLImageElement>('.slide__img img'),
@@ -60,6 +67,17 @@ export function Lightbox() {
 
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
+  }, []);
+
+  // Always clear body lock + close timer on unmount (e.g. browser Back).
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current != null) {
+        window.clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+      releaseLock();
+    };
   }, []);
 
   useEffect(() => {
@@ -100,11 +118,14 @@ export function Lightbox() {
   function close() {
     if (!isOpen) return;
     setIsOpen(false);
-    document.body.classList.remove('lightbox-open');
-    setPageInert(false);
+    releaseLock();
     openerRef.current?.focus?.();
     openerRef.current = null;
-    window.setTimeout(() => {
+    if (closeTimerRef.current != null) {
+      window.clearTimeout(closeTimerRef.current);
+    }
+    closeTimerRef.current = window.setTimeout(() => {
+      closeTimerRef.current = null;
       setVisible(false);
       setItems([]);
       setIndex(0);
