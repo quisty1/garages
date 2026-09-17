@@ -10,13 +10,16 @@
     "preview": "npx --yes serve out -l 3000",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test --project=e2e",
     "test:a11y": "playwright test --project=a11y",
     "test:visual": "playwright test --project=visual",
     "validate": "node ./scripts/validate-out.mjs",
-    "ci": "npm run typecheck && npm run lint && npm run test && npm run build && npm run validate",
+    "ci": "npm run typecheck && npm run lint && npm run format:check && npm run test && npm run build && npm run validate",
     "postbuild": "node ./scripts/patch-sw-precache.mjs"
   },
   "engines": {
@@ -39,7 +42,9 @@
     "@vitejs/plugin-react": "^5.0.2",
     "eslint": "^9.34.0",
     "eslint-config-next": "^16.3.5",
+    "eslint-config-prettier": "^10.1.8",
     "jsdom": "^26.1.0",
+    "prettier": "^3.9.7",
     "typescript": "^5.9.2",
     "vitest": "^4.1.11"
   }
