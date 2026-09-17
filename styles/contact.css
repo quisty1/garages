@@ -14,18 +14,22 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 32px;
 }
+
 .contacts-panel__call,
 .contacts-panel__details {
   min-width: 0;
 }
+
 .contacts-panel__call {
   border-left: 3px solid var(--primary);
   padding-left: 24px;
 }
+
 .contacts-panel__phones {
   display: grid;
   gap: 4px;
 }
+
 .contacts-panel__hours {
   display: grid;
   gap: 6px;
@@ -33,6 +37,7 @@
   font-size: 16px;
   font-weight: 600;
 }
+
 .contacts-panel__details {
   display: grid;
   align-content: start;
@@ -40,6 +45,7 @@
   border-left: 1px solid var(--line);
   padding-left: 32px;
 }
+
 .contacts-panel__block {
   padding-top: 24px;
   border-top: 1px solid var(--line);
@@ -61,22 +67,27 @@
     background 0.15s ease;
   box-shadow: none;
 }
+
 a.contact-tile:hover {
   transform: none;
   box-shadow: none;
   color: var(--primary);
 }
+
 a.contact-tile:hover .contact-tile__value {
   text-decoration: underline;
   text-underline-offset: 5px;
 }
+
 .contact-tile--accent .contact-tile__value {
   color: var(--primary);
 }
+
 .contact-tile--accent {
   min-height: 44px;
   align-items: center;
 }
+
 .contact-tile__label {
   color: var(--muted2);
   font-weight: 600;
@@ -84,18 +95,21 @@ a.contact-tile:hover .contact-tile__value {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+
 .contact-tile__value {
   font-weight: 700;
   font-size: 18px;
   line-height: 1.3;
-  word-break: break-word;
+  overflow-wrap: anywhere;
   color: var(--text);
 }
+
 .contact-tile__hint {
   color: var(--primary);
   font-weight: 700;
   font-size: 13px;
 }
+
 .contact-tile--address .contact-tile__value {
   font-size: 16px;
 }
@@ -116,6 +130,7 @@ a.contact-tile:hover .contact-tile__value {
   flex-wrap: wrap;
   gap: 10px;
 }
+
 .service-area__city {
   margin: 0;
   padding: 10px 14px;
@@ -127,6 +142,7 @@ a.contact-tile:hover .contact-tile__value {
   font-size: 15px;
   line-height: 1.2;
 }
+
 .service-area__more {
   margin: 16px 0 0;
   color: var(--muted2);
@@ -146,22 +162,26 @@ a.contact-tile:hover .contact-tile__value {
   display: grid;
   gap: 12px;
 }
+
 .requisites-panel__title {
   margin: 0;
   font-size: 18px;
   font-weight: 700;
 }
+
 .requisites-panel__name {
   font-weight: 700;
   font-size: 16px;
   color: var(--text);
 }
+
 .requisites-panel__subtitle {
   margin: 8px 0 0;
   font-size: 14px;
   font-weight: 600;
   color: var(--muted2);
 }
+
 .requisites-panel__list {
   margin: 0;
   padding-left: 1.2em;
@@ -169,6 +189,7 @@ a.contact-tile:hover .contact-tile__value {
   gap: 6px;
   color: var(--text);
 }
+
 .requisites-panel__list strong {
   font-weight: 600;
   margin-right: 0.35em;
@@ -179,10 +200,11 @@ a.contact-tile:hover .contact-tile__value {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
+
 .messenger-link {
   display: grid;
   gap: 4px;
-  padding: 16px 16px;
+  padding: 16px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   background: var(--surface-2);
@@ -192,18 +214,22 @@ a.contact-tile:hover .contact-tile__value {
     border-color var(--transition-fast),
     transform var(--transition-fast);
 }
+
 .messenger-link:hover {
   transform: none;
   border-color: var(--primary);
 }
+
 .messenger-link__label {
   font-weight: 700;
   font-size: 15px;
 }
+
 .messenger-link__hint {
   color: var(--muted);
   font-size: 13px;
 }
+
 /* .messenger-link--max {
   border-color: var(--primary-soft-strong);
   background: var(--primary-soft);
@@ -224,35 +250,42 @@ a.contact-tile:hover .contact-tile__value {
   background: var(--footer-bg);
   color: var(--footer-text);
 }
+
 .footer-inner {
   display: flex;
   justify-content: space-between;
   gap: 28px;
   flex-wrap: wrap;
 }
+
 .footer-brand {
   display: flex;
   gap: 14px;
 }
+
 .footer-brand__name {
   font-weight: 700;
   font-size: 16px;
   text-transform: uppercase;
   color: var(--footer-text);
 }
+
 .footer-brand__sub {
   color: var(--footer-muted);
   margin-top: 4px;
   font-size: 14px;
 }
+
 .footer-cols {
   display: flex;
   gap: 24px;
   flex-wrap: wrap;
 }
+
 .footer-col {
   min-width: 240px;
 }
+
 .footer-col__title {
   font-weight: 700;
   margin-bottom: 10px;
@@ -261,19 +294,23 @@ a.contact-tile:hover .contact-tile__value {
   font-size: 13px;
   letter-spacing: 0.04em;
 }
+
 .footer-list {
   list-style: none;
   padding: 0;
   margin: 0;
   color: var(--footer-muted);
 }
+
 .footer-list li {
   margin: 10px 0;
 }
+
 .footer-list a {
   color: var(--footer-text);
   text-decoration: none;
 }
+
 .footer-list a:hover {
   color: var(--primary);
 }
@@ -288,41 +325,50 @@ a.contact-tile:hover .contact-tile__value {
   border-top: 1px solid var(--footer-line);
   font-size: 14px;
 }
+
 .footer-bottom__meta {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
+
 .footer-legal {
   font-size: 13px;
   color: var(--footer-muted2);
   line-height: 1.4;
 }
+
 .footer-credit {
   font-size: 13px;
   color: var(--footer-muted2);
 }
+
 .footer-credit a {
   color: var(--footer-text);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+
 .footer-credit a:hover {
   color: var(--primary);
 }
+
 .footer-bottom__links {
   display: flex;
   gap: 14px;
 }
+
 .footer-bottom__links a {
   color: var(--footer-muted2);
   text-decoration: none;
 }
+
 .footer-bottom__links a:hover {
   color: var(--primary);
 }
 
 /* Later rules in this file override the earlier contact/footer layout. */
+
 /* Component layout and responsive refinements. */
 .messenger-link,
 .contacts-panel,
@@ -407,42 +453,47 @@ a.contact-tile:hover,
   justify-content: flex-end;
 }
 
-@media (max-width: 760px) {
+@media (width <= 760px) {
   .contacts-panel__main {
     grid-template-columns: 1fr;
     gap: 24px;
   }
+
   .contacts-panel__details {
     border-left: 0;
     border-top: 1px solid var(--line);
     padding: 24px 0 0;
     gap: 20px;
   }
+
   .contacts-panel__call {
     padding-left: 16px;
   }
 }
 
-@media (max-width: 540px) {
+@media (width <= 540px) {
   .messenger-links {
     grid-template-columns: 1fr;
     gap: 8px;
   }
+
   .messenger-link {
     grid-template-columns: 1fr auto;
     align-items: center;
     gap: 12px;
     padding: 14px 16px;
   }
+
   .messenger-link__label {
     font-size: 18px;
   }
+
   .contact-copy__button {
     flex: 1 1 auto;
   }
 }
 
-@media (max-width: 720px) {
+@media (width <= 720px) {
   .contacts-panel {
     padding: 20px;
     background: var(--surface);
@@ -462,6 +513,7 @@ a.contact-tile:hover,
     align-items: flex-start;
   }
 }
+
 .contact-copy {
   display: flex;
   flex-wrap: wrap;
@@ -469,6 +521,7 @@ a.contact-tile:hover,
   border-top: 1px solid var(--line);
   padding-top: 20px;
 }
+
 .contact-copy__button {
   min-height: 44px;
   padding: 10px 14px;
@@ -483,14 +536,17 @@ a.contact-tile:hover,
     background-color 0.18s ease,
     border-color 0.18s ease;
 }
+
 .contact-copy__button:hover {
   background: var(--primary-soft);
   border-color: var(--primary);
 }
+
 .contact-copy__button:disabled {
   opacity: 0.6;
   cursor: wait;
 }
+
 .contact-copy__status {
   flex-basis: 100%;
   min-height: 1.5em;
@@ -499,6 +555,7 @@ a.contact-tile:hover,
   line-height: 1.5;
   color: var(--muted);
 }
+
 .contact-copy__status:empty {
   margin: 0;
   min-height: 0;

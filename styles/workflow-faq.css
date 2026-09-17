@@ -8,8 +8,8 @@
   gap: 16px;
   counter-reset: workflow;
   overflow: visible;
-  padding-bottom: 0;
 }
+
 .workflow-step {
   position: relative;
   display: grid;
@@ -25,10 +25,12 @@
     transform var(--transition-fast);
   min-width: 0;
 }
+
 .workflow-step:hover {
   border-color: var(--primary);
   transform: none;
 }
+
 .workflow-step__num {
   display: inline-flex;
   align-items: center;
@@ -43,6 +45,7 @@
   font-size: 15px;
   flex-shrink: 0;
 }
+
 .workflow-step__title {
   margin: 0 0 6px;
   font-weight: 700;
@@ -51,6 +54,7 @@
   color: var(--text);
   text-transform: none;
 }
+
 .workflow-step__text {
   margin: 0;
   color: var(--muted);
@@ -59,12 +63,14 @@
 }
 
 /* ── FAQ ─────────────────────────────────────────────── */
+
 /* Panel animation: height + opacity; icon rotates 180° */
 .faq {
   display: grid;
   gap: 10px;
   max-width: 760px;
 }
+
 .faq-item {
   background: var(--card);
   border: 1px solid var(--line);
@@ -75,11 +81,13 @@
     box-shadow 0.25s ease,
     transform 0.25s ease;
 }
+
 .faq-item.is-open,
 .faq-item[open] {
   border-color: var(--primary-soft-strong);
   box-shadow: none;
 }
+
 .faq-item__question {
   display: flex;
   align-items: center;
@@ -97,21 +105,26 @@
     background 0.25s ease,
     color 0.25s ease;
 }
+
 .faq-item__question:hover {
   background: var(--primary-soft);
 }
+
 .faq-item.is-open .faq-item__question,
 .faq-item[open] .faq-item__question {
   color: var(--primary);
   background: var(--primary-soft);
 }
+
 .faq-item__question::-webkit-details-marker {
   display: none;
 }
+
 .faq-item__label {
   flex: 1 1 auto;
   min-width: 0;
 }
+
 .faq-item__icon {
   flex: 0 0 auto;
   width: 28px;
@@ -124,11 +137,13 @@
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     background 0.25s ease;
 }
+
 .faq-item.is-open .faq-item__icon,
 .faq-item[open] .faq-item__icon {
   transform: rotate(180deg);
   background: var(--primary);
 }
+
 .faq-item__icon::before,
 .faq-item__icon::after {
   content: '';
@@ -145,20 +160,24 @@
     background 0.25s ease,
     opacity 0.25s ease;
 }
+
 .faq-item__icon::after {
   transform: translate(-50%, -50%) rotate(90deg);
 }
+
 .faq-item.is-open .faq-item__icon::before,
 .faq-item.is-open .faq-item__icon::after,
 .faq-item[open] .faq-item__icon::before,
 .faq-item[open] .faq-item__icon::after {
   background: var(--on-primary);
 }
+
 .faq-item.is-open .faq-item__icon::after,
 .faq-item[open] .faq-item__icon::after {
   transform: translate(-50%, -50%) rotate(0deg);
   opacity: 0;
 }
+
 .faq-item__panel {
   height: 0;
   overflow: hidden;
@@ -167,10 +186,12 @@
     height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.28s ease;
 }
+
 .faq-item.is-open .faq-item__panel,
 .faq-item[open] .faq-item__panel {
   opacity: 1;
 }
+
 .faq-item__answer {
   padding: 0 18px 16px;
   color: var(--muted);
@@ -179,13 +200,16 @@
   transform: translateY(-6px);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .faq-item.is-open .faq-item__answer,
 .faq-item[open] .faq-item__answer {
   transform: translateY(0);
 }
+
 .faq-item__answer p {
   margin: 0;
 }
+
 .faq-note {
   margin: 18px 0 0;
   max-width: 760px;
@@ -199,6 +223,7 @@
 }
 
 /* Later rules in this file override the earlier workflow/FAQ layout. */
+
 /* Component layout and responsive refinements. */
 .workflow {
   display: grid;
@@ -289,26 +314,30 @@
   .faq-item__answer {
     transition: none;
   }
+
   .faq-item__panel {
     height: auto;
     display: none;
     opacity: 1;
   }
+
   .faq-item.is-open .faq-item__panel,
   .faq-item[open] .faq-item__panel {
     display: block;
   }
+
   .faq-item.is-open .faq-item__icon,
   .faq-item[open] .faq-item__icon {
     transform: none;
   }
+
   .faq-item.is-open .faq-item__answer,
   .faq-item[open] .faq-item__answer {
     transform: none;
   }
 }
 
-@media (max-width: 980px) {
+@media (width <= 980px) {
   .workflow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     display: grid;
@@ -318,7 +347,7 @@
   }
 }
 
-@media (max-width: 720px) {
+@media (width <= 720px) {
   .workflow {
     display: grid;
     grid-template-columns: 1fr;

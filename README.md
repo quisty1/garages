@@ -26,7 +26,7 @@ Production: https://metallmontage33.ru/
 | Framework | Next.js App Router, React, TypeScript (strict)           |
 | Стили     | Существующие CSS-токены и partials (без Tailwind/UI-kit) |
 | Деплой    | Static export → `out/` → Timeweb FTP                     |
-| Тесты     | Vitest, Testing Library, Playwright, axe-core            |
+| Тесты     | Vitest + coverage, Testing Library, Playwright, axe-core |
 
 ## Структура
 
@@ -50,18 +50,20 @@ out/                 # production static export (после build)
 | `npm run dev`                       | Локальная разработка Next.js               |
 | `npm run build`                     | Production static export в `out/`          |
 | `npm run preview` / `npm run start` | Локальный HTTP preview папки `out/`        |
-| `npm run typecheck`                 | `tsc --noEmit`                             |
-| `npm run lint`                      | ESLint                                     |
+| `npm run typecheck`                 | TypeScript приложения и Playwright-тестов  |
+| `npm run lint`                      | ESLint + Stylelint                         |
 | `npm run test`                      | Unit + component (Vitest)                  |
+| `npm run test:coverage`             | Vitest с обязательными порогами покрытия   |
 | `npm run test:e2e`                  | Playwright E2E (нужен `out/`)              |
 | `npm run test:a11y`                 | axe + keyboard checks                      |
+| `npm run test:cross-browser`        | Smoke-тесты Firefox и WebKit               |
 | `npm run test:visual`               | Visual regression screenshots              |
 | `npm run validate`                  | Проверки содержимого `out/`                |
 | `npm run ci`                        | typecheck + lint + test + build + validate |
 
 ## Локальный запуск
 
-Нужен Node.js 20.9 или новее.
+Нужен Node.js 22.22.2 или новее и npm 11.17.0.
 
 ```bash
 npm ci
@@ -106,11 +108,15 @@ GitHub Actions (`.github/workflows/deploy-timeweb.yml`):
 
 1. `npm ci`
 2. `npm run ci`
-3. Playwright e2e и accessibility-проверки (обязательные: сбой блокирует деплой)
-4. `lftp mirror` содержимого **`out/`** в корень хостинга
+3. Playwright e2e, accessibility и Firefox/WebKit smoke-проверки
+4. Visual regression в Windows с платформенными baseline-снимками
+5. Загрузка проверенного `out/` как workflow artifact
+6. `lftp mirror` содержимого **`out/`** в корень хостинга
 
-Сборка, typecheck, lint, unit-тесты, проверка `out/` (включая обход
-локальных ссылок и ресурсов) и браузерные проверки остаются обязательными.
+Тот же набор проверок запускается для pull request в `main`, но без публикации.
+Сборка, typecheck приложения и Playwright-тестов, ESLint, Stylelint, coverage,
+проверка `out/` (включая обход локальных ссылок и ресурсов) и браузерные
+проверки остаются обязательными.
 FTP повторяет временно неудачные соединения до пяти раз.
 
 ### GitHub Secrets (имена)

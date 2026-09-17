@@ -1,7 +1,7 @@
 // Component tests for mobile nav, carousel controls, and contact copy.
 
 import { describe, expect, it, vi } from 'vitest';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MobileNavControls, NavBackdrop } from '@/components/layout/MobileNav';
 import { Carousel } from '@/components/ui/Carousel';
@@ -47,6 +47,63 @@ describe('MobileNav', () => {
     const nav = document.querySelector('[data-nav]') as HTMLElement;
     await user.click(toggle);
     expect(nav).toHaveClass('is-open');
+
+    const services = document.querySelector<HTMLButtonElement>(
+      '[aria-controls="nav-services"]',
+    )!;
+    const catalog = document.querySelector<HTMLButtonElement>(
+      '[aria-controls="nav-catalog"]',
+    )!;
+    await user.click(services);
+    expect(services).toHaveAttribute('aria-expanded', 'true');
+    await user.click(catalog);
+    expect(catalog).toHaveAttribute('aria-expanded', 'true');
+    expect(services).toHaveAttribute('aria-expanded', 'false');
+
+    await user.click(document.querySelector('[data-nav-backdrop]')!);
+    expect(nav).not.toHaveClass('is-open');
+    await user.click(toggle);
+    await user.keyboard('{Escape}');
+    expect(nav).not.toHaveClass('is-open');
+  });
+
+  it('opens desktop dropdowns with pointer and keyboard focus', () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: vi.fn().mockImplementation((query: string) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      })),
+    });
+    render(
+      <header>
+        <div className="header-inner">
+          <MobileNavControls serviceLinks={[]} />
+        </div>
+      </header>,
+    );
+
+    const services = document.querySelector<HTMLElement>(
+      '[data-nav-dropdown="services"]',
+    )!;
+    const catalog = document.querySelector<HTMLElement>(
+      '[data-nav-dropdown="catalog"]',
+    )!;
+    fireEvent.mouseEnter(services);
+    expect(services).toHaveClass('is-open');
+    fireEvent.mouseLeave(services);
+    expect(services).not.toHaveClass('is-open');
+    fireEvent.mouseEnter(catalog);
+    expect(catalog).toHaveClass('is-open');
+    catalog.querySelector<HTMLButtonElement>('button')!.focus();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(catalog).not.toHaveClass('is-open');
   });
 });
 
@@ -72,6 +129,59 @@ describe('Carousel', () => {
     expect(document.querySelector('.slide__title')?.textContent).toContain(
       'Гараж',
     );
+  });
+
+  it('moves between slides with reduced motion', async () => {
+    const user = userEvent.setup();
+    const scrollIntoView = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, 'scrollIntoView', {
+      configurable: true,
+      value: scrollIntoView,
+    });
+    Object.defineProperty(HTMLElement.prototype, 'scrollWidth', {
+      configurable: true,
+      get: () => 600,
+    });
+    Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
+      configurable: true,
+      get: () => 300,
+    });
+    vi.mocked(window.matchMedia).mockImplementation((query: string) => ({
+      matches: query.includes('prefers-reduced-motion'),
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+    render(
+      <Carousel
+        name="canopies"
+        label="Карусель навесов"
+        kind="canopy"
+        slides={[
+          { title: 'Навес 1', img: '/assets/canopy-1.webp' },
+          { title: 'Навес 2', img: '/assets/canopy-2.webp' },
+        ]}
+      />,
+    );
+
+    await user.click(
+      document.querySelector<HTMLButtonElement>('[data-carousel-next]')!,
+    );
+    expect(scrollIntoView).toHaveBeenCalledWith({
+      behavior: 'auto',
+      inline: 'start',
+      block: 'nearest',
+    });
+    const previous = document.querySelector<HTMLButtonElement>(
+      '[data-carousel-prev]',
+    )!;
+    previous.disabled = false;
+    await user.click(previous);
+    expect(scrollIntoView).toHaveBeenCalledTimes(2);
   });
 });
 

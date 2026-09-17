@@ -2,6 +2,7 @@
 * {
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -89,7 +90,7 @@ body {
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
-    Segoe UI,
+    'Segoe UI',
     Roboto,
     Arial,
     sans-serif;
@@ -123,6 +124,7 @@ main {
   height: 1px;
   overflow: hidden;
 }
+
 .skip-link:focus {
   left: 16px;
   top: 16px;
@@ -158,7 +160,7 @@ main {
   }
 }
 
-@media (max-width: 720px) {
+@media (width <= 720px) {
   :root {
     --header-height: 68px;
     --scroll-offset: calc(

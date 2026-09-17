@@ -1,6 +1,6 @@
 // Component tests for Calculator, FAQ accordion, and ThemeToggle.
 
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Calculator } from '@/components/sections/Calculator';
@@ -32,6 +32,29 @@ describe('Calculator component', () => {
     const panel = document.querySelector('[data-garage-field]');
     expect(panel).toHaveAttribute('hidden');
   });
+
+  it('updates all optional inputs and handles an invalid estimate', async () => {
+    const user = userEvent.setup();
+    render(<Calculator />);
+
+    await user.selectOptions(
+      screen.getByRole('combobox', { name: /Толщина панелей/i }),
+      '150',
+    );
+    await user.selectOptions(
+      screen.getByRole('combobox', { name: /Количество ворот/i }),
+      '2',
+    );
+    await user.click(screen.getByRole('checkbox', { name: 'Основание' }));
+    await user.click(screen.getByRole('checkbox', { name: 'Водосток' }));
+    await user.click(screen.getByRole('checkbox', { name: 'Водосток' }));
+
+    const length = screen.getByRole('spinbutton', { name: /Длина/i });
+    await user.clear(length);
+    expect(
+      document.querySelector('[data-calculator-price]'),
+    ).toBeEmptyDOMElement();
+  });
 });
 
 describe('FAQ component', () => {
@@ -52,6 +75,26 @@ describe('FAQ component', () => {
     await user.click(second);
     expect(second.closest('details')).toHaveClass('is-open');
     expect(first.closest('details')).not.toHaveClass('is-open');
+  });
+
+  it('closes immediately when reduced motion is enabled', async () => {
+    const user = userEvent.setup();
+    vi.mocked(window.matchMedia).mockImplementation((query: string) => ({
+      matches: query.includes('prefers-reduced-motion'),
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+    render(<Faq items={[{ q: 'Вопрос?', a: 'Ответ.' }]} />);
+    const question = screen.getByText('Вопрос?');
+    await user.click(question);
+    expect(question.closest('details')).toHaveAttribute('open');
+    await user.click(question);
+    expect(question.closest('details')).not.toHaveAttribute('open');
   });
 });
 

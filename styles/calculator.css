@@ -1,4 +1,5 @@
 /* Preliminary project calculator. */
+
 /* Two-column form + live estimate; stacks on narrow viewports. */
 .calculator {
   display: grid;
@@ -171,13 +172,13 @@ html[data-theme='light'] .calculator__input {
   align-self: flex-start;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .calculator {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 560px) {
+@media (width <= 560px) {
   .calculator__fields {
     grid-template-columns: 1fr;
   }

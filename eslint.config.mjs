@@ -14,8 +14,6 @@ export default defineConfig([
     '.next/**',
     'node_modules/**',
     'public/sw.js',
-    'scripts/**',
-    'tests/visual/**',
     'next-env.d.ts',
   ]),
 ]);

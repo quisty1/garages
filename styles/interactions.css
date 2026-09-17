@@ -1,4 +1,5 @@
 /* Purposeful motion and engineering-detail layer. */
+
 /* Driven by ClientEffects: --page-progress, hero tilt vars, scroll-reveal. */
 
 .page-progress {
@@ -52,6 +53,7 @@
   --hero-ry: 0deg;
   --hero-shift-x: 0px;
   --hero-shift-y: 0px;
+
   max-width: none;
   overflow: visible;
   transform: perspective(1100px) rotateX(var(--hero-rx)) rotateY(var(--hero-ry));
@@ -75,7 +77,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, transparent 48%, rgba(6, 8, 10, 0.72));
+  background: linear-gradient(180deg, transparent 48%, rgb(6 8 10 / 72%));
   pointer-events: none;
 }
 
@@ -114,7 +116,7 @@
 }
 
 .hero-card__sub {
-  color: rgba(255, 255, 255, 0.68);
+  color: rgb(255 255 255 / 68%);
   text-align: right;
 }
 
@@ -134,8 +136,8 @@
 .hero-blueprint__line {
   position: absolute;
   display: block;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 0 0 1px rgba(17, 20, 24, 0.12);
+  background: rgb(255 255 255 / 88%);
+  box-shadow: 0 0 0 1px rgb(17 20 24 / 12%);
 }
 
 .hero-blueprint__line::before,
@@ -151,33 +153,40 @@
   top: 12%;
   height: 1px;
 }
+
 .hero-blueprint__line--width::before,
 .hero-blueprint__line--width::after {
   top: -6px;
   width: 1px;
   height: 13px;
 }
+
 .hero-blueprint__line--width::before {
   left: 0;
 }
+
 .hero-blueprint__line--width::after {
   right: 0;
 }
+
 .hero-blueprint__line--height {
   top: 12%;
   bottom: 18%;
   right: 6%;
   width: 1px;
 }
+
 .hero-blueprint__line--height::before,
 .hero-blueprint__line--height::after {
   left: -6px;
   width: 13px;
   height: 1px;
 }
+
 .hero-blueprint__line--height::before {
   top: 0;
 }
+
 .hero-blueprint__line--height::after {
   bottom: 0;
 }
@@ -185,8 +194,8 @@
 .hero-blueprint__label {
   position: absolute;
   padding: 5px 8px;
-  background: rgba(12, 15, 18, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgb(12 15 18 / 78%);
+  border: 1px solid rgb(255 255 255 / 42%);
   color: #fff;
   font:
     700 10px/1 ui-monospace,
@@ -195,11 +204,13 @@
     monospace;
   letter-spacing: 0.1em;
 }
+
 .hero-blueprint__label--width {
   top: calc(12% - 13px);
   left: 50%;
   transform: translateX(-50%);
 }
+
 .hero-blueprint__label--height {
   right: calc(6% - 25px);
   top: 48%;
@@ -213,28 +224,33 @@
   border: 1px solid #fff;
   border-radius: 50%;
 }
+
 .hero-blueprint__point::before,
 .hero-blueprint__point::after {
   content: '';
   position: absolute;
   background: #fff;
 }
+
 .hero-blueprint__point::before {
   width: 17px;
   height: 1px;
   left: -5px;
   top: 3px;
 }
+
 .hero-blueprint__point::after {
   width: 1px;
   height: 17px;
   left: 3px;
   top: -5px;
 }
+
 .hero-blueprint__point--a {
   left: 18%;
   top: 57%;
 }
+
 .hero-blueprint__point--b {
   right: 23%;
   top: 32%;
@@ -246,11 +262,13 @@
   background: var(--primary);
   color: var(--on-primary);
 }
+
 .spec-ticker__track {
   display: flex;
   width: max-content;
   animation: spec-marquee 34s linear infinite;
 }
+
 .spec-ticker__group {
   display: flex;
   align-items: center;
@@ -258,16 +276,19 @@
   padding: 13px 14px;
   white-space: nowrap;
 }
+
 .spec-ticker span {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.11em;
   text-transform: uppercase;
 }
+
 .spec-ticker b {
   font-size: 9px;
   opacity: 0.62;
 }
+
 @keyframes spec-marquee {
   to {
     transform: translateX(-25%);
@@ -291,6 +312,7 @@
       border-color 0.25s ease,
       background-color 0.25s ease;
   }
+
   .project:hover,
   .composition-card:hover,
   .roof-card:hover,
@@ -312,10 +334,12 @@
   .blog-article__figure img {
     transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
+
   .catalog-hub__card:hover .catalog-hub__media img,
   .blog-card:hover .blog-card__image {
     transform: scale(1.035);
   }
+
   .blog-article__cover .slide__img:hover img,
   .blog-article__cover .slide__img:focus-visible img,
   .blog-article__figure .slide__img:hover img,
@@ -329,6 +353,7 @@
   .catalog-hub__cta {
     transition: transform 0.3s cubic-bezier(0.2, 0.75, 0.2, 1);
   }
+
   .landing-link:hover > span,
   .blog-card:hover .blog-card__more,
   .blog-related__item:hover > span,
@@ -343,6 +368,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: none;
@@ -357,6 +383,7 @@
   .about-hero .container > :not(.landing-breadcrumbs) {
     animation: page-enter 0.7s cubic-bezier(0.2, 0.55, 0.25, 1) both;
   }
+
   .landing-hero__grid > *:nth-child(2),
   .catalog-hero .container > :not(.landing-breadcrumbs):nth-child(3),
   .blog-hero .container > :not(.landing-breadcrumbs):nth-child(3),
@@ -364,6 +391,7 @@
   .about-hero .container > :not(.landing-breadcrumbs):nth-child(3) {
     animation-delay: 0.08s;
   }
+
   .landing-hero__grid > *:nth-child(3),
   .catalog-hero .container > :not(.landing-breadcrumbs):nth-child(4),
   .blog-hero .container > :not(.landing-breadcrumbs):nth-child(4),
@@ -371,52 +399,63 @@
   .about-hero .container > :not(.landing-breadcrumbs):nth-child(4) {
     animation-delay: 0.16s;
   }
+
   .catalog-hero .container > :not(.landing-breadcrumbs):nth-child(5),
   .blog-article__header > :not(.landing-breadcrumbs):nth-child(5) {
     animation-delay: 0.24s;
   }
 }
 
-@media (max-width: 1120px) {
+@media (width <= 1120px) {
   .hero {
     min-height: auto;
   }
+
   .hero__inner {
     grid-template-columns: minmax(0, 1fr);
   }
+
   .hero__title {
     max-width: 12ch;
   }
+
   .hero-card {
     max-width: none;
     width: 100%;
   }
 }
 
-@media (max-width: 720px) {
+@media (width <= 720px) {
   .hero {
     padding-block: 48px;
   }
+
   .hero__title {
     font-size: clamp(43px, 13vw, 64px);
     line-height: 0.98;
   }
+
   .hero__visual {
     margin-top: 12px;
   }
+
   .hero__meta {
     display: none;
   }
+
   .hero-card__img {
     min-height: 0;
   }
+
   .hero-card__footer {
     position: absolute;
     grid-template-columns: 1fr;
   }
+
   .hero-card__sub {
     text-align: left;
   }
+
   .hero-blueprint__label--height {
     right: calc(6% - 22px);
   }
@@ -427,12 +466,15 @@
   .hero-card__img img {
     transform: none !important;
   }
+
   .spec-ticker__track {
     animation: none;
   }
+
   .spec-ticker__group[aria-hidden='true'] {
     display: none;
   }
+
   .catalog-hub__card,
   .catalog-card,
   .blog-card,
@@ -449,6 +491,7 @@
     transition: none !important;
     transform: none !important;
   }
+
   .landing-hero__grid > *,
   .catalog-hero .container > :not(.landing-breadcrumbs),
   .blog-hero .container > :not(.landing-breadcrumbs),

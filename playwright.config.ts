@@ -20,7 +20,7 @@ export default defineConfig({
     },
   },
   webServer: {
-    command: `npx --yes serve out -l ${PORT}`,
+    command: `serve out -l ${PORT}`,
     url: BASE_URL,
     // Never validate a stale export left by an earlier local run.
     reuseExistingServer: false,
@@ -41,6 +41,16 @@ export default defineConfig({
       name: 'visual',
       testMatch: /visual\/.*\.spec\.ts/,
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      testMatch: /cross-browser\/.*\.spec\.ts/,
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      testMatch: /cross-browser\/.*\.spec\.ts/,
+      use: { ...devices['Desktop Safari'] },
     },
   ],
 });
