@@ -27,10 +27,18 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
   useEffect(() => {
     const carousel = rootRef.current;
     if (!carousel) return;
-    const prevBtn = carousel.querySelector<HTMLButtonElement>('[data-carousel-prev]');
-    const nextBtn = carousel.querySelector<HTMLButtonElement>('[data-carousel-next]');
-    const viewport = carousel.querySelector<HTMLElement>('[data-carousel-viewport]');
-    const slideEls = Array.from(carousel.querySelectorAll<HTMLElement>('.slide'));
+    const prevBtn = carousel.querySelector<HTMLButtonElement>(
+      '[data-carousel-prev]',
+    );
+    const nextBtn = carousel.querySelector<HTMLButtonElement>(
+      '[data-carousel-next]',
+    );
+    const viewport = carousel.querySelector<HTMLElement>(
+      '[data-carousel-viewport]',
+    );
+    const slideEls = Array.from(
+      carousel.querySelectorAll<HTMLElement>('.slide'),
+    );
     if (!viewport || !slideEls.length) return;
 
     let activeIndex = 0;
@@ -39,7 +47,10 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
     function updateControls() {
       // Small tolerance so subpixel scroll positions don't leave buttons stuck.
       const tolerance = 2;
-      const maxScrollLeft = Math.max(0, viewport!.scrollWidth - viewport!.clientWidth);
+      const maxScrollLeft = Math.max(
+        0,
+        viewport!.scrollWidth - viewport!.clientWidth,
+      );
       if (prevBtn) prevBtn.disabled = viewport!.scrollLeft <= tolerance;
       if (nextBtn) {
         nextBtn.disabled = viewport!.scrollLeft >= maxScrollLeft - tolerance;
@@ -52,7 +63,9 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
       const viewportLeft = viewport!.getBoundingClientRect().left;
       let closestDistance = Number.POSITIVE_INFINITY;
       slideEls.forEach((slide, index) => {
-        const distance = Math.abs(slide.getBoundingClientRect().left - viewportLeft);
+        const distance = Math.abs(
+          slide.getBoundingClientRect().left - viewportLeft,
+        );
         if (distance < closestDistance) {
           closestDistance = distance;
           activeIndex = index;
@@ -142,11 +155,17 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
                 </button>
                 <div className="slide__body">
                   <div className="slide__kicker">
-                    {kind === 'garage' ? 'типовой размер' : 'металлоконструкция'}
+                    {kind === 'garage'
+                      ? 'типовой размер'
+                      : 'металлоконструкция'}
                   </div>
-                  <h3 className="slide__title">{slide.title}</h3>
-                  {slide.size ? <p className="slide__size">{slide.size}</p> : null}
-                  {slide.meta ? <p className="slide__meta">{slide.meta}</p> : null}
+                  <div className="slide__title">{slide.title}</div>
+                  {slide.size ? (
+                    <p className="slide__size">{slide.size}</p>
+                  ) : null}
+                  {slide.meta ? (
+                    <p className="slide__meta">{slide.meta}</p>
+                  ) : null}
                 </div>
               </article>
             );

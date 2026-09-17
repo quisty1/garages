@@ -15,8 +15,10 @@ export function Extras() {
         <div className="cards-grid cards-grid--3" data-extras>
           {company.extras.map((item, index) => (
             <article className="card" key={item.title}>
-              <div className="card__num">{String(index + 1).padStart(2, '0')}</div>
-              <h3 className="card__title">{item.title}</h3>
+              <div className="card__num">
+                {String(index + 1).padStart(2, '0')}
+              </div>
+              <div className="card__title">{item.title}</div>
               <p className="card__text">{item.text}</p>
             </article>
           ))}

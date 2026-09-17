@@ -37,9 +37,11 @@ export function Projects() {
                   />
                 </button>
                 <div className="project__body">
-                  <h3 className="project__title">{project.title}</h3>
+                  <div className="project__title">{project.title}</div>
                   <p className="project__size">{project.size}</p>
-                  <p className="project__price">{formatProjectPrice(project.price)}</p>
+                  <p className="project__price">
+                    {formatProjectPrice(project.price)}
+                  </p>
                   <ul className="project__specs">
                     {project.specs.map((spec) => (
                       <li key={spec}>{spec}</li>

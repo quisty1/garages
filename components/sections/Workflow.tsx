@@ -22,7 +22,7 @@ export function Workflow() {
               </div>
               <div className="workflow-step__line" aria-hidden="true" />
               <div className="workflow-step__body">
-                <h3 className="workflow-step__title">{step.title}</h3>
+                <div className="workflow-step__title">{step.title}</div>
                 <p className="workflow-step__text">{step.text}</p>
               </div>
             </li>

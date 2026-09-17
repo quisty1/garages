@@ -18,7 +18,7 @@ export function PriceFactors() {
               className={`factor-cell${index === company.priceFactors.length - 1 ? ' factor-cell--alt' : ''}`}
               key={factor.title}
             >
-              <h3 className="factor-cell__title">{factor.title}</h3>
+              <div className="factor-cell__title">{factor.title}</div>
               <p className="factor-cell__text">{factor.text}</p>
             </article>
           ))}

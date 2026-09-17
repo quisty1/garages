@@ -17,13 +17,14 @@ export function Advantages() {
         <div className="stats-grid" data-advantages>
           {company.advantages.map((item, index) => {
             const num = String(index + 1).padStart(2, '0');
-            const variant = index % 2 === 0 ? 'stat-card--primary' : 'stat-card--steel';
+            const variant =
+              index % 2 === 0 ? 'stat-card--primary' : 'stat-card--steel';
             return (
               <article className={`stat-card ${variant}`} key={item.title}>
                 <div className="stat-card__num" aria-hidden="true">
                   {num}
                 </div>
-                <h3 className="stat-card__title">{item.title}</h3>
+                <div className="stat-card__title">{item.title}</div>
                 <p className="stat-card__value">{item.value}</p>
                 <p className="stat-card__text">
                   {item.lines.map((line) => (

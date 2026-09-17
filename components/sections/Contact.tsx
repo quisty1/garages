@@ -28,7 +28,7 @@ export function Contact() {
         <div className="contacts-panel">
           <div className="contacts-panel__main">
             <div className="contacts-panel__call">
-              <h3 className="contacts-panel__subtitle">Позвоните нам</h3>
+              <div className="contacts-panel__subtitle">Позвоните нам</div>
               <div className="contacts-panel__phones" data-phones>
                 {company.phones.map((phone) => (
                   <a
@@ -75,7 +75,7 @@ export function Contact() {
           </div>
 
           <div className="contacts-panel__block">
-            <h3 className="contacts-panel__subtitle">Напишите нам</h3>
+            <div className="contacts-panel__subtitle">Напишите нам</div>
             <MessengerLinks />
           </div>
 
@@ -98,7 +98,9 @@ export function Contact() {
             </li>
           </ul>
           <div id="requisites-bank-details">
-            <div className="requisites-panel__subtitle">Банковские реквизиты</div>
+            <div className="requisites-panel__subtitle">
+              Банковские реквизиты
+            </div>
             <ul className="requisites-panel__list">
               <li>
                 <strong>Банк</strong>
@@ -110,7 +112,9 @@ export function Contact() {
               </li>
               <li>
                 <strong>К/с</strong>
-                <span id="requisites-corr-account">{legal.bank.corrAccount}</span>
+                <span id="requisites-corr-account">
+                  {legal.bank.corrAccount}
+                </span>
               </li>
               <li>
                 <strong>БИК</strong>

@@ -22,7 +22,7 @@ export function Roofs() {
               <div className="roof-card__icon" aria-hidden="true">
                 <RoofIcon icon={roof.icon} />
               </div>
-              <h3 className="roof-card__title">{roof.title}</h3>
+              <div className="roof-card__title">{roof.title}</div>
               <p className="roof-card__text">{roof.text}</p>
             </article>
           ))}

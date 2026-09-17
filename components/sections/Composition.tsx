@@ -26,7 +26,7 @@ export function Composition() {
                   decoding="async"
                 />
               </div>
-              <h3 className="composition-card__title">{item.title}</h3>
+              <div className="composition-card__title">{item.title}</div>
               <p className="composition-card__text">{item.text}</p>
             </article>
           ))}
