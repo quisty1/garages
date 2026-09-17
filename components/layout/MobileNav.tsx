@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 // Mobile drawer nav: open/close, focus trap, inert background, breakpoint sync.
 
 import { useCallback, useEffect, useRef } from 'react';
@@ -146,24 +148,24 @@ export function MobileNavControls() {
       >
         <ul className="nav__list">
           <li>
-            <a className="nav__link" href="#garages">
+            <Link className="nav__link" href="/metallicheskie-garazhi/">
               Гаражи
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="nav__link" href="#canopies">
+            <Link className="nav__link" href="/navesy-dlya-avtomobilej/">
               Навесы
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="nav__link" href="#garage-projects">
+            <Link className="nav__link" href="/#garage-projects">
               Наши работы
-            </a>
+            </Link>
           </li>
           <li>
-            <a className="nav__link" href="#services">
+            <Link className="nav__link" href="/#directions">
               Услуги
-            </a>
+            </Link>
           </li>
           <li>
             <a className="nav__link" href="#workflow">

@@ -9,7 +9,10 @@ interface MessengerLinksProps {
 export function MessengerLinks({ variant = 'tiles' }: MessengerLinksProps) {
   if (variant === 'footer') {
     return (
-      <ul className="footer-list footer-list--messengers" data-footer-messengers>
+      <ul
+        className="footer-list footer-list--messengers"
+        data-footer-messengers
+      >
         {company.messengers.map((messenger) => (
           <li key={messenger.id}>
             <a href={messenger.href} target="_blank" rel="noopener noreferrer">

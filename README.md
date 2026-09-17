@@ -120,6 +120,21 @@ GitHub Actions (`.github/workflows/deploy-timeweb.yml`):
 
 ## SEO
 
+Отдельные посадочные страницы экспортируются в HTML с собственными title,
+description, canonical, Open Graph, Twitter Card, хлебными крошками и FAQ:
+
+- `/metallicheskie-garazhi/` — выбор и комплектация металлического гаража.
+- `/garazhi-iz-sendvich-panelej/` — панели, утепление и эксплуатация.
+- `/garazhi-na-dve-mashiny/` — планировка, проёмы и хранение.
+- `/navesy-dlya-avtomobilej/` — размещение навеса, опоры и кровля.
+
+Контент хранится в `lib/landing-pages.ts`, шаблон — в `app/[slug]/page.tsx`.
+Новая запись автоматически добавляется в статическую генерацию, карту сайта
+и блок ссылок. FAQ в HTML и JSON-LD формируется из одного источника.
+Для навесов калькулятор сразу открывается в соответствующем режиме.
+Тексты написаны для этих страниц; процент уникальности во внешнем сервисе
+не проверялся. Проверки посадочных: `npx playwright test landings --project=e2e`.
+
 - Metadata API: title, description, canonical, Open Graph, Twitter Card, geo
 - JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, `WebPage`, `FAQPage`, Offer + `PriceSpecification.minPrice` («цены от»)
 - `robots.txt` и `sitemap.xml` (включая изображения)

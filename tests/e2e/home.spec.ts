@@ -42,11 +42,49 @@ test.describe('main page e2e', () => {
     await expect(first).toHaveClass(/is-open/);
   });
 
-  test('lightbox opens and closes with Escape', async ({ page }) => {
-    await page.goto('/#garages');
-    await page.locator('[data-carousel="garages"] .slide__img').first().click();
+  for (const catalog of ['garages', 'canopies']) {
+    test(`${catalog} lightbox opens full-size photo and closes with Escape`, async ({
+      page,
+    }) => {
+      await page.goto(`/#${catalog}`);
+      const firstPhoto = page
+        .locator(`[data-carousel="${catalog}"] .slide__img`)
+        .first();
+      await expect(firstPhoto.locator('img')).toHaveAttribute(
+        'srcset',
+        /1024w.*1536w/,
+      );
+      await firstPhoto.click();
+      const lightbox = page.locator('.lightbox');
+      await expect(lightbox).toHaveClass(/is-open/);
+      await expect(lightbox.locator('img')).toHaveAttribute(
+        'src',
+        /\/assets\/(garage|canopy)-[^/]+\.webp$/,
+      );
+      await expect
+        .poll(() =>
+          lightbox
+            .locator('img')
+            .evaluate((img: HTMLImageElement) => img.naturalWidth),
+        )
+        .toBe(1536);
+      await page.keyboard.press('Escape');
+      await expect(lightbox).not.toHaveClass(/is-open/);
+    });
+  }
+
+  test('composition lightbox opens photo and closes with Escape', async ({
+    page,
+  }) => {
+    await page.goto('/#composition');
+    const firstPhoto = page.locator('#composition .slide__img').first();
+    await firstPhoto.click();
     const lightbox = page.locator('.lightbox');
     await expect(lightbox).toHaveClass(/is-open/);
+    await expect(lightbox.locator('img')).toHaveAttribute(
+      'src',
+      /\/assets\/composition-[^/]+\.webp$/,
+    );
     await page.keyboard.press('Escape');
     await expect(lightbox).not.toHaveClass(/is-open/);
   });

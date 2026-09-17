@@ -71,7 +71,7 @@
   background: rgba(5, 7, 9, 0.94);
 }
 .lightbox__img {
-  max-width: min(88vw, 1100px);
+  max-width: min(96vw, 1440px);
   max-height: 88vh;
   width: auto;
   height: auto;
@@ -239,6 +239,9 @@ body.lightbox-open {
     width: 40px;
     height: 40px;
     font-size: 18px;
+    top: auto;
+    bottom: 16px;
+    transform: none;
   }
 
   .lightbox__nav--prev {
@@ -250,7 +253,12 @@ body.lightbox-open {
   }
 
   .lightbox__img {
-    max-width: calc(100vw - 100px);
+    max-width: calc(100vw - 32px);
+    max-height: calc(100dvh - 120px);
+  }
+
+  .lightbox__caption {
+    bottom: 70px;
   }
 }
 /* Small motion cues only on controls and interactive photography. */

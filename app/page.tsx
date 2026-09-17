@@ -1,3 +1,6 @@
+import { company } from '@/lib/site-data';
+import { buildJsonLd } from '@/lib/seo';
+import { LandingLinks } from '@/components/sections/LandingLinks';
 // Single-page landing: section order matches the marketing narrative.
 
 import { Header } from '@/components/layout/Header';
@@ -27,6 +30,22 @@ import {
 export default function HomePage() {
   return (
     <>
+      {/* Preload the LCP hero project image. */}
+      <link
+        rel="preload"
+        href="/assets/garage-project-8-8-v2-960.webp"
+        as="image"
+        type="image/webp"
+        imageSrcSet="/assets/garage-project-8-8-v2-560.webp 560w, /assets/garage-project-8-8-v2-960.webp 960w, /assets/garage-project-8-8-v2.webp 1672w"
+        imageSizes="(max-width: 1120px) 92vw, 52vw"
+      />
+      <script
+        id="json-ld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildJsonLd(company)),
+        }}
+      />
       <a className="skip-link" href="#contact">
         Перейти к контактам
       </a>
@@ -34,6 +53,7 @@ export default function HomePage() {
       <main id="top">
         <Hero />
         <SpecTicker />
+        <LandingLinks />
         <Garages />
         <Canopies />
         <Projects />

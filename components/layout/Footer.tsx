@@ -1,3 +1,4 @@
+import Link from 'next/link';
 // Site footer with contacts, messengers, and legal links.
 
 import { company } from '@/lib/site-data';
@@ -95,10 +96,10 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom__links">
-          <a href="#garages">Гаражи</a>
-          <a href="#canopies">Навесы</a>
-          <a href="#garage-projects">Наши работы</a>
-          <a href="#services">Услуги</a>
+          <Link href="/metallicheskie-garazhi/">Гаражи</Link>
+          <Link href="/navesy-dlya-avtomobilej/">Навесы</Link>
+          <Link href="/#garage-projects">Наши работы</Link>
+          <Link href="/#directions">Услуги</Link>
           <a href="#workflow">Этапы</a>
           <a href="#faq">Вопросы</a>
           <a href="#contact">Контакты</a>

@@ -141,6 +141,7 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={img.src}
+                    data-full-src={img.src}
                     srcSet={img.srcSet}
                     sizes={img.sizes}
                     alt={alt}

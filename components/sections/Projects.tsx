@@ -27,6 +27,7 @@ export function Projects() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={project.img}
+                    data-full-src={project.img}
                     srcSet={`${previewPath(project.img)} 560w, ${project.img} ${project.imgWidth}w`}
                     sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
                     alt={seoImageAlt(project.title, 'garage')}

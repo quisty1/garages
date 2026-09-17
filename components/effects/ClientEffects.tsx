@@ -32,40 +32,47 @@ function initPageProgress() {
   };
 }
 
-// Subtle pointer-driven tilt on the hero blueprint card (desktop + motion OK).
+// Subtle pointer-driven tilt on blueprint cards (desktop + motion OK).
 function initHeroBlueprint() {
-  const card = document.querySelector<HTMLElement>('[data-hero-card]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-hero-card]');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (!card || !finePointer.matches || reduced.matches) return () => undefined;
+  if (!cards.length || !finePointer.matches || reduced.matches) {
+    return () => undefined;
+  }
 
-  let frame = 0;
-  let nextX = 0;
-  let nextY = 0;
-  const paint = () => {
-    frame = 0;
-    card.style.setProperty('--hero-ry', `${(nextX * 3.5).toFixed(2)}deg`);
-    card.style.setProperty('--hero-rx', `${(-nextY * 3).toFixed(2)}deg`);
-    card.style.setProperty('--hero-shift-x', `${(-nextX * 8).toFixed(2)}px`);
-    card.style.setProperty('--hero-shift-y', `${(-nextY * 7).toFixed(2)}px`);
-  };
-  const onMove = (event: PointerEvent) => {
-    const rect = card.getBoundingClientRect();
-    nextX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-    nextY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-    if (!frame) frame = requestAnimationFrame(paint);
-  };
-  const onLeave = () => {
-    nextX = 0;
-    nextY = 0;
-    if (!frame) frame = requestAnimationFrame(paint);
-  };
-  card.addEventListener('pointermove', onMove);
-  card.addEventListener('pointerleave', onLeave);
-  return () => {
-    card.removeEventListener('pointermove', onMove);
-    card.removeEventListener('pointerleave', onLeave);
-  };
+  const cleanups: Array<() => void> = [];
+  cards.forEach((card) => {
+    let frame = 0;
+    let nextX = 0;
+    let nextY = 0;
+    const paint = () => {
+      frame = 0;
+      card.style.setProperty('--hero-ry', `${(nextX * 3.5).toFixed(2)}deg`);
+      card.style.setProperty('--hero-rx', `${(-nextY * 3).toFixed(2)}deg`);
+      card.style.setProperty('--hero-shift-x', `${(-nextX * 8).toFixed(2)}px`);
+      card.style.setProperty('--hero-shift-y', `${(-nextY * 7).toFixed(2)}px`);
+    };
+    const onMove = (event: PointerEvent) => {
+      const rect = card.getBoundingClientRect();
+      nextX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      nextY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+    const onLeave = () => {
+      nextX = 0;
+      nextY = 0;
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+    card.addEventListener('pointermove', onMove);
+    card.addEventListener('pointerleave', onLeave);
+    cleanups.push(() => {
+      card.removeEventListener('pointermove', onMove);
+      card.removeEventListener('pointerleave', onLeave);
+      if (frame) cancelAnimationFrame(frame);
+    });
+  });
+  return () => cleanups.forEach((fn) => fn());
 }
 
 // Staggered fade-up for section blocks below the fold; skip if reduced motion.
@@ -101,7 +108,9 @@ function initScrollReveal() {
           },
         );
         running.add(animation);
-        animation.finished.catch(() => undefined).finally(() => running.delete(animation));
+        animation.finished
+          .catch(() => undefined)
+          .finally(() => running.delete(animation));
       });
     },
     {
@@ -124,7 +133,9 @@ function initScrollReveal() {
 
   // Keyboard users should not wait for the reveal animation to start.
   const onFocusIn = (event: FocusEvent) => {
-    const target = (event.target as Element | null)?.closest('.scroll-reveal-pending');
+    const target = (event.target as Element | null)?.closest(
+      '.scroll-reveal-pending',
+    );
     if (!target) return;
     target.classList.remove('scroll-reveal-pending');
     pending.delete(target);
@@ -150,7 +161,9 @@ function initScrollReveal() {
 
 // Highlight the nav link whose section is currently under the sticky header.
 function initActiveNavigation() {
-  const links = [...document.querySelectorAll<HTMLAnchorElement>('#site-nav a[href^="#"]')];
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>('#site-nav a[href^="#"]'),
+  ];
   const targets = links
     .map((link) => ({
       link,
@@ -161,12 +174,16 @@ function initActiveNavigation() {
   function update() {
     pending = false;
     const scrollPadding =
-      parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) ||
+      0;
     let active: (typeof targets)[number] | null = null;
     targets.forEach((item) => {
       const margin =
         parseFloat(getComputedStyle(item.section!).scrollMarginTop) || 0;
-      if (item.section!.getBoundingClientRect().top <= scrollPadding + margin + 24) {
+      if (
+        item.section!.getBoundingClientRect().top <=
+        scrollPadding + margin + 24
+      ) {
         active = item;
       }
     });

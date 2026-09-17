@@ -86,9 +86,7 @@ function trackConversionClick(event: MouseEvent): void {
   if (explicitGoal) {
     sendGoal(explicitGoal, {
       label:
-        htmlElement.dataset.analyticsLabel ||
-        element.textContent?.trim() ||
-        '',
+        htmlElement.dataset.analyticsLabel || element.textContent?.trim() || '',
     });
     return;
   }

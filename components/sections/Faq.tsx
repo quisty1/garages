@@ -3,9 +3,16 @@
 // FAQ accordion with height/opacity transitions (respects reduced motion).
 
 import { useRef, useState } from 'react';
+import type { FaqItem } from '@/lib/types';
 import { company } from '@/lib/site-data';
 
-export function Faq() {
+export function Faq({
+  items = company.faq,
+  title = 'Частые вопросы',
+}: {
+  items?: FaqItem[];
+  title?: string;
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const panelRefs = useRef<Array<HTMLDivElement | null>>([]);
 
@@ -64,13 +71,15 @@ export function Faq() {
         <div className="section__head">
           <div>
             <div className="section__eyebrow">Вопросы до замера</div>
-            <h2 className="section__title">Частые вопросы</h2>
+            <h2 className="section__title">{title}</h2>
           </div>
-          <p className="section__text">Цены, сроки и условия — кратко о главном.</p>
+          <p className="section__text">
+            Цены, сроки и условия — кратко о главном.
+          </p>
         </div>
 
         <div className="faq" data-faq>
-          {company.faq.map((item, index) => {
+          {items.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <details

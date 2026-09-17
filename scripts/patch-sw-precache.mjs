@@ -44,7 +44,7 @@ if (!source.includes(marker)) {
     `${marker}\nconst NEXT_SHELL_FILES = ${JSON.stringify(nextFiles)};\nconst NETWORK_FIRST_URLS = new Set(`,
   );
   source = source.replace(
-    "].map((path) => new URL(path, SCOPE_URL).href),\n);",
+    '].map((path) => new URL(path, SCOPE_URL).href),\n);',
     `].map((path) => new URL(path, SCOPE_URL).href),\n);\nNEXT_SHELL_FILES.forEach((path) => NETWORK_FIRST_URLS.add(new URL(path, SCOPE_URL).href));`,
   );
   console.log(`[patch-sw] injected ${nextFiles.length} _next shell URLs`);

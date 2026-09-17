@@ -7,9 +7,13 @@ import { calculate, money } from '@/lib/calculator';
 import { GOAL, sendGoal } from '@/lib/analytics';
 import { company } from '@/lib/site-data';
 
-export function Calculator() {
+export function Calculator({
+  initialType = 'garages',
+}: {
+  initialType?: 'garages' | 'canopies';
+}) {
   const config = company.calculator;
-  const [type, setType] = useState('garages');
+  const [type, setType] = useState<string>(initialType);
   const [length, setLength] = useState(6);
   const [width, setWidth] = useState(4);
   const [panelThickness, setPanelThickness] = useState('100');

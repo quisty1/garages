@@ -25,7 +25,8 @@ export function readRequisites(): string {
     textById('requisites-name'),
     labelledLine('ОГРНИП', 'requisites-ogrnip'),
     labelledLine('ИНН', 'requisites-inn'),
-    root.querySelector('.requisites-panel__subtitle')?.textContent?.trim() || '',
+    root.querySelector('.requisites-panel__subtitle')?.textContent?.trim() ||
+      '',
     labelledLine('Банк', 'requisites-bank'),
     labelledLine('Р/с', 'requisites-account'),
     labelledLine('К/с', 'requisites-corr-account'),

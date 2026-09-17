@@ -49,14 +49,20 @@ const html = read('index.html');
 assert(html.includes('Металл Монтаж 33'), 'HTML contains company name');
 assert(html.includes('application/ld+json'), 'HTML contains JSON-LD');
 assert(html.includes('minPrice'), 'JSON-LD includes minPrice');
-assert(html.includes('cta_calculate') || html.includes('data-cta'), 'CTA markup present');
+assert(
+  html.includes('cta_calculate') || html.includes('data-cta'),
+  'CTA markup present',
+);
 assert(html.includes('data-calculator'), 'Calculator markup present');
 assert(html.includes('id="faq"'), 'FAQ section present');
 assert(html.includes('/assets/'), 'Asset paths are absolute');
 assert(!html.includes('./assets/'), 'No relative ./assets paths in HTML');
 
 const robots = read('robots.txt');
-assert(robots.includes('Sitemap: https://metallmontage33.ru/sitemap.xml'), 'robots sitemap URL');
+assert(
+  robots.includes('Sitemap: https://metallmontage33.ru/sitemap.xml'),
+  'robots sitemap URL',
+);
 assert(robots.includes('Host: metallmontage33.ru'), 'robots Host');
 
 const sw = read('sw.js');
@@ -67,7 +73,10 @@ assert(
 );
 assert(!sw.includes('__BUILD_HASH__'), 'SW build hash placeholder replaced');
 assert(sw.includes('MAX_RUNTIME_ENTRIES = 48'), 'SW runtime cache cap');
-assert(sw.includes('headers.has(\'range\')') || sw.includes('headers.has("range")'), 'SW skips range requests');
+assert(
+  sw.includes("headers.has('range')") || sw.includes('headers.has("range")'),
+  'SW skips range requests',
+);
 assert(sw.includes('Vary'), 'SW handles Vary:*');
 
 const manifest = JSON.parse(read('manifest.json'));
@@ -84,7 +93,7 @@ const require = createRequire(import.meta.url);
 const siteDataUrl = pathToFileURL(join(root, 'lib/site-data.ts')).href;
 // Prefer scanning TS source over a fragile dynamic import of the built module.
 const siteData = readFileSync(join(root, 'lib/site-data.ts'), 'utf8');
-assert(siteData.includes("counterId: 110290656"), 'Metrika counter preserved');
+assert(siteData.includes('counterId: 110290656'), 'Metrika counter preserved');
 assert(siteData.includes('cta_calculate') || true, 'site data loaded');
 
 for (const goal of [
@@ -105,7 +114,10 @@ for (const goal of [
   );
 }
 
-assert(statSync(join(outDir, '_next')).isDirectory(), '_next static assets exist');
+assert(
+  statSync(join(outDir, '_next')).isDirectory(),
+  '_next static assets exist',
+);
 
 if (failures.length) {
   console.error(`\n${failures.length} validation checks failed.`);

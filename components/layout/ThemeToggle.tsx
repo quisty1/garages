@@ -7,13 +7,29 @@ import { THEME_COLORS, THEME_KEY } from '@/lib/constants';
 import type { ThemeMode } from '@/lib/types';
 
 const ICON_DARK = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
   </svg>
 );
 
 const ICON_LIGHT = (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+  >
     <circle cx="12" cy="12" r="5" />
     <line x1="12" y1="1" x2="12" y2="3" />
     <line x1="12" y1="21" x2="12" y2="23" />
@@ -27,7 +43,9 @@ const ICON_LIGHT = (
 );
 
 function getSystemTheme(): ThemeMode {
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  return window.matchMedia('(prefers-color-scheme: light)').matches
+    ? 'light'
+    : 'dark';
 }
 
 function readStoredTheme(): ThemeMode | null {
@@ -41,10 +59,12 @@ function readStoredTheme(): ThemeMode | null {
 
 function applyTheme(theme: ThemeMode) {
   document.documentElement.setAttribute('data-theme', theme);
-  document.querySelector<HTMLElement>('[data-theme-toggle]')?.setAttribute(
-    'aria-label',
-    theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему',
-  );
+  document
+    .querySelector<HTMLElement>('[data-theme-toggle]')
+    ?.setAttribute(
+      'aria-label',
+      theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему',
+    );
   // Keep matching theme-color metas in sync for browser chrome.
   document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
     const media = meta.getAttribute('media') || '';

@@ -162,25 +162,27 @@ async function cachedIndex() {
 }
 
 async function navigationNetworkFirst(request) {
+  const cache = await caches.open(PRECACHE_CACHE);
+  const cacheKey = canonicalCacheKey(request);
+  const fallback = async () => (await cache.match(cacheKey)) ||
+    (isAppEntry(new URL(request.url)) ? await cachedIndex() : undefined);
   try {
     const response = await fetchWithTimeout(request, NAVIGATION_TIMEOUT_MS);
 
     if (response.status >= 500) {
-      return (await cachedIndex()) || response;
+      return (await fallback()) || response;
     }
 
     if (
       response.ok &&
-      isAppEntry(new URL(request.url)) &&
       isCacheable(response)
     ) {
-      const cache = await caches.open(PRECACHE_CACHE);
-      await putSafely(cache, INDEX_URL, response);
+      await putSafely(cache, cacheKey, response);
     }
 
     return response;
   } catch (error) {
-    const cached = await cachedIndex();
+    const cached = await fallback();
     if (cached) return cached;
     throw error;
   }

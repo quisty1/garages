@@ -2,12 +2,7 @@
 
 import type { Metadata, Viewport } from 'next';
 import { company } from '@/lib/site-data';
-import {
-  absUrl,
-  buildGeoPlacename,
-  buildJsonLd,
-  getSiteUrl,
-} from '@/lib/seo';
+import { absUrl, buildGeoPlacename, getSiteUrl } from '@/lib/seo';
 import '@/styles/tokens.css';
 import '@/styles/base.css';
 import '@/styles/header.css';
@@ -19,6 +14,7 @@ import '@/styles/workflow-faq.css';
 import '@/styles/contact.css';
 import '@/styles/overlays.css';
 import '@/styles/interactions.css';
+import '@/styles/landing.css';
 
 const siteUrl = getSiteUrl(company);
 const pageUrl = `${siteUrl}/`;
@@ -101,8 +97,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = buildJsonLd(company);
-
   return (
     <html lang="ru" suppressHydrationWarning>
       <head>
@@ -112,26 +106,14 @@ export default function RootLayout({
           title="Sitemap"
           href={`${siteUrl}/sitemap.xml`}
         />
-        {/* Preload the LCP hero project image. */}
-        <link
-          rel="preload"
-          href="/assets/garage-project-8-8-v2-960.webp"
-          as="image"
-          type="image/webp"
-          imageSrcSet="/assets/garage-project-8-8-v2-560.webp 560w, /assets/garage-project-8-8-v2-960.webp 960w, /assets/garage-project-8-8-v2.webp 1672w"
-          imageSizes="(max-width: 1120px) 92vw, 52vw"
+
+        <meta
+          name="twitter:image:alt"
+          content={`${company.name} — гаражи и навесы под ключ`}
         />
-        <meta name="twitter:image:alt" content={`${company.name} — гаражи и навесы под ключ`} />
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
-        <script
-          id="json-ld"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </head>
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -31,17 +31,25 @@ export function Lightbox() {
       if (!image) return;
       e.preventDefault();
 
-      // Group images from the same carousel or projects list for next/prev.
-      const carousel = slideImg.closest('[data-carousel]');
-      const projectList = slideImg.closest('[data-garage-projects]');
-      const group = carousel || projectList;
+      // Group images from the same carousel, projects, or composition list.
+      const group =
+        slideImg.closest('[data-carousel]') ||
+        slideImg.closest('[data-garage-projects]') ||
+        slideImg.closest('[data-composition]');
       const images = group
-        ? Array.from(group.querySelectorAll<HTMLImageElement>('.slide__img img'))
+        ? Array.from(
+            group.querySelectorAll<HTMLImageElement>('.slide__img img'),
+          )
         : [image];
       const startIndex = Math.max(0, images.indexOf(image));
 
       openerRef.current = slideImg as HTMLElement;
-      setItems(images.map((el) => ({ src: el.currentSrc || el.src, alt: el.alt })));
+      setItems(
+        images.map((el) => ({
+          src: el.dataset.fullSrc || el.src,
+          alt: el.alt,
+        })),
+      );
       setIndex(startIndex);
       setVisible(true);
       setIsOpen(true);
@@ -172,7 +180,11 @@ export function Lightbox() {
         alt={show?.alt || ''}
         onClick={(e) => e.stopPropagation()}
       />
-      <div className="lightbox__caption" id="lightbox-caption" aria-live="polite">
+      <div
+        className="lightbox__caption"
+        id="lightbox-caption"
+        aria-live="polite"
+      >
         {show
           ? hasMany
             ? `${show.alt} · ${index + 1} / ${items.length}`
