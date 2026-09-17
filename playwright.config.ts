@@ -4,6 +4,14 @@ import { defineConfig, devices } from '@playwright/test';
 
 const PORT = 4173;
 const BASE_URL = `http://127.0.0.1:${PORT}`;
+const CHROMIUM_USE = {
+  ...devices['Desktop Chrome'],
+  launchOptions: {
+    // Analytics allowlists the production host; map it to localhost for
+    // Chromium-only analytics and service-worker checks.
+    args: ['--host-resolver-rules=MAP metallmontage33.ru 127.0.0.1'],
+  },
+};
 
 export default defineConfig({
   testDir: './tests',
@@ -14,10 +22,6 @@ export default defineConfig({
   use: {
     baseURL: BASE_URL,
     trace: 'on-first-retry',
-    launchOptions: {
-      // Analytics allowlists production host; map it to localhost for SW/host checks.
-      args: ['--host-resolver-rules=MAP metallmontage33.ru 127.0.0.1'],
-    },
   },
   webServer: {
     command: `serve out -l ${PORT}`,
@@ -30,17 +34,17 @@ export default defineConfig({
     {
       name: 'e2e',
       testMatch: /e2e\/.*\.spec\.ts/,
-      use: { ...devices['Desktop Chrome'] },
+      use: CHROMIUM_USE,
     },
     {
       name: 'a11y',
       testMatch: /a11y\/.*\.spec\.ts/,
-      use: { ...devices['Desktop Chrome'] },
+      use: CHROMIUM_USE,
     },
     {
       name: 'visual',
       testMatch: /visual\/.*\.spec\.ts/,
-      use: { ...devices['Desktop Chrome'] },
+      use: CHROMIUM_USE,
     },
     {
       name: 'firefox',
