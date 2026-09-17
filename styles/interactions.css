@@ -284,7 +284,6 @@
   .blog-card,
   .blog-related__item,
   .landing-link,
-  .about-story__block,
   .side-card,
   .stat-card {
     transition:
@@ -301,7 +300,6 @@
   .blog-card:hover,
   .blog-related__item:hover,
   .landing-link:hover,
-  .about-story__block:hover,
   .side-card:hover,
   .stat-card:hover {
     transform: translateY(-6px);
@@ -440,7 +438,6 @@
   .blog-card,
   .blog-related__item,
   .landing-link,
-  .about-story__block,
   .side-card,
   .stat-card,
   .catalog-hub__media img,
