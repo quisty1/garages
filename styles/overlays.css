@@ -1,4 +1,4 @@
-/* Back-to-top button, lightbox overlay, and scroll-reveal helpers. */
+/* Back-to-top button and lightbox overlay. */
 
 /* ── Scroll-top button ───────────────────────────────── */
 .scroll-top {
@@ -74,6 +74,11 @@
   opacity: 1;
   visibility: visible;
   background: rgb(5 7 9 / 94%);
+
+  @starting-style {
+    opacity: 0;
+    background: transparent;
+  }
 }
 
 .lightbox__img {
@@ -93,6 +98,15 @@
 
 .lightbox.is-open .lightbox__img {
   transform: scale(1);
+
+  @starting-style {
+    transform: scale(0.97);
+  }
+}
+
+.lightbox.is-instant,
+.lightbox.is-instant .lightbox__img {
+  transition: none;
 }
 
 .lightbox__close {
@@ -191,18 +205,6 @@ body.lightbox-open {
   overflow: hidden;
 }
 
-/* ── Scroll reveal ───────────────────────────────────── */
-.reveal {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
 /* Later rules in this file override the earlier lightbox/scroll-top layout. */
 
 /* Component layout and responsive refinements. */
@@ -237,12 +239,6 @@ body.lightbox-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
   .scroll-top.is-visible:hover {
     transform: translateY(0);
   }
@@ -326,22 +322,5 @@ body.lightbox-open {
   .slide__img img {
     transition: none;
     transform: none !important;
-  }
-}
-
-/* Added only after the observer is ready; no-JS content stays visible. */
-.scroll-reveal-pending {
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroll-reveal-pending {
-    opacity: 1;
-  }
-}
-
-@media print {
-  .scroll-reveal-pending {
-    opacity: 1;
   }
 }

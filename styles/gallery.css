@@ -180,11 +180,6 @@
   min-height: 0;
 }
 
-.roof-card:hover {
-  border-color: var(--primary);
-  transform: none;
-}
-
 .roof-card__icon {
   width: 88px;
   height: 56px;
@@ -330,10 +325,6 @@
   border-radius: 0;
   background: var(--card);
   box-shadow: none;
-}
-
-.roof-card:hover {
-  transform: none;
 }
 
 .roof-card__icon {

@@ -52,6 +52,15 @@ describe('calculator', () => {
     ).toBeNull();
   });
 
+  it.each([0, 1, 3.2, 30.5, Number.NaN])(
+    'rejects invalid length %s',
+    (length) => {
+      expect(
+        calculate({ type: 'garages', length, width: 4 }, config),
+      ).toBeNull();
+    },
+  );
+
   it('rounds money to thousands', () => {
     expect(money(919400)).toMatch(/^919\s000 ₽$/);
   });

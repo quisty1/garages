@@ -27,6 +27,15 @@ export type CalculatorResult = {
   details: string[];
 };
 
+export function isValidDimension(value: number): boolean {
+  return (
+    Number.isFinite(value) &&
+    value >= 3 &&
+    value <= 30 &&
+    Math.abs((value - 3) * 2 - Math.round((value - 3) * 2)) < 1e-8
+  );
+}
+
 export function calculate(
   input: CalculatorInput,
   config: CalculatorConfig,
@@ -37,7 +46,8 @@ export function calculate(
   const width = Number(input.width);
   const area = length * width;
 
-  if (!typeConfig || !Number.isFinite(area) || area <= 0) return null;
+  if (!typeConfig || !isValidDimension(length) || !isValidDimension(width))
+    return null;
 
   // Base: area × rate + fixed type cost, then garage-only and option add-ons.
   let subtotal = area * typeConfig.rate + typeConfig.baseCost;

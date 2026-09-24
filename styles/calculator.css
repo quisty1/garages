@@ -70,6 +70,22 @@ html[data-theme='light'] .calculator__input {
   border-color: var(--primary);
 }
 
+.calculator__input[aria-invalid='true'] {
+  border-color: var(--primary);
+}
+
+.calculator__error {
+  color: var(--primary);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.calculator__empty {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+
 .calculator__options {
   grid-column: 1 / -1;
   display: grid;

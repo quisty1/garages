@@ -66,11 +66,6 @@
     transform var(--transition-fast);
 }
 
-.card:hover {
-  border-color: var(--primary);
-  transform: none;
-}
-
 .card__title {
   margin: 0 0 10px;
   font-weight: 700;
@@ -107,11 +102,6 @@
   box-shadow: none;
 }
 
-.composition-card:hover {
-  border-color: var(--primary);
-  transform: none;
-}
-
 .composition-card__media.slide__img {
   aspect-ratio: 5 / 4;
   height: auto;
@@ -129,10 +119,6 @@
   height: 100%;
   object-fit: contain;
   display: block;
-}
-
-.composition-card:hover .composition-card__media::after {
-  background: rgb(0 0 0 / 6%);
 }
 
 .composition-card__title {
@@ -174,11 +160,6 @@
   transition:
     border-color var(--transition-fast),
     transform var(--transition-fast);
-}
-
-.stat-card:hover {
-  border-color: var(--primary);
-  transform: none;
 }
 
 .stat-card__num {
@@ -501,10 +482,6 @@
   box-shadow: none;
 }
 
-.composition-card:hover {
-  transform: none;
-}
-
 .composition-card__title {
   margin: 22px 22px 10px;
   font-size: 18px;
@@ -529,10 +506,6 @@
   min-height: 0;
   padding: 24px;
   background: var(--card);
-}
-
-.card:hover {
-  transform: none;
 }
 
 .card__num {
@@ -560,10 +533,6 @@
 .stat-card {
   min-height: 230px;
   padding: 36px 20px 22px;
-}
-
-.stat-card:hover {
-  transform: none;
 }
 
 .stat-card__title {
@@ -695,44 +664,44 @@
   }
 }
 
-/* ── Completed garage projects (stacked blocks) ───────── */
+/* ── Completed garage projects ───────── */
 .project-list {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .project {
-  display: grid;
-  gap: 18px;
-  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--card);
 }
 
 .project__img.slide__img {
+  aspect-ratio: 3 / 2;
   height: auto;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
+  border: 0;
   background: var(--bg-2);
 }
 
 .project__img.slide__img img {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
-}
-
-.project:hover .project__img::after {
-  background: rgb(0 0 0 / 14%);
 }
 
 .project__body {
   display: grid;
-  gap: 10px;
+  gap: 8px;
+  padding: 0 18px 18px;
 }
 
 .project__title {
   margin: 0;
-  font-size: 28px;
+  font-size: 22px;
   letter-spacing: -0.3px;
   color: var(--text);
 }
@@ -740,13 +709,13 @@
 .project__size {
   margin: 0;
   color: var(--muted);
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 0.02em;
 }
 
 .project__price {
   margin: 4px 0 0;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--primary);
 }
@@ -758,7 +727,7 @@
   display: grid;
   gap: 6px;
   color: var(--text);
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.55;
 }
 
@@ -782,32 +751,39 @@
 .project__location {
   margin: 8px 0 0;
   color: var(--muted);
-  font-size: 17px;
+  font-size: 14px;
+}
+
+@media (width <= 980px) {
+  .project-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (width <= 720px) {
   .project-list {
-    gap: 32px;
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 
   .project__title {
-    font-size: 24px;
-  }
-
-  .project__size {
-    font-size: 18px;
-  }
-
-  .project__price {
     font-size: 22px;
   }
 
+  .project__size {
+    font-size: 16px;
+  }
+
+  .project__price {
+    font-size: 20px;
+  }
+
   .project__specs {
-    font-size: 17px;
+    font-size: 14px;
   }
 
   .project__location {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 

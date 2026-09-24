@@ -17,18 +17,18 @@ export function SpecTicker() {
   );
 
   return (
-    <div className="spec-ticker" aria-label="Основные параметры производства">
+    <div
+      className="spec-ticker"
+      role="group"
+      aria-label="Основные параметры производства"
+    >
       <div className="spec-ticker__track">
         <div className="spec-ticker__group">{items}</div>
-        <div className="spec-ticker__group" aria-hidden="true">
-          {items}
-        </div>
-        <div className="spec-ticker__group" aria-hidden="true">
-          {items}
-        </div>
-        <div className="spec-ticker__group" aria-hidden="true">
-          {items}
-        </div>
+        {[1, 2, 3].map((copy) => (
+          <div className="spec-ticker__group" aria-hidden="true" key={copy}>
+            {items}
+          </div>
+        ))}
       </div>
     </div>
   );

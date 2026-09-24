@@ -1,24 +1,23 @@
 'use client';
 
-// Client-only page effects: progress bar, hero tilt, scroll reveal, nav, SW.
+// Client-only page effects: progress bar, hero tilt, nav, SW.
 
 import { useEffect } from 'react';
 import { SCROLL_TOP_THRESHOLD } from '@/lib/constants';
 import { initAnalytics } from '@/lib/analytics';
 
-// Drive the header progress bar via --page-progress (0–1).
+// Drive the header progress bar on the bar itself (0–1).
 function initPageProgress() {
   let frame = 0;
+  const bar = document.querySelector<HTMLElement>('.page-progress span');
+  if (!bar) return () => undefined;
   const update = () => {
     frame = 0;
     const max = Math.max(
       1,
       document.documentElement.scrollHeight - window.innerHeight,
     );
-    document.documentElement.style.setProperty(
-      '--page-progress',
-      Math.min(1, window.scrollY / max).toFixed(4),
-    );
+    bar.style.transform = `scaleX(${Math.min(1, window.scrollY / max).toFixed(4)})`;
   };
   const schedule = () => {
     if (!frame) frame = requestAnimationFrame(update);
@@ -29,13 +28,17 @@ function initPageProgress() {
   return () => {
     window.removeEventListener('scroll', schedule);
     window.removeEventListener('resize', schedule);
+    if (frame) cancelAnimationFrame(frame);
+    bar.style.removeProperty('transform');
   };
 }
 
 // Subtle pointer-driven tilt on blueprint cards (desktop + motion OK).
 function initHeroBlueprint() {
   const cards = document.querySelectorAll<HTMLElement>('[data-hero-card]');
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const finePointer = window.matchMedia(
+    '(min-width: 1121px) and (hover: hover) and (pointer: fine)',
+  );
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (!cards.length || !finePointer.matches || reduced.matches) {
     return () => undefined;
@@ -43,145 +46,51 @@ function initHeroBlueprint() {
 
   const cleanups: Array<() => void> = [];
   cards.forEach((card) => {
+    const image = card.querySelector<HTMLElement>('.hero-card__img img');
+    if (!image) return;
     let frame = 0;
     let nextX = 0;
     let nextY = 0;
     const paint = () => {
       frame = 0;
-      card.style.setProperty('--hero-ry', `${(nextX * 3.5).toFixed(2)}deg`);
-      card.style.setProperty('--hero-rx', `${(-nextY * 3).toFixed(2)}deg`);
-      card.style.setProperty('--hero-shift-x', `${(-nextX * 8).toFixed(2)}px`);
-      card.style.setProperty('--hero-shift-y', `${(-nextY * 7).toFixed(2)}px`);
+      card.style.transform = `perspective(1100px) rotateX(${(-nextY * 3).toFixed(2)}deg) rotateY(${(nextX * 3.5).toFixed(2)}deg)`;
+      image.style.transform = `translate3d(${(-nextX * 8).toFixed(2)}px, ${(-nextY * 7).toFixed(2)}px, 0) scale(1.01)`;
+    };
+    const reset = () => {
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      card.style.removeProperty('transform');
+      image.style.removeProperty('transform');
     };
     const onMove = (event: PointerEvent) => {
+      if (!finePointer.matches || reduced.matches) return;
       const rect = card.getBoundingClientRect();
       nextX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
       nextY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
       if (!frame) frame = requestAnimationFrame(paint);
     };
     const onLeave = () => {
+      if (!finePointer.matches || reduced.matches) {
+        reset();
+        return;
+      }
       nextX = 0;
       nextY = 0;
       if (!frame) frame = requestAnimationFrame(paint);
     };
     card.addEventListener('pointermove', onMove);
     card.addEventListener('pointerleave', onLeave);
+    finePointer.addEventListener('change', reset);
+    reduced.addEventListener('change', reset);
     cleanups.push(() => {
       card.removeEventListener('pointermove', onMove);
       card.removeEventListener('pointerleave', onLeave);
-      if (frame) cancelAnimationFrame(frame);
+      finePointer.removeEventListener('change', reset);
+      reduced.removeEventListener('change', reset);
+      reset();
     });
   });
   return () => cleanups.forEach((fn) => fn());
-}
-
-// Staggered fade-up for section blocks below the fold; skip if reduced motion.
-function initScrollReveal() {
-  if (!('IntersectionObserver' in window)) return () => undefined;
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (motion.matches || !Element.prototype.animate) return () => undefined;
-
-  const running = new Set<Animation>();
-  const pending = new Set<Element>();
-  const observer = new IntersectionObserver(
-    (entries) => {
-      // Stagger siblings within the same parent (cap delay at 3 steps).
-      const groups = new Map<Element | null, number>();
-      entries.forEach(({ target, isIntersecting }) => {
-        if (!isIntersecting || !pending.has(target)) return;
-        observer.unobserve(target);
-        pending.delete(target);
-        target.classList.remove('scroll-reveal-pending');
-        if (motion.matches || !target.animate) return;
-        const index = groups.get(target.parentElement) || 0;
-        groups.set(target.parentElement, index + 1);
-        const animation = target.animate(
-          [
-            { opacity: 0, transform: 'translateY(64px)' },
-            { opacity: 1, transform: 'translateY(0)' },
-          ],
-          {
-            duration: 1100,
-            delay: Math.min(index, 3) * 140,
-            easing: 'cubic-bezier(.2,.55,.25,1)',
-            fill: 'backwards',
-          },
-        );
-        running.add(animation);
-        animation.finished
-          .catch(() => undefined)
-          .finally(() => running.delete(animation));
-      });
-    },
-    {
-      threshold: 0,
-      rootMargin: `0px 0px -${Math.min(120, Math.round(window.innerHeight * 0.15))}px 0px`,
-    },
-  );
-
-  document
-    .querySelectorAll(
-      [
-        '.section__head',
-        '.carousel',
-        '.project',
-        '.workflow-step',
-        '.composition-card',
-        '.card',
-        '.stat-card',
-        '.roof-card',
-        '.factor-cell',
-        '.faq-item',
-        '.contacts-panel',
-        '.catalog-hub__card',
-        '.catalog-card',
-        '.catalog-cta__inner',
-        '.blog-card',
-        '.blog-related__item',
-        '.blog-author',
-        '.blog-article__figure',
-        '.landing-copy article',
-        '.landing-checklist',
-        '.landing-detail',
-        '.landing-link',
-        '.about-story__block',
-        '.side-card',
-      ].join(', '),
-    )
-    .forEach((el) => {
-      if (el.getBoundingClientRect().top >= window.innerHeight) {
-        observer.observe(el);
-        pending.add(el);
-        el.classList.add('scroll-reveal-pending');
-      }
-    });
-
-  // Keyboard users should not wait for the reveal animation to start.
-  const onFocusIn = (event: FocusEvent) => {
-    const target = (event.target as Element | null)?.closest(
-      '.scroll-reveal-pending',
-    );
-    if (!target) return;
-    target.classList.remove('scroll-reveal-pending');
-    pending.delete(target);
-    observer.unobserve(target);
-  };
-  document.addEventListener('focusin', onFocusIn);
-
-  const onMotion = () => {
-    if (!motion.matches) return;
-    running.forEach((animation) => animation.cancel());
-    pending.forEach((el) => el.classList.remove('scroll-reveal-pending'));
-    pending.clear();
-    observer.disconnect();
-  };
-  motion.addEventListener('change', onMotion);
-
-  return () => {
-    document.removeEventListener('focusin', onFocusIn);
-    motion.removeEventListener('change', onMotion);
-    observer.disconnect();
-  };
 }
 
 // Highlight the nav link whose section is currently under the sticky header.
@@ -296,7 +205,6 @@ export function ClientEffects() {
     const cleanups = [
       initPageProgress(),
       initHeroBlueprint(),
-      initScrollReveal(),
       initActiveNavigation(),
       initScrollTop(),
     ];

@@ -12,12 +12,108 @@ test.describe('main page e2e', () => {
     await expect(page.locator('a[href^="tel:"]').first()).toBeVisible();
   });
 
+  test('spec ticker moves continuously', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.goto('/');
+    const track = page.locator('.spec-ticker__track');
+    await expect(track).toHaveCSS('animation-name', 'spec-marquee');
+    await expect(track).toHaveCSS('animation-play-state', 'running');
+    const before = await track.evaluate((el) => getComputedStyle(el).transform);
+    await page.waitForTimeout(150);
+    const after = await track.evaluate((el) => getComputedStyle(el).transform);
+    expect(after).not.toBe(before);
+    await expect(page.locator('.spec-ticker').getByRole('button')).toHaveCount(
+      0,
+    );
+  });
+
+  test('spec ticker shows every item without motion in reduced motion', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+    const ticker = page.locator('.spec-ticker');
+    await expect(page.locator('.spec-ticker__track')).toHaveCSS(
+      'animation-name',
+      'none',
+    );
+    await expect(
+      ticker.locator('.spec-ticker__group').first().locator('span'),
+    ).toHaveCount(5);
+    await expect(ticker.getByRole('button')).toHaveCount(0);
+    const visible = await ticker
+      .locator('.spec-ticker__group')
+      .first()
+      .locator('span')
+      .evaluateAll((items) =>
+        items.every((item) => {
+          const box = item.getBoundingClientRect();
+          return (
+            box.width > 0 && box.left >= 0 && box.right <= window.innerWidth
+          );
+        }),
+      );
+    expect(visible).toBe(true);
+  });
+
   test('calculator updates range', async ({ page }) => {
     await page.goto('/#calculator');
     const price = page.locator('[data-calculator-price]');
     const before = await price.textContent();
     await page.locator('select[name="type"]').selectOption('canopies');
     await expect(price).not.toHaveText(before || '');
+  });
+
+  test('calculator explains invalid dimensions without quoting a price', async ({
+    page,
+  }) => {
+    await page.goto('/#calculator');
+    const length = page.locator('input[name="length"]');
+    await length.fill('1');
+    await expect(length).toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('#calculator-length-error')).toContainText(
+      'от 3 до 30',
+    );
+    await expect(page.locator('[data-calculator-price]')).toBeEmpty();
+    await expect(page.locator('[data-calculator-result]')).toContainText(
+      'Проверьте размеры',
+    );
+    await expect(page.locator('[data-calculator-result] .btn')).toHaveCount(0);
+
+    await length.fill('3.2');
+    await expect(page.locator('#calculator-length-error')).toContainText(
+      '0,5 м',
+    );
+    await length.fill('');
+    await expect(page.locator('#calculator-length-error')).toContainText(
+      'Укажите длину',
+    );
+    await length.fill('6');
+    await expect(length).not.toHaveAttribute('aria-invalid', 'true');
+    await expect(page.locator('[data-calculator-price]')).toContainText('₽');
+  });
+
+  test('quick lightbox reopen keeps dialog and page lock consistent', async ({
+    page,
+  }) => {
+    await page.goto('/#garages');
+    const opener = page
+      .locator('[data-carousel="garages"] .slide__img')
+      .first();
+    await opener.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('.lightbox')).toHaveClass(/is-open/);
+    await page.keyboard.press('Escape');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(350);
+    await expect(page.locator('.lightbox')).toHaveClass(/is-open/);
+    await expect(page.locator('body')).toHaveClass(/lightbox-open/);
+    await expect(page.locator('main')).toHaveAttribute('inert', '');
+    await page.keyboard.press('Escape');
+    await expect(page.locator('body')).not.toHaveClass(/lightbox-open/);
+    await expect(page.locator('main')).not.toHaveAttribute('inert');
+    await expect(opener).toBeFocused();
   });
 
   test('theme toggle switches data-theme', async ({ page }) => {

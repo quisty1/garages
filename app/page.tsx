@@ -48,14 +48,14 @@ export default function HomePage() {
       <LandingLinks />
       <Garages />
       <Canopies />
+      <PriceFactors />
+      <Calculator />
       <Projects />
       <Composition />
       <Roofs />
       <Services />
       <Advantages />
       <Extras />
-      <PriceFactors />
-      <Calculator />
       <Workflow />
       <Faq items={company.faq} />
       <ServiceArea />

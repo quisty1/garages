@@ -59,7 +59,6 @@
 
   /* Motion (disabled by the prefers-reduced-motion override) */
   --transition-fast: 0.15s ease;
-  --transition-reveal: 0.65s ease;
 
   /* z-index: backdrop 40 → header 50 → nav 51 → toggle 52 → scroll-top 90 → lightbox 200 */
   --z-nav-backdrop: 40;

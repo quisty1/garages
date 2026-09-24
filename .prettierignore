@@ -6,3 +6,5 @@ package-lock.json
 public/sw.js
 next-env.d.ts
 tests/visual/**
+output/playwright/**
+.playwright-cli/**

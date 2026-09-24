@@ -21,5 +21,8 @@ blob-report/
 coverage/
 *.tsbuildinfo
 
+# local playwright / design-audit screenshots
+output/
+
 # The deployed verification file lives in public/.
 /yandex_*.html

@@ -22,6 +22,7 @@ export function Lightbox() {
   const [items, setItems] = useState<LightboxItem[]>([]);
   const [index, setIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [instant, setInstant] = useState(false);
   // Keep the DOM mounted briefly after close so the CSS exit transition can run.
   const [visible, setVisible] = useState(false);
   const openerRef = useRef<HTMLElement | null>(null);
@@ -36,6 +37,10 @@ export function Lightbox() {
       const image = slideImg.querySelector('img');
       if (!image) return;
       e.preventDefault();
+      if (closeTimerRef.current != null) {
+        window.clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
 
       // Group images from the same carousel, projects, composition, or blog article.
       const group =
@@ -58,6 +63,7 @@ export function Lightbox() {
         })),
       );
       setIndex(startIndex);
+      setInstant(e.detail === 0);
       setVisible(true);
       setIsOpen(true);
       document.body.classList.add('lightbox-open');
@@ -139,7 +145,7 @@ export function Lightbox() {
   return (
     <div
       ref={overlayRef}
-      className={`lightbox${isOpen ? ' is-open' : ''}`}
+      className={`lightbox${isOpen ? ' is-open' : ''}${instant ? ' is-instant' : ''}`}
       role="dialog"
       aria-modal="true"
       aria-hidden={isOpen ? 'false' : 'true'}

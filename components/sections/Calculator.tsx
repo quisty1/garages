@@ -3,7 +3,7 @@
 // Interactive preliminary cost calculator; coefficients come from calculator-config.
 
 import { useMemo, useState } from 'react';
-import { calculate, money } from '@/lib/calculator';
+import { calculate, isValidDimension, money } from '@/lib/calculator';
 import { GOAL, sendGoal } from '@/lib/analytics';
 import { calculatorConfig } from '@/lib/calculator-config';
 
@@ -14,8 +14,8 @@ export function Calculator({
 }) {
   const config = calculatorConfig;
   const [type, setType] = useState<string>(initialType);
-  const [length, setLength] = useState(6);
-  const [width, setWidth] = useState(4);
+  const [length, setLength] = useState('6');
+  const [width, setWidth] = useState('4');
   const [panelThickness, setPanelThickness] = useState('100');
   const [gates, setGates] = useState(1);
   const [foundation, setFoundation] = useState(false);
@@ -24,22 +24,49 @@ export function Calculator({
   const [started, setStarted] = useState(false);
 
   const isGarage = type === 'garages';
+  const dimensionError = (
+    value: string,
+    label: string,
+    emptyMessage: string,
+  ) => {
+    if (value.trim() === '') return emptyMessage;
+    const number = Number(value);
+    if (!Number.isFinite(number) || number < 3 || number > 30)
+      return `${label}: допустимый размер от 3 до 30 м.`;
+    if (!isValidDimension(number)) return `${label}: используйте шаг 0,5 м.`;
+    return null;
+  };
+  const lengthError = dimensionError(length, 'Длина', 'Укажите длину.');
+  const widthError = dimensionError(width, 'Ширина', 'Укажите ширину.');
 
   const result = useMemo(
     () =>
-      calculate(
-        {
-          type,
-          length,
-          width,
-          panelThickness,
-          gates,
-          foundation,
-          options,
-        },
-        config,
-      ),
-    [type, length, width, panelThickness, gates, foundation, options, config],
+      lengthError || widthError
+        ? null
+        : calculate(
+            {
+              type,
+              length: Number(length),
+              width: Number(width),
+              panelThickness,
+              gates,
+              foundation,
+              options,
+            },
+            config,
+          ),
+    [
+      type,
+      length,
+      width,
+      panelThickness,
+      gates,
+      foundation,
+      options,
+      config,
+      lengthError,
+      widthError,
+    ],
   );
 
   const trackStart = () => {
@@ -104,13 +131,25 @@ export function Calculator({
                   max={30}
                   step={0.5}
                   value={length}
+                  aria-invalid={lengthError ? true : undefined}
+                  aria-describedby={
+                    lengthError ? 'calculator-length-error' : undefined
+                  }
                   inputMode="decimal"
                   required
                   onChange={(e) => {
                     trackStart();
-                    setLength(Number(e.target.value));
+                    setLength(e.target.value);
                   }}
                 />
+                {lengthError ? (
+                  <span
+                    className="calculator__error"
+                    id="calculator-length-error"
+                  >
+                    {lengthError}
+                  </span>
+                ) : null}
               </label>
 
               <label className="calculator__field">
@@ -123,13 +162,25 @@ export function Calculator({
                   max={30}
                   step={0.5}
                   value={width}
+                  aria-invalid={widthError ? true : undefined}
+                  aria-describedby={
+                    widthError ? 'calculator-width-error' : undefined
+                  }
                   inputMode="decimal"
                   required
                   onChange={(e) => {
                     trackStart();
-                    setWidth(Number(e.target.value));
+                    setWidth(e.target.value);
                   }}
                 />
+                {widthError ? (
+                  <span
+                    className="calculator__error"
+                    id="calculator-width-error"
+                  >
+                    {widthError}
+                  </span>
+                ) : null}
               </label>
 
               <label
@@ -247,28 +298,38 @@ export function Calculator({
                 </>
               ) : null}
             </div>
-            <p className="calculator__summary">
-              <strong className="calculator__area" data-calculator-area>
-                {result
-                  ? `${result.area.toLocaleString('ru-RU', { maximumFractionDigits: 1 })} м²`
-                  : ''}
-              </strong>{' '}
-              <span data-calculator-details>
-                {result ? result.details.join(' · ') : ''}
-              </span>
-            </p>
+            {!result ? (
+              <p className="calculator__empty">
+                Проверьте размеры: укажите длину и ширину от 3 до 30 м с шагом
+                0,5 м.
+              </p>
+            ) : null}
+            {result ? (
+              <p className="calculator__summary">
+                <strong className="calculator__area" data-calculator-area>
+                  {result
+                    ? `${result.area.toLocaleString('ru-RU', { maximumFractionDigits: 1 })} м²`
+                    : ''}
+                </strong>{' '}
+                <span data-calculator-details>
+                  {result ? result.details.join(' · ') : ''}
+                </span>
+              </p>
+            ) : null}
             <p className="calculator__note">
               Расчёт предварительный и не является публичной офертой. Доставка,
               особенности участка и нестандартные решения уточняются после
               замера.
             </p>
-            <a
-              className="btn btn--ghost"
-              href="#contact"
-              data-analytics-goal={GOAL.calculator_complete}
-            >
-              Уточнить смету
-            </a>
+            {result ? (
+              <a
+                className="btn btn--ghost"
+                href="#contact"
+                data-analytics-goal={GOAL.calculator_complete}
+              >
+                Уточнить смету
+              </a>
+            ) : null}
           </aside>
         </div>
       </div>
