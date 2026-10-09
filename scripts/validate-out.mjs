@@ -179,6 +179,7 @@ console.log('\nProduction out/ checks');
 assert(existsSync(outDir), 'out/ directory exists');
 assert(existsSync(join(outDir, 'index.html')), 'out/index.html exists');
 assert(existsSync(join(outDir, '404.html')), 'out/404.html exists');
+assert(existsSync(join(outDir, '.htaccess')), 'hosting configuration exported');
 assert(
   existsSync(join(outDir, 'blog', 'index.html')),
   'out/blog/index.html exists',

@@ -2,7 +2,7 @@
 
 import { company } from '@/lib/site-data';
 import { formatProjectPrice } from '@/lib/format';
-import { previewPath, seoImageAlt } from '@/lib/images';
+import { projectSrcSet, seoImageAlt } from '@/lib/images';
 import { SectionHead } from '@/components/ui/SectionHead';
 
 export function Projects() {
@@ -24,7 +24,7 @@ export function Projects() {
                   <img
                     src={project.img}
                     data-full-src={project.img}
-                    srcSet={`${previewPath(project.img)} 560w, ${project.img} ${project.imgWidth}w`}
+                    srcSet={projectSrcSet(project.img, project.imgWidth)}
                     sizes="(max-width: 720px) 92vw, (max-width: 980px) 88vw, 960px"
                     alt={seoImageAlt(project.title, 'garage')}
                     width={project.imgWidth}

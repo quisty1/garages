@@ -23,6 +23,7 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   // Canopy slides are photo-first; garage slides show size/meta body text.
   const photoOnly = kind === 'canopy';
+  const badge = kind === 'garage' ? 'сварной каркас' : 'навес под ключ';
 
   useEffect(() => {
     const carousel = rootRef.current;
@@ -136,7 +137,7 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
                 <button
                   className={`slide__img${photoOnly ? ' slide__img--tall' : ''}`}
                   type="button"
-                  aria-label={`Открыть фото: ${alt}`}
+                  aria-label={`Открыть фото — ${badge}: ${alt}`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -150,9 +151,7 @@ export function Carousel({ name, label, slides, kind }: CarouselProps) {
                     loading="lazy"
                     decoding="async"
                   />
-                  <span className="slide__badge">
-                    {kind === 'garage' ? 'сварной каркас' : 'навес под ключ'}
-                  </span>
+                  <span className="slide__badge">{badge}</span>
                 </button>
                 <div className="slide__body">
                   <div className="slide__kicker">

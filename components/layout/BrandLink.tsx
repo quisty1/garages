@@ -13,8 +13,10 @@ type BrandLinkProps = {
 export function BrandLink({ children }: BrandLinkProps) {
   const pathname = usePathname();
 
+  // Prefetching home injects its hero image preload into unrelated pages.
   return (
     <Link
+      prefetch={false}
       className="brand__link"
       href="/"
       onClick={(e) => {

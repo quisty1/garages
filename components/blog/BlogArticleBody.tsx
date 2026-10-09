@@ -1,5 +1,6 @@
 // Renders BlogBlock[] (heading / paragraph / list / image) for a post body.
 import type { BlogBlock } from '@/lib/blog';
+import { landingSrcSet } from '@/lib/images';
 
 export function BlogArticleBody({ body }: { body: BlogBlock[] }) {
   return (
@@ -30,6 +31,8 @@ export function BlogArticleBody({ body }: { body: BlogBlock[] }) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={block.src}
+                srcSet={landingSrcSet(block.src)}
+                sizes="(max-width: 760px) 92vw, (max-width: 1120px) 65vw, 780px"
                 data-full-src={block.src}
                 alt={block.alt}
                 width={1280}

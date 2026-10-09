@@ -1,4 +1,5 @@
 import type { BlueprintSizes } from '@/lib/landing-pages';
+import { landingSrcSet } from '@/lib/images';
 
 export function LandingImage({
   src,
@@ -16,7 +17,7 @@ export function LandingImage({
     <img
       className={blueprint ? undefined : 'landing-hero__image'}
       src={src}
-      srcSet={`${src.replace('-1280.webp', '-640.webp')} 640w, ${src} 1280w`}
+      srcSet={landingSrcSet(src)}
       sizes="(max-width: 760px) 92vw, 46vw"
       alt={alt}
       width={1280}

@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description:
     'Такой страницы нет или она была перенесена. Вернитесь на главную Металл Монтаж 33.',
   robots: { index: false, follow: true },
+  alternates: { canonical: null },
+  openGraph: null,
+  twitter: null,
 };
 
 export default function NotFound() {
@@ -28,7 +31,7 @@ export default function NotFound() {
             Такой страницы нет или она была перенесена.
           </p>
           <div className="not-found__actions">
-            <Link className="btn btn--primary" href="/">
+            <Link prefetch={false} className="btn btn--primary" href="/">
               На главную
             </Link>
             <a className="btn btn--ghost" href={phone.href}>

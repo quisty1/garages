@@ -47,7 +47,9 @@ export function CatalogCategoryPage({
       <section className="section catalog-hero" id="main-content">
         <div className="container">
           <nav className="landing-breadcrumbs" aria-label="Хлебные крошки">
-            <Link href="/">Главная</Link>
+            <Link prefetch={false} href="/">
+              Главная
+            </Link>
             <span aria-hidden="true">/</span>
             <Link href={catalogHref()}>Каталог</Link>
             <span aria-hidden="true">/</span>
@@ -88,6 +90,7 @@ export function CatalogCategoryPage({
             </div>
             <div className="catalog-cta__actions">
               <Link
+                prefetch={false}
                 className="btn btn--primary"
                 href="/#calculator"
                 data-analytics-goal={GOAL.cta_calculate}
@@ -95,6 +98,7 @@ export function CatalogCategoryPage({
                 Рассчитать стоимость
               </Link>
               <Link
+                prefetch={false}
                 className="btn btn--ghost"
                 href="/#contact"
                 data-analytics-goal={GOAL.cta_contact}

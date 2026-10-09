@@ -31,9 +31,9 @@ const PRECACHE_URLS = [
   'assets/icon-512.webp',
   'assets/logo-hero-680.webp',
   'assets/logo-hero.webp',
-  'assets/garage-project-8-8-v2-560.webp',
-  'assets/garage-project-8-8-v2-960.webp',
-  'assets/garage-project-8-8-v2.webp',
+  'assets/garage-project-8-8-v2-display-560.webp',
+  'assets/garage-project-8-8-v2-display-960.webp',
+  'assets/garage-project-8-8-v2-display-1672.webp',
   ...NEXT_SHELL_FILES,
 ].map((path) => new URL(path, SCOPE_URL).href);
 

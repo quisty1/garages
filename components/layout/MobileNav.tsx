@@ -265,6 +265,7 @@ export function MobileNavControls({
           >
             <div className="nav__dropdown-row">
               <Link
+                prefetch={false}
                 className="nav__link nav__link--dropdown"
                 href="/#directions"
               >
@@ -359,7 +360,7 @@ export function MobileNavControls({
             </ul>
           </li>
           <li>
-            <Link className="nav__link" href="/#garages">
+            <Link prefetch={false} className="nav__link" href="/#garages">
               Наши работы
             </Link>
           </li>
@@ -374,12 +375,16 @@ export function MobileNavControls({
             </Link>
           </li>
           <li>
-            <Link className="nav__link" href="/#faq">
+            <Link prefetch={false} className="nav__link" href="/#faq">
               Вопросы
             </Link>
           </li>
           <li>
-            <Link className="nav__link nav__link--contact" href="/#contact">
+            <Link
+              prefetch={false}
+              className="nav__link nav__link--contact"
+              href="/#contact"
+            >
               Контакты
             </Link>
           </li>

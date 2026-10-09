@@ -15,12 +15,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...landingPages.map((page) => ({
       url: absUrl(company, landingHref(page)),
+      lastModified: SITEMAP_LASTMOD,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
       images: [absUrl(company, page.image), absUrl(company, page.detail.image)],
     })),
     {
       url: absUrl(company, '/catalog/'),
+      lastModified: SITEMAP_LASTMOD,
       changeFrequency: 'monthly' as const,
       priority: 0.85,
       images: [
@@ -30,30 +32,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: absUrl(company, '/catalog/garazhi/'),
+      lastModified: SITEMAP_LASTMOD,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
       images: [absUrl(company, company.garages[0].img)],
     },
     {
       url: absUrl(company, '/catalog/navesy/'),
+      lastModified: SITEMAP_LASTMOD,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
       images: [absUrl(company, company.canopies[0].img)],
     },
     {
       url: absUrl(company, blogIndexHref()),
+      lastModified: SITEMAP_LASTMOD,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     },
     ...posts.map((post) => ({
       url: absUrl(company, blogHref(post)),
-      lastModified: post.publishedAt,
+      lastModified: post.updatedAt ?? post.publishedAt,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
       images: [absUrl(company, post.cover.src)],
     })),
     {
       url: absUrl(company, aboutHref()),
+      lastModified: SITEMAP_LASTMOD,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     },

@@ -85,7 +85,7 @@ function buildServiceOffer(
   const currency = service?.currency || 'RUB';
   const offer: Record<string, unknown> = {
     '@type': 'Offer',
-    name: `${service?.label || 'Изготовление металлоконструкции'} — от ${formatPrice(fromPrice)} ₽`,
+    name: `${service?.label || 'Изготовление металлоконструкции'} — базовая ставка от ${formatPrice(fromPrice)} ₽/м²`,
     itemOffered: {
       '@type': 'Service',
       name: service?.label || 'Изготовление металлоконструкции',
@@ -95,9 +95,19 @@ function buildServiceOffer(
       },
     },
     priceSpecification: {
-      '@type': 'PriceSpecification',
+      '@type': 'UnitPriceSpecification',
       priceCurrency: currency,
       minPrice: Number.isFinite(fromPrice) ? fromPrice : undefined,
+      unitCode: 'MTK',
+      unitText: 'м²',
+      referenceQuantity: {
+        '@type': 'QuantitativeValue',
+        value: 1,
+        unitCode: 'MTK',
+        unitText: 'м²',
+      },
+      description:
+        'Базовая ставка за площадь. Комплектация, основание, доставка и итоговая стоимость уточняются при расчёте проекта.',
     },
   };
   if (pageUrl) offer.url = `${pageUrl}#contact`;
@@ -155,7 +165,9 @@ export function buildJsonLd(company: Company) {
     email: company.email,
     telephone: phones,
     priceRange:
-      minimumPrice == null ? 'по расчёту' : `от ${formatPrice(minimumPrice)} ₽`,
+      minimumPrice == null
+        ? 'по расчёту'
+        : `базовая ставка от ${formatPrice(minimumPrice)} ₽/м²; проект по расчёту`,
     areaServed: buildAreaServedJsonLd(company),
     contactPoint: asArray(company.phones)
       .filter(Boolean)
@@ -354,4 +366,5 @@ export const SITEMAP_IMAGES = [
   '/assets/canopy-house.webp',
 ] as const;
 
-export const SITEMAP_LASTMOD = '2026-09-15';
+// Update only when content/metadata change, never to the current build date.
+export const SITEMAP_LASTMOD = '2026-10-09';

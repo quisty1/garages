@@ -108,7 +108,9 @@ export default async function Landing({ params }: Props) {
       <section className="section landing-hero" id="main-content">
         <div className="container">
           <nav className="landing-breadcrumbs" aria-label="Хлебные крошки">
-            <Link href="/">Главная</Link>
+            <Link prefetch={false} href="/">
+              Главная
+            </Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">{page.label}</span>
           </nav>
@@ -179,7 +181,11 @@ export default async function Landing({ params }: Props) {
                 <li key={point}>{point}</li>
               ))}
             </ul>
-            <Link className="btn btn--primary" href="/#garage-projects">
+            <Link
+              prefetch={false}
+              className="btn btn--primary"
+              href="/#garage-projects"
+            >
               Посмотреть выполненные работы
             </Link>
           </div>

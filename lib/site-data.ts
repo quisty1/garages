@@ -2,6 +2,10 @@ import { analyticsConfig } from './analytics-config';
 import { calculatorConfig } from './calculator-config';
 import type { Company } from './types';
 
+const rateFormatter = new Intl.NumberFormat('ru-RU');
+const garageRate = rateFormatter.format(calculatorConfig.types.garages.rate);
+const canopyRate = rateFormatter.format(calculatorConfig.types.canopies.rate);
+
 // Central company content: SEO, phones, catalog slides, projects, FAQ, etc.
 export const company = {
   name: 'Металл Монтаж 33',
@@ -10,9 +14,9 @@ export const company = {
   // SEO, geo, and Open Graph used by lib/seo.ts and the App Router metadata.
   seo: {
     siteUrl: 'https://metallmontage33.ru', // Canonical domain (no trailing /)
-    title: 'Гаражи и навесы под ключ | Металл Монтаж 33',
+    title: 'Гаражи и навесы во Владимире под ключ | Металл Монтаж 33',
     description:
-      'Металлические гаражи и навесы под ключ во Владимире, Москве, Владимирской, Московской, Нижегородской и Ивановской областях. Сварной каркас, сэндвич-панели, выезд на замер. От 6 000 ₽.',
+      'Металлические гаражи и навесы во Владимире: сварной каркас, сэндвич-панели, замер и монтаж. Выезд в Москву и соседние области. Рассчитайте проект под свой участок.',
     keywords:
       'металлические гаражи под ключ, гараж из сэндвич-панелей, навесы для авто, металлический навес, монтаж металлоконструкций, гаражи Владимир, гаражи Ковров, гаражи Москва, гаражи Нижний Новгород, навесы Московская область, гаражи Иваново, производство гаражей, гараж под ключ цена, гаражи Веризино',
     region: 'RU-VLA, RU-MOW, RU-MOS, RU-NIZ, RU-IVA', // Region codes for geo.region
@@ -119,16 +123,16 @@ export const company = {
   email: 'MetallMontage33@yandex.ru',
   hours: 'Ежедневно 8:00–18:00',
   analytics: analyticsConfig,
-  // Minimum “from” prices for schema Offer.minPrice (not a fixed catalog price)
+  // Base rates per square metre, shared with the calculator (not project totals).
   pricing: {
     garages: {
       label: 'Металлические гаражи',
-      from: 22000,
+      from: calculatorConfig.types.garages.rate,
       currency: 'RUB',
     },
     canopies: {
       label: 'Металлические навесы',
-      from: 6000,
+      from: calculatorConfig.types.canopies.rate,
       currency: 'RUB',
     },
   },
@@ -225,11 +229,11 @@ export const company = {
   faq: [
     {
       q: 'Сколько стоит гараж?',
-      a: 'Гараж — от 22 000 ₽. Точная цена определяется после замера на участке.',
+      a: `Базовая ставка для гаража — от ${garageRate} ₽/м². Это ставка за площадь, а не цена готового гаража. Итоговая смета учитывает размеры, панели, ворота, основание и дополнительные опции; доставка и условия участка уточняются после замера.`,
     },
     {
       q: 'Сколько стоит навес?',
-      a: 'Навес — от 6 000 ₽. Точная цена определяется после замера на участке.',
+      a: `Базовая ставка для навеса — от ${canopyRate} ₽/м². Это ставка за площадь, а не цена навеса целиком. Итог зависит от конструкции, кровли, основания и опций; доставка и условия участка уточняются после замера.`,
     },
     {
       q: 'От чего зависит стоимость фундамента?',
@@ -548,7 +552,7 @@ export const company = {
   priceFactors: [
     {
       title: 'Площадь объекта',
-      text: 'Гараж — от 22 000 ₽, навес — от 6 000 ₽. Размер задаёт объём металла и панелей; точная цена — после замера.',
+      text: `Базовые ставки за площадь: гараж — от ${garageRate} ₽/м², навес — от ${canopyRate} ₽/м². Полная стоимость включает расчёт конструкции и комплектации; основание, опции и доставка уточняются отдельно.`,
     },
     {
       title: 'Тип фундамента',

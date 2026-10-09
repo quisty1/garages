@@ -98,13 +98,21 @@ export function Footer() {
           </div>
         </div>
         <div className="footer-bottom__links">
-          <Link href="/#directions">Услуги</Link>
+          <Link prefetch={false} href="/#directions">
+            Услуги
+          </Link>
           <Link href="/catalog/">Каталог</Link>
-          <Link href="/#garages">Наши работы</Link>
+          <Link prefetch={false} href="/#garages">
+            Наши работы
+          </Link>
           <Link href="/blog/">Блог</Link>
           <Link href="/about/">О компании</Link>
-          <Link href="/#faq">Вопросы</Link>
-          <Link href="/#contact">Контакты</Link>
+          <Link prefetch={false} href="/#faq">
+            Вопросы
+          </Link>
+          <Link prefetch={false} href="/#contact">
+            Контакты
+          </Link>
         </div>
       </div>
     </footer>

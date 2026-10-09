@@ -59,6 +59,8 @@ out/                 # production static export (после build)
 | `npm run test:cross-browser`        | Smoke-тесты Firefox и WebKit               |
 | `npm run test:visual`               | Visual regression screenshots              |
 | `npm run validate`                  | Проверки содержимого `out/`                |
+| `npm run test:hosting`              | Редиректы, 404 и RSC noindex на Apache 2.4 |
+| `npm run images:prepare`            | Подготовка WebP-вариантов из оригиналов    |
 | `npm run ci`                        | typecheck + lint + test + build + validate |
 
 ## Локальный запуск
@@ -110,7 +112,7 @@ GitHub Actions (`.github/workflows/deploy-timeweb.yml`):
 2. `npm run ci`
 3. Playwright e2e, accessibility и Firefox/WebKit smoke-проверки
 4. Visual regression в Windows с платформенными baseline-снимками
-5. Загрузка проверенного `out/` как workflow artifact
+5. Проверка `.htaccess` на Apache и загрузка `out/`, включая скрытые файлы, как workflow artifact
 6. `lftp mirror` содержимого **`out/`** в корень хостинга
 
 Тот же набор проверок запускается для pull request в `main`, но без публикации.
@@ -118,6 +120,15 @@ GitHub Actions (`.github/workflows/deploy-timeweb.yml`):
 проверка `out/` (включая обход локальных ссылок и ресурсов) и браузерные
 проверки остаются обязательными.
 FTP повторяет временно неудачные соединения до пяти раз.
+
+`public/.htaccess` попадает в корень экспорта. Он объединяет HTTP, www,
+`index.html` и адреса без завершающего слэша на HTTPS canonical, использует
+`404.html` для настоящих HTTP 404 и добавляет `X-Robots-Tag: noindex` к RSC `.txt`.
+Учитывается заголовок `X-HTTPS: 1`, который Timeweb передаёт от TLS-прокси к Apache.
+Для локальной проверки нужен Apache 2.4 (`sudo apt-get install apache2` в Linux).
+`serve out` не обрабатывает `.htaccess`; эти правила проверяет `npm run test:hosting`.
+После публикации проверяйте публичные ответы: настройки nginx перед Apache
+могут потребовать такой же заголовок noindex для файлов, которые nginx отдаёт напрямую.
 
 ### GitHub Secrets (имена)
 
@@ -145,8 +156,22 @@ description, canonical, Open Graph, Twitter Card, хлебными крошка�
 не проверялся. Проверки посадочных: `npx playwright test landings --project=e2e`.
 
 - Metadata API: title, description, canonical, Open Graph, Twitter Card, geo
-- JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, `WebPage`, `FAQPage`, Offer + `PriceSpecification.minPrice` («цены от»)
+- JSON-LD: `HomeAndConstructionBusiness`, `WebSite`, `WebPage`, `FAQPage`, Offer + `UnitPriceSpecification` (базовые ставки в ₽/м²)
 - `robots.txt` и `sitemap.xml` (включая изображения)
+
+`SITEMAP_LASTMOD` в `lib/seo.ts` меняют при существенном обновлении общих страниц,
+а не при каждой сборке. Для статьи задают `updatedAt` в `lib/blog.ts`:
+дата согласована в видимом тексте, Article JSON-LD, Open Graph и sitemap.
+SEO-тест обходит все URL sitemap без JavaScript и проверяет метаданные и превью.
+Статус фактической индексации проверяют отдельно в Google Search Console и Яндекс Вебмастере.
+
+Фотографии для каруселей и проектов и иллюстрации посадочных имеют отдельные
+`-display-` WebP-варианты. `npm run images:prepare` воспроизводит их из оригиналов;
+обычная сборка использует готовые файлы. Оригиналы сохранены для lightbox и соцсетей.
+Ссылки на главную не запускают автоматический Next.js prefetch: он также
+подгружал hero-фото главной на внутренних страницах.
+После изменения содержимого уже опубликованных изображений меняйте их URL,
+чтобы длительный браузерный кэш не показывал старую версию.
 
 ## Доступность и no-JS
 

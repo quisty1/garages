@@ -39,6 +39,11 @@ jobs:
       - name: Run quality checks and production build
         run: npm run ci
 
+      - name: Install Apache and check hosting rules
+        run: |
+          sudo apt-get update && sudo apt-get install --yes apache2
+          npm run test:hosting
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium firefox webkit
 
@@ -58,6 +63,7 @@ jobs:
           name: static-export
           path: out/
           if-no-files-found: error
+          include-hidden-files: true
 
   visual:
     name: Visual regression (Windows)

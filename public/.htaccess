@@ -1,0 +1,39 @@
+# Timeweb terminates TLS at nginx and forwards X-HTTPS: 1 to Apache.
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+DirectorySlash Off
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+RewriteBase /
+
+# ErrorDocument's internal request must still be able to read 404.html.
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteRule ^(?:404(?:\.html)?/?|_not-found(?:/index\.html)?/?)$ - [R=404,END]
+
+# Collapse duplicated slashes without a detour through HTTP.
+RewriteCond %{THE_REQUEST} "\s([^?\s]*?)/{2,}([^?\s]*)"
+RewriteRule ^ https://metallmontage33.ru%1/%2 [R=301,END,NE]
+
+# Do these before host/protocol rules so common variants take one redirect.
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{THE_REQUEST} \s/+[^?\s]*index\.html[?\s] [NC]
+RewriteRule ^(.*/)?index\.html$ https://metallmontage33.ru/$1 [R=301,END,NE]
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.+)$ https://metallmontage33.ru/$1/ [R=301,END,NE]
+
+RewriteCond %{HTTP_HOST} !^metallmontage33\.ru$ [NC]
+RewriteRule ^ https://metallmontage33.ru%{REQUEST_URI} [R=301,END,NE]
+
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-HTTPS} !^1$
+RewriteCond %{HTTP:X-Forwarded-Proto} !^https$ [NC]
+RewriteRule ^ https://metallmontage33.ru%{REQUEST_URI} [R=301,END,NE]
+
+# These are Next.js navigation payloads, not search landing pages.
+# Keep them crawlable and fetchable; robots.txt must remain unaffected.
+<FilesMatch "^(?:index|__next\..*|404|_not-found)\.txt$">
+  Header always set X-Robots-Tag "noindex"
+</FilesMatch>

@@ -7,7 +7,7 @@ import { absUrl, buildJsonLd, formatPrice } from '@/lib/seo';
 import { CatalogCategoryPage } from '@/components/layout/CatalogCategoryPage';
 
 const pagePath = catalogGaragesHref();
-const pageTitle = `Каталог гаражей | ${company.name}`;
+const pageTitle = `Металлические гаражи во Владимире — каталог | ${company.name}`;
 const pageDescription =
   'Типовые размеры металлических гаражей из сэндвич-панелей с ориентировочными ценами «от». Расчёт и монтаж под ключ во Владимирской области.';
 
@@ -113,9 +113,11 @@ export default function CatalogGaragesPage() {
     <CatalogCategoryPage
       kind="garage"
       label="Гаражи"
-      h1="Гаражи"
+      h1="Металлические гаражи во Владимире"
+      lead="Типовые размеры гаражей из сэндвич-панелей на сварном каркасе. Подберём панели, кровлю и ворота; основание, доставку и итоговую смету согласуем под ваш участок."
       eyebrow="Каталог / сварные гаражи"
       gridTitle="Типовые размеры"
+      gridText="Цены «от» относятся к указанным типовым размерам. Нестандартная планировка, толщина панелей и дополнительные опции меняют расчёт; уточните состав комплектации до заказа."
       items={items}
       jsonLd={jsonLd}
     />

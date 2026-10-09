@@ -32,6 +32,7 @@ export default function HomePage() {
           rel="preload"
           href={heroProjectImage.preloadHref}
           as="image"
+          fetchPriority="high"
           type={heroProjectImage.type}
           imageSrcSet={heroProjectImage.srcSet}
           imageSizes={heroProjectImage.sizes}

@@ -152,12 +152,14 @@ export default function CatalogHubPage() {
       <section className="section catalog-hero" id="main-content">
         <div className="container">
           <nav className="landing-breadcrumbs" aria-label="Хлебные крошки">
-            <Link href="/">Главная</Link>
+            <Link prefetch={false} href="/">
+              Главная
+            </Link>
             <span aria-hidden="true">/</span>
             <span>Каталог</span>
           </nav>
           <div className="section__eyebrow">{company.name}</div>
-          <h1>Каталог</h1>
+          <h1>Каталог гаражей и навесов</h1>
         </div>
       </section>
 

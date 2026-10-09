@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageShell } from '@/components/layout/PageShell';
 import { BlogArticleBody } from '@/components/blog/BlogArticleBody';
+import { landingSrcSet } from '@/lib/images';
 import { BlogAuthor } from '@/components/blog/BlogAuthor';
 import { BlogRelated } from '@/components/blog/BlogRelated';
 import { Lightbox } from '@/components/ui/Lightbox';
@@ -39,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPage(params);
   const url = absUrl(company, blogHref(post));
   return {
-    title: `${post.title} | Металл Монтаж 33`,
+    title: `${post.seoTitle ?? post.title} | Металл Монтаж 33`,
     description: post.description,
     authors: [{ name: post.author.name }],
     alternates: { canonical: url },
@@ -51,6 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.description,
       url,
       publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt ?? post.publishedAt,
       authors: [post.author.name],
       images: [{ url: absUrl(company, post.cover.src), alt: post.cover.alt }],
     },
@@ -85,7 +87,7 @@ export default async function BlogPostPage({ params }: Props) {
         headline: post.title,
         description: post.description,
         datePublished: post.publishedAt,
-        dateModified: post.publishedAt,
+        dateModified: post.updatedAt ?? post.publishedAt,
         inLanguage: 'ru-RU',
         image: absUrl(company, post.cover.src),
         author: {
@@ -129,7 +131,9 @@ export default async function BlogPostPage({ params }: Props) {
         <section className="section blog-hero" id="main-content">
           <div className="container blog-article__header">
             <nav className="landing-breadcrumbs" aria-label="Хлебные крошки">
-              <Link href="/">Главная</Link>
+              <Link prefetch={false} href="/">
+                Главная
+              </Link>
               <span aria-hidden="true">/</span>
               <Link href={blogIndexHref()}>Блог</Link>
               <span aria-hidden="true">/</span>
@@ -141,6 +145,14 @@ export default async function BlogPostPage({ params }: Props) {
               </time>
               <span aria-hidden="true">·</span>
               <span>{post.author.name}</span>
+              {post.updatedAt && post.updatedAt !== post.publishedAt ? (
+                <span>
+                  Обновлено{' '}
+                  <time dateTime={post.updatedAt}>
+                    {formatBlogDate(post.updatedAt)}
+                  </time>
+                </span>
+              ) : null}
             </div>
             <h1>{post.title}</h1>
             <p className="blog-hero__intro">{post.excerpt}</p>
@@ -153,11 +165,15 @@ export default async function BlogPostPage({ params }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={post.cover.src}
+                  srcSet={landingSrcSet(post.cover.src)}
+                  sizes="(max-width: 760px) 92vw, (max-width: 1120px) 65vw, 780px"
                   data-full-src={post.cover.src}
                   alt={post.cover.alt}
                   width={1280}
                   height={853}
                   decoding="async"
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </button>
             </figure>

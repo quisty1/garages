@@ -22,11 +22,13 @@ export const metadata: Metadata = {
     title,
     description,
     url: absUrl(company, aboutHref()),
+    images: [{ url: absUrl(company, company.seo.ogImage), alt: company.name }],
   },
   twitter: {
     card: 'summary_large_image',
     title,
     description,
+    images: [absUrl(company, company.seo.ogImage)],
   },
 };
 
@@ -73,7 +75,9 @@ export default function AboutPage() {
       <section className="section about-hero" id="main-content">
         <div className="container">
           <nav className="landing-breadcrumbs" aria-label="Хлебные крошки">
-            <Link href="/">Главная</Link>
+            <Link prefetch={false} href="/">
+              Главная
+            </Link>
             <span aria-hidden="true">/</span>
             <span aria-current="page">О компании</span>
           </nav>

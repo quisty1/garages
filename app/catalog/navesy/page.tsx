@@ -7,7 +7,7 @@ import { absUrl, buildJsonLd, formatPrice } from '@/lib/seo';
 import { CatalogCategoryPage } from '@/components/layout/CatalogCategoryPage';
 
 const pagePath = catalogCanopiesHref();
-const pageTitle = `Каталог навесов | ${company.name}`;
+const pageTitle = `Навесы для автомобилей во Владимире — каталог | ${company.name}`;
 const pageDescription =
   'Типовые металлические навесы для автомобилей с ориентировочными ценами «от». Расчёт и монтаж под ключ во Владимирской области.';
 
@@ -113,9 +113,11 @@ export default function CatalogCanopiesPage() {
     <CatalogCategoryPage
       kind="canopy"
       label="Навесы"
-      h1="Навесы"
+      h1="Навесы для автомобилей во Владимире"
+      lead="Металлические навесы для одного и нескольких автомобилей. Согласуем размещение опор, кровлю и отвод воды; размеры, основание и доставку уточним на замере."
       eyebrow="Каталог / навесы"
       gridTitle="Типовые решения"
+      gridText="Ориентировочные цены «от» указаны для типовых решений. Итог зависит от площади, пролётов, основания, кровли и дополнительных опций; смету подготовим под ваш участок."
       items={items}
       jsonLd={jsonLd}
     />

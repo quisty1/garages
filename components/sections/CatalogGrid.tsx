@@ -38,7 +38,7 @@ function CatalogCard({
       <button
         className="slide__img catalog-card__media"
         type="button"
-        aria-label={`Открыть фото: ${alt}`}
+        aria-label={`Открыть фото — ${kind === 'garage' ? 'сварной каркас' : 'навес под ключ'}: ${alt}`}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -65,6 +65,7 @@ function CatalogCard({
         ) : null}
         <div className="catalog-card__actions">
           <Link
+            prefetch={false}
             className="btn btn--primary"
             href="/#calculator"
             data-analytics-goal={GOAL.cta_calculate}
@@ -72,6 +73,7 @@ function CatalogCard({
             Рассчитать
           </Link>
           <Link
+            prefetch={false}
             className="btn btn--ghost"
             href="/#contact"
             data-analytics-goal={GOAL.cta_contact}
