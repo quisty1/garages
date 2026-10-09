@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import sitemapEntries from '../../app/sitemap';
 
 test('every sitemap page exposes complete SEO and social previews without JS', async ({
   browser,
@@ -8,7 +9,11 @@ test('every sitemap page exposes complete SEO and social previews without JS', a
   const urls = [...(await sitemap.text()).matchAll(/<loc>(.*?)<\/loc>/g)].map(
     (match) => new URL(match[1]),
   );
-  expect(urls).toHaveLength(13);
+  expect(urls.map((url) => url.href).sort()).toEqual(
+    sitemapEntries()
+      .map((entry) => entry.url)
+      .sort(),
+  );
   const context = await browser.newContext({
     javaScriptEnabled: false,
     viewport: { width: 390, height: 844 },

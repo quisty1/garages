@@ -5,6 +5,7 @@ import {
   mkdtempSync,
   writeFileSync,
   readFileSync,
+  readdirSync,
   rmSync,
 } from 'node:fs';
 import { createServer } from 'node:net';
@@ -105,7 +106,28 @@ try {
       /<loc>(.*?)<\/loc>/g,
     ),
   ].map((match) => new URL(match[1]).pathname);
-  assert.equal(sitemapPaths.length, 13);
+  const exportedBlogSlugs = readdirSync(join(documentRoot, 'blog'), {
+    withFileTypes: true,
+  })
+    .filter(
+      (entry) =>
+        entry.isDirectory() &&
+        existsSync(join(documentRoot, 'blog', entry.name, 'index.html')),
+    )
+    .map((entry) => `/blog/${entry.name}/`);
+  assert.equal(
+    sitemapPaths.filter(
+      (path) => !path.startsWith('/blog/') || path === '/blog/',
+    ).length,
+    10,
+  );
+  assert.deepEqual(
+    sitemapPaths
+      .filter((path) => path.startsWith('/blog/') && path !== '/blog/')
+      .sort(),
+    exportedBlogSlugs.sort(),
+    'Sitemap must include every exported blog article',
+  );
   const redirects = [
     ['/', { 'X-HTTPS': '0' }, '/'],
     ['/', { Host: 'www.metallmontage33.ru' }, '/'],
